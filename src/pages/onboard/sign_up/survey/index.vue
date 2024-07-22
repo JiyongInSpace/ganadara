@@ -166,7 +166,7 @@ const compButtonNext = {
 
             if (currentStep.value < totalSteps.value) {
                 // 중간 저장 ========================
-                console.log('submit', userSurvey.results);
+                // console.log('submit', userSurvey.results);
                 //========================
 
                 currentStep.value++;

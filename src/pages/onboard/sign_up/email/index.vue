@@ -79,9 +79,6 @@ const compButtonNext = {
         }
       }
 
-      console.log(_event);
-      console.log(signUpInfo.results);
-
       currentStep.value++;
 
       // 결과 전달 ========================

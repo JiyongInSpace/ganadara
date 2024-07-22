@@ -9,7 +9,7 @@
     <v-card class="py-13 w-100 d-flex justify-center rounded-xl">
         <Progress-bar
             :strokeWidth="24"
-            :percentage="66"
+            :percentage="percentage"
             :size="{ width: 241, height: 228 }"
             hasBackground
             class="mb-5"

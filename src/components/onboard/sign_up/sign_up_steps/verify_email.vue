@@ -47,14 +47,26 @@
                 name="code"
                 placeholder="인증번호 입력"
                 validate-on="blur"
-                class="mb-1 flex-grow-0"
+                class="mb-1 flex-grow-0 pr-0"
                 messages="메일을 받지 못하신 경우 스팸메일함을 확인해 주세요."
+                :error-messages="inputValidationCode.errorMessages.value"
+                :readonly="inputValidationCode.isValid.value"
+                @input="inputValidationCode.event.onInput"
             >
                 <template v-slot:append-inner>
+                    <v-icon
+                        v-if="inputValidationCode.errorMessages.value"
+                        icon="mdi-alert-circle-outline"
+                        size="small"
+                        class="mr-2"
+                    />
+
                     <v-btn
                         size="large"
                         variant="outlined"
-                        class="rounded-e-lg"
+                        class="rounded-s-0 rounded-e-lg"
+                        :disabled="!inputValidationCode.value.value || inputValidationCode.isValid.value"
+                        @click="inputValidationCode.event.onClick"
                     >
                         인증 확인
                     </v-btn>
@@ -81,7 +93,7 @@
             size="x-large"
             class="primary flex-grow-0"
             block
-            :disabled="!inputValidationCode.value.value"
+            :disabled="!inputValidationCode.isValid.value"
             @click="buttonVerify.event.onClick"
         >
             확인
@@ -90,9 +102,18 @@
 </template>
 
 <script lang="ts" setup>
+
 const emit = defineEmits<{
     (e: 'onClickNext', id: any): void // 국가코드 반환
 }>();
+
+const props = defineProps<{
+    defaultValue?: any;
+}>();
+
+onMounted(() => {
+    //
+})
 
 const isSended = ref(false);
 const countdown = ref(60);
@@ -113,9 +134,38 @@ const isValidEmail = computed(() => {
 
 const inputValidationCode = {
     value: ref(''),
+    isValid: ref(false),
     rules: [
         (v: string) => !!v || 'Validation code is required',
     ],
+    errorMessages: ref(''),
+    event: {
+        onInput: () => {
+            inputValidationCode.errorMessages.value = '';
+        },
+        onClick: (_event: any) => {
+            // 이메일 인증번호 확인 =================
+            _event.preventDefault();
+
+            // 이메일을 확인합니다.
+            alert("email is verified")
+
+            // 에러발생
+            const emailVerifyResult = true;
+
+            if (!emailVerifyResult) {
+                // 오류 발생시 에러메시지 표시
+                inputValidationCode.errorMessages.value = '인증번호가 일치하지 않습니다.';
+                return;
+            } else {
+                // 이메일 확인 성공시
+                inputValidationCode.errorMessages.value = '';
+                inputValidationCode.isValid.value = true;
+                clearTimer();
+            }
+            // =================================
+        }
+    },
 };
 
 const buttonNext = {
@@ -143,20 +193,8 @@ const buttonResend = {
 
 const buttonVerify = {
     event: {
-        onClick: () => {
-            // =================================
-            // 이메일을 확인합니다.
-            alert("email is verified")
-            // =================================
-
-            const emailVerifyResult = true;
-
-            if (emailVerifyResult) {
-                clearTimer();
-                emit('onClickNext', { email: inputEmail.value.value });
-            } else {
-                //
-            }
+        onClick: (_event: any) => {
+            emit('onClickNext', { email: inputEmail.value.value });
         },
     }
 }
@@ -185,3 +223,9 @@ onUnmounted(() => {
 });
 
 </script>
+
+<style lang="scss" scoped>
+:deep(.v-field--appended) {
+    padding-right: 0px;
+}
+</style>

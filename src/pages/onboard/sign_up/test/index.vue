@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 
-// const router = useRouter();
+const router = useRouter();
 const currentStep = ref(0);
 
 // const userResults = reactive({
@@ -57,6 +57,7 @@ const compButtonGoToHome = {
     event: {
         onClick: (_event: any) => {
             alert("HOME");
+            router.push("/");
         }
     }
 }

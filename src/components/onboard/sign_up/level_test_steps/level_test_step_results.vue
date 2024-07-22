@@ -9,7 +9,7 @@
     <v-card class="py-13 w-100 d-flex justify-center rounded-xl">
         <Progress-bar
             :strokeWidth="24"
-            :percentage="50"
+            :percentage="66"
             :size="{ width: 241, height: 228 }"
             hasBackground
             class="mb-5"
@@ -20,7 +20,7 @@
                 </div>
     
                 <div class="text-d-md font-weight-semibold">
-                    Level 7
+                    Level <span v-text="level" />
                 </div>
             </div>
         </Progress-bar>
@@ -44,6 +44,9 @@
 const emit = defineEmits<{
     (e: 'onClickGoToHome', id: any): void,
 }>()
+
+const level = ref(7);
+const percentage = ref(50);
 
 
 const buttonGoToHome = {

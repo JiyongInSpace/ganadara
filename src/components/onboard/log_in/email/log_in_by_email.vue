@@ -1,11 +1,11 @@
 <template>
     <div class="pt-4 w-100 flex-grow-1 d-flex flex-column">
         <div class="mb-4 text-d-xs font-weight-bold">
-            비밀번호를 설정하세요.
+            이메일로 로그인해 주세요.
         </div>
 
         <div class="mb-5 text-t-sm">
-            이메일 인증이 필요합니다.
+            계정 정보를 입력해 주세요.
         </div>
 
         <v-text-field
@@ -75,6 +75,7 @@ const emit = defineEmits<{
     (e: 'onClickNext', id: string): void // 패스워드 반환
 }>()
 
+const router = useRouter();
 
 const inputEmail = {
     value: ref(''),
@@ -96,17 +97,17 @@ const inputPassword = {
 const buttonNext = {
     event: {
         onClick: () => {
-            inputPassword.errorMessages.value = "이메일이나 비밀번호를 확인해 주세요.";
+            const emailIsValid = true;
 
-            // if (inputPassword.value.value !== inputPasswordConfirm.value.value) {
-            //     inputPasswordConfirm.isValid.value = true;
-            // } else {
-            //     inputPasswordConfirm.isValid.value = false;
-            // }
+            if(!emailIsValid) {
+                inputPassword.errorMessages.value = "이메일이나 비밀번호를 확인해 주세요.";
+                return;
+            }
 
-            // if (inputPassword.isValid.value && !inputPasswordConfirm.isValid.value) {
-            //     emit('onClickNext', inputPassword.value.value);
-            // }
+            alert("HOME!");
+
+            // 로그인후 가는곳
+            router.push("/");
         }
     }
 }

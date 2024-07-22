@@ -5,20 +5,24 @@
         icon="mdi-arrow-left"
         size="small"
         variant="text"
+        @click="buttonBack.event.onClick"
       />
     </div>
 
     <Select_country
       v-if="currentStep === 0"
+      :defaultValue="signUpInfo"
       @onClickNext="compButtonNext.event.onClick"
     />
 
     <Create_password
       v-if="currentStep === 1"
+      :defaultValue="signUpInfo"
       @onClickNext="compButtonNext.event.onClick"
     />
     <Pick_username
       v-if="currentStep === 2"
+      :defaultValue="signUpInfo"
       @onClickNext="compButtonNext.event.onClick"
     />
     <Verify_email
@@ -41,9 +45,29 @@ const signUpInfo = reactive({
     country: null,
 
     // step2
+    password: "",
 
+    // step3
+    user_name: "",
+    referral_code: null,
+    service_terms: [],
+
+    // step4
+    email: "",
   }
 });
+
+const buttonBack = {
+  event: {
+    onClick: (_event: any) => {
+      if(currentStep.value === 0) {
+        router.push("/onboard/sign_up")
+      }
+
+      currentStep.value--;
+    }
+  }
+};
 
 const compButtonNext = {
   event: {
@@ -54,6 +78,9 @@ const compButtonNext = {
           ..._event,
         }
       }
+
+      console.log(_event);
+      console.log(signUpInfo.results);
 
       currentStep.value++;
 

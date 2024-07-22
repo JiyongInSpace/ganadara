@@ -10,10 +10,12 @@
 
     <Select_country
       v-if="currentStep === 0"
+      :defaultValue="signUpInfo"
       @onClickNext="compButtonNext.event.onClick"
     />
     <Pick_username
       v-if="currentStep === 1"
+      :defaultValue="signUpInfo"
       @onClickNext="compButtonNext.event.onClick"
     />
   </v-container>

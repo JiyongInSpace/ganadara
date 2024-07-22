@@ -6,7 +6,7 @@
                 icon="mdi-close"
                 size="small"
                 variant="text"
-                @click="compButtonSkip.event.onClick"
+                @click="buttonClose.event.onClick"
             />
 
             <v-btn
@@ -14,7 +14,7 @@
                 size="small"
                 variant="text"
                 class="mt-1 font-weight-semibold"
-                @click="compButtonSkip.event.onClick"
+                @click="buttonSkip.event.onClick"
             >
                 건너뛰기
             </v-btn>
@@ -41,16 +41,20 @@
 
         <Survey_step_0
             v-if="currentStep === 0"
+            :userName="userName"
             @onClickNext="compButtonNext.event.onClick"
             @onClickPrev="compButtonPrev.event.onClick"
         />
         <Survey_step_1
             v-if="currentStep === 1"
+            :userName="userName"
+            :defaultValue="userSurvey"
             @onClickNext="compButtonNext.event.onClick"
             @onClickPrev="compButtonPrev.event.onClick"
         />
         <Survey_step_2
             v-if="currentStep === 2"
+            :defaultValue="userSurvey"
             @onClickNext="compButtonNext.event.onClick"
             @onClickPrev="compButtonPrev.event.onClick"
         />
@@ -59,7 +63,6 @@
             @onClickNext="compButtonNext.event.onClick"
             @onClickPrev="compButtonPrev.event.onClick"
         />
-
 
         <!--
             관심사 삭제 ?
@@ -72,8 +75,8 @@
 
         <Survey_skip
             v-model="dialogSkip.value.value"
-            @onClickCancel="buttonCancel.event.onClick"
-            @onClickSkip="buttonSkip.event.onClick"
+            @onClickCancel="compButtonCancel.event.onClick"
+            @onClickSkip="compButtonSkip.event.onClick"
         />
     </v-container>
 </template>
@@ -83,6 +86,8 @@ const router = useRouter();
 
 const totalSteps = ref(3);
 const currentStep = ref(0);
+
+const userName = ref('000');
 
 const userSurvey = reactive({
     results: {
@@ -106,7 +111,16 @@ const dialogSkip = {
     value: ref(false),
 }
 
-const compButtonSkip = {
+// 상단 X
+const buttonClose = {
+    event: {
+        onClick: () => {
+            currentStep.value = 0;
+        }
+    }
+}
+
+const buttonSkip = {
     event: {
         onClick: () => {
             dialogSkip.value.value = true;
@@ -114,11 +128,28 @@ const compButtonSkip = {
     }
 }
 
+const compButtonCancel = {
+    event: {
+        onClick: () => {
+            dialogSkip.value.value = false;
+        }
+    }
+}
+
+const compButtonSkip = {
+    event: {
+        onClick: () => {
+            router.push("/onboard/sign_up/test")
+        }
+    }
+}
+
 const compButtonPrev = {
     event: {
         onClick: (_event: any) => {
-            //
-            console.log("PREV!");
+            if(currentStep.value > 0) {
+                currentStep.value--;
+            }
         }
     }
 }
@@ -149,21 +180,7 @@ const compButtonNext = {
     }
 }
 
-const buttonCancel = {
-    event: {
-        onClick: () => {
-            dialogSkip.value.value = false;
-        }
-    }
-}
 
-const buttonSkip = {
-    event: {
-        onClick: () => {
-            dialogSkip.value.value = false;
-        }
-    }
-}
 
 </script>
 

@@ -59,8 +59,21 @@
 
 <script lang="ts" setup>
 const emit = defineEmits<{
-    (e: 'onClickNext', id: string): void // 패스워드 반환
+    (e: 'onClickNext', id: any): void // 패스워드 반환
 }>()
+
+const props = defineProps<{
+    defaultValue?: any
+}>();
+
+onMounted(() => {
+    if(!props.defaultValue.results.password) return; 
+    inputPassword.value.value = props.defaultValue.results.password;
+    inputPasswordConfirm.value.value = props.defaultValue.results.password;
+    inputPassword.isValid.value = passwordRegex.test(inputPassword.value.value);
+    inputPasswordConfirm.isValid.value = passwordRegex.test(inputPasswordConfirm.value.value);
+})
+
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
@@ -117,7 +130,7 @@ const buttonNext = {
             }
 
             if (inputPassword.isValid.value && !inputPasswordConfirm.isValid.value) {
-                emit('onClickNext', inputPassword.value.value);
+                emit('onClickNext', {password: inputPassword.value.value});
             }
         }
     }

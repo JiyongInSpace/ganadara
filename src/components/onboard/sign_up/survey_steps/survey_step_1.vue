@@ -1,7 +1,7 @@
 <template>
     <div class="w-100">
         <div class="mb-5 text-d-xs font-weight-semibold">
-            000님에 대해 더 알고싶어요!
+            <span v-text="userName"/> 님에 대해 더 알고싶어요!
         </div>
 
         <div class="text-t-sm mb-1-5">나이</div>
@@ -105,6 +105,18 @@ const emit = defineEmits<{
     (e: 'onClickNext', id: any): void,
     (e: 'onClickPrev', id: any): void
 }>()
+
+const props = defineProps<{
+    defaultValue?: any
+    userName: string;
+}>();
+
+onMounted(() => {
+    if(!props.defaultValue.results.age) return; 
+    selectAge.value.value = selectAge.items.find((item) => item.code === props.defaultValue.results.age);
+    selectStudyTime.startDate.value = selectStudyTime.items.find((item) => item.code === props.defaultValue.results.startDate);
+    selectStudyTime.endDate.value = selectStudyTime.items.find((item) => item.code === props.defaultValue.results.endDate);
+})
 
 const selectAge = {
     value: ref(),

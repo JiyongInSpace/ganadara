@@ -94,6 +94,16 @@ const emit = defineEmits<{
     (e: 'onClickPrev', id: any): void
 }>()
 
+const props = defineProps<{
+    defaultValue?: any
+}>();
+
+onMounted(() => {
+    if(!props.defaultValue.results.selectedLanguage) return;
+    selectedLanguage.value = props.defaultValue.results.selectedLanguage;
+    selectedLanguageYouWant.value = props.defaultValue.results.selectedLanguageYouWant;
+})
+
 const selectedLanguage = ref<string>();
 const selectedLanguageYouWant = ref<string[]>([]);
 

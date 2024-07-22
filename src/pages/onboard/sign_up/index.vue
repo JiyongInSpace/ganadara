@@ -73,6 +73,7 @@
         variant="text"
         size="small"
         class="no-padding-btn text-text-brand-secondary"
+        to="/onboard/log_in"
       >
         로그인
       </v-btn>

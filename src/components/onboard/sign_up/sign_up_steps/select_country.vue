@@ -39,6 +39,15 @@ const emit = defineEmits<{
     (e: 'onClickNext', id: any): void // 국가코드 반환
 }>();
 
+const props = defineProps<{
+    defaultValue?: any
+}>();
+
+onMounted(() => {
+    if(!props.defaultValue.results.country) return; 
+    selectCountry.value.value = countries.all.find(country => country.alpha2 === props.defaultValue.results.country);
+})
+
 const selectCountry = {
     value: ref(),
     items: countries.all.map(country => ({

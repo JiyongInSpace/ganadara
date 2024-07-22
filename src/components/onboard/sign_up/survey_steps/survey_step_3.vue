@@ -73,6 +73,14 @@ const emit = defineEmits<{
     (e: 'onClickPrev', id: any): void
 }>()
 
+const props = defineProps<{
+    defaultValue?: any;
+}>();
+
+onMounted(() => {
+    //
+})
+
 const selectedGoals = ref<string[]>([]);
 
 const goalsList = [

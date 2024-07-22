@@ -278,6 +278,17 @@ const emit = defineEmits<{
     (e: 'onClickNext', id: any): void // 국가코드 반환
 }>()
 
+const props = defineProps<{
+    defaultValue?: any
+}>();
+
+onMounted(() => {
+    if(!props.defaultValue.results.user_name) return;
+    inputUserName.value.value = props.defaultValue.results.user_name;
+    inputReferralCode.value.value = props.defaultValue.results.referral_code;
+    checkboxGroupServiceTerms.value.value = props.defaultValue.results.service_terms;
+})
+
 const allTerms = ref(false);
 
 const serviceTermsItems = [
@@ -288,8 +299,6 @@ const serviceTermsItems = [
     "marketing",
     "cookie",
 ];
-
-
 
 const inputUserName = {
     value: ref(''),

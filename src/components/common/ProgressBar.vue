@@ -55,7 +55,6 @@ export default defineComponent({
             transition: "stroke-dashoffset 0.35s",
             stroke: props.bgStrokeColor,
             strokeLinecap: props.strokeLinecap,
-            strokeDasharray: `${circumference.value}`,
             strokeDashoffset: `${bgStrokeDashoffset.value}`,
             strokeWidth: `${props.strokeWidth}`,
         }));

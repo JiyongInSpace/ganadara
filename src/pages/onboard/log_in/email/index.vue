@@ -5,6 +5,7 @@
         icon="mdi-arrow-left"
         size="small"
         variant="text"
+        @click="buttonBack.event.onClick"
       />
     </div>
 
@@ -12,19 +13,6 @@
       v-if="currentStep === 0"
       @onClickNext="compButtonNext.event.onClick"
     />
-
-    <!-- <Create_password
-      v-if="currentStep === 1"
-      @onClickNext="compButtonNext.event.onClick"
-    />
-    <Pick_username
-      v-if="currentStep === 2"
-      @onClickNext="compButtonNext.event.onClick"
-    />
-    <Verify_email
-      v-if="currentStep === 3"
-      @onClickNext="compButtonNext.event.onClick"
-    /> -->
 
   </v-container>
 </template>
@@ -34,7 +22,7 @@ import Log_in_by_email from '@/components/onboard/log_in/email/log_in_by_email.v
 
 const router = useRouter();
 
-const totalSteps = ref(4);
+const totalSteps = ref(1);
 const currentStep = ref(0);
 
 const signUpInfo = reactive({
@@ -46,6 +34,19 @@ const signUpInfo = reactive({
 
   }
 });
+
+const buttonBack = {
+  event: {
+    onClick: (_event: any) => {
+      if(currentStep.value === 0) {
+        router.push("/onboard/sign_up")
+      }
+
+      currentStep.value--;
+    }
+  }
+};
+
 
 const compButtonNext = {
   event: {

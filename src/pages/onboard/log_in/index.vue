@@ -23,10 +23,6 @@
       block
       to="log_in/email"
     >
-      <!-- <template v-slot:prepend>
-        <v-icon icon="mdi-email"></v-icon>
-      </template> -->
-
       이메일로 계속하기
     </v-btn>
 
@@ -69,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-// const router = useRouter();
+const router = useRouter();
 
 const platforms = [
   "x",
@@ -86,7 +82,7 @@ const platforms = [
 
 const onClickSocialLogin = (_platform: string) => {
   alert(_platform);
-  // router.push("/onboard/sign_up/social");
+  router.push("/");
 };
 
 </script>

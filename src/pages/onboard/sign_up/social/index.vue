@@ -5,6 +5,7 @@
         icon="mdi-arrow-left"
         size="small"
         variant="text"
+        @click="buttonBack.event.onClick"
       />
     </div>
 
@@ -39,6 +40,19 @@ const signUpInfo = reactive({
     service_terms: null,
   }
 });
+
+const buttonBack = {
+  event: {
+    onClick: (_event: any) => {
+      if(currentStep.value === 0) {
+        router.push("/onboard/sign_up")
+      }
+
+      currentStep.value--;
+    }
+  }
+};
+
 
 const compButtonNext = {
   event: {

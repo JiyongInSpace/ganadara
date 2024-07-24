@@ -2,7 +2,7 @@
     <div class="w-100 pt-5">
         <div class="mb-1 text-d-md font-weight-bold text-center">
             <span v-text="userName"/> 님에 대해<br />
-            더 알고싶어요!
+            더 알고 싶어요!
         </div>
 
         <div class="text-t-sm text-center">

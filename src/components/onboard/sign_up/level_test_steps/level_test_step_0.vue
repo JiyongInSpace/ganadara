@@ -7,7 +7,7 @@
 
         <div class="text-t-sm text-center">
             레벨 테스트 결과에 따라<br />
-            나에게 맞는 학습 콘텐츠를 추천 받을 수 있어요.
+            나에게 맞는 학습 콘텐츠를 추천받을 수 있어요.
         </div>
 
     </div>
@@ -37,7 +37,7 @@
             class="primary"
             @click="buttonNext.event.onClick"
         >
-            테스트 하러가기
+            테스트하러 가기
         </v-btn>
     </div>
 </template>

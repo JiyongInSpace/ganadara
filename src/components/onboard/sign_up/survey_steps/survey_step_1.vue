@@ -1,7 +1,7 @@
 <template>
     <div class="w-100">
         <div class="mb-5 text-d-xs font-weight-semibold">
-            <span v-text="userName"/> 님에 대해 더 알고싶어요!
+            <span v-text="userName"/> 님에 대해 더 알고 싶어요!
         </div>
 
         <div class="text-t-sm mb-1-5">나이</div>
@@ -23,6 +23,7 @@
                     message
                 </div>
             </template>
+            
             <template v-slot:no-data>
                 <div class="text-t-md font-weight-bold py-2 px-4">
                     no-data

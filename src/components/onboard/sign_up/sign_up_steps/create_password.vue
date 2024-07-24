@@ -11,7 +11,7 @@
             variant="outlined"
             name="password"
             placeholder="비밀번호"
-            messages="비밀번호를 입력해 주세요. (영문+숫자+특수문자 조합 8~32자)"
+            :messages="inputPassword.isValid.value ? '사용 가능한 비밀번호입니다.': '비밀번호를 입력해 주세요. (영문+숫자+특수문자 조합 8~32자)'"
             :rules="inputPassword.rules"
             :type="inputPassword.type.value"
             :append-inner-icon="inputPassword.type.value == 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
@@ -30,7 +30,7 @@
             variant="outlined"
             name="passwordConfirm"
             placeholder="비밀번호 확인"
-            messages="비밀번호를 한 번 더 입력해 주세요."
+            :messages="inputPasswordConfirm.isValid.value ? '비밀번호가 일치합니다.': '비밀번호를 한 번 더 입력해 주세요.'"
             :rules="inputPasswordConfirm.rules"
             :type="inputPasswordConfirm.type.value"
             :append-inner-icon="inputPasswordConfirm.type.value == 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
@@ -67,7 +67,7 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-    if(!props.defaultValue.results.password) return; 
+    if (!props.defaultValue.results.password) return;
     inputPassword.value.value = props.defaultValue.results.password;
     inputPasswordConfirm.value.value = props.defaultValue.results.password;
     inputPassword.isValid.value = passwordRegex.test(inputPassword.value.value);
@@ -130,7 +130,7 @@ const buttonNext = {
             }
 
             if (inputPassword.isValid.value && !inputPasswordConfirm.isValid.value) {
-                emit('onClickNext', {password: inputPassword.value.value});
+                emit('onClickNext', { password: inputPassword.value.value });
             }
         }
     }

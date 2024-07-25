@@ -13,7 +13,6 @@ declare module 'vue' {
     CustomVideo: typeof import('./components/common/CustomVideo.vue')['default']
     DialogChapterList: typeof import('./components/class/regular/DialogChapterList.vue')['default']
     DialogDownload: typeof import('./components/class/regular/DialogDownload.vue')['default']
-    DialogLessonList: typeof import('./components/class/regular/DialogLessonList.vue')['default']
     ExpressionSentenceList: typeof import('./components/class/regular/ExpressionSentenceList.vue')['default']
     ExpressionWordList: typeof import('./components/class/regular/ExpressionWordList.vue')['default']
     Find_account: typeof import('./components/onboard/log_in/find/find_account.vue')['default']

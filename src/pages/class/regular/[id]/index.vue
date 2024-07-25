@@ -55,7 +55,7 @@
                         @click="buttonShare.onClick"
                     />
 
-                    <DialogDownload 
+                    <DialogDownload
                         :fileName="state.className"
                         @onClickDownload="buttonDownload.onClick"
                     />

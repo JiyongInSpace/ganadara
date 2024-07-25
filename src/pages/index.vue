@@ -30,6 +30,21 @@
         </v-card>
       </v-col>
     </v-row>
+    
+    <v-row justify="center">
+      <v-col cols="auto">
+        <v-card>
+          <v-card-title>클래스</v-card-title>
+    
+          <v-card-actions class="flex-wrap ga-2">
+            <v-btn variant="outlined" to="/class">
+              메인
+            </v-btn>
+
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
   <!-- <HelloWorld /> -->
 </template>

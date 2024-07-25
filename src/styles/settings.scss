@@ -204,6 +204,12 @@ body {
 
 //// COMPONENTS ===========================================
 
+.v-chip {
+    .v-chip__underlay {
+        display: none;
+    }
+}
+
 // Button
 
 .v-btn {
@@ -221,11 +227,31 @@ body {
         @extend .border-border-primary;
     }
 
+
+    // icon
+    &.v-btn--icon.squared {
+        width: 30px !important; 
+        height: 30px !important;
+        border-radius: 4px;
+        .v-icon--size-default {
+            font-size: 1.2rem;
+        }
+    }
+
     // color
     &.primary {
         @extend .foreground-brand-primary;
         @extend .text-text-primary_on-brand;
     }
+
+    &.secondary {
+        @extend .background-secondary;
+    }
+
+    .v-btn__underlay {
+        display: none;
+    }
+
 
     &.v-btn--disabled {
         color: rgb(var(--v-fg-disabled));
@@ -281,9 +307,6 @@ body {
         }
     }
 
-    // .v-field--appended {
-    //     padding-right: 0px;
-    // }
 }
 
 input::-webkit-outer-spin-button,
@@ -392,6 +415,11 @@ li {
     margin-bottom: 10px;
 }
 
+.py-2-5 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 // UTIL ===========================================
 
 // 생략
@@ -415,4 +443,16 @@ li {
 
 .transition {
     transition: all 0.5s;
+}
+
+.max-height-screen {
+    max-height: 100vh;
+}
+
+.min-height-screen {
+    min-height: 100vh;
+}
+
+.z-1 {
+    z-index: 1;
 }

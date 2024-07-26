@@ -2,8 +2,8 @@
     <div class="d-flex flex-column ga-2">
         <v-card
             class="d-flex align-center ga-2 px-4 py-2-5"
-            v-for="count in 5"
-            :key="count"
+            v-for="wordItem in words"
+            :key="wordItem.id"
         >
             <v-btn
                 icon="mdi-headphones"
@@ -12,11 +12,11 @@
 
             <div class="truncate">
                 <div class="text-t-md font-weight-bold truncate">
-                    Hi, Where are you going?
+                    {{ wordItem.word }}
                 </div>
 
                 <div class="text-t-sm text-text-quaternary truncate">
-                    안녕, 지금 어디 가고 있어?
+                    {{ wordItem.meaning }}
                 </div>
             </div>
 
@@ -29,5 +29,12 @@
 </template>
 
 <script lang="ts" setup>
+const props = defineProps<{
+    words: {
+        id: number;
+        word: string;
+        meaning: string;
+    }[];
+}>();
 
 </script>

@@ -39,7 +39,9 @@
 
         <v-card>
             <!-- TITLE -->
-            <v-toolbar class="bg-transparent">
+            <v-toolbar
+                class="bg-transparent"
+            >
                 <v-toolbar-title>
                     단원 선택
                 </v-toolbar-title>
@@ -126,7 +128,7 @@
                                 >
                                     {{ chapterItem.solvedProblems }} <span class="text-grey">/ {{
                                         chapterItem.totalProblems
-                                    }}</span>
+                                        }}</span>
                                 </div>
                             </div>
 

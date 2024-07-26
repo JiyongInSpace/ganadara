@@ -2,7 +2,7 @@
     <div class="video-wrapper">
         <video-player
             class="video-player vjs-big-play-centered relative"
-            src="https://vjs.zencdn.net/v/oceans.mp4"
+            :src="src"
             crossorigin="anonymous"
             playsinline
             controls
@@ -12,7 +12,7 @@
             @ready="event.event($event)"
             @play="event.play($event)"
             @pause="event.pause($event)"
-            @ended="event.event($event)"
+            @ended="event.ended($event)"
             @loadeddata="event.loadeddata($event)"
             @waiting="event.event($event)"
             @playing="event.event($event)"
@@ -39,6 +39,14 @@ import { shallowRef } from 'vue'
 import { VideoPlayer } from '@videojs-player/vue'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+
+const props = defineProps<{
+    src: string
+}>();
+
+const emit = defineEmits<{
+    (e: 'onEnded'): void,
+}>();
 
 type VideoJsPlayer = ReturnType<typeof videojs>
 
@@ -79,6 +87,11 @@ const event = {
     // 정지
     pause: (log: any) => {
         // console.log('Basic player paused')
+    },
+
+    // 재생완료
+    ended: (log: any) => {
+        emit("onEnded");
     },
 }
 

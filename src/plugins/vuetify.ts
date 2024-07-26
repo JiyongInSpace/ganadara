@@ -6,6 +6,7 @@
 
 // Styles
 import "@mdi/font/css/materialdesignicons.css";
+import 'animate.css';
 import "vuetify/styles";
 import { lightTheme } from "@/themes/light";
 

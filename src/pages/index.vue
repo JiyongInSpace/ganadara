@@ -41,6 +41,17 @@
               메인
             </v-btn>
 
+            <v-btn variant="outlined" to="/class/regular/1">
+              정규영상
+            </v-btn>
+
+            <v-btn variant="outlined" to="/class/question/1">
+              문제풀기1
+            </v-btn>
+
+            <v-btn variant="outlined" to="/class/question/2">
+              문제풀기2
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

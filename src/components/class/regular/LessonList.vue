@@ -17,7 +17,7 @@
                     영상1
                 </v-btn>
 
-                <v-btn>
+                <!-- <v-btn>
                     <v-icon icon="mdi-quora"></v-icon>
                     문제 1-1
                 </v-btn>
@@ -25,13 +25,14 @@
                 <v-btn>
                     <v-icon icon="mdi-quora"></v-icon>
                     문제 1-2
-                </v-btn>
+                </v-btn> -->
             </div>
 
             <div class="pa-5">
                 <v-btn
                     size="x-large"
                     block
+                    disabled
                 >
                     레슨 완료 보상 받기
                 </v-btn>

@@ -87,6 +87,8 @@ body {
 .border-border-brand-solid_alt { border-color: rgb(var(--v-border-brand-solid_alt)); }
 .border-border-error { border-color: rgb(var(--v-border-error)); }
 .border-border-error-solid { border-color: rgb(var(--v-border-error-solid)); }
+.border-2 { border-width: 2px !important; }
+
 
 // background
 .background-primary { background-color: rgb(var(--v-bg-primary)); }
@@ -443,6 +445,12 @@ li {
 .mb-2-5 {
     margin-bottom: 10px;
 }
+.mr-2-5 {
+    margin-right: 10px;
+}
+.ml-2-5 {
+    margin-left: 10px;
+}
 
 .py-2-5 {
     padding-top: 10px;
@@ -454,6 +462,23 @@ li {
     border-radius: 16px !important;
 }
 
+.rounded-t-16 {
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+}
+
+// SIZE
+.h-14 {
+    height: 56px;
+}
+
+// POSITION
+.position-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 // UTIL ===========================================
 

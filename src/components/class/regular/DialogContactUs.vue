@@ -15,6 +15,7 @@
             </div>
 
             <v-textarea
+                v-model="textareaMessage.value.value"
                 variant="outlined"
                 class="tertiary mb-3"
                 rows="6"
@@ -67,10 +68,11 @@
                 </v-btn>
 
                 <v-btn
-                    @click="buttonDownload.event.onClick"
+                    @click="buttonContactUs.event.onClick"
                     class="primary flex-1-1-100"
                     variant="tonal"
                     size="large"
+                    :disabled="!textareaMessage.value.value"
                 >
                     문의하기
                 </v-btn>
@@ -80,13 +82,11 @@
 </template>
 
 <script lang="ts" setup>
-import { fi } from 'vuetify/locale';
-
 const dialog = defineModel("dialog");
 
 const emit = defineEmits<{
     (e: 'onClickCancel'): void,
-    (e: 'onClickSubscribe'): void
+    (e: 'onClickContactUs'): void
 }>();
 
 const fileInput = ref();
@@ -94,6 +94,15 @@ const fileInput = ref();
 onMounted(() => {
     fileInput.value;
 })
+
+const textareaMessage = {
+    value: ref(),
+    event: {
+        onChange: (_event: any) => {
+            textareaMessage.value.value = _event.target.value;
+        }
+    }
+}
 
 const buttonFileInput = {
     event: {
@@ -122,11 +131,13 @@ const buttonCancel = {
     }
 }
 
-const buttonDownload = {
+const buttonContactUs = {
     event: {
         onClick: () => {
-            emit('onClickSubscribe');
+            emit('onClickContactUs');
             dialog.value = false;
+
+            console.log("TEST");
         }
     }
 }

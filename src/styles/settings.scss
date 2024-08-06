@@ -212,10 +212,37 @@ body {
     }
 }
 
+.v-chip {
+    &.xs {
+        height: unset;
+        padding: 4px 12px;
+        font-weight: 500;
+        @extend .text-t-xs;
+    }
+
+    &.v-chip--size-x-small {
+        height: unset;
+        padding: 2px 10px;
+        @extend .text-t-sm;
+    }
+
+    &.on-brand {
+        @extend .border-border-secondary;
+        @extend .background-secondary;
+        @extend .text-text-primary;
+    }
+
+    &.on-brand-primary {
+        background: var(--Component-colors-Alpha-alpha-black-50, rgba(0, 0, 0, 0.50));
+        @extend .text-text-primary_on-brand
+    }
+}
+
 // Button
 
 .v-btn {
     text-transform: capitalize;
+    pointer-events: auto;
 
     // variant
     &.v-btn--variant-tonal {
@@ -261,16 +288,24 @@ body {
         border: 1px solid rgb(var(--v-border-disabled_subtle));
         opacity: 1;
     }
+
+    // SIZE
+    &.v-btn--size-large {
+        min-height: 3rem;
+        font-weight: 600;
+    }
+
+    // ICON
+    &.v-btn--icon.v-btn--size-small {
+        --v-btn-size: 0.875rem;
+    
+        width: 36px !important; 
+        height: 36px !important;
+    }
 }
 
 
 
-.v-btn--icon.v-btn--size-small {
-    --v-btn-size: 0.875rem;
-
-    width: 36px !important; 
-    height: 36px !important;
-}
 
 
 
@@ -480,6 +515,14 @@ li {
     transform: translate(-50%, -50%);
 }
 
+// TRUNCATE
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
 // UTIL ===========================================
 
 // 생략
@@ -531,4 +574,15 @@ li {
 
 .w-fit {
     width: fit-content;
+}
+
+.ga-1-5 {
+    gap: 6px;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}
+.pointer-events-auto {
+    pointer-events: auto;
 }

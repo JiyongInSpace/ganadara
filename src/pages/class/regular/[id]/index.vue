@@ -2,12 +2,7 @@
 <template>
     <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
         <v-sheet>
-            <v-img
-                v-if="!state.videoSrc"
-                src="/images/class/default_video.png"
-            />
             <CustomVideo
-                v-if="state.videoSrc"
                 :src="state.videoSrc"
                 @onEnded="customVideo.event.onEnded"
             />

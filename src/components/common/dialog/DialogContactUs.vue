@@ -9,10 +9,12 @@
                 1:1 문의하기
             </div>
 
-            <div class="mb-6 font-weight-medium text-text-quaternary">
-                운영팀에서 도움을 드릴 수 있도록 <br />
-                개선할 수 있는 사항을 알려주세요.
-            </div>
+            <slot name="subtitle">
+                <div class="mb-6 font-weight-medium text-text-quaternary">
+                    운영팀에서 도움을 드릴 수 있도록 <br />
+                    개선할 수 있는 사항을 알려주세요.
+                </div>
+            </slot>
 
             <v-textarea
                 v-model="textareaMessage.value.value"
@@ -25,7 +27,6 @@
             <div class="d-flex justify-start mb-6 ga-2">
                 <div
                     variant="text"
-                    size="x-small"
                     class="text-t-sm px-0 cursor-pointer flex-shrink-0 text-decoration-underline text-fg-quinary"
                     @click="buttonFileInput.event.onClick"
                 >
@@ -82,7 +83,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useSnackbarStore } from '@/stores/snackbar';
+
 const dialog = defineModel("dialog");
+const snackbar = useSnackbarStore();
 
 const emit = defineEmits<{
     (e: 'onClickCancel'): void,
@@ -126,7 +130,7 @@ const buttonCancel = {
     event: {
         onClick: () => {
             dialog.value = false;
-            // emit('onClickCancel');
+            emit('onClickCancel');
         }
     }
 }
@@ -134,10 +138,17 @@ const buttonCancel = {
 const buttonContactUs = {
     event: {
         onClick: () => {
-            emit('onClickContactUs');
             dialog.value = false;
+            emit('onClickContactUs');
 
-            console.log("TEST");
+            // API call
+            // console.log(textareaMessage.value.value);
+            // console.log(fileInputCapture.files.value);
+
+            textareaMessage.value.value = "";
+            fileInputCapture.files.value = null;
+
+            snackbar.showSnackbar("문의가 완료되었습니다.");
         }
     }
 }

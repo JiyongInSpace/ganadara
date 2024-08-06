@@ -45,6 +45,10 @@
               정규영상
             </v-btn>
 
+            <v-btn variant="outlined" to="/class/shortform/1">
+              숏폼
+            </v-btn>
+
             <v-btn variant="outlined" to="/class/question/1">
               문제풀기1
             </v-btn>
@@ -52,12 +56,15 @@
             <v-btn variant="outlined" to="/class/question/2">
               문제풀기2
             </v-btn>
+
+            <!-- <v-btn variant="outlined" to="/class/question/3">
+              문제풀기3
+            </v-btn> -->
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
-  <!-- <HelloWorld /> -->
 </template>
 
 <script lang="ts" setup>

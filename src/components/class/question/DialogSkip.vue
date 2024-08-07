@@ -110,8 +110,6 @@ const buttonContactUs = {
         onClick: () => {
             emit('onClickContactUs');
             dialog.value = false;
-
-            console.log("TEST");
         }
     }
 }

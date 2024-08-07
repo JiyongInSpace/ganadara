@@ -11,7 +11,6 @@ declare module 'vue' {
     Cookie_settings: typeof import('./components/onboard/sign_up/terms_popups/cookie_settings.vue')['default']
     Create_password: typeof import('./components/onboard/sign_up/sign_up_steps/create_password.vue')['default']
     CustomVideo: typeof import('./components/common/ui/CustomVideo.vue')['default']
-    DialogCancelFollow: typeof import('./components/class/shortform/DialogCancelFollow.vue')['default']
     DialogChapterList: typeof import('./components/class/regular/DialogChapterList.vue')['default']
     DialogContactUs: typeof import('./components/common/dialog/DialogContactUs.vue')['default']
     DialogDescripntion: typeof import('./components/class/shortform/DialogDescripntion.vue')['default']

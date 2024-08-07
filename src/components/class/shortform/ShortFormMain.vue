@@ -7,6 +7,7 @@
         @touchend="videoPlayer.event.onTouchend"
     >
         <video
+            :key="state.shortform.videoUrl"
             ref="videoRef"
             class="w-100 h-100"
             autoplay
@@ -29,7 +30,7 @@
             @canplaythrough="event.event($event)"
             @timeupdate="event.timeupdate(player?.currentTime())" -->
             <source
-                src="https://videocdn.cdnpk.net/videos/723c2417-05d1-4643-b42a-c136b6e386f7/vertical/previews/watermarked/large.mp4"
+                :src="state.shortform.videoUrl"
                 type="video/mp4"
             >
             Your browser does not support the video tag.
@@ -51,7 +52,7 @@
             size="x-small"
             class="on-brand ml-2"
         >
-            미리보기 중입니다. {{ state.shortform.limit }}/5
+            미리보기 중입니다. {{ state.user.limit }}/5
         </v-chip>
 
         <v-spacer />
@@ -149,6 +150,7 @@
             />
 
             <v-chip
+                v-if="state.shortform.music.length > 0"
                 variant="elevated"
                 class="on-brand-primary xs pointer-events-auto"
                 @click="state.ui.dialogMusic = true"
@@ -175,7 +177,7 @@
                 />
 
                 <div class="text-t-xs font-weight-semibold">
-                    {{ state.shortform.likes }}
+                    {{ state.user.likes }}
                 </div>
             </div>
 
@@ -235,33 +237,83 @@
 <script lang="ts" setup>
 import { useSnackbarStore } from '@/stores/snackbar'
 
-const snackbar = useSnackbarStore()
-const router = useRouter()
+const snackbar = useSnackbarStore();
+const router = useRouter();
+const route = useRoute();
 
+
+// DUMMY
+
+const dummy1 = {
+    // video info
+    title: "Short-form Title",
+    description: "Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet.",
+    // videoUrl: "https://videocdn.cdnpk.net/videos/691242e9-ec82-42d6-a693-c6b22db4f5da/vertical/previews/watermarked/large.mp4",
+    videoUrl: "https://videocdn.cdnpk.net/videos/723c2417-05d1-4643-b42a-c136b6e386f7/vertical/previews/watermarked/large.mp4",
+    creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+        isFollowed: false,
+    },
+    music: [{
+        title: "Music Title",
+        artist: "Artist",
+        source: "여기저기",
+    }, {
+        title: "Music Title2",
+        artist: "Artist2",
+        source: "음원출처",
+    },],
+    likes: 66,
+    nextShortformId: 2,
+
+    // user info 
+    isLiked: false,
+    isSaved: false,
+    isPlaying: false,
+    isMuted: false,
+    isAvailable: false,
+    isCommercial: false,
+};
+
+const dummy2 = {
+    // video info
+    title: "Short-form Title2",
+    description: "",
+    videoUrl: "https://videocdn.cdnpk.net/videos/e2e74372-70c9-47eb-9432-ccebd8d998fb/vertical/previews/watermarked/large.mp4",
+    creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+        isFollowed: false,
+    },
+    music: [],
+    likes: 66,
+    nextShortformId: 1,
+
+    // user info 
+    isLiked: false,
+    isSaved: false,
+    isPlaying: false,
+    isMuted: false,
+    isAvailable: false,
+    isCommercial: false,
+}
 
 // STATE
 const state = reactive({
     shortform: {
         // video info
-        title: "Short-form Title",
-        description: "Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet.",
-        // description: "",
-        videoUrl: "https://videocdn.cdnpk.net/videos/691242e9-ec82-42d6-a693-c6b22db4f5da/vertical/previews/watermarked/large.mp4",
+        title: "",
+        description: "",
+        videoUrl: "",
         creator: {
-            name: "creator",
-            profileImage: "/images/class/dummy_profile_image.png",
+            name: "",
+            profileImage: "",
             isFollowed: false,
         },
-        music: [{
-            title: "Music Title",
-            artist: "Artist",
-            source: "여기저기",
-        }, {
-            title: "Music Title2",
-            artist: "Artist2",
-            source: "음원출처",
-        },],
-        likes: 66,
+        music: [] as { title: string, artist: string, source: string }[],
+        likes: 0,
+        nextShortformId: 0,
 
         // user info 
         isLiked: false,
@@ -269,6 +321,10 @@ const state = reactive({
         isPlaying: false,
         isMuted: false,
         isAvailable: false,
+        isCommercial: false,
+    },
+
+    user: {
         limit: 5,
     },
 
@@ -292,9 +348,19 @@ const diffX = ref(0);
 
 
 onMounted(() => {
-    console.log(videoRef.value);
-    // videoRef.value;
+    videoRef.value;
+    state.shortform = dummy1;
 })
+
+watch(
+    () => route.params.id,
+    (_id) => {
+        // API CALL
+
+        if (_id === "1") state.shortform = dummy1;
+        if (_id === "2") state.shortform = dummy2;
+    }
+)
 
 const videoPlayer = {
     event: {
@@ -309,12 +375,12 @@ const videoPlayer = {
                 return;
             }
 
-            if (event.target.currentTime >= 5 && state.shortform.limit > 0) {
+            if (event.target.currentTime >= 5 && state.user.limit > 0) {
                 state.shortform.isAvailable = true;
-                state.shortform.limit--;
+                state.user.limit--;
             }
 
-            if (event.target.currentTime >= 5 && state.shortform.limit === 0) {
+            if (event.target.currentTime >= 5 && state.user.limit === 0) {
                 event.target.pause();
                 state.ui.dialogPricing = true;
             }
@@ -347,8 +413,8 @@ const checkSwipeAction = () => {
             router.back();
         } else {
             // 오른쪽으로 스와이프
-            console.log('Swipe right');
-            // 이전 비디오 또는 컨텐츠로 이동
+            router.push(`/class/shortform/${state.shortform.nextShortformId}`);
+            state.shortform = dummy2;
         }
     }
 };
@@ -399,7 +465,7 @@ const iconHeart = {
     event: {
         onClick: () => {
             state.shortform.isLiked = !state.shortform.isLiked;
-            state.shortform.likes = state.shortform.isLiked ? state.shortform.likes + 1 : state.shortform.likes - 1;
+            state.user.likes = state.shortform.isLiked ? state.user.likes + 1 : state.user.likes - 1;
 
             // API call
             alert("Liked!");

@@ -73,7 +73,7 @@
                         @click="checkboxGroupServiceTerms.event.onClickChevron"
                     >
                         <v-img
-                            src="/icons/chevron_right.svg"
+                            src="/icons/IconChevronRight.svg"
                             width="20"
                             height="20"
                         ></v-img>
@@ -106,7 +106,7 @@
                         @click="checkboxGroupServiceTerms.event.onClickChevron"
                     >
                         <v-img
-                            src="/icons/chevron_right.svg"
+                            src="/icons/IconChevronRight.svg"
                             width="20"
                             height="20"
                         ></v-img>
@@ -139,7 +139,7 @@
                         @click="checkboxGroupServiceTerms.event.onClickChevron"
                     >
                         <v-img
-                            src="/icons/chevron_right.svg"
+                            src="/icons/IconChevronRight.svg"
                             width="20"
                             height="20"
                         ></v-img>
@@ -172,7 +172,7 @@
                         @click="checkboxGroupServiceTerms.event.onClickChevron"
                     >
                         <v-img
-                            src="/icons/chevron_right.svg"
+                            src="/icons/IconChevronRight.svg"
                             width="20"
                             height="20"
                         ></v-img>
@@ -205,7 +205,7 @@
                         @click="checkboxGroupServiceTerms.event.onClickChevron"
                     >
                         <v-img
-                            src="/icons/chevron_right.svg"
+                            src="/icons/IconChevronRight.svg"
                             width="20"
                             height="20"
                         ></v-img>
@@ -238,7 +238,7 @@
                         @click="checkboxGroupServiceTerms.event.onClickChevron"
                     >
                         <v-img
-                            src="/icons/chevron_right.svg"
+                            src="/icons/IconChevronRight.svg"
                             width="20"
                             height="20"
                         ></v-img>

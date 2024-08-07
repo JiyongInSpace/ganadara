@@ -177,7 +177,7 @@
                 />
 
                 <div class="text-t-xs font-weight-semibold">
-                    {{ state.user.likes }}
+                    {{ state.shortform.likes }}
                 </div>
             </div>
 
@@ -352,8 +352,9 @@ onMounted(() => {
     state.shortform = dummy1;
 })
 
+
 watch(
-    () => route.params.id,
+    () => (route.params as any).id,
     (_id) => {
         // API CALL
 
@@ -465,7 +466,7 @@ const iconHeart = {
     event: {
         onClick: () => {
             state.shortform.isLiked = !state.shortform.isLiked;
-            state.user.likes = state.shortform.isLiked ? state.user.likes + 1 : state.user.likes - 1;
+            state.shortform.likes = state.shortform.isLiked ? state.shortform.likes + 1 : state.shortform.likes - 1;
 
             // API call
             alert("Liked!");

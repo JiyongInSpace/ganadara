@@ -15,7 +15,7 @@
             :class="{ 'background-quaternary': tabMain.tab.value === MAIN_TAB.EXPRESSION }"
             @scroll="throttledUpdateRect"
         >
-            <div class="pa-4 foreground-white">
+            <div class="pt-2 pb-4 px-4 foreground-white">
 
                 <div class="mb-3 text-t-lg font-weight-bold">
                     {{ state.className }}
@@ -215,8 +215,6 @@
 import { useRoute } from 'vue-router';
 import { throttle } from 'lodash-es';
 
-const testtest = ref(true);
-
 const route = useRoute();
 const classId = computed(() => route.params.id);
 const completed = ref(false);
@@ -232,6 +230,28 @@ const EXPRESSION_CHIP = {
 }
 
 const state = reactive({
+    // NEW
+    class: {
+        id: 0,
+        name: "",
+        videoSrc: "",
+        creator: [] as {
+            id: string,
+            name: string,
+            image: string,
+        }[],
+        isLiked: false,
+        isBookmarked: false,
+        isSubscribed: false,
+        transcript: "",
+        isAvailable: false,
+        expression: {
+            sentences: [] as any,
+            words: [] as any,
+        }
+    },
+
+    // OLD
     classId: 0,
     className: "",
     videoSrc: "",
@@ -254,63 +274,61 @@ const fetchData = (id: number) => {
     console.log(id);
     loading.value = true;
 
-    
+
     // 결과 반환 - dummy 테스트, 추후 삭제
-    setTimeout(() => {
-        loading.value = false;
-        const result = {
-            classId: id,
-            className: "자연스러운 영어인사",
-            videoSrc: "https://vjs.zencdn.net/v/oceans.mp4",
-            creatorName: "제작자 이름",
-            creatorImage: "/images/class/default_video.png",
-            isLiked: false,
-            isBookmarked: false,
-            isSubscribed: false,
-            transcaript: `Guns change everything, and a bullet is foreverGuns change everything, and a bullet is
+    loading.value = false;
+    const result = {
+        classId: id,
+        className: "자연스러운 영어인사",
+        videoSrc: "https://vjs.zencdn.net/v/oceans.mp4",
+        creatorName: "제작자 이름",
+        creatorImage: "/images/class/default_video.png",
+        isLiked: false,
+        isBookmarked: false,
+        isSubscribed: false,
+        transcaript: `Guns change everything, and a bullet is foreverGuns change everything, and a bullet is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
                 is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
                 is
                 foreverGuns change everything, and a bullet is forever and a bullet is foreverGuns change
                 everything, and a bullet is foreverGuns change everything, and a bullet is forever`,
-            expression: {
-                sentences: [
-                    {
-                        id: 1,
-                        sentence: "Hi, Where are you going?",
-                        meaning: "안녕, 지금 어디 가고 있어?",
-                    }, {
-                        id: 2,
-                        sentence: "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong",
-                        meaning: "긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장"
-                    }
-                ],
-                words: [
-                    {
-                        id: 3,
-                        word: "Hi",
-                        meaning: "안녕",
-                    }, {
-                        id: 4,
-                        word: "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong",
-                        meaning: "긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어",
-                    },
-                ],
-            }
-        };
-    
-        state.classId = result.classId;
-        state.className = result.className;
-        state.videoSrc = result.videoSrc;
-        state.creatorName = result.creatorName;
-        state.creatorImage = result.creatorImage;
-        state.isLiked = result.isLiked;
-        state.isBookmarked = result.isBookmarked;
-        state.isSubscribed = result.isSubscribed;
-        state.transcript = result.transcaript;
-        state.expression = result.expression;
-    }, 2000)
+        expression: {
+            sentences: [
+                {
+                    id: 1,
+                    sentence: "Hi, Where are you going?",
+                    meaning: "안녕, 지금 어디 가고 있어?",
+                }, {
+                    id: 2,
+                    sentence: "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong",
+                    meaning: "긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장긴문장"
+                }
+            ],
+            words: [
+                {
+                    id: 3,
+                    word: "Hi",
+                    meaning: "안녕",
+                }, {
+                    id: 4,
+                    word: "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong",
+                    meaning: "긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어긴단어",
+                },
+            ],
+        }
+    };
+
+    state.classId = result.classId;
+    state.className = result.className;
+    state.videoSrc = result.videoSrc;
+    state.creatorName = result.creatorName;
+    state.creatorImage = result.creatorImage;
+    state.isLiked = result.isLiked;
+    state.isBookmarked = result.isBookmarked;
+    state.isSubscribed = result.isSubscribed;
+    state.transcript = result.transcaript;
+    state.expression = result.expression;
 };
 
 // route.params.id가 변경될 때마다 fetchData 함수를 호출

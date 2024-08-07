@@ -4,7 +4,6 @@
         transition="dialog-bottom-transition"
         fullscreen
     >
-
         <!-- TRIGGER (SELECTED ITEM) -->
         <template v-slot:activator="{ props: activatorProps }">
             <v-btn

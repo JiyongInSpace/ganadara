@@ -173,9 +173,13 @@
                     height="76"
                     width="36"
                 >
-                    <v-icon
-                        icon="mdi-magnify-plus-outline"
-                        @click="buttonZoomIn.onClick"
+                    <v-img
+                        src="/icons/IconZoomIn.png"
+                        alt="zoom-in-button"
+                        width="20"
+                        height="20"
+                        class="flex-grow-0 cursor-pointer"
+                        @click.stop="buttonZoomIn.onClick"
                     />
 
                     <v-divider
@@ -183,9 +187,13 @@
                         width="20"
                     />
 
-                    <v-icon
-                        icon="mdi-magnify-minus-outline"
-                        @click="buttonZoomOut.onClick"
+                    <v-img
+                        src="/icons/IconZoomOut.png"
+                        alt="zoom-out-button"
+                        width="20"
+                        height="20"
+                        class="flex-grow-0 cursor-pointer"
+                        @click.stop="buttonZoomOut.onClick"
                     />
                 </v-card>
 

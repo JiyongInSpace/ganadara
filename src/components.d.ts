@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/old/AppFooter.vue')['default']
     Cookie_settings: typeof import('./components/onboard/sign_up/terms_popups/cookie_settings.vue')['default']
-    copy: typeof import('./components/class/regular/DialogSubscribe copy.vue')['default']
     Create_password: typeof import('./components/onboard/sign_up/sign_up_steps/create_password.vue')['default']
     CustomVideo: typeof import('./components/common/ui/CustomVideo.vue')['default']
     DialogBuy: typeof import('./components/class/regular/DialogBuy.vue')['default']
@@ -21,7 +20,6 @@ declare module 'vue' {
     DialogMusic: typeof import('./components/class/shortform/DialogMusic.vue')['default']
     DialogPricing: typeof import('./components/class/shortform/DialogPricing.vue')['default']
     DialogSkip: typeof import('./components/class/question/DialogSkip.vue')['default']
-    DialogSubscribe: typeof import('./components/class/regular/DialogSubscribe.vue')['default']
     DialogUnitCompleted: typeof import('./components/class/regular/DialogUnitCompleted.vue')['default']
     ExpressionSentenceList: typeof import('./components/class/regular/ExpressionSentenceList.vue')['default']
     ExpressionWordList: typeof import('./components/class/regular/ExpressionWordList.vue')['default']

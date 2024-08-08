@@ -11,18 +11,20 @@
                 <v-sheet
                     class="d-flex position-relative"
                     height="24"
-                    :width="24 + (creators.length - 1) * 12"
+                    :width="24 + (creators.slice(0, 4).length - 1) * 12"
                 >
                     <v-img
-                        v-for="creator in creators"
+                        v-for="(creator, index) in creators.slice(0, 4)"
+                        :key="creator.id"
                         :src="creator.image"
                         width="24"
                         height="24"
                         cover
                         class="position-absolute rounded-circle flex-grow-0"
+                        :class="index == 1 ? 'opacity-80' : index == 2 ? ' opacity-60' : index == 3 ? 'opacity-40' : ''"
                         :style="{
-                            left: (creators.indexOf(creator) * 12) + 'px',
-                            zIndex: creators.length - creators.indexOf(creator)
+                            left: (index * 12) + 'px',
+                            zIndex: 4 - index
                         }"
                     />
                 </v-sheet>
@@ -49,7 +51,7 @@
 
             <div
                 class="d-flex ga-3 overflow-x-scroll px-7 mx-n7"
-                @click="() => {}"
+                @click="() => { }"
             >
                 <div
                     v-for="(creator, index) in creators"

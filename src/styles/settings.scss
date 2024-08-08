@@ -199,6 +199,10 @@ body {
     font-size: 0.75rem; 
     line-height: 1.5;
 }
+.text-t-xxs { // 10px
+    font-size: 0.625rem; 
+    line-height: 1.6;
+}
 
 // font-weight
 .font-weight-semibold {
@@ -468,6 +472,11 @@ input[type=number]{
 }
 
 // SLIDER
+.v-slider {
+    .v-input__control {
+        z-index: 2000;
+    }
+}
 .v-slider-track__fill {
     background-color: rgb(var(--v-fg-brand-primary));
 }
@@ -481,6 +490,14 @@ li {
     list-style-type: none;
 }
 
+.hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
 
 // 가나다라는 핑크 기준으로
 
@@ -604,4 +621,9 @@ li {
 }
 .pointer-events-auto {
     pointer-events: auto;
+}
+
+* {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
 }

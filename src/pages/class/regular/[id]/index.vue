@@ -3,7 +3,9 @@
     <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
         <v-sheet>
             <CustomVideo
-                :src="state.videoSrc"
+                :src="state.class.videoSrc"
+                :isAvailable="state.class.isAvailable"
+                @onNeedToBuy="state.ui.dialogBuy = true"
                 @onEnded="customVideo.event.onEnded"
             />
             <!-- <DialogContactUs v-model:dialog="testtest" /> -->
@@ -18,26 +20,17 @@
             <div class="pt-2 pb-4 px-4 foreground-white">
 
                 <div class="mb-3 text-t-lg font-weight-bold">
-                    {{ state.className }}
+                    {{ state.class.name }}
                 </div>
 
-                <div class="d-flex ga-1 align-center mb-3">
-                    <v-img
-                        :src="state.creatorImage"
-                        width="25"
-                        height="25"
-                        cover
-                        class="flex-grow-0 rounded-circle"
-                    />
-
-                    <div class="text-t-xs font-weight-medium">
-                        {{ state.creatorName }}
-                    </div>
-                </div>
+                <DialogCreators
+                    v-model:dialog="state.ui.dialogCreators"
+                    :creators="state.class.creators"
+                />
 
                 <div class="d-flex ga-2">
                     <v-btn
-                        :icon="state.isLiked ? 'mdi-heart' : 'mdi-heart-outline'"
+                        :icon="state.class.isLiked ? 'mdi-heart' : 'mdi-heart-outline'"
                         size="small"
                         variant="tonal"
                         class="rounded-circle secondary"
@@ -45,7 +38,7 @@
                     />
 
                     <v-btn
-                        :icon="state.isBookmarked ? 'mdi-bookmark' : 'mdi-bookmark-outline'"
+                        :icon="state.class.isBookmarked ? 'mdi-bookmark' : 'mdi-bookmark-outline'"
                         size="small"
                         variant="tonal"
                         class="rounded-circle secondary"
@@ -61,13 +54,16 @@
                     />
 
                     <DialogDownload
-                        :fileName="state.className"
+                        :fileName="state.class.name"
                         @onClickDownload="buttonDownload.onClick"
                     />
 
-                    <div class="ml-auto flex-grow-1">
-                        <DialogSubscribe
-                            v-if="!state.isSubscribed"
+                    <div
+                        v-if="!state.class.isAvailable"
+                        class="ml-auto flex-grow-1"
+                    >
+                        <DialogBuy
+                            v-model:dialog="state.ui.dialogBuy"
                             @onClickSubscribe="buttonSubscribe.onClick"
                         />
                     </div>
@@ -82,7 +78,7 @@
                     <v-tabs
                         v-model="tabMain.tab.value"
                         stacked
-                        class="flex-shrink-0 text-text-quaternary font-weight-bold"
+                        class="flex-shrink-0 text-text-quaternary font-weight-bold px-4 main-tab"
                         height="48"
                         selected-class="text-text-primary"
                     >
@@ -90,8 +86,9 @@
                             v-for="tabMainItem in tabMain.list"
                             :key="tabMainItem"
                             :value="tabMainItem"
+                            class="text-lowercase font-weight-bold "
                         >
-                            {{ tabMainItem }}
+                            {{ t(`main_tab.${tabMainItem}`) }}
                         </v-tab>
                     </v-tabs>
                 </div>
@@ -107,8 +104,22 @@
                         :class="tabMain.transcriptFontSize.value"
                     >
                         <span v-for="count in 20">
-                            {{ state.transcript }}
+                            {{ state.class.transcript }}
                         </span>
+
+                        <!-- <div
+                            v-for="(cue, index) in state.class.cues"
+                            :key="index"
+                            class="mb-10"
+                        >
+                            <div class="text-t-xl font-weight-bold mb-4">
+                                {{ cue.text_en }}
+                            </div>
+
+                            <div class="text-t-md font-weight-medium text-text-quaternary">
+                                {{ cue.text_ko }}
+                            </div>
+                        </div> -->
                     </v-tabs-window-item>
 
                     <!-- 복습 -->
@@ -127,17 +138,19 @@
                                 class="background-tertiary"
                                 :value="chipExpressionItem"
                             >
-                                {{ chipExpressionItem }}
+                                <span class="text-t-xs">
+                                    {{ t(`sub_tab.${chipExpressionItem}`) }}
+                                </span>
                             </v-chip>
                         </v-chip-group>
 
                         <v-tabs-window v-model="chipExpression.tab.value">
                             <v-tabs-window-item :value="EXPRESSION_CHIP.SENTENCE">
-                                <ExpressionSentenceList :sentences="state.expression.sentences" />
+                                <ExpressionSentenceList :sentences="state.class.expression.sentences" />
                             </v-tabs-window-item>
 
                             <v-tabs-window-item :value="EXPRESSION_CHIP.WORD">
-                                <ExpressionWordList :words="state.expression.words" />
+                                <ExpressionWordList :words="state.class.expression.words" />
                             </v-tabs-window-item>
                         </v-tabs-window>
                     </v-tabs-window-item>
@@ -204,20 +217,22 @@
         </div>
 
         <DialogUnitCompleted
-            v-model:dialog="completed"
+            v-model:dialog="state.ui.dialogCompleted"
             :state="state"
-            :expressions="state.expression"
+            :expressions="state.class.expression"
         />
+
+
     </v-container>
 </template>
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
 import { throttle } from 'lodash-es';
+import { useI18n } from 'vue-i18n';
 
 const route = useRoute();
 const classId = computed(() => route.params.id);
-const completed = ref(false);
 
 const MAIN_TAB = {
     TRANSCRIPT: 'transcript',
@@ -230,20 +245,25 @@ const EXPRESSION_CHIP = {
 }
 
 const state = reactive({
-    // NEW
     class: {
         id: 0,
         name: "",
         videoSrc: "",
-        creator: [] as {
+        creators: [] as {
             id: string,
             name: string,
             image: string,
+            isFollowed: boolean,
         }[],
         isLiked: false,
         isBookmarked: false,
         isSubscribed: false,
         transcript: "",
+        cues: [] as {
+            time: number,
+            text_en: string,
+            text_ko: string,
+        }[],
         isAvailable: false,
         expression: {
             sentences: [] as any,
@@ -251,19 +271,10 @@ const state = reactive({
         }
     },
 
-    // OLD
-    classId: 0,
-    className: "",
-    videoSrc: "",
-    creatorName: "",
-    creatorImage: "",
-    isLiked: false,
-    isBookmarked: false,
-    isSubscribed: false,
-    transcript: "",
-    expression: {
-        sentences: [] as any,
-        words: [] as any,
+    ui: {
+        dialogCompleted: false,
+        dialogCreators: false,
+        dialogBuy: false,
     }
 });
 
@@ -281,11 +292,36 @@ const fetchData = (id: number) => {
         classId: id,
         className: "자연스러운 영어인사",
         videoSrc: "https://vjs.zencdn.net/v/oceans.mp4",
-        creatorName: "제작자 이름",
-        creatorImage: "/images/class/default_video.png",
+        creators: [
+            {
+                id: "1",
+                name: "제작자 이름",
+                image: "/images/class/dummy_profile_image.png",
+                isFollowed: true,
+            },
+            {
+                id: "2",
+                name: "제작자 이름2",
+                image: "/images/class/dummy_profile_image.png",
+                isFollowed: false,
+            },
+            {
+                id: "3",
+                name: "제작자 이름3",
+                image: "/images/class/dummy_profile_image.png",
+                isFollowed: true,
+            },
+            {
+                id: "4",
+                name: "제작자 이름4",
+                image: "/images/class/dummy_profile_image.png",
+                isFollowed: false,
+            },
+        ],
         isLiked: false,
         isBookmarked: false,
         isSubscribed: false,
+        isAvailable: false,
         transcaript: `Guns change everything, and a bullet is foreverGuns change everything, and a bullet is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
                 is
@@ -293,6 +329,33 @@ const fetchData = (id: number) => {
                 is
                 foreverGuns change everything, and a bullet is forever and a bullet is foreverGuns change
                 everything, and a bullet is foreverGuns change everything, and a bullet is forever`,
+        cues: [
+            {
+                time: 0,
+                text_en: "0choe naol moon-goo ibnida.",
+                text_ko: "0초에 나올 문구입니다.",
+            },
+            {
+                time: 3,
+                text_en: "3choe naol moon-goo ibnida.",
+                text_ko: "3초에 나올 문구입니다.",
+            },
+            {
+                time: 5,
+                text_en: "5choe naol moon-goo ibnida.",
+                text_ko: "5초에 나올 문구입니다.",
+            },
+            {
+                time: 10,
+                text_en: "10choe naol moon-goo ibnida.",
+                text_ko: "10초에 나올 문구입니다.",
+            },
+            {
+                time: 20,
+                text_en: "10choe naol moon-goo ibnida.",
+                text_ko: "20초에 나올 문구입니다.",
+            },
+        ],
         expression: {
             sentences: [
                 {
@@ -319,16 +382,19 @@ const fetchData = (id: number) => {
         }
     };
 
-    state.classId = result.classId;
-    state.className = result.className;
-    state.videoSrc = result.videoSrc;
-    state.creatorName = result.creatorName;
-    state.creatorImage = result.creatorImage;
-    state.isLiked = result.isLiked;
-    state.isBookmarked = result.isBookmarked;
-    state.isSubscribed = result.isSubscribed;
-    state.transcript = result.transcaript;
-    state.expression = result.expression;
+    state.class = {
+        id: result.classId,
+        name: result.className,
+        videoSrc: result.videoSrc,
+        creators: result.creators,
+        isLiked: result.isLiked,
+        isBookmarked: result.isBookmarked,
+        isSubscribed: result.isSubscribed,
+        isAvailable: result.isAvailable,
+        transcript: result.transcaript,
+        cues: result.cues,
+        expression: result.expression,
+    };
 };
 
 // route.params.id가 변경될 때마다 fetchData 함수를 호출
@@ -384,14 +450,14 @@ const tabMain = {
 
 const buttonLike = {
     onClick: () => {
-        state.isLiked = !state.isLiked;
+        state.class.isLiked = !state.class.isLiked;
         alert("LIKE");
     }
 }
 
 const buttonBookmark = {
     onClick: () => {
-        state.isBookmarked = !state.isBookmarked;
+        state.class.isBookmarked = !state.class.isBookmarked;
         alert("BOOKMARK");
     }
 }
@@ -477,12 +543,38 @@ const customVideo = {
     event: {
         onEnded: () => {
             // alert("VIDEO ENDED");
-            completed.value = true;
+            state.ui.dialogCompleted = true;
         }
     }
 }
 
-
+// 번역
+const { t } = useI18n({
+    messages: {
+        en: {
+            main_tab: {
+                transcript: "학습 내용",
+                expression: "표현",
+            },
+            sub_tab: {
+                sentence: "문장",
+                word: "단어",
+            },
+        },
+        ko: {
+            main_tab: {
+                transcript: "학습 내용",
+                expression: "표현",
+            },
+            sub_tab: {
+                sentence: "문장",
+                word: "단어",
+            },
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 
 </script>
 
@@ -508,5 +600,17 @@ const customVideo = {
 
 .bottom-18 {
     bottom: 4.5rem;
+}
+
+:deep(.v-tab.v-tab.v-btn) {
+    min-width: unset !important;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.main-tab {
+    :deep(.v-slide-group__content) {
+        gap: 20px;
+    }
 }
 </style>

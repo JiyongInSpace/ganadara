@@ -21,13 +21,13 @@
                             alt="play-button"
                             width="24"
                             height="24"
-                            class="flex-grow-0"
-                            @click.stop
+                            class="flex-grow-0 cursor-pointer"
+                            @click.stop="event.controls.back"
                         />
 
                         <div class="d-flex align-center ga-2">
                             <v-chip
-                                class="xs on-brand-primary bg-rate-chip"
+                                class="xs on-brand-primary bg-rate-chip cursor-pointer"
                                 @click.stop="event.controls.playbackRate"
                             >
                                 {{ state.playbackRate.toFixed(1) }}x
@@ -38,7 +38,7 @@
                                 alt="question-button"
                                 width="24"
                                 height="24"
-                                class="flex-grow-0"
+                                class="flex-grow-0 cursor-pointer"
                                 @click.stop="event.controls.contactUs"
                             />
                         </div>
@@ -50,15 +50,15 @@
                             alt="play-button"
                             width="40"
                             height="40"
-                            class="flex-grow-0"
-                            @click.stop="event.controls.back"
+                            class="flex-grow-0 cursor-pointer"
+                            @click.stop="event.controls.prev"
                         />
                         <v-img
                             src="/icons/IconPlay.png"
                             alt="play-button"
                             width="48"
                             height="48"
-                            class="mx-7-5 flex-grow-0"
+                            class="mx-7-5 flex-grow-0 cursor-pointer"
                             @click.stop="event.controls.play"
                         />
                         <v-img
@@ -66,16 +66,25 @@
                             alt="play-button"
                             width="40"
                             height="40"
-                            class="flex-grow-0"
-                            @click.stop="event.controls.prev"
+                            class="flex-grow-0 cursor-pointer"
+                            @click.stop="event.controls.next"
                         />
                     </div>
 
                     <div class="d-flex justify-space-between text-t-xs">
-                        <div class="font-weight-medium">
-                            <span class="text-text-placeholder_subtle">{{ currentTime }}</span>
-                            <span class="text-text-placeholder_subtle mx-0-5">/</span>
-                            <span class="text-text-primary_on-brand font-weight-bold">{{ duration }}</span>
+                        <div class="d-flex align-center ga-2">
+                            <div class="font-weight-medium">
+                                <span class="text-text-placeholder_subtle">{{ currentTime }}</span>
+                                <span class="text-text-placeholder_subtle mx-0-5">/</span>
+                                <span class="text-text-primary_on-brand font-weight-bold">{{ duration }}</span>
+                            </div>
+
+                            <div
+                                v-if="!isAvailable"
+                                class="text-text-secondary_on-brand font-weight-bold"
+                            >
+                                30초 미리보기
+                            </div>
                         </div>
 
                         <v-img
@@ -83,7 +92,7 @@
                             alt="fullpage-button"
                             width="20"
                             height="20"
-                            class="flex-grow-0"
+                            class="flex-grow-0 cursor-pointer"
                             @click.stop="event.controls.fullpage"
                         />
                     </div>
@@ -100,26 +109,26 @@
             @start="event.slider.start"
             @end="event.slider.end"
         />
-
-        <!-- <div className="position-absolute bottom-0">
-            Hi!
-        </div> -->
     </div>
 
     <DialogContactUs v-model:dialog="state.ui.dialogContactUs" />
 </template>
 
 <script lang="ts" setup>
-import { addSeconds, format, intervalToDuration } from 'date-fns';
+import { intervalToDuration } from 'date-fns';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css'
 
+const router = useRouter();
+
 const props = defineProps<{
-    src: string
+    src: string;
+    isAvailable: boolean;
 }>();
 
 const emit = defineEmits<{
     (e: 'onEnded'): void,
+    (e: 'onNeedToBuy'): void
 }>();
 
 const videoElement = ref(null);
@@ -189,6 +198,11 @@ const event = {
     timeupdate: () => {
         if (!player.value) return;
         state.currentTime = player.value.currentTime();
+
+        if (!props.isAvailable && state.currentTime >= 30) {
+            player.value.pause();
+            emit("onNeedToBuy");
+        }
     },
 
     // 클릭
@@ -210,7 +224,7 @@ const event = {
 
     // 재생완료
     ended: () => {
-        // console.log('Video has ended');
+        state.isPaused = true;
     },
 
     slider: {
@@ -221,12 +235,16 @@ const event = {
         },
         end: () => {
             if (!player.value) return;
-            // if (state.isPaused) player.value.play();
+            if (!state.isPaused) player.value.play();
             state.isMovingSlider = false;
         }
     },
 
     controls: {
+        back: () => {
+            router.back();
+        },
+
         playbackRate: () => {
             const index = state.playbackRates.indexOf(state.playbackRate);
             const nextIndex = index + 1 >= state.playbackRates.length ? 0 : index + 1;
@@ -242,17 +260,21 @@ const event = {
 
         play: () => {
             if (!player.value) return;
+            if (!props.isAvailable && state.currentTime >= 30) {
+                emit("onNeedToBuy");
+                return;
+            }
             player.value.play();
             state.isPaused = false;
         },
 
-        prev: () => {
+        next: () => {
             // 클릭시 10초 후로
             if (!player.value) return;
             player.value.currentTime(player.value.currentTime() + 10);
         },
 
-        back: () => {
+        prev: () => {
             // 클릭시 10초 전으로
             if (!player.value) return;
             player.value.currentTime(player.value.currentTime() - 10);

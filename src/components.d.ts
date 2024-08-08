@@ -9,10 +9,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/old/AppFooter.vue')['default']
     Cookie_settings: typeof import('./components/onboard/sign_up/terms_popups/cookie_settings.vue')['default']
+    copy: typeof import('./components/class/regular/DialogSubscribe copy.vue')['default']
     Create_password: typeof import('./components/onboard/sign_up/sign_up_steps/create_password.vue')['default']
     CustomVideo: typeof import('./components/common/ui/CustomVideo.vue')['default']
+    DialogBuy: typeof import('./components/class/regular/DialogBuy.vue')['default']
     DialogChapterList: typeof import('./components/class/regular/DialogChapterList.vue')['default']
     DialogContactUs: typeof import('./components/common/dialog/DialogContactUs.vue')['default']
+    DialogCreators: typeof import('./components/class/regular/DialogCreators.vue')['default']
     DialogDescripntion: typeof import('./components/class/shortform/DialogDescripntion.vue')['default']
     DialogDownload: typeof import('./components/class/regular/DialogDownload.vue')['default']
     DialogMusic: typeof import('./components/class/shortform/DialogMusic.vue')['default']

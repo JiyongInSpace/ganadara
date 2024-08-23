@@ -20,9 +20,12 @@ declare module 'vue-router/auto-routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/class/': RouteRecordInfo<'/class/', '/class', Record<never, never>, Record<never, never>>,
-    '/class/question/[id]/': RouteRecordInfo<'/class/question/[id]/', '/class/question/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/class/quiz/[id]/': RouteRecordInfo<'/class/quiz/[id]/', '/class/quiz/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/class/quiz/results/': RouteRecordInfo<'/class/quiz/results/', '/class/quiz/results', Record<never, never>, Record<never, never>>,
+    '/class/quiz/review/': RouteRecordInfo<'/class/quiz/review/', '/class/quiz/review', Record<never, never>, Record<never, never>>,
     '/class/regular/[id]/': RouteRecordInfo<'/class/regular/[id]/', '/class/regular/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/class/shortform/[id]/': RouteRecordInfo<'/class/shortform/[id]/', '/class/shortform/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/community/': RouteRecordInfo<'/community/', '/community', Record<never, never>, Record<never, never>>,
     '/onboard/find_email/': RouteRecordInfo<'/onboard/find_email/', '/onboard/find_email', Record<never, never>, Record<never, never>>,
     '/onboard/landing/': RouteRecordInfo<'/onboard/landing/', '/onboard/landing', Record<never, never>, Record<never, never>>,
     '/onboard/log_in/': RouteRecordInfo<'/onboard/log_in/', '/onboard/log_in', Record<never, never>, Record<never, never>>,

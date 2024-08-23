@@ -23,7 +23,7 @@
                 </v-btn>
 
                 <v-btn
-                    @click="buttonContactUs.event.onClick"
+                    @click="buttonSkip.event.onClick"
                     class="primary flex-1-1-100"
                     variant="tonal"
                     size="large"
@@ -70,7 +70,7 @@
                 </v-btn>
 
                 <v-btn
-                    @click="buttonContactUs.event.onClick"
+                    @click="buttonSkip.event.onClick"
                     class="primary flex-1-1-100"
                     variant="tonal"
                     size="large"
@@ -88,7 +88,7 @@ const dialogSecond = ref(false);
 
 const emit = defineEmits<{
     (e: 'onClickCancel'): void,
-    (e: 'onClickContactUs'): void
+    (e: 'onClickSkip'): void
 }>();
 
 const props = defineProps<{
@@ -105,10 +105,10 @@ const buttonCancel = {
     }
 }
 
-const buttonContactUs = {
+const buttonSkip = {
     event: {
         onClick: () => {
-            emit('onClickContactUs');
+            emit('onClickSkip');
             dialog.value = false;
         }
     }

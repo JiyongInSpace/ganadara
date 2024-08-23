@@ -105,7 +105,7 @@
                         </span>
                     </div>
 
-                    <div className="text-t-xl font-weight-medium truncate">
+                    <div class="text-t-xl font-weight-medium truncate">
                         {{ chapterItem.name }}
                     </div>
 

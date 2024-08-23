@@ -102,7 +102,7 @@ export const lightTheme = {
       'bg-success-primary': "#ECFDF3",
       'bg-success-secondary': "#DCFAE6",
       'bg-success-solid': "#079455",
-
+      'bg-util-blue': "#EFF8FF"
 
       // 'border-color': '#000000',
       // 'border-opacity': 0.12,

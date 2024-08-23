@@ -76,6 +76,7 @@ body {
 .text-text-success-primary { color: rgb(var(--v-text-success-primary)); }
 .text-fg-quinary { color: rgb(var(--v-fg-quinary)); }
 .text-border-primary { color: rgb(var(--v-border-primary)); }
+.text-fg-disabled { color: rgb(var(--v-fg-disabled)); }
 
 // border
 .border-border-primary { border-color: rgb(var(--v-border-primary)); }
@@ -88,7 +89,7 @@ body {
 .border-border-brand-solid_alt { border-color: rgb(var(--v-border-brand-solid_alt)); }
 .border-border-error { border-color: rgb(var(--v-border-error)); }
 .border-border-error-solid { border-color: rgb(var(--v-border-error-solid)); }
-.border-2 { border-width: 2px !important; }
+.border-2 { border-width: 2px; }
 
 
 // background
@@ -123,6 +124,8 @@ body {
 .background-success-primary { background-color: rgb(var(--v-bg-success-primary)); }
 .background-success-secondary { background-color: rgb(var(--v-bg-success-secondary)); }
 .background-success-solid { background-color: rgb(var(--v-bg-success-solid)); }
+.background-util-blue { background-color: rgb(var(--v-bg-util-blue)); }
+
 
 // foreground
 .foreground-primary { background-color: rgb(var(--v-fg-primary)); }
@@ -137,7 +140,7 @@ body {
 .foreground-senary { background-color: rgb(var(--v-fg-senary)); }
 .foreground-white { background-color: rgb(var(--v-fg-white)); }
 .foreground-disabled { background-color: rgb(var(--v-fg-disabled)); }
-.foreground-disabled-subtle { background-color: rgb(var(--v-fg-disabled-subtle)); }
+.foreground-disabled-subtle { background-color: rgb(var(--v-fg-disabled_subtle)); }
 .foreground-brand-primary { background-color: rgb(var(--v-fg-brand-primary)); }
 .foreground-brand-primary-alt { background-color: rgb(var(--v-fg-brand-primary-alt)); }
 .foreground-brand-secondary { background-color: rgb(var(--v-fg-brand-secondary)); }
@@ -317,6 +320,10 @@ body {
 // Input
 .v-input.v-text-field {
     --v-input-control-height: 44px;
+    
+    &.md {
+        --v-input-control-height: 60px;
+    }
     // font-family: "noto-sans";
     // font-size: 16px;
     // line-height: 1.625;
@@ -373,6 +380,17 @@ input[type=number]{
 
     .v-field__input {
         padding: 10px 14px;
+    }
+}
+
+// Radio
+.v-radio {
+    --v-selection-control-size: 20px;
+    .v-selection-control__wrapper {
+        margin: 2px 0px;
+    }
+    .v-label {
+        opacity: 1 !important;
     }
 }
 
@@ -444,6 +462,8 @@ input[type=number]{
 .v-textarea {
     textarea {
         padding: 8px 12px !important;
+        mask-image: none !important;
+        -webkit-mask-image: none !important;
     }
 
     &.tertiary {
@@ -504,6 +524,12 @@ li {
 // 프리텐다드 (한글 기준)
 
 // SPACING ===========================================
+.mb-0-5 {
+    margin-bottom: 2px;
+}
+.mb-1-5 {
+    margin-bottom: 6px;
+}
 .mb-2-5 {
     margin-bottom: 10px;
 }
@@ -512,6 +538,11 @@ li {
 }
 .ml-2-5 {
     margin-left: 10px;
+}
+
+.px-2-5 {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .py-2-5 {
@@ -532,6 +563,10 @@ li {
 }
 
 // ROUNDED
+.rounded-8 {
+    border-radius: 8px !important;
+}
+
 .rounded-16 {
     border-radius: 16px !important;
 }
@@ -553,14 +588,23 @@ li {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-// TRUNCATE
-.line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+.top-1 {
+    top: 4px;
 }
+.right-1 {
+    right: 4px;
+}
+.bottom-4 {
+    bottom: 16px;
+}
+.right-4 {
+    right: 16px;
+}
+
+.left-100 {
+    left: 100%;
+}
+
 
 // UTIL ===========================================
 
@@ -570,6 +614,13 @@ li {
     text-overflow: ellipsis;
     white-space: nowrap;
 }	
+
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
 
 // 
 .actions {

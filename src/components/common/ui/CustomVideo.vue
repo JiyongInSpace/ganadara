@@ -129,6 +129,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'onEnded'): void,
     (e: 'onNeedToBuy'): void
+    (e: 'onTimeUpdate', currentTime: number): void
 }>();
 
 const videoElement = ref(null);
@@ -198,6 +199,7 @@ const event = {
     timeupdate: () => {
         if (!player.value) return;
         state.currentTime = player.value.currentTime();
+        emit("onTimeUpdate", state.currentTime);
 
         if (!props.isAvailable && state.currentTime >= 30) {
             player.value.pause();
@@ -254,7 +256,6 @@ const event = {
         },
 
         contactUs: () => {
-            console.log("TEST");
             state.ui.dialogContactUs = true;
         },
 

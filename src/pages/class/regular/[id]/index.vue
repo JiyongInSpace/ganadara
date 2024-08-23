@@ -7,6 +7,7 @@
                 :isAvailable="state.class.isAvailable"
                 @onNeedToBuy="state.ui.dialogBuy = true"
                 @onEnded="customVideo.event.onEnded"
+                @onTimeUpdate="customVideo.event.onTimeUpdate"
             />
             <!-- <DialogContactUs v-model:dialog="testtest" /> -->
         </v-sheet>
@@ -103,7 +104,15 @@
                         class="py-6 px-4"
                         :class="tabMain.transcriptFontSize.value"
                     >
-                        <span v-for="count in 20">
+
+                        <div v-if="state.class.scriptType == 'cues'">
+                            <CuesViewer
+                                :cues="state.class.cues"
+                                :currentTime="currentVideoTime"
+                            />
+                        </div>
+
+                        <span v-if="state.class.scriptType == 'pdf'">
                             {{ state.class.transcript }}
                         </span>
 
@@ -266,6 +275,7 @@ const state = reactive({
         isLiked: false,
         isBookmarked: false,
         isSubscribed: false,
+        scriptType: "pdf",
         transcript: "",
         cues: [] as {
             time: number,
@@ -290,9 +300,8 @@ const loading = ref(false);
 
 const fetchData = (id: number) => {
     // id 기반 API 호출
-    console.log(id);
+    // console.log(id);
     loading.value = true;
-
 
     // 결과 반환 - dummy 테스트, 추후 삭제
     loading.value = false;
@@ -330,6 +339,7 @@ const fetchData = (id: number) => {
         isBookmarked: false,
         isSubscribed: false,
         isAvailable: false,
+        scriptType: "cues",
         transcaript: `Guns change everything, and a bullet is foreverGuns change everything, and a bullet is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
                 is
@@ -345,13 +355,13 @@ const fetchData = (id: number) => {
             },
             {
                 time: 3,
-                text_en: "3choe naol moon-goo ibnida.",
+                text_en: "3choe naol moon-goo ibnida. 3choe naol moon-goo ibnida. 3choe naol moon-goo ibnida.",
                 text_ko: "3초에 나올 문구입니다.",
             },
             {
                 time: 5,
                 text_en: "5choe naol moon-goo ibnida.",
-                text_ko: "5초에 나올 문구입니다.",
+                text_ko: "5초에 나올 문구입니다. 5초에 나올 문구입니다. 5초에 나올 문구입니다.",
             },
             {
                 time: 10,
@@ -359,9 +369,29 @@ const fetchData = (id: number) => {
                 text_ko: "10초에 나올 문구입니다.",
             },
             {
-                time: 20,
-                text_en: "10choe naol moon-goo ibnida.",
-                text_ko: "20초에 나올 문구입니다.",
+                time: 15,
+                text_en: "15choe naol moon-goo ibnida.",
+                text_ko: "15초에 나올 문구입니다.",
+            },
+            {
+                time: 17,
+                text_en: "17choe naol moon-goo ibnida. 17choe naol moon-goo ibnida. 17choe naol moon-goo ibnida." ,
+                text_ko: "17초에 나올 문구입니다.",
+            },
+            {
+                time: 19,
+                text_en: "19choe naol moon-goo ibnida.",
+                text_ko: "19초에 나올 문구입니다.",
+            },
+            {
+                time: 24,
+                text_en: "24choe naol moon-goo ibnida.",
+                text_ko: "24초에 나올 문구입니다.",
+            },
+            {
+                time: 27,
+                text_en: "27choe naol moon-goo ibnida.",
+                text_ko: "27초에 나올 문구입니다.",
             },
         ],
         expression: {
@@ -399,6 +429,7 @@ const fetchData = (id: number) => {
         isBookmarked: result.isBookmarked,
         isSubscribed: result.isSubscribed,
         isAvailable: result.isAvailable,
+        scriptType: result.scriptType,
         transcript: result.transcaript,
         cues: result.cues,
         expression: result.expression,
@@ -547,12 +578,17 @@ const buttonScrollDown = {
     }
 }
 
+const currentVideoTime = ref(0);
+
 const customVideo = {
     event: {
         onEnded: () => {
             // alert("VIDEO ENDED");
             state.ui.dialogCompleted = true;
-        }
+        },
+        onTimeUpdate: (_event: any) => {
+            currentVideoTime.value = _event;
+        },
     }
 }
 

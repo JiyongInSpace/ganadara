@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column ga-2">
         <v-card
-            class="d-flex align-center ga-2 px-4 py-2-5 elevation-0"
+            class="d-flex align-center ga-2 px-4 py-2-5 elevation-0 rounded-8"
             v-for="wordItem in words"
             :key="wordItem.id"
         >

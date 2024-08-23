@@ -12,7 +12,7 @@
       마이풀에 오신 것을 환영합니다!
     </div>
 
-    <div className="mb-9 text-center">
+    <div class="mb-9 text-center">
       간편하게 회원가입하고 바로 시작해보세요
     </div>
 

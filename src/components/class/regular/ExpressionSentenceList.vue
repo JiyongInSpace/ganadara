@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column ga-2">
         <v-card
-            class="px-4 py-2-5 elevation-0"
+            class="px-4 py-2-5 elevation-0 rounded-8"
             v-for="sentenceItem in sentences"
             :key="sentenceItem.id"
         >
@@ -47,7 +47,5 @@ const props = defineProps<{
         meaning: string;
     }[];
 }>();
-
-
 
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div
-        className="position-absolute right-0 left-0 top-0 bottom-0 bg-black overflow-hidden"
+        class="position-absolute right-0 left-0 top-0 bottom-0 bg-black overflow-hidden"
         @click="videoPlayer.event.onClick"
         @touchstart="videoPlayer.event.onTouchstart"
         @touchmove="videoPlayer.event.onTouchmove"
@@ -74,7 +74,7 @@
 
     <DialogContactUs v-model:dialog="state.ui.dialogContactUs">
         <template v-slot:subtitle>
-            <div className="text-t-md font-weight-medium py-3 text-start">
+            <div class="text-t-md font-weight-medium py-3 text-start">
                 {{ state.shortform.title }}
             </div>
         </template>
@@ -86,9 +86,9 @@
         class="d-flex justify-space-between align-end px-4 pb-8 ga-6 text-shadow text-text-primary_on-brand position-absolute bottom-0 left-0 w-100 pointer-events-none">
         <!-- LEFT -->
         <div>
-            <div className="d-flex align-center mb-2">
+            <div class="d-flex align-center mb-2">
                 <div
-                    className="d-flex align-center pointer-events-auto"
+                    class="d-flex align-center pointer-events-auto"
                     @click="areaProfile.event.onClick"
                 >
                     <v-img
@@ -133,7 +133,7 @@
                 class="mb-2 pointer-events-auto w-fit"
                 @click="state.ui.dialogDescription = true"
             >
-                <span className="text-t-sm font-weight-semibold">
+                <span class="text-t-sm font-weight-semibold">
                     More
                 </span>
 
@@ -167,6 +167,7 @@
                 :list="state.shortform.music"
             />
         </div>
+        
         <!-- RIGHT -->
         <div class="text-center d-flex flex-column ga-6">
             <div>

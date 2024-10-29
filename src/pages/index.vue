@@ -48,6 +48,23 @@
 
     <v-row justify="center">
       <v-col cols="auto">
+        <v-card>
+          <v-card-title>홈</v-card-title>
+
+          <v-card-actions class="flex-wrap ga-2">
+            <v-btn
+              variant="outlined"
+              to="/home/main"
+            >
+              메인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row justify="center">
+      <v-col cols="auto">
         <v-card class="flex-column">
           <v-card-title>클래스</v-card-title>
 

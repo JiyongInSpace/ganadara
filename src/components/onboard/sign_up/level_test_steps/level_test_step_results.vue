@@ -1,12 +1,7 @@
 <template>
-    <div class="w-100 mt-16 text-d-sm font-weight-bold text-center">
-        당신은 Lvl.7 사용자 중에<br />
-        상위 10%입니다.
-    </div>
-
     <v-spacer />
 
-    <v-card class="py-13 w-100 d-flex justify-center rounded-xl">
+    <div class="w-100 d-flex justify-center rounded-xl">
         <Progress-bar
             :strokeWidth="24"
             :percentage="percentage"
@@ -18,13 +13,22 @@
                 <div class="text-t-sm">
                     레벨테스트 결과
                 </div>
-    
+
                 <div class="text-d-md font-weight-semibold">
                     Level <span v-text="level" />
                 </div>
             </div>
         </Progress-bar>
-    </v-card>
+    </div>
+
+    <div class="text-t-sm font-weight-regular text-center mb-2">
+        레벨 테스트가 완료되었습니다!
+    </div>
+
+    <div class="w-100 text-t-lg font-weight-bold text-center">
+        당신은 Lvl.7 사용자 중에<br />
+        상위 10%입니다.
+    </div>
 
     <v-spacer />
 
@@ -35,7 +39,7 @@
         block
         @click="buttonGoToHome.event.onClick"
     >
-        홈으로 가기
+        확인
     </v-btn>
 </template>
 

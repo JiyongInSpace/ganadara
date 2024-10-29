@@ -119,8 +119,6 @@ const props = withDefaults(defineProps<{
     size: '36'
 });
 
-
-
 const iconStyle = computed(() => ({
     color: props.isActive ? `rgb(var(--v-fg-brand-primary))` : 'rgb(var(--v-fg-white))',  // 활성화면 빨간색, 비활성화면 흰색
     opacity: props.isActive ? 1 : 0.6, // 활성화면 불투명, 비활성화면 반투명

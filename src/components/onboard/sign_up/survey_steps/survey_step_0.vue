@@ -1,7 +1,7 @@
 <template>
     <div class="w-100 pt-5">
         <div class="mb-1 text-d-md font-weight-bold text-center">
-            <span v-text="userName"/> 님에 대해<br />
+            <span v-text="userName" /> 님에 대해<br />
             더 알고 싶어요!
         </div>
 
@@ -14,11 +14,10 @@
 
     <div class="d-flex justify-center align-center py-5 flex-grow-1 w-100">
         <v-img
-            src="/images/onboard/carousel_01.png"
-            cover
-            max-width="247"
-            max-height="239"
+            src="/images/onboard/survey.svg"
+            contain
             aspect-ratio="1/1"
+            max-height="375"
         />
     </div>
 

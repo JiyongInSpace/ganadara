@@ -1,8 +1,6 @@
 <template>
-    <v-container
-        class="fill-height d-flex flex-column transition"
-        :class="{ 'background-tertiary': currentStep === 1 }"
-    >
+    <v-container class="fill-height d-flex flex-column transition">
+        <!-- :class="{ 'background-tertiary': currentStep === 1 }" -->
         <Level_test_step_0
             v-if="currentStep === 0"
             @onClickNext="compButtonNext.event.onClick"

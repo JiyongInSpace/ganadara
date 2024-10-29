@@ -2,91 +2,77 @@
     <v-carousel
         v-model="model"
         :show-arrows="false"
-        class="mb-7 bg-layer-1"
+        hide-delimiters
+        class="mb-7"
         height="467"
         disabled
     >
         <v-carousel-item
-            src="/images/onboard/carousel_01.png"
-            contain
-        />
-
-        <v-carousel-item
-            src="/images/onboard/carousel_02.png"
-            contain
-        />
-
-        <v-carousel-item
-            src="/images/onboard/carousel_03.png"
+            v-for="(item, index) in carouselData"
+            :key="index"
+            :src="item.imageUrl"
             contain
         />
     </v-carousel>
 
-
     <div
-        v-if="model === 0"
-        class="text-center text-h5 font-weight-bold"
+        v-for="(item, index) in carouselData"
+        v-show="model === index"
+        class="text-center"
+        :key="index"
     >
-        Begin your Korean <br />
-        adventure here
-    </div>
+        <div class="text-d-sm font-weight-bold mb-2">
+            {{ carouselData[model].title }}
+        </div>
 
-    <div
-        v-else-if="model === 1"
-        class="text-center text-h5 font-weight-bold"
-    >
-        Learn Korean lightly, <br />
-        woven into your daily life
-    </div>
+        <div class="text-t-md text-text-secondary">
+            {{ carouselData[model].description }}
+        </div>
 
-    <div
-        v-else="model === 2"
-        class="text-center text-h5 font-weight-bold"
-    >
-        Discover the joy of Korean, <br /> 
-        enriched with culture
+        <div class="text-t-md text-text-secondary">
+
+        </div>
     </div>
 
     <v-spacer></v-spacer>
 
-    <v-btn
-        v-if="model !== 2"
-        variant="tonal"
-        size="x-large"
-        class="flex-grow-0 bg-primary"
-        block
-        @click="onClick"
-    >
-        {{ t("button.next") }}
-    </v-btn>
+    <div class="d-flex justify-space-between align-center flex-grow-0 ga-2 w-100">
+        <div class="flex-1-1-100">
+            <v-btn
+                v-if="model !== 0"
+                variant="text"
+                @click="onClickPrev"
+            >
+                {{ t("button.prev") }}
+            </v-btn>
+        </div>
 
-    <div
-        v-else
-        class="d-flex flex-column flex-grow-0 ga-2 w-100"
-    >
-        <v-btn
-            variant="tonal"
-            size="x-large"
-            class="primary"
-            block
-            to="/onboard/sign_up"
-        >
-            {{ t("button.sign_up") }}
-        </v-btn>
+        <div class="d-flex ga-2">
+            <v-sheet
+                v-for="(item, index) in carouselData"
+                width="8"
+                height="8"
+                class="rounded-circle"
+                :class="model === index ? 'bg-primary' : 'background-quaternary'"
+            />
+        </div>
 
-        <v-btn
-            variant="text"
-            size="x-large"
-            block
-            to="/onboard/log_in"
-        >
-            {{ t("button.log_in") }}
-        </v-btn>
+
+        <div class="flex-1-1-100 d-flex justify-end">
+            <v-btn
+                variant="text"
+                class="text-primary"
+                @click="onClickNext"
+            >
+                {{ t("button.next") }}
+            </v-btn>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
+const router = useRouter();
 
 const { t } = useI18n({
     messages: {
@@ -108,10 +94,39 @@ const { t } = useI18n({
 });
 
 const model = ref(0);
-const onClick = () => {
+const onClickNext = () => {
     // model은 2ㄱ가 최대
-    model.value = model.value === 2 ? 2 : model.value + 1;
+    if(model.value === 2) {
+        console.log
+        router.push("/onboard/sign_up");
+        return;
+    };
+
+    model.value = model.value + 1;
 };
+
+const onClickPrev = () => {
+    model.value = model.value === 0 ? 0 : model.value - 1;
+};
+
+const carouselData = [
+    {
+        imageUrl: "/images/onboard/carousel_01.svg",
+        title: "언어 학습을 게임처럼!",
+        description: "AI가 추천하는 맞춤형 언어 학습을 매일 단계별로 도전해 보세요. 언어 학습도 하고 보상도 놓치지 마세요.",
+    },
+    {
+        imageUrl: "/images/onboard/carousel_02.svg",
+        title: "너의 일상을 말해줘",
+        description: "나의 기분과 하루를 공유하고 나만의 학습 노하우를 친구들과 나누어 보세요. 다양한 크리에이터들의 소식도 확인할 수 있어요.",
+    },
+    {
+        imageUrl: "/images/onboard/carousel_03.svg",
+        title: "매일 쏟아지는 포인트!",
+        description: "하루하루 미션을 수행하고 포인트를 모아 보세요. 포인트로 수강권 할인도 받고 따뜻한 후원을 할 수 있어요.",
+    }
+
+]
 
 </script>
 

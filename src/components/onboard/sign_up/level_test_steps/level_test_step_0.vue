@@ -14,10 +14,9 @@
 
     <div class="d-flex justify-center align-center py-5 flex-grow-1 w-100">
         <v-img
-            src="/images/onboard/carousel_01.png"
-            cover
-            max-width="247"
-            max-height="239"
+            src="/images/onboard/test.svg"
+            contain
+            max-height="375"
             aspect-ratio="1/1"
         />
     </div>

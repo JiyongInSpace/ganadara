@@ -103,7 +103,7 @@ body {
 .background-secondary-subtle { background-color: rgb(var(--v-bg-secondary-subtle)); }
 .background-secondary-solid { background-color: rgb(var(--v-bg-secondary-solid)); }
 .background-tertiary { background-color: rgb(var(--v-bg-tertiary)); }
-.background-quaternary { background-color: rgb(var(--v-bg-quaternary)); }
+.background-quaternary { background-color: rgb(var(--v-bg-quaternary)) !important; }
 .background-active { background-color: rgb(var(--v-bg-active)); }
 .background-disabled { background-color: rgb(var(--v-bg-disabled)); }
 .background-disabled-subtle { background-color: rgb(var(--v-bg-disabled-subtle)); }
@@ -224,6 +224,12 @@ body {
     &.xs {
         height: unset;
         padding: 4px 12px;
+        font-weight: 500;
+        @extend .text-t-xs;
+    }
+    &.sm {
+        height: unset;
+        padding: 2px 6px;
         font-weight: 500;
         @extend .text-t-xs;
     }
@@ -533,6 +539,12 @@ li {
 .mb-2-5 {
     margin-bottom: 10px;
 }
+.mr-1-5 {
+    margin-right: 6px;
+}
+.ml-1-5 {
+    margin-left: 6px;
+}
 .mr-2-5 {
     margin-right: 10px;
 }
@@ -563,6 +575,10 @@ li {
 }
 
 // ROUNDED
+.rounded-4 {
+    border-radius: 4px !important;
+}
+
 .rounded-8 {
     border-radius: 8px !important;
 }

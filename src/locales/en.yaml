@@ -1,6 +1,7 @@
 # 
 button:
   next: Next
+  prev: Prev
   back: Back
   go: GO
 intro:

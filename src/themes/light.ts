@@ -3,6 +3,7 @@ export const lightTheme = {
     colors: {
       background: '#FFFFFF',
       "layer-1": '#F8F9FA',
+      "bg-secondary": '#F9FAFB',
       primary: '#FF0DDF',
       error: '#B00020',
       info: '#2196F3',

@@ -1,6 +1,7 @@
 #
 button:
   next: 다음
+  prev: 이전
   back: 뒤로가기
   go: 이동
 intro:

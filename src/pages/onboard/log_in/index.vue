@@ -1,15 +1,15 @@
 <template>
   <v-container class="d-flex flex-column fill-height justify-center align-center">
     <v-img
-      :width="150"
+      :width="260"
       aspect-ratio="1/1"
       cover
       class="flex-grow-0 mb-6"
-      src="/logo/logo_ganadara.png"
+      src="/images/onboard/onboard.svg"
     />
 
     <div class="text-d-xs font-weight-bold mb-2 text-center">
-      마이풀에 오신 것을 환영합니다!
+      환영합니다!
     </div>
 
     <div class="mb-9 text-center">
@@ -68,10 +68,11 @@
 const router = useRouter();
 
 const platforms = [
-  "x",
-  "facebook",
+  "kakao",
   "google",
   "apple",
+  "naver",
+  "facebook",
 ];
 
 

@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AnswerOptions: typeof import('./components/class/quiz/AnswerOptions.vue')['default']
+    AppBottomNavigation: typeof import('./components/navigation/AppBottomNavigation.vue')['default']
+    AppHeaderNavigation: typeof import('./components/navigation/AppHeaderNavigation.vue')['default']
     CommentItem: typeof import('./components/community/CommentItem.vue')['default']
     CommunityCreateFeed: typeof import('./components/community/CommunityCreateFeed.vue')['default']
     CommunityFeedItem: typeof import('./components/community/CommunityFeedItem.vue')['default']
@@ -63,5 +65,6 @@ declare module 'vue' {
     TextDevider: typeof import('./components/common/ui/TextDevider.vue')['default']
     Verify_email: typeof import('./components/onboard/sign_up/sign_up_steps/verify_email.vue')['default']
     Verify_phone: typeof import('./components/onboard/sign_up/sign_up_steps/verify_phone.vue')['default']
+    VideoThumbnail: typeof import('./components/common/ui/VideoThumbnail.vue')['default']
   }
 }

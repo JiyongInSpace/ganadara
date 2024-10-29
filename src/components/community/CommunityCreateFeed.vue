@@ -89,7 +89,7 @@
 
                 <v-card
                     variant="outlined"
-                    class="border-border-primary mt-8"
+                    class="border-border-primary border-solid rounded-8 mt-8"
                 >
                     <v-textarea
                         v-model="state.textarea.value"

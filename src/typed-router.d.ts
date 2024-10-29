@@ -26,6 +26,7 @@ declare module 'vue-router/auto-routes' {
     '/class/regular/[id]/': RouteRecordInfo<'/class/regular/[id]/', '/class/regular/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/class/shortform/[id]/': RouteRecordInfo<'/class/shortform/[id]/', '/class/shortform/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/community/': RouteRecordInfo<'/community/', '/community', Record<never, never>, Record<never, never>>,
+    '/home/main/': RouteRecordInfo<'/home/main/', '/home/main', Record<never, never>, Record<never, never>>,
     '/onboard/find_email/': RouteRecordInfo<'/onboard/find_email/', '/onboard/find_email', Record<never, never>, Record<never, never>>,
     '/onboard/landing/': RouteRecordInfo<'/onboard/landing/', '/onboard/landing', Record<never, never>, Record<never, never>>,
     '/onboard/log_in/': RouteRecordInfo<'/onboard/log_in/', '/onboard/log_in', Record<never, never>, Record<never, never>>,

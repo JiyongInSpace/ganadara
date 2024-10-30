@@ -258,16 +258,38 @@ body {
     text-transform: capitalize;
     pointer-events: auto;
 
-    // variant
+    // ## variant
+    // TONAL
     &.v-btn--variant-tonal {
         border-radius: 8px;
         font-family: 'Pretendard', sans-serif;
         font-weight: 600;
+
+        &.primary {
+            @extend .foreground-brand-primary;
+            @extend .text-text-brand-tertiary;
+        }
+    
+        &.secondary {
+            @extend .background-secondary;
+        }
+    
     }
+
+    // OUTLINED
     &.v-btn--variant-outlined {
         border-radius: 8px;
         font-family: 'Pretendard', sans-serif;
-        @extend .border-border-primary;
+
+        &.primary {
+            @extend .border-border-brand;
+            @extend .text-text-brand-primary;
+        }
+    
+        &.secondary {
+            @extend .border-border-secondary;
+        }
+    
     }
 
 
@@ -282,14 +304,6 @@ body {
     }
 
     // color
-    &.primary {
-        @extend .foreground-brand-primary;
-        @extend .text-text-primary_on-brand;
-    }
-
-    &.secondary {
-        @extend .background-secondary;
-    }
 
     .v-btn__underlay {
         display: none;
@@ -539,6 +553,9 @@ li {
 .mb-2-5 {
     margin-bottom: 10px;
 }
+.mr-0-5 {
+    margin-right: 2px;
+}
 .mr-1-5 {
     margin-right: 6px;
 }
@@ -550,6 +567,19 @@ li {
 }
 .ml-2-5 {
     margin-left: 10px;
+}
+
+.ma-n0-5 {
+    margin: -2px;
+}
+.pa-0-5 {
+    padding: 2px;
+}
+
+
+.px-1-5 {
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 .px-2-5 {
@@ -596,6 +626,9 @@ li {
 .h-14 {
     height: 56px;
 }
+.h-20 {
+    height: 80px;
+}
 
 // POSITION
 .position-center {
@@ -612,6 +645,9 @@ li {
 }
 .bottom-4 {
     bottom: 16px;
+}
+.bottom-24 {
+    bottom: 96px;
 }
 .right-4 {
     right: 16px;

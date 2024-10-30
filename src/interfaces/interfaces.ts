@@ -91,3 +91,19 @@ export interface IComment {
   date: string;
   replies?: IComment[]; // 대댓글 배열
 }
+
+export interface IRanker {
+  rank: number;
+  name: string;
+  profileImage: string;
+  score: number;
+  isFollowing: boolean;
+}
+
+export interface IUser {
+  id: string;
+  name: string;
+  profileImage: string;
+  description: string;
+  isFollowing: boolean;
+}

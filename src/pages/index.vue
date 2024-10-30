@@ -166,6 +166,34 @@
             >
               커뮤니티
             </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/community/user/5"
+            >
+              유저 프로필
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/community/ranking"
+            >
+              랭킹
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/community/user/5/follow"
+            >
+              팔로우/팔로잉
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/community/user/5/badge"
+            >
+              뱃지/굿즈
+            </v-btn>
           </v-card-actions>
 
         </v-card>
@@ -177,3 +205,4 @@
 <script lang="ts" setup>
 //
 </script>
+

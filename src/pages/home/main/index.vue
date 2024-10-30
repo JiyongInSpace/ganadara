@@ -1,9 +1,9 @@
 <!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-  <v-container class="py-6 px-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
+  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
     <app-header-navigation />
 
-    <div>
+    <div class="overflow-y-auto flex-grow-1">
       <div class="text-t-lg font-weight-bold px-4 mb-3">
         숏폼
       </div>

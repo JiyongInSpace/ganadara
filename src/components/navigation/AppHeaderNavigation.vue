@@ -1,10 +1,5 @@
 <template>
-    <v-app-bar
-        app
-        class="elevation-0 px-4"
-        flat
-        height="64"
-    >
+    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
         <v-img
             src="/logo/logo_ganadara.png"
             width="32"
@@ -55,7 +50,7 @@
             height="32"
             class="flex-grow-0 ml-2"
         />
-    </v-app-bar>
+    </div>
 </template>
 
 <script lang="ts" setup>

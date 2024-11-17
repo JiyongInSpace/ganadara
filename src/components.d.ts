@@ -78,6 +78,7 @@ declare module 'vue' {
     Survey_step_2: typeof import('./components/onboard/sign_up/survey_steps/survey_step_2.vue')['default']
     Survey_step_3: typeof import('./components/onboard/sign_up/survey_steps/survey_step_3.vue')['default']
     Survey_step_4: typeof import('./components/onboard/sign_up/survey_steps/survey_step_4.vue')['default']
+    SvgRoulette: typeof import('./components/challenge/donate/SvgRoulette.vue')['default']
     TestItem: typeof import('./components/class/regular/TestItem.vue')['default']
     TextDevider: typeof import('./components/common/ui/TextDevider.vue')['default']
     Verify_email: typeof import('./components/onboard/sign_up/sign_up_steps/verify_email.vue')['default']

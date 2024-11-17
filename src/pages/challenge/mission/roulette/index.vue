@@ -2,22 +2,9 @@
     <ChallengeTemplate :info="state.missioninfo">
         <template v-slot:content>
             <div class="pb-12">
-                <v-img
-                    src="/images/challenge/mission/quiz_big.png"
-                    alt="quiz"
-                    class="mb-8"
+                <SvgRoulette 
+                    @onStopRoulette="onStopRoulette"
                 />
-
-                <div>
-                    <v-btn
-                        class="primary flex-1-1-100"
-                        variant="tonal"
-                        size="large"
-                        block
-                    >
-                        미션 참여하고 적립하기
-                    </v-btn>
-                </div>
             </div>
         </template>
 
@@ -82,5 +69,10 @@ const state = reactive({
     },
 })
 
+const onStopRoulette = (_point: number) => {
+    console.log(_point);
+    // console.log("stop roulette");
+    // router.push("/challenge/mission/roulette/result");
+}
 
 </script>

@@ -36,7 +36,6 @@
         <v-tabs-window v-model="tabMain.tab.value">
             <v-tabs-window-item value="following">
                 <CommunityFollowing
-                    v-if="tabMain.tab.value == 'following'"
                     :followList="state.following"
                     isFollowing
                 />
@@ -44,7 +43,6 @@
 
             <v-tabs-window-item value="follower">
                 <CommunityFollowing
-                    v-if="tabMain.tab.value == 'follower'"
                     :followList="state.follower"
                     :isFollowing="false"
                 />

@@ -17,7 +17,13 @@
                 </div>
             </div>
 
+            <DialogEdit
+                v-if="isMyFeed"
+                :edit-id="feedItem.content.id"
+            />
+            <!-- v-else -->
             <DialogReport
+                v-else
                 v-model:dialog="state.ui.dialogReport"
                 :report-id="feedItem.content.id"
             />
@@ -155,16 +161,23 @@ import { format } from 'date-fns';
 import IconHeart from '../common/icons/IconHeart.vue';
 import { IFeedItem } from '@/interfaces';
 import DialogReport from './DialogReport.vue';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/stores/user';
+import { RouteLocationNormalizedLoaded } from 'vue-router/auto';
+
+const userStore = useUserStore();
 
 interface FeedItemWithCarousel extends IFeedItem {
     currentCarouselIndex?: number;
 }
 
-
-const props = defineProps<{
+const props = withDefaults(defineProps<{
     feedItem: FeedItemWithCarousel;
-}>();
-
+    myFeed: boolean;
+}>(), {
+    feedList: () => [],
+    myFeed: false,
+});
 
 const state = reactive({
     ui: {
@@ -172,6 +185,14 @@ const state = reactive({
         dialogComment: false,
     }
 });
+
+
+const { id } = storeToRefs(userStore);
+
+
+const isMyFeed = computed(() => {
+    return String(id.value) == props.feedItem.user.id;
+})
 
 
 const onClickCommercial = () => {

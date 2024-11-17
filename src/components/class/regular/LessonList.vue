@@ -1,45 +1,59 @@
 <template>
-    <div>
-        <v-card class="background-secondary">
-            <div class="py-7 px-6">
-                <div class="text-t-xl font-weight-bold">
-                    레슨 1
-                </div>
+    <div class="overflow-y-auto flex-grow-1">
+        <v-img
+            src="/images/class/regular/chapter_start.svg"
+            alt="chapter start"
+        />
 
-                <div>
-                    애정 표현하기 : ‘너를 사랑해'
-                </div>
-            </div>
+        <div
+            v-for="(lessonItem, key) in lessonList"
+            :key="key"
+        >
+            <lesson-item
+                v-if="lessonItem.type === 'lesson'"
+                :info="lessonItem"
+            />
 
-            <div class="px-5 d-flex flex-column ga-5">
-                <v-btn to="/class/regular/1">
-                    <v-icon icon="mdi-play"></v-icon>
-                    영상1
-                </v-btn>
-
-                <!-- <v-btn>
-                    <v-icon icon="mdi-quora"></v-icon>
-                    문제 1-1
-                </v-btn>
-
-                <v-btn>
-                    <v-icon icon="mdi-quora"></v-icon>
-                    문제 1-2
-                </v-btn> -->
-            </div>
-
-            <div class="pa-5">
-                <v-btn
-                    size="x-large"
-                    block
-                    disabled
-                >
-                    레슨 완료 보상 받기
-                </v-btn>
-            </div>
-        </v-card>
+            <test-item
+                v-else-if="lessonItem.type === 'test'"
+                :info="lessonItem"
+            />
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+
+const lessonList = [
+    {
+        type: "lesson",
+        title: '애정 표현하기 : ‘너를 사랑해',
+        order: 0,
+        step: 4,
+    },
+    {
+        type: "lesson",
+        title: '애정 표현하기 : ‘너를 사랑해',
+        order: 1,
+        step: 1,
+    },
+    {
+        type: "lesson",
+        title: '애정 표현하기2 : ‘너를 사랑해2',
+        order: 2,
+        step: 0,
+    },
+    {
+        type: "lesson",
+        title: '애정 표현하기3 : ‘너를 사랑해3',
+        order: 3,
+        step: 0,
+    },
+    {
+        type: "test",
+        title: "",
+        step: 0,
+    }
+]
+
 </script>

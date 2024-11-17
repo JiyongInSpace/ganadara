@@ -4,6 +4,23 @@
     <v-row justify="center">
       <v-col cols="auto">
         <v-card>
+          <v-card-title>홈</v-card-title>
+
+          <v-card-actions class="flex-wrap ga-2">
+            <v-btn
+              variant="outlined"
+              to="/home/main"
+            >
+              메인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row justify="center">
+      <v-col cols="auto">
+        <v-card>
           <v-card-title>온보딩</v-card-title>
 
           <v-card-actions class="flex-wrap ga-2">
@@ -46,22 +63,6 @@
       </v-col>
     </v-row>
 
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card>
-          <v-card-title>홈</v-card-title>
-
-          <v-card-actions class="flex-wrap ga-2">
-            <v-btn
-              variant="outlined"
-              to="/home/main"
-            >
-              메인
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
 
     <v-row justify="center">
       <v-col cols="auto">
@@ -199,10 +200,97 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-row justify="center">
+      <v-col cols="auto">
+        <v-card class="flex-column">
+          <v-card-title>챌린지</v-card-title>
+
+          <v-card-actions class="flex-wrap ga-2 mb-5">
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission"
+            >
+              미션 리스트
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/quiz"
+            >
+              미션(퀴즈)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/chat_ai"
+            >
+              미션(AI 채팅)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/roulette"
+            >
+              미션(룰렛)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/invite"
+            >
+              미션(친구 초대)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/check"
+            >
+              미션(출석체크)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/study"
+            >
+              미션(학습 미션)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/community"
+            >
+              미션(커뮤니티)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/donate"
+            >
+              미션(후원)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/donate/1"
+            >
+              후원 상세
+            </v-btn>
+
+            <!-- <v-btn
+              variant="outlined"
+              to="/challenge/mission/donate/1"
+            >
+              후원 후기
+            </v-btn> -->
+          </v-card-actions>
+
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script lang="ts" setup>
 //
 </script>
-

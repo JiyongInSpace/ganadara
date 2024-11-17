@@ -46,7 +46,10 @@
       </v-tabs-window-item>
 
       <v-tabs-window-item :value="MAIN_TAB.FOLLOWING">
-        FOLLOWING
+        <CommunityFollowing
+          :follow-list="state.following"
+          is-following
+        />
       </v-tabs-window-item>
 
       <v-tabs-window-item :value="MAIN_TAB.MY_COMMENTS">
@@ -60,7 +63,7 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { IFeedItem } from '@/interfaces';
+import { IFeedItem, IUser } from '@/interfaces';
 
 const MAIN_TAB = {
   ALL: "all",
@@ -72,7 +75,7 @@ const state = reactive({
   feedList: [
     {
       user: {
-        id: "1",
+        id: "5",
         name: "김철수",
         profileImage: "/images/class/dummy_profile_image.png",
       },
@@ -105,7 +108,7 @@ const state = reactive({
       ],
       comments: [
         {
-          id: "1",
+          id: "6",
           name: "김영희",
           profileImage: "/images/class/dummy_profile_image.png",
           text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
@@ -305,6 +308,78 @@ const state = reactive({
       ]
     },
   ] as IFeedItem[],
+  following: [
+    {
+      id: "1",
+      name: '김철수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+      isFollowing: false,
+    },
+    {
+      id: "2",
+      name: '김영희',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "3",
+      name: '박민수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "4",
+      name: '이지수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "5",
+      name: '최영수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "6",
+      name: '이민지',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "7",
+      name: '박영희',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "8",
+      name: '김민수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "9",
+      name: '최지수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    },
+    {
+      id: "10",
+      name: '박철수',
+      profileImage: '/images/class/dummy_profile_image.png',
+      isFollowing: true,
+      description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    }
+  ] as IUser[],
 });
 
 const loading = ref(false);

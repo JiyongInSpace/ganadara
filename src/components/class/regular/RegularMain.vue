@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
         <DialogChapterList
             v-model:dialog="dialog"
             v-model:selectedChapter="selectedChapter"
         />
 
-        <LessonList/>
-    </div>
+        <LessonList />
+    </v-container>
 </template>
 
 <script lang="ts" setup>

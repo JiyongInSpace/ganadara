@@ -1,40 +1,44 @@
 <template>
-  <v-container class="pa-0">
-    <div>
-      클래스
+  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
+    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
+      <span class="text-t-xl font-weight-semibold">
+        클래스
+      </span>
     </div>
 
-    <v-tabs
-      v-model="tabMain.tab.value"
-      align-tabs="center"
-      stacked
-      grow
-    >
-      <v-tab
-        v-for="(mainTabItem, i) in tabMain.list"
-        :key="i"
-        :value="mainTabItem"
+    <div>
+      <v-tabs
+        v-model="tabMain.tab.value"
+        align-tabs="center"
+        stacked
+        grow
+        height="48"
       >
-        {{ mainTabItem }}
-      </v-tab>
-    </v-tabs>
+        <v-tab
+          v-for="(mainTabItem, i) in tabMain.list"
+          :key="i"
+          :value="mainTabItem"
+        >
+          {{ mainTabItem }}
+        </v-tab>
+      </v-tabs>
+    </div>
 
-    <v-tabs-window v-model="tabMain.tab.value">
-      <!-- 정규학습 -->
+    <RegularMain />
+
+    <!-- <v-tabs-window v-model="tabMain.tab.value">
       <v-tabs-window-item value="regular">
         <RegularMain />
       </v-tabs-window-item>
 
-      <!-- 강의 리스트 -->
       <v-tabs-window-item value="lecture">
         <LectureMain />
       </v-tabs-window-item>
 
-      <!-- 숏폼 -->
       <v-tabs-window-item value="short_form">
         <ShortFormMain />
       </v-tabs-window-item>
-    </v-tabs-window>
+    </v-tabs-window> -->
   </v-container>
 </template>
 
@@ -43,8 +47,8 @@
 const tabMain = {
   list: [
     'regular',
-    'lecture',
     'short_form',
+    'lecture',
   ],
   tab: ref('regular'),
 }

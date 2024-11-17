@@ -34,6 +34,7 @@ interface Mission {
     reward: string;
     tag: string;
     imageUrl: string;
+    point: number;
 }
 
 const props = defineProps<{

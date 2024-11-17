@@ -277,12 +277,12 @@
               후원 상세
             </v-btn>
 
-            <!-- <v-btn
+            <v-btn
               variant="outlined"
-              to="/challenge/mission/donate/1"
+              to="/challenge/mission/donate/1/review"
             >
               후원 후기
-            </v-btn> -->
+            </v-btn>
           </v-card-actions>
 
         </v-card>

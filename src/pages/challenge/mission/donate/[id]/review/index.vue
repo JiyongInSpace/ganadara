@@ -76,34 +76,37 @@
                     </div>
                 </div>
 
+                <v-card
+                    class="warning py-5 px-4 mb-8"
+                    variant="outlined"
+                >
+                    <div class="d-flex justify-center align-center mb-2">
+                        <v-img
+                            src="/images/challenge/money.png"
+                            class="flex-grow-0 mr-1"
+                            alt="point"
+                            width="12"
+                            height="12"
+                        />
+
+                        <span class="text-t-sm">
+                            최종 모금액
+                        </span>
+                    </div>
+
+                    <div class="text-t-xl font-weight-bold text-center">
+                        {{ state.details.donation.toLocaleString() }}
+                    </div>
+                </v-card>
+
                 <div class="text-t-lg font-weight-bold mb-3">
                     {{ state.details.header }}
                 </div>
 
-                <div class="text-t-sm text-wrap mb-8">
-                    {{ state.details.content }}
-                </div>
-
-                <div class="mb-12">
-                    <v-btn
-                        class="primary flex-1-1-100"
-                        variant="tonal"
-                        size="large"
-                        :disabled="state.details.isCompleted"
-                        block
-                    >
-                        {{ state.details.isCompleted ? '모금 종료' : '후원하기' }}
-                    </v-btn>
-
-                    <v-btn
-                        v-if="state.details.isCompleted"
-                        class="flex-1-1-100 mt-2"
-                        variant="outlined"
-                        size="large"
-                        block
-                    >
-                        후원 후기
-                    </v-btn>
+                <div
+                    class="text-t-sm text-wrap mb-8"
+                    v-html="state.details.content"
+                >
                 </div>
 
                 <div class="text-t-lg font-weight-bold mb-3">
@@ -215,9 +218,14 @@ const state = reactive({
         percent: 80,
         donation: 999999,
         type: "tag1",
-        header: "후원 상세 내용",
-        content: `어린이들의 체험 교육을 위한 학습 비용을 후원합니다. 이 후원을 통해 아이들은 다양한 활동을 경험하며 더 넓은 시각을 가지고 미래를 위해 성장해 갈 수 있습니다. 어린이들의 체험 교육을 위한 학습 비용을 후원합니다. 이 후원을 통해 아이들은 다양한 활동을 경험하며 더 넓은 시각을 가지고 미래를 위해 성장해 갈 수 있습니다.
-어린이들의 체험 교육을 위한 학습 비용을 후원합니다. 이 후원을 통해 아이들은 다양한 활동을 경험하며 더 넓은 시각을 가지고 미래를 위해 성장해 갈 수 있습니다.어린이들의 체험 교육을 위한 학습 비용을 후원합니다. 이 후원을 통해 아이들은 다양한 활동을 경험하며 더 넓은 시각을 가지고 미래를 위해 성장해 갈 수 있습니다.어린이들의 체험 교육을 위한 학습 비용을 후원합니다. 이 후원을 통해 아이들은 다양한 활동을 경험하며 더 넓은 시각을 가지고 미래를 위해 성장해 갈 수 있습니다.`,
+        header: "후원후기",
+        content: `<p>일시 : 2024.01.01 ~ 2024.12.31</p>
+        <p>후원 방법 : 현금 후원</p>
+        <p>장소 : 초록재단 아동 복지 재단</p>
+        <p class="pt-5"></p>
+        <p>2024년 12월 31일 초록재단 아동복지 재단을 방문하여 현금 후원 및 많은 분들의 도움을 전달하였습니다.2024년 12월 31일 초록재단 아동복지 재단을 방문하여 현금 후원 및 많은 분들의 도움을 전달하였습니다.</p>
+        <p>2024년 12월 31일 초록재단 아동복지 재단을 방문하여 현금 후원 및 많은 분들의 도움을 전달하였습니다.</p>
+        `,
         donateMembers: [
             {
                 id: "1",
@@ -235,7 +243,6 @@ const state = reactive({
                 profileImage: "/images/class/dummy_profile_image.png",
             },
         ],
-        isCompleted: true,
     },
 })
 </script>

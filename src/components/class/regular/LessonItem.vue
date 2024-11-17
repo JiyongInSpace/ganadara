@@ -15,7 +15,6 @@
 
                     <v-spacer />
 
-
                     <!-- status -->
                     <v-chip
                         v-if="info.step > 3"
@@ -52,11 +51,11 @@
         <div>
             <!-- v-model="showMenu" -->
             <v-menu
-                v-model="state.dialog"
+                v-model="state.menu"
                 absolute
                 location="top"
                 contained
-                :target="targetElement"
+                :target="state.clickedTarget"
             >
                 <!-- 말풍선 콘텐츠 -->
                 <v-card
@@ -84,9 +83,12 @@
             />
             <div
                 class="position-absolute pos-btn pos-btn-2"
-                ref="targetElement"
+                ref="targetElement2"
             />
-            <div class="position-absolute pos-btn pos-btn-3" />
+            <div
+                class="position-absolute pos-btn pos-btn-3"
+                ref="targetElement3"
+            />
 
             <svg
                 width="100%"
@@ -717,7 +719,12 @@
                     <path
                         d="M162 439.438C162 453.77 150.342 463.653 137.665 476.077C135.635 478.066 132.365 478.065 130.336 476.074C117.246 463.221 106 453.817 106 439.438C106 423.732 118.536 410.999 134 410.999C149.464 410.999 162 423.732 162 439.438Z"
                         fill="white"
-                        @click="() => onClickStep(3)"
+                        :class="info.step > 2 && 'cursor-pointer'"
+                        @click="() => {
+                            if (info.step > 2) {
+                                onClickStep(3)
+                            }
+                        }"
                     />
                     <circle
                         cx="134"
@@ -877,7 +884,12 @@
                     <path
                         d="M168 184.438C168 198.77 156.342 208.653 143.665 221.077C141.635 223.066 138.365 223.065 136.336 221.074C123.246 208.221 112 198.817 112 184.438C112 168.732 124.536 155.999 140 155.999C155.464 155.999 168 168.732 168 184.438Z"
                         fill="white"
-                        @click="() => onClickStep(1)"
+                        :class="info.step != 0 && 'cursor-pointer'"
+                        @click="() => {
+                            if (info.step != 0) {
+                                onClickStep(1);
+                            }
+                        }"
                     />
                     <circle
                         cx="140"
@@ -903,7 +915,12 @@
                     <path
                         d="M296 292.438C296 306.77 284.342 316.653 271.665 329.077C269.635 331.066 266.365 331.065 264.336 329.074C251.246 316.221 240 306.817 240 292.438C240 276.732 252.536 263.999 268 263.999C283.464 263.999 296 276.732 296 292.438Z"
                         fill="white"
-                        @click="() => onClickStep(2)"
+                        :class="info.step > 1 && 'cursor-pointer'"
+                        @click="() => {
+                            if (info.step > 1) {
+                                onClickStep(2);
+                            }
+                        }"
                     />
 
                     <circle
@@ -1147,23 +1164,32 @@ const props = defineProps<{
 }>();
 
 const state = reactive({
-    dialog: false,
-    dialogSecond: false,
+    menu: false,
+    clickedTarget: undefined,
 });
 
 const targetElement = ref();
+const targetElement2 = ref();
+const targetElement3 = ref();
 
 onMounted(() => {
-    console.log(targetElement.value);
+    targetElement.value;
+    targetElement2.value;
+    targetElement3.value;
 });
 
 const onClickStep = (step: number) => {
-    console.log(step);
-    // if (step == 1) {
-    //     state.dialog = true;
-    // } else if (step == 2) {
-    //     state.dialogSecond = true;
-    // }
+    if (step == 1) {
+        state.clickedTarget = targetElement.value;
+    } else if (step == 2) {
+        state.clickedTarget = targetElement2.value;
+    } else if (step == 3) {
+        state.clickedTarget = targetElement3.value;
+    }
+
+    setTimeout(() => {
+        state.menu = true;
+    }, 100)
 };
 
 </script>
@@ -1174,7 +1200,7 @@ const onClickStep = (step: number) => {
     height: 10.2%;
     width: 100%;
     // aspect-ratio: 11/13;
-    border: 1px solid #fff;
+    // border: 1px solid #fff;
     pointer-events: none;
 }
 

@@ -29,7 +29,7 @@
                     variant="tonal"
                     size="large"
                 >
-                    구독하기
+                    확인하기
                 </v-btn>
 
                 <v-btn
@@ -38,7 +38,7 @@
                     class="flex-1-1-100"
                     size="large"
                 >
-                    돌아가기
+                    닫기
                 </v-btn>
 
             </div>

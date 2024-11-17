@@ -9,15 +9,22 @@
             v-for="(lessonItem, key) in lessonList"
             :key="key"
         >
-            <lesson-item
+            <div
                 v-if="lessonItem.type === 'lesson'"
-                :info="lessonItem"
-            />
+                :class="{
+                    'mt-n2': key !== 0,
+                    'mt-0': key === 0,
+                }"
+            >
+                <lesson-item :info="lessonItem" />
+            </div>
 
-            <test-item
+            <div
                 v-else-if="lessonItem.type === 'test'"
-                :info="lessonItem"
-            />
+                class="mt-n2"
+            >
+                <test-item :info="lessonItem" />
+            </div>
         </div>
     </div>
 </template>

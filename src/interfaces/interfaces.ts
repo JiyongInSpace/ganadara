@@ -63,47 +63,82 @@ export interface IUserResponse {
 // community
 export interface IFeedItem {
   user: {
-    id: string;
-    name: string;
-    profileImage: string;
-  };
+    id: string
+    name: string
+    profileImage: string
+  }
   content: {
-    id: string;
-    date: string;
-    text: string;
-    images: string[];
-    isCommercial: boolean;
-  };
+    id: string
+    date: string
+    text: string
+    images: string[]
+    isCommercial: boolean
+  }
   likes: {
-    id: string;
-    name: string;
-    profileImage: string;
-  }[];
-  comments: IComment[]; // 댓글 배열을 IComment 타입으로 업데이트
+    id: string
+    name: string
+    profileImage: string
+  }[]
+  comments: IComment[] // 댓글 배열을 IComment 타입으로 업데이트
 }
 export interface IComment {
-  id: string;
-  name: string;
-  profileImage: string;
-  text: string;
-  likes?: number; // 댓글에 '좋아요' 기능 추가를 고려할 수 있습니다.
-  isLiked?: boolean; // 현재 사용자가 이 댓글을 좋아했는지 여부
-  date: string;
-  replies?: IComment[]; // 대댓글 배열
+  id: string
+  name: string
+  profileImage: string
+  text: string
+  likes?: number // 댓글에 '좋아요' 기능 추가를 고려할 수 있습니다.
+  isLiked?: boolean // 현재 사용자가 이 댓글을 좋아했는지 여부
+  date: string
+  replies?: IComment[] // 대댓글 배열
 }
 
 export interface IRanker {
-  rank: number;
-  name: string;
-  profileImage: string;
-  score: number;
-  isFollowing: boolean;
+  rank: number
+  name: string
+  profileImage: string
+  score: number
+  isFollowing: boolean
 }
 
 export interface IUser {
-  id: string;
-  name: string;
-  profileImage: string;
-  description: string;
-  isFollowing: boolean;
+  id: string
+  name: string
+  profileImage: string
+  description: string
+  isFollowing: boolean
+}
+
+// 전체보기
+export interface ICouponItem {
+  id: number
+  tag: string
+  name: string
+  desc: string
+  startDate: any
+  endDate: any
+  isUsed: boolean
+}
+
+export interface ITicketItem {
+  id?: number;
+  planName: string;
+  billingType: string;
+  paymentPrice: number;
+  originalPrice?: number;
+  payNumber?: string;
+  payInfo?: string;
+  isPopular?: boolean;
+  category?: string[];
+  startDate: any;
+  endDate: any;
+}
+
+export interface IPaymentHistoryItem {
+  id: number;
+  planName: string;
+  billingType: string;
+  amount: number;
+  payNumber: string;
+  payInfo: string;
+  timestamp: string;
 }

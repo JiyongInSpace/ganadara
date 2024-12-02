@@ -161,8 +161,8 @@ import { storeToRefs } from 'pinia';
 import { reactive, computed } from 'vue';
 
 const userStore = useUserStore();
-const router = useRouter();
 const { wallet } = storeToRefs(userStore);
+const router = useRouter();
 
 const state = reactive({
     user: {

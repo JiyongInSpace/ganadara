@@ -334,8 +334,7 @@ const buttonNext = {
             if (!inputUserName.value.value) return;
             if (!checkboxGroupServiceTerms.value.value.includes('terms') ||
                 !checkboxGroupServiceTerms.value.value.includes('service') ||
-                !checkboxGroupServiceTerms.value.value.includes('privacy') ||
-                !checkboxGroupServiceTerms.value.value.includes('age')) return;
+                !checkboxGroupServiceTerms.value.value.includes('privacy')) return;
 
             emit('onClickNext', {
                 user_name: inputUserName.value.value,

@@ -97,8 +97,6 @@ const progress = computed(() => {
     return currentIndex + 1; // 0 인덱스이므로 +1을 해줍니다.
 });
 
-// watch(() => progress.value, () => console.log(progress.value));
-
 // 전체 퀴즈 개수
 const totalQuizCount = computed(() => {
     return props.quizList.length;

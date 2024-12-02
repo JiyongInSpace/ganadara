@@ -226,14 +226,7 @@ body {
         padding: 5px;
         height: unset !important;
 
-        &.warning {
-            background-color: #FFFAEB;
-            border-color: #FEDF89;
-        }
-        &.purple {
-            background-color: #F4F3FF;
-            border-color: #D9D6FE;
-        }
+
     }
 
     &.xxs {
@@ -241,24 +234,6 @@ body {
         padding: 2px 8px;
         font-weight: 500;
         @extend .text-t-xs;
-
-        &.secondary {
-            @extend .border-border-secondary;
-            @extend .background-secondary;
-            @extend .text-text-secondary;
-        }
-
-        &.info {
-            color: #026AA2 !important;
-            border-color: #B9E6FE !important;
-            background-color: #F0F9FF !important;
-        }
-
-        &.brand {
-            color: #AD0997 !important;
-            border-color: #FF82EF !important;
-            background-color: #FFD3F9 !important;
-        }
     }
 
     &.xs {
@@ -290,6 +265,51 @@ body {
         background: var(--Component-colors-Alpha-alpha-black-50, rgba(0, 0, 0, 0.50));
         @extend .text-text-primary_on-brand
     }
+
+    &.secondary {
+        @extend .border-border-secondary;
+        @extend .background-secondary;
+        @extend .text-text-secondary;
+    }
+
+    &.warning {
+        background-color: #FFFAEB;
+        border-color: #FEDF89;
+    }
+
+    &.purple {
+        background-color: #F4F3FF;
+        border-color: #D9D6FE;
+    }
+
+    &.info {
+        color: #026AA2 !important;
+        border-color: #B9E6FE !important;
+        background-color: #F0F9FF !important;
+    }
+
+    &.brand {
+        color: #AD0997 !important;
+        border-color: #FF82EF !important;
+        background-color: #FFD3F9 !important;
+    }
+
+    &.primary {
+        color: #F0F9FF !important;
+        background-color: #FF69EA !important;
+    }
+
+    &.orange {
+        color: #B93815 !important;
+        border-color: #F9DBAF !important;
+        background-color: #FEF6EE !important;
+    }
+
+    &.success {
+        color: #067647 !important;
+        border-color: #ABEFC6 !important;
+        background-color: #ECFDF3 !important;
+    }
 }
 
 // Button
@@ -315,6 +335,10 @@ body {
             @extend .background-secondary;
         }
     
+        &.btn-secondary {
+            @extend .background-secondary;
+            @extend .text-text-secondary;
+        }
     }
 
     // OUTLINED
@@ -383,6 +407,12 @@ body {
 .v-input.v-text-field {
     --v-input-control-height: 44px;
     
+    &.xs {
+        --v-input-control-height: 24px;
+       input {
+        padding: 0px;
+       }
+    }
     &.md {
         --v-input-control-height: 60px;
     }
@@ -579,6 +609,13 @@ input[type=number]{
     }
 }
 
+// SWITCH
+.v-input.v-switch {
+    &.v-switch--inset .v-switch__thumb {
+        transform: none !important;
+    }
+}
+
 // SLIDER
 .v-slider {
     .v-input__control {
@@ -643,26 +680,48 @@ li {
 .pa-0-5 {
     padding: 2px;
 }
+.pa-2-5 {
+    padding: 10px;
+}
 
 
 .px-1-5 {
     padding-left: 6px;
     padding-right: 6px;
 }
-
 .px-2-5 {
     padding-left: 10px;
     padding-right: 10px;
 }
+.px-3-5 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
+.py-0-5 {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 .py-2-5 {
     padding-top: 10px;
+    padding-bottom: 10px;
+}
+.py-3-5 {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+.pb-2-5 {
     padding-bottom: 10px;
 }
 
 .ga-1-5 {
     gap: 6px;
 }
+
+.ga-2-5 {
+    gap: 10px;
+}
+
 .mx-0-5 {
     margin-left: 2px;
     margin-right: 2px;
@@ -716,8 +775,17 @@ li {
 .top-1 {
     top: 4px;
 }
+.top-4 {
+    top: 16px;
+}
 .right-1 {
     right: 4px;
+}
+.left-3 {
+    left: 12px;
+}
+.left-4 {
+    left: 16px;
 }
 .bottom-4 {
     bottom: 16px;

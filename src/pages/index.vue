@@ -1,6 +1,12 @@
 <template>
   <!-- PUBLISHING -->
-  <v-container>
+  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
+        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
+            <span class="text-t-xl font-weight-semibold">
+                이용권 관리
+            </span>
+        </div>
+
     <v-row justify="center">
       <v-col cols="auto">
         <v-card>
@@ -285,6 +291,58 @@
             </v-btn>
           </v-card-actions>
 
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row justify="center">
+      <v-col cols="auto">
+        <v-card class="flex-column">
+          <v-card-title>전체보기</v-card-title>
+
+          <v-card-actions class="flex-wrap ga-2 mb-5">
+            <v-btn
+              variant="outlined"
+              to="/dashboard"
+            >
+              메인
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/dashboard/profile"
+            >
+              프로필 수정 
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/dashboard/payment"
+            >
+              이용권 관리
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/dashboard/support"
+            >
+              고객센터
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/dashboard/setting"
+            >
+              설정
+            </v-btn>
+
+            <!-- <v-btn
+              variant="outlined"
+              to="/dashboard/additional/review"
+            >
+              부가기능(복습하기)
+            </v-btn> -->
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>

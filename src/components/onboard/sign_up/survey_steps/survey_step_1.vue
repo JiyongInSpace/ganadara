@@ -109,7 +109,8 @@ const emit = defineEmits<{
 
 const props = defineProps<{
     defaultValue?: any
-    userName: string;
+    userName?: string;
+    setting?: boolean;
 }>();
 
 onMounted(() => {

@@ -71,7 +71,6 @@ const state = reactive({
 
 const onStopRoulette = (_point: number) => {
     console.log(_point);
-    // console.log("stop roulette");
     // router.push("/challenge/mission/roulette/result");
 }
 

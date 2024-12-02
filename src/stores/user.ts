@@ -9,6 +9,7 @@ export const useUserStore = defineStore(
       // id: 5,
       name: 'ganadara man',
       email: 'ganadara@ganadara.net',
+      phone_number: '010-1234-5678',
       profile_image:
         '/images/class/dummy_profile_image.png',
       is_creator: true,
@@ -16,6 +17,22 @@ export const useUserStore = defineStore(
       wallet: {
         won: 8123,
         point: 10123
+      },
+      learning: {
+        language: 'en',
+        level: 3
+      },
+      // subscription: null as null | {
+      //   planName: string
+      //   billingType: string
+      //   startDate: string
+      //   endDate: string
+      // },
+      subscription: {
+        planName: "스탠다드 1개월",        // 이용권 이름
+        billingType: "recurring",    // 결제 방식
+        startDate: "2022-01-01",     // 이용권 시작일
+        endDate: "2022-02-01",       // 이용권 종료일
       }
     }),
     actions: {}

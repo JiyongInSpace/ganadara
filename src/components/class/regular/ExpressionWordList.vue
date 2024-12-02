@@ -19,7 +19,6 @@
                 />
             </v-btn>
 
-
             <div class="truncate">
                 <div class="text-t-md font-weight-bold truncate">
                     {{ wordItem.word }}

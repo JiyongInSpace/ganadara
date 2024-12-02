@@ -127,7 +127,6 @@ const onClickBadge = (_badge: IBadge) => {
 }
 
 const setMainBadge = (_badge: IBadge) => {
-    console.log(_badge);
     state.mainBadge = _badge;
     state.ui.dialog = false;
     snackbar.showSnackbar("대표 배지를 설정했습니다.");

@@ -21,7 +21,7 @@
       size="large"
       class="primary flex-grow-0 mb-9 truncate"
       block
-      to="sign_up/email"
+      @click="onClickEmailSignUp"
     >
       <!-- <template v-slot:prepend>
         <v-icon icon="mdi-email"></v-icon>
@@ -96,6 +96,10 @@ const platforms = [
 const onClickSocialLogin = (_platform: string) => {
   alert(_platform);
   router.push("/onboard/sign_up/social");
+};
+
+const onClickEmailSignUp = () => {
+  router.push("/onboard/sign_up/email");
 };
 
 </script>

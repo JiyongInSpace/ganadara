@@ -66,7 +66,10 @@
 
     <v-spacer />
 
-    <div class="actions">
+    <div
+        v-if="!setting"
+        class="actions"
+    >
         <v-btn
             variant="outlined"
             size="x-large"
@@ -85,6 +88,18 @@
             다음
         </v-btn>
     </div>
+
+    <div v-if="setting">
+        <v-btn
+            class="primary"
+            variant="tonal"
+            size="x-large"
+            block
+            @click="buttonNext.event.onClick"
+        >
+            저장하기
+        </v-btn>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -96,10 +111,11 @@ const emit = defineEmits<{
 
 const props = defineProps<{
     defaultValue?: any
+    setting?: boolean;
 }>();
 
 onMounted(() => {
-    if(!props.defaultValue.results.selectedLanguage) return;
+    if (!props.defaultValue.results.selectedLanguage) return;
     selectedLanguage.value = props.defaultValue.results.selectedLanguage;
     selectedLanguageYouWant.value = props.defaultValue.results.selectedLanguageYouWant;
 })

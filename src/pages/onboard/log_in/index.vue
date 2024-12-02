@@ -21,7 +21,7 @@
       size="large"
       class="primary flex-grow-0 mb-9 truncate"
       block
-      to="log_in/email"
+      @click="onClickEmailLogin"
     >
       이메일로 계속하기
     </v-btn>
@@ -80,6 +80,10 @@ const platforms = [
 // const onClickEmailLogin = () => {
 //   //
 // };
+
+const onClickEmailLogin = () => {
+  router.push("/onboard/log_in/email");
+};
 
 const onClickSocialLogin = (_platform: string) => {
   alert(_platform);

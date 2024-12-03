@@ -310,6 +310,11 @@ body {
         border-color: #ABEFC6 !important;
         background-color: #ECFDF3 !important;
     }
+    &.disabled_color {
+        color: #98A2B3 !important;
+        border-color: #EAECF0 !important;
+        background-color: #F2F4F7 !important;
+    }
 }
 
 // Button
@@ -398,7 +403,20 @@ body {
     }
 }
 
+.text-start-button {
+    text-align: start;
+    justify-content: start;
+    align-self: flex-end;
+    display: flex;
+    flex-wrap: nowrap;
 
+
+    .v-btn__content {
+        display: block;
+        width: 100%;
+        flex-grow: 1;
+    }
+}
 
 
 
@@ -552,29 +570,7 @@ input[type=number]{
     flex-grow: 1;
 } 
 
-// Expansion Panel
-.v-expansion-panels {
-    .v-expansion-panel__shadow {
-        display: none;
-    }
 
-    .v-expansion-panel-title {
-        @extend .border-border-primary;
-        @extend .text-t-md;
-        @extend .background-secondary;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        padding: 10px 14px;
-        min-height: 44px !important;
-        font-weight: 600;
-    }
-
-    .v-expansion-panel-text__wrapper {
-        padding: 0px 14px 4px;
-    }
-}
 
 // TEXTAREA
 .v-textarea {
@@ -694,13 +690,17 @@ li {
     padding-right: 10px;
 }
 .px-3-5 {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
 }
 
 .py-0-5 {
     padding-top: 2px;
     padding-bottom: 2px;
+}
+.py-1-5 {
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 .py-2-5 {
     padding-top: 10px;

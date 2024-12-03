@@ -120,25 +120,40 @@ export interface ICouponItem {
 }
 
 export interface ITicketItem {
-  id?: number;
-  planName: string;
-  billingType: string;
-  paymentPrice: number;
-  originalPrice?: number;
-  payNumber?: string;
-  payInfo?: string;
-  isPopular?: boolean;
-  category?: string[];
-  startDate: any;
-  endDate: any;
+  id?: number
+  planName: string
+  billingType: string
+  paymentPrice: number
+  originalPrice?: number
+  payNumber?: string
+  payInfo?: string
+  isPopular?: boolean
+  category?: string[]
+  startDate: any
+  endDate: any
 }
 
 export interface IPaymentHistoryItem {
-  id: number;
-  planName: string;
-  billingType: string;
-  amount: number;
-  payNumber: string;
-  payInfo: string;
-  timestamp: string;
+  id: number
+  planName: string
+  billingType: string
+  amount: number
+  payNumber: string
+  payInfo: string
+  timestamp: string
+}
+
+export interface IRewardItem {
+  id: number
+  name: string
+  imgUrl: string
+  price: number
+  status: string
+  limit: number
+  description?: string
+  creator?: {
+    id: number
+    name: string
+    profileImgUrl: string
+  }
 }

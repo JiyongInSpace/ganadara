@@ -42,6 +42,7 @@ const { subscription } = storeToRefs(userStore);
 const router = useRouter();
 
 const state = reactive({
+    
 });
 
 const review_options = [

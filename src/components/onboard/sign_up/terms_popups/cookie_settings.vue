@@ -165,4 +165,28 @@ watch(
     padding-left: 14px;
     padding-right: 14px;
 }
+
+// Expansion Panel
+:deep(.v-expansion-panels) {
+    .v-expansion-panel__shadow {
+        display: none;
+    }
+
+    .v-expansion-panel-title {
+        @extend .border-border-primary;
+        @extend .text-t-md;
+        @extend .background-secondary;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 10px 14px;
+        min-height: 44px !important;
+        font-weight: 600;
+    }
+
+    .v-expansion-panel-text__wrapper {
+        padding: 0px 14px 4px;
+    }
+}
 </style>

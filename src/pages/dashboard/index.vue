@@ -216,6 +216,10 @@ const onClickProfile = () => {
 }
 
 const onClickDashboardItem = (dashboard_item: any) => {
+    if(dashboard_item.to) {
+        router.push(dashboard_item.to);
+        return;
+    }
     alert(dashboard_item);
 }
 
@@ -248,18 +252,22 @@ const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_reviewSession.png',
         title: '복습하기',
+        to: '/dashboard/additional/review',
     },
     {
         imageUrl: '/images/dashboard/main/menu_levelTest.png',
         title: '레벨테스트',
+        to: '/dashboard/additional/level_test',
     },
     {
         imageUrl: '/images/dashboard/main/menu_aiChat.png',
         title: 'AI채팅',
+        to: '/dashboard/additional/ai_chat',
     },
     {
         imageUrl: '/images/dashboard/main/menu_aiTranslation.png',
         title: 'AI번역',
+        to: '/dashboard/additional/ai_translation',
     },
     {
         imageUrl: '/images/dashboard/main/menu_learningMissions.png',
@@ -280,6 +288,7 @@ const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_store.png',
         title: '스토어',
+        to: '/dashboard/additional/rewards',
     },
     {
         imageUrl: '/images/dashboard/main/menu_event.png',
@@ -288,6 +297,7 @@ const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_mockTest.png',
         title: '모의고사',
+        to: '/dashboard/additional/mock_test',
     },
     {
         imageUrl: '/images/dashboard/main/menu_brand.png',

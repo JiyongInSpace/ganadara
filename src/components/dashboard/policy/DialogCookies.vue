@@ -113,7 +113,7 @@ interface ServiceTermItem {
     title: string;
     isEssential: boolean;
     description: string;
-    options: Record<string, string>;
+    options: { [key: string]: string };
 }
 
 const serviceTermsItems: ServiceTermItem[] = [

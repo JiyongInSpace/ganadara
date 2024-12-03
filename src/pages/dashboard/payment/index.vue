@@ -275,16 +275,4 @@ const onClickSelectPaymentMethod = (_paymentMethodId: number) => {
 
 
 <style lang="scss" scoped>
-.text-start-button {
-    text-align: start;
-    align-self: flex-end;
-    display: flex;
-    flex-wrap: nowrap;
-
-
-    :deep(.v-btn__content) {
-        display: block;
-        width: 100%;
-    }
-}
 </style>

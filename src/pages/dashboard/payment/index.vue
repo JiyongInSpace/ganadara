@@ -98,7 +98,7 @@
 
                 <div class="d-flex justify-space-between align-center mb-2">
                     <div class="text-t-md font-weight-medium">
-                        나의 결제내역
+                        나의 결제 내역
                     </div>
 
                     <v-btn

@@ -102,7 +102,7 @@
               class="px-4 mt-5"
             >
               <div class="text-t-lg font-weight-bold pb-2-5 mb-5 border-b">
-                주문 및 정기 자동결제 신청 동의
+                주문 및 정기 자동 결제 신청 동의
               </div>
 
               <v-checkbox
@@ -139,7 +139,7 @@
               >
                 <template v-slot:label>
                   <div class="text-t-sm font-weight-medium">
-                    정기 자동결제 신청 동의
+                    정기 자동 결제 신청 동의
                   </div>
                 </template>
               </v-checkbox>
@@ -164,7 +164,7 @@
       <div class="pt-4 px-2-5 pb-8">
         <div class="d-flex justify-center mb-5">
           <v-btn variant="text">
-            지난 이용권 보러가기
+            지난 이용권 보러 가기
           </v-btn>
         </div>
 

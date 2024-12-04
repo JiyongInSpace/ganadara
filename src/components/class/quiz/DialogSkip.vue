@@ -5,7 +5,7 @@
     >
         <v-card class="pt-9 px-5 pb-5 text-center rounded-t-16">
             <div class="text-t-xl font-weight-bold mb-1 text-center">
-                문제를 스킵하시겠습니까?
+                문제를 스킵 하시겠습니까?
             </div>
 
             <div class="mb-6 font-weight-medium text-text-quaternary">
@@ -28,7 +28,7 @@
                     variant="tonal"
                     size="large"
                 >
-                    스킵하기
+                    스킵 하기
                 </v-btn>
             </div>
 
@@ -39,7 +39,7 @@
                     class="text-t-sm px-0 cursor-pointer flex-shrink-0 text-decoration-underline text-fg-quinary"
                     @click="buttonAllSkip"
                 >
-                    전체 문제 스킵하기
+                    전체 문제 스킵 하기
                 </v-btn>
             </div>
         </v-card>
@@ -52,11 +52,11 @@
     >
         <v-card class="pt-9 px-5 pb-5 text-center rounded-16">
             <div class="text-t-xl font-weight-bold mb-1 text-center">
-                전체 문제를 스킵하시겠습니까?
+                전체 문제를 스킵 하시겠습니까?
             </div>
 
             <div class="mb-6 font-weight-medium text-text-quaternary text-center">
-                전체 문제를 스킵하면 <br/>경험치가 총 -400 차감됩니다.
+                전체 문제를 스킵 하면 <br/>경험치가 총 -400 차감됩니다.
             </div>
 
             <div class="d-flex justify-center ga-3">
@@ -75,7 +75,7 @@
                     variant="tonal"
                     size="large"
                 >
-                    스킵하기
+                    스킵 하기
                 </v-btn>
             </div>
         </v-card>

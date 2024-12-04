@@ -32,7 +32,7 @@
                     class="secondary"
                     @click="onClickMockTest"
                 >
-                    결과 상세보기
+                    결과 상세 보기
                 </v-btn>
             </div>
         </div>
@@ -62,7 +62,7 @@ const state = reactive({
 
 //  ======
 const onClickMockTest = () => {
-    alert("결과 상세보기");
+    alert("결과 상세 보기");
 }
 
 const onClickCheck = () => {

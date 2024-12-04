@@ -27,7 +27,7 @@
                     variant="tonal"
                     size="large"
                 >
-                    회원 가입하고 혜택 받기
+                    회원 가입하고 혜택받기
                 </v-btn>
             </div>
         </v-card>

@@ -40,7 +40,7 @@
 
                     <template v-slot:prepend-item>
                         <div class="text-t-md font-weight-bold py-2 px-4">
-                            나이를 선택해주세요
+                            나이를 선택해 주세요
                         </div>
                     </template>
                 </v-select>
@@ -62,7 +62,7 @@
                     >
                         <template v-slot:prepend-item>
                             <div class="text-t-md font-weight-bold py-2 px-4">
-                                방해 금지 시작 시간을 선택해주세요
+                                방해 금지 시작 시간을 선택해 주세요
                             </div>
                         </template>
                     </v-select>
@@ -81,7 +81,7 @@
                     >
                         <template v-slot:prepend-item>
                             <div class="text-t-md font-weight-bold py-2 px-4">
-                                방해 금지 종료 시간을 선택해주세요
+                                방해 금지 종료 시간을 선택해 주세요
                             </div>
                         </template>
                     </v-select>

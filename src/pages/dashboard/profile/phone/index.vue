@@ -64,13 +64,13 @@ const formatPhoneNumber = () => {
     } else {
         phoneNumber.value = `${rawNumber.slice(0, 3)}-${rawNumber.slice(3, 7)}-${rawNumber.slice(7, 11)}`;
     }
-    errorMessages.value = isPhoneValid.value ? '' : '유효한 전화번호를 입력해주세요.';
+    errorMessages.value = isPhoneValid.value ? '' : '유효한 전화번호를 입력해 주세요.';
 };
 
 // 제출 버튼 클릭 핸들러
 const onSubmit = () => {
     if (!isPhoneValid.value) {
-        errorMessages.value = '전화번호를 올바르게 입력해주세요.';
+        errorMessages.value = '전화번호를 올바르게 입력해 주세요.';
         return;
     }
 

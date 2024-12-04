@@ -56,7 +56,7 @@
                 size="large"
                 @click="onClickGoToGoods"
             >
-                상품 보러가기
+                상품 보러 가기
             </v-btn>
 
             <v-btn
@@ -65,7 +65,7 @@
                 size="large"
                 @click="onClickInventory"
             >
-                보유한 상품 보러가기
+                보유한 상품 보러 가기
             </v-btn>
         </div>
     </v-container>

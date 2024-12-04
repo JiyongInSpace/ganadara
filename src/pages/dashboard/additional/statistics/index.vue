@@ -104,7 +104,7 @@
                         @click="onClickLevelTest"
                     >
 
-                        전체보기 <v-icon icon="mdi-chevron-right"></v-icon>
+                        전체 보기 <v-icon icon="mdi-chevron-right"></v-icon>
                     </v-btn>
                 </div>
 
@@ -160,7 +160,7 @@
                         @click="onClickMockTest"
                     >
 
-                        전체보기 <v-icon icon="mdi-chevron-right"></v-icon>
+                        전체 보기 <v-icon icon="mdi-chevron-right"></v-icon>
                     </v-btn>
                 </div>
 
@@ -210,7 +210,7 @@
                         @click="onClickChapterTest"
                     >
 
-                        전체보기 <v-icon icon="mdi-chevron-right"></v-icon>
+                        전체 보기 <v-icon icon="mdi-chevron-right"></v-icon>
                     </v-btn>
                 </div>
 

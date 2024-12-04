@@ -3,7 +3,7 @@
     <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
         <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
             <span class="text-t-xl font-weight-semibold">
-                전체보기
+                전체 보기
             </span>
 
         </div>

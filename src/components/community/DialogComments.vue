@@ -57,7 +57,7 @@
                 rows="1"
                 max-rows="5"
                 no-resize
-                placeholder="댓글을 입력해주세요."
+                placeholder="댓글을 입력해 주세요."
                 @keydown.enter="() => { }"
             />
         </v-sheet>

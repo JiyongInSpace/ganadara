@@ -13,7 +13,7 @@
     </div>
 
     <div class="mb-9 text-center">
-      간편하게 로그인하고 시작해보세요.
+      간편하게 로그인하고 시작해 보세요.
     </div>
 
     <v-btn

@@ -18,7 +18,7 @@
         >
             <div v-if="videoInfo.singlePurchase">
                 <v-chip class="bg-black rounded-4 sm ">
-                    개별구매
+                    개별 구매
                 </v-chip>
             </div>
 

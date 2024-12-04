@@ -14,7 +14,7 @@
                 />
 
                 <span class="text-t-lg font-weight-bold">
-                    문제풀기 완료
+                    문제 풀기 완료
                 </span>
             </div>
 

@@ -1,11 +1,11 @@
 <template>
     <div class="pt-4 w-100">
         <div class="mb-4 text-h5 font-weight-bold">
-            휴대폰을 인증해주세요
+            휴대폰을 인증해 주세요
         </div>
 
         <div class="mb-6 text-body-1">
-            PASS 앱 혹은 SNS를 통해 본인을 인증해주세요
+            PASS 앱 혹은 SNS를 통해 본인을 인증해 주세요
         </div>
 
         <v-btn

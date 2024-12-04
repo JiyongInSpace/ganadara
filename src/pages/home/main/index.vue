@@ -119,7 +119,7 @@
             class="px-0"
             @click="onClickTotalDailyMission"
           >
-            전체보기
+            전체 보기
 
             <v-icon
               icon="mdi-chevron-right"

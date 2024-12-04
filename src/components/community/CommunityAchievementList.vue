@@ -9,7 +9,7 @@
             class="text-t-sm text-text-tertiary"
         >
             마음에 드는 배지를 골라 <br />
-            대표 배지로 설정해보세요.
+            대표 배지로 설정해 보세요.
         </div>
 
         <div v-else>

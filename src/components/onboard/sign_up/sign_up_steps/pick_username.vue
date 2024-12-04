@@ -1,7 +1,7 @@
 <template>
     <div class="pt-4 w-100 flex-grow-1 d-flex flex-column">
         <div class="mb-4 text-d-xs font-weight-bold">
-            닉네임을 설정해주세요.
+            닉네임을 설정해 주세요.
         </div>
 
         <v-text-field
@@ -35,7 +35,7 @@
         <v-divider class="mb-10" />
 
         <div class="mb-4 text-d-xs font-weight-bold">
-            서비스 이용에 동의해주세요.
+            서비스 이용에 동의해 주세요.
         </div>
 
         <v-checkbox
@@ -127,7 +127,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        개인정보처리방침 (필수)
+                        개인정보처리 방침 (필수)
                     </div>
 
                     <v-btn
@@ -193,7 +193,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        마케팅 목적에 개인정보 수집 및 이용동의 (선택)
+                        마케팅 목적에 따른 개인정보 수집 및 이용 동의 (선택)
                     </div>
 
                     <v-btn
@@ -226,7 +226,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        쿠키 수집동의 (옵션선택) (GDPR / CPRA)
+                        쿠키 수집 동의 (옵션선택) (GDPR / CPRA)
                     </div>
 
                     <v-btn

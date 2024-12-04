@@ -191,7 +191,7 @@ const terms_options = [
     },
     {
         "key": "copyright",
-        "value": "저작권보호 정책"
+        "value": "저작권 보호 정책"
     },
     {
         "key": "ai",

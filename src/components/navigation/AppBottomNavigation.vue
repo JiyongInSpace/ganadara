@@ -61,7 +61,7 @@
         >
             <div class="d-flex flex-column align-center">
                 <v-icon size="x-large">mdi-dots-horizontal</v-icon>
-                <span class="text-t-xs font-weight-semibold">전체보기</span>
+                <span class="text-t-xs font-weight-semibold">전체 보기</span>
             </div>
         </v-btn>
     </div>

@@ -1151,7 +1151,7 @@
                 size="large"
                 :disabled="info.step != 4"
             >
-                레슨 완료 보상 받기
+                레슨 완료 보상받기
             </v-btn>
         </div>
     </div>

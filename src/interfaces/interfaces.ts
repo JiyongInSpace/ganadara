@@ -108,7 +108,7 @@ export interface IUser {
   isFollowing: boolean
 }
 
-// 전체보기
+// 전체 보기
 export interface ICouponItem {
   id: number
   tag: string

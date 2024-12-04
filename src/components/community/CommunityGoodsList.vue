@@ -10,7 +10,7 @@
             class="text-t-sm text-text-tertiary"
         >
             마음에 드는 굿즈를 골라 <br />
-            대표 굿즈로 설정해보세요.
+            대표 굿즈로 설정해 보세요.
         </div>
 
         <div v-else>
@@ -44,7 +44,7 @@
                 size="small"
                 class="px-0 ml-auto"
             >
-                다른 디지털 굿즈 보러가기
+                다른 디지털 굿즈 보러 가기
             </v-btn>
         </div>
     </div>

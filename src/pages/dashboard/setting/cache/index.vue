@@ -19,7 +19,7 @@
                         height="40"
                     >
                         <div class="text-t-sm font-weight-medium ">
-                            캐시데이터 수집 허용
+                            캐시 데이터 수집 허용
                         </div>
 
                         <v-switch
@@ -67,7 +67,7 @@ const state = reactive({
 });
 
 const guide_text = `
-<캐시데이터 삭제 가이드><br />
+<캐시 데이터 삭제 가이드><br />
 - iOS<br />
 설정 열기: 홈 화면에서 "설정" 앱을 엽니다.<br />
 일반 선택: 설정 메뉴에서 "일반"을 선택합니다.<br />

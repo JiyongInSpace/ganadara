@@ -8,7 +8,7 @@
 
         <div class="pt-4 px-4 w-100 flex-grow-1 d-flex flex-column">
             <div class="mb-1 text-d-xs font-weight-bold">
-                휴대폰을 인증해주세요
+                휴대폰을 인증해 주세요
             </div>
 
             <div class="mb-5 text-t-sm">

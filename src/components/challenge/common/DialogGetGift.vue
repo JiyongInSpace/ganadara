@@ -19,7 +19,7 @@
 
             <div class="text-t-md font-weight-medium mb-6 text-center text-text-quaternary">
                 획득한 경품은 <br />
-                전체보기 > 스토어 > 나의 서랍에서 확인하세요.
+                전체 보기 > 스토어 > 나의 서랍에서 확인하세요.
             </div>
 
             <div class="d-flex flex-column justify-center ga-1-5">

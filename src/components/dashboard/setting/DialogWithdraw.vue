@@ -9,7 +9,7 @@
             max-width="400"
         >
             <div class="text-t-xl font-weight-bold text-center mb-1">
-                탈퇴 하시겠습니까?
+                탈퇴하시겠습니까?
             </div>
 
             <div class="text-t-md font-weight-medium mb-8 text-center text-text-quaternary">

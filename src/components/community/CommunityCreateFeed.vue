@@ -94,7 +94,7 @@
                     <v-textarea
                         v-model="state.textarea.value"
                         variant="solo"
-                        placeholder="텍스트를 입력해주세요."
+                        placeholder="텍스트를 입력해 주세요."
                         flat
                         auto-grow
                         hide-details

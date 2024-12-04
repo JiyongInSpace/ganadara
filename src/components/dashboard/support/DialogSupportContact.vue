@@ -77,7 +77,7 @@
             <v-spacer />
 
             <div class="text-t-xs font-weight-medium text-fg-quaternary mb-9">
-                <li>문의해 주신 내역 및 답변은 <span class="text-text-brand-tertiary">전체보기 > 고객센터 > 1:1문의</span> 메뉴에서 확인할 수 있습니다.
+                <li>문의해 주신 내역 및 답변은 <span class="text-text-brand-tertiary">전체 보기 > 고객센터 > 1:1문의</span> 메뉴에서 확인할 수 있습니다.
                 </li>
                 <li>운영팀의 추가 확인 요청 이후 3일 이내 고객님 답변이 없을 경우, 1:1 문의는 종료됩니다. 새로운 1:1문의를 이용해 주시기 바랍니다.</li>
                 <li>개인정보(이름, 핸드폰 번호, 계좌번호 등)을 작성하실 경우 소중한 개인정보 보호를 위해 임의 삭제될 수 있습니다.</li>

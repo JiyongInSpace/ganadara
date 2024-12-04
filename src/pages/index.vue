@@ -101,59 +101,59 @@
               variant="outlined"
               to="/class/quiz/1"
             >
-              문제풀기 / 객관식 + 텍스트
+              문제 풀기 / 객관식 + 텍스트
             </v-btn>
             <v-btn
               variant="outlined"
               to="/class/quiz/2"
             >
-              문제풀기 / 객관식 + 이미지
+              문제 풀기 / 객관식 + 이미지
             </v-btn>
             <v-btn
               variant="outlined"
               to="/class/quiz/3"
             >
-              문제풀기 / 객관식 + 오디오
+              문제 풀기 / 객관식 + 오디오
             </v-btn>
             <v-btn
               variant="outlined"
               to="/class/quiz/4"
             >
-              문제풀기 / 객관식 + 동영상
+              문제 풀기 / 객관식 + 동영상
             </v-btn>
             <v-btn
               variant="outlined"
               to="/class/quiz/5"
             >
-              문제풀기 / 주관식
+              문제 풀기 / 주관식
             </v-btn>
 
             <v-btn
               variant="outlined"
               to="/class/quiz/6"
             >
-              문제풀기 / 빈칸 + 텍스트선택
+              문제 풀기 / 빈칸 + 텍스트선택
             </v-btn>
 
             <v-btn
               variant="outlined"
               to="/class/quiz/7"
             >
-              문제풀기 / 문장 + 문장 완성하기
+              문제 풀기 / 문장 + 문장 완성하기
             </v-btn>
 
             <v-btn
               variant="outlined"
               to="/class/quiz/8"
             >
-              문제풀기 / 스피킹
+              문제 풀기 / 스피킹
             </v-btn>
 
             <v-btn
               variant="outlined"
               to="/class/quiz/9"
             >
-              문제풀기 / 멀티플
+              문제 풀기 / 멀티플
             </v-btn>
           </v-card-actions>
 
@@ -298,7 +298,7 @@
     <v-row justify="center">
       <v-col cols="auto">
         <v-card class="flex-column">
-          <v-card-title>전체보기</v-card-title>
+          <v-card-title>전체 보기</v-card-title>
 
           <v-card-actions class="flex-wrap ga-2 mb-5">
             <v-btn

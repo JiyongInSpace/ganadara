@@ -157,3 +157,15 @@ export interface IRewardItem {
     profileImgUrl: string
   }
 }
+
+
+export interface IExamItem {
+  id: number;
+  name: string;
+  date: string;
+  wrong: number;
+  score?: number;
+  level?: number;
+  elapsed_time?: number;
+  ideal_time?: number;
+}

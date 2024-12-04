@@ -377,6 +377,13 @@
             >
               부가기능(레벨테스트)
             </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/dashboard/additional/statistics"
+            >
+              부가기능(학습통계)
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

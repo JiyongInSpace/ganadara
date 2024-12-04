@@ -12,7 +12,7 @@
         <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-4 py-5">
             <div class="d-flex justify-space-between align-center mb-2-5">
                 <span class="text-t-lg font-weight-bold">
-                    {{ state.words.length }}개 문장
+                    {{ state.sentences.length }}개 문장
                 </span>
 
                 <div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <ReviewSentenceList :sentences="state.words" />
+            <ReviewSentenceList :sentences="state.sentences" />
         </div>
     </v-container>
 </template>
@@ -36,7 +36,7 @@ const { subscription } = storeToRefs(userStore);
 const router = useRouter();
 
 const state = reactive({
-    words: [
+    sentences: [
         {
             id: 0,
             word: "Hi",

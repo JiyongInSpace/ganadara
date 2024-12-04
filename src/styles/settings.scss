@@ -71,6 +71,7 @@ body {
 .text-text-brand-secondary { color: rgb(var(--v-text-brand-secondary)) !important; }
 .text-text-brand-tertiary { color: rgb(var(--v-text-brand-tertiary)) !important; }
 .text-text-brand-tertiary-alt { color: rgb(var(--v-text-brand-tertiary-alt)) !important; }
+.text-text-brand-quaternary { color: rgb(var(--v-text-brand-quaternary)) !important; }
 .text-text-error-primary { color: rgb(var(--v-text-error-primary)) !important; }
 .text-text-warning-primary { color: rgb(var(--v-text-warning-primary)) !important; }
 .text-text-success-primary { color: rgb(var(--v-text-success-primary)) !important; }
@@ -645,6 +646,9 @@ li {
 // 프리텐다드 (한글 기준)
 
 // SPACING ===========================================
+.mt-2-5 {
+    margin-top: 10px;
+}
 .mb-0-5 {
     margin-bottom: 2px;
 }

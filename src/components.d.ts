@@ -91,6 +91,7 @@ declare module 'vue' {
     QuizWizard: typeof import('./components/class/quiz/QuizWizard.vue')['default']
     RegularMain: typeof import('./components/class/regular/RegularMain.vue')['default']
     ReviewSentenceList: typeof import('./components/dashboard/additional/review/ReviewSentenceList.vue')['default']
+    ReviewTestList: typeof import('./components/dashboard/additional/statistics/ReviewTestList.vue')['default']
     ReviewVideoList: typeof import('./components/dashboard/additional/review/ReviewVideoList.vue')['default']
     ReviewWordList: typeof import('./components/dashboard/additional/review/ReviewWordList.vue')['default']
     RewardsList: typeof import('./components/dashboard/additional/rewards/RewardsList.vue')['default']
@@ -107,9 +108,11 @@ declare module 'vue' {
     Survey_step_4: typeof import('./components/onboard/sign_up/survey_steps/survey_step_4.vue')['default']
     SvgRoulette: typeof import('./components/challenge/donate/SvgRoulette.vue')['default']
     TestItem: typeof import('./components/class/regular/TestItem.vue')['default']
+    TestResultItem: typeof import('./components/dashboard/additional/statistics/TestResultItem.vue')['default']
     TextDevider: typeof import('./components/common/ui/TextDevider.vue')['default']
     Verify_email: typeof import('./components/onboard/sign_up/sign_up_steps/verify_email.vue')['default']
     Verify_phone: typeof import('./components/onboard/sign_up/sign_up_steps/verify_phone.vue')['default']
+    VerticalProgressBars: typeof import('./components/dashboard/additional/statistics/VerticalProgressBars.vue')['default']
     VideoThumbnail: typeof import('./components/common/ui/VideoThumbnail.vue')['default']
   }
 }

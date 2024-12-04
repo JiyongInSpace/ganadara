@@ -31,6 +31,7 @@ export const lightTheme = {
       'text-brand-secondary': "#AD0997", // brand-700
       'text-brand-tertiary': "#D10AB7", // brand-600
       'text-brand-tertiary_alt': "#D10AB7", // brand-600
+      'text-brand-quaternary': "#FF0DDF", // brand-600
       'text-error-primary': "#D92D20", // error-900
       'text-warning-primary': "#DC6803", // warning-900
       'text-success-primary': "#079455", // success-900

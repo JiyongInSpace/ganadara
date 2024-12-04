@@ -240,6 +240,7 @@ const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_learningStats.png',
         title: '학습통계',
+        to: '/dashboard/additional/statistics',
     },
     {
         imageUrl: '/images/dashboard/main/menu_learningRanking.png',

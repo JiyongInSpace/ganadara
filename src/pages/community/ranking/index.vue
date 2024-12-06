@@ -125,7 +125,7 @@ const state = reactive({
 const dummy_rankers = [
     {
         rank: 1,
-        id: 1,
+        id: "1",
         name: '김철수',
         profileImage: '/images/class/dummy_profile_image.png',
         score: 1000,
@@ -133,7 +133,7 @@ const dummy_rankers = [
     },
     {
         rank: 2,
-        id: 2,
+        id: "2",
         name: '김영희',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -141,7 +141,7 @@ const dummy_rankers = [
     },
     {
         rank: 3,
-        id: 3,
+        id: "3",
         name: '박민수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -149,7 +149,7 @@ const dummy_rankers = [
     },
     {
         rank: 4,
-        id: 4,
+        id: "4",
         name: '이지수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -157,7 +157,7 @@ const dummy_rankers = [
     },
     {
         rank: 5,
-        id: 5,
+        id: "5",
         name: '최영수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -165,7 +165,7 @@ const dummy_rankers = [
     },
     {
         rank: 6,
-        id: 6,
+        id: "6",
         name: '이민지',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -173,7 +173,7 @@ const dummy_rankers = [
     },
     {
         rank: 7,
-        id: 7,
+        id: "7",
         name: '박영희',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -181,7 +181,7 @@ const dummy_rankers = [
     },
     {
         rank: 8,
-        id: 8,
+        id: "8",
         name: '김민수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -189,7 +189,7 @@ const dummy_rankers = [
     },
     {
         rank: 9,
-        id: 9,
+        id: "9",
         name: '최지수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
@@ -197,7 +197,7 @@ const dummy_rankers = [
     },
     {
         rank: 10,
-        id: 10,
+        id: "10",
         name: '박철수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,

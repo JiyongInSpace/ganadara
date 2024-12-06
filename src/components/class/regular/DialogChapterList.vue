@@ -9,22 +9,28 @@
             <v-btn
                 block
                 v-bind="activatorProps"
-                class="justify-start truncate"
-                height="75"
+                class="justify-start truncate background-secondary"
+                flat
+                height="68"
             >
                 <div
                     v-if="selectedChapter"
                     class="d-flex align-center justify-start ga-2 truncate"
                 >
                     <v-chip
-                        variant="elevated"
-                        size="small"
-                        class="flex-shrink-0"
+                        variant="outlined"
+                        class="xxs"
+                        :class="{
+                            'brand': selectedChapter.levels === LEVELS.BEG,
+                            'orange': selectedChapter.levels === LEVELS.LOWINT,
+                            'success': selectedChapter.levels === LEVELS.INT,
+                            'info': selectedChapter.levels === LEVELS.ADV,
+                        }"
                     >
                         {{ t(`level_chip.${selectedChapter.levels}`) }}
                     </v-chip>
 
-                    <div class="text-t-xl font-weight-medium truncate">
+                    <div class="text-t-lg font-weight-medium truncate">
                         {{ selectedChapter.name }}
                     </div>
 
@@ -38,19 +44,23 @@
 
         <v-card>
             <!-- TITLE -->
-            <v-toolbar
-                class="bg-transparent"
-            >
-                <v-toolbar-title>
-                    단원 선택
-                </v-toolbar-title>
-
-                <v-spacer />
-
+            <v-toolbar class="bg-transparent position-relative px-3">
                 <v-btn
-                    icon="mdi-close"
+                    icon
+                    variant="text"
+                    size="20"
                     @click="dialog = false"
-                />
+                >
+                    <v-img
+                        src="@/assets/icons/basic/chevron-left.svg"
+                        width="20"
+                        height="20"
+                    />
+                </v-btn>
+
+                <div class="position-center text-t-lg font-weight-bold">
+                    단원 선택
+                </div>
             </v-toolbar>
 
             <!-- LIST -->
@@ -60,14 +70,6 @@
                 @update:selected="listChapter.event.listItem.onClick"
                 mandatory
             >
-                <v-skeleton-loader
-                    v-if="listChapter.loading.value"
-                    v-for="i in 10"
-                    :key="i"
-                    type="list-item-two-line"
-                    height="100"
-                />
-
                 <v-list-item
                     v-for="chapterItem in listChapter.list.value"
                     :key="chapterItem.id"
@@ -80,22 +82,28 @@
                     <template v-slot:prepend>
                         <v-card
                             v-if="!chapterItem.isLocked"
-                            class="d-flex justify-center align-center mr-4"
-                            width="76"
-                            height="76"
+                            class="d-flex justify-center align-center background-disabled mr-3"
+                            flat
+                            width="56"
+                            height="56"
                         >
                             <v-icon
                                 icon="mdi-lock"
-                                size="48"
+                                size="32"
                             />
                         </v-card>
                     </template>
 
                     <div class="mb-1 truncate">
                         <v-chip
-                            variant="elevated"
-                            size="small"
-                            class="mr-2"
+                            variant="outlined"
+                            class="xxs mr-2"
+                            :class="{
+                                'brand': chapterItem.levels === LEVELS.BEG,
+                                'orange': chapterItem.levels === LEVELS.LOWINT,
+                                'success': chapterItem.levels === LEVELS.INT,
+                                'info': chapterItem.levels === LEVELS.ADV,
+                            }"
                         >
                             {{ t(`level_chip.${chapterItem.levels}`) }}
                         </v-chip>
@@ -105,7 +113,7 @@
                         </span>
                     </div>
 
-                    <div class="text-t-xl font-weight-medium truncate">
+                    <div class="text-t-lg font-weight-medium truncate">
                         {{ chapterItem.name }}
                     </div>
 
@@ -115,31 +123,24 @@
                             class="text-center ml-5"
                         >
                             <div class="mb-1">
-
-                                <v-icon
-                                    v-if="chapterItem.state != CHAPTER_STATES.TESTED"
-                                    icon="mdi-minus"
-                                />
-
                                 <div
-                                    v-else
-                                    class="font-weight-semibold text-t-xl"
+                                    v-if="chapterItem.state == CHAPTER_STATES.TESTED"
+                                    class="font-weight-semibold"
                                 >
-                                    {{ chapterItem.solvedProblems }} <span class="text-grey">/ {{
+                                    {{ chapterItem.solvedProblems }}<span class="text-grey">/{{
                                         chapterItem.totalProblems
-                                        }}</span>
+                                    }}</span>
                                 </div>
                             </div>
 
-                            <div>
-                                <v-chip
-                                    variant="outlined"
-                                    :disabled="chapterItem.state != CHAPTER_STATES.COMPLETED"
-                                    @click.stop="listChapter.event.chip.onClick(chapterItem.id)"
-                                >
-                                    {{ chapterItem.state != CHAPTER_STATES.TESTED ? '테스트 보기' : '테스트 완료' }}
-                                </v-chip>
-                            </div>
+                            <v-chip
+                                variant="outlined"
+                                class="rounded-6 border-border-primary"
+                                :disabled="chapterItem.state != CHAPTER_STATES.COMPLETED"
+                                @click.stop="listChapter.event.chip.onClick(chapterItem.id)"
+                            >
+                                {{ chapterItem.state != CHAPTER_STATES.TESTED ? '테스트 보기' : '테스트 완료' }}
+                            </v-chip>
                         </div>
                     </template>
                 </v-list-item>
@@ -152,6 +153,7 @@
 import { CHAPTER_STATES, IChapter, LEVELS } from "@/interfaces";
 import { useI18n } from "vue-i18n";
 
+const router = useRouter();
 const dialog = defineModel("dialog");
 const selectedChapter = defineModel<IChapter>("selectedChapter");
 
@@ -164,7 +166,6 @@ const { t } = useI18n({
                 lower_intermediate: "초중급",
                 intermediate: "중급",
                 advanced: "상급",
-
             },
         },
         ko: {
@@ -207,11 +208,7 @@ const listChapter = {
 // dummy data ======================= (삭제 예정)
 watch(dialog, () => {
     if (listChapter.list.value.length === 0) {
-        listChapter.loading.value = true;
-        setTimeout(() => {
-            listChapter.list.value = dummy__chapterList;
-            listChapter.loading.value = false;
-        }, 1000);
+        listChapter.list.value = dummy__chapterList;
     }
 });
 

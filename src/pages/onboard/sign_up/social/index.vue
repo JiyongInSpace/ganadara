@@ -1,4 +1,38 @@
 <template>
+  <PageTemplate
+    back-button
+    no-spacer
+  >
+    <template v-slot:append-header>
+      <v-btn
+        size="small"
+        variant="text"
+        class="mt-1 font-weight-semibold px-0"
+      >
+        건너뛰기 
+      </v-btn>
+    </template>
+
+    <template v-slot:content>
+      <Select_country
+        v-if="currentStep === 0"
+        :defaultValue="signUpInfo"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+      <Pick_username
+        v-if="currentStep === 1"
+        :defaultValue="signUpInfo"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+    </template>
+
+    <template v-slot:bottom>
+    </template>
+
+    <template v-slot:actions>
+    </template>
+  </PageTemplate>
+  <!-- 
   <v-container>
     <div class="py-2 w-100">
       <v-btn
@@ -19,7 +53,7 @@
       :defaultValue="signUpInfo"
       @onClickNext="compButtonNext.event.onClick"
     />
-  </v-container>
+  </v-container> -->
 </template>
 
 <script lang="ts" setup>
@@ -44,7 +78,7 @@ const signUpInfo = reactive({
 const buttonBack = {
   event: {
     onClick: (_event: any) => {
-      if(currentStep.value === 0) {
+      if (currentStep.value === 0) {
         router.push("/onboard/sign_up")
       }
 

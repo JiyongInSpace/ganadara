@@ -19,7 +19,8 @@
                 :src="commentItem.profileImage"
                 width="32"
                 height="32"
-                class="flex-grow-0"
+                class="flex-grow-0 cursor-pointer"
+                @click="onClickProfile(commentItem.id)"
             />
 
             <div>
@@ -154,6 +155,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
 import { useSnackbarStore } from '@/stores/snackbar'
 
+const router = useRouter();
 const snackbar = useSnackbarStore();
 
 const props = withDefaults(defineProps<{
@@ -241,5 +243,9 @@ const onClickLike = () => {
 
 const onClickReply = () => {
     emit('onClickReply', props.commentItem.id);
+}
+
+const onClickProfile = (id: string) => {
+    router.push(`/community/user/${id}`)
 }
 </script>

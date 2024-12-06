@@ -3,7 +3,7 @@
   <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
     <div
       ref="refTabs"
-      class="position-sticky top-0 z-1 foreground-white border-b border-border-primary"
+      class="position-sticky top-0 z-1 foreground-white"
     >
       <v-tabs
         v-model="tabMain.tab.value"
@@ -19,7 +19,9 @@
           min-width="auto"
           class="text-lowercase font-weight-bold px-0 mr-5"
         >
-          {{ t(`main_tab.${tabMainItem}`) }}
+          <span class="text-t-xl">
+            {{ t(`main_tab.${tabMainItem}`) }}
+          </span>
         </v-tab>
       </v-tabs>
     </div>

@@ -1,56 +1,63 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
-
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        space="pa-0"
+        back-button
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 스토어
             </span>
+        </template>
 
-            <v-spacer />
-        </div>
+        <template v-slot:center-header>
+        </template>
 
-        <div>
-            <v-tabs
-                v-model="tabMain.tab.value"
-                align-tabs="center"
-                stacked
-                grow
-                height="48"
-            >
-                <v-tab
-                    v-for="(mainTabItem, i) in tabMain.list"
-                    :key="i"
-                    :value="mainTabItem"
-                    class="border-b flex-1-1-100"
+        <template v-slot:append-header>
+        </template>
+
+        <template v-slot:content>
+            <div>
+                <v-tabs
+                    v-model="tabMain.tab.value"
+                    align-tabs="center"
+                    stacked
+                    grow
+                    height="48"
                 >
-                    {{ mainTabItem }}
-                </v-tab>
-            </v-tabs>
-        </div>
+                    <v-tab
+                        v-for="(mainTabItem, i) in tabMain.list"
+                        :key="i"
+                        :value="mainTabItem"
+                        class="border-b flex-1-1-100"
+                    >
+                        {{ mainTabItem }}
+                    </v-tab>
+                </v-tabs>
+            </div>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-3 py-4">
-            <RewardsList
-                v-if="tabMain.tab.value == 'goods'"
-                :list="state.goods"
-                type="goods"
-            />
+            <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-3 py-4">
+                <RewardsList
+                    v-if="tabMain.tab.value == 'goods'"
+                    :list="state.goods"
+                    type="goods"
+                />
 
-            <RewardsList
-                v-if="tabMain.tab.value == 'gift'"
-                :list="state.gifts"
-                type="gift"
-            />
-        </div>
+                <RewardsList
+                    v-if="tabMain.tab.value == 'gift'"
+                    :list="state.gifts"
+                    type="gift"
+                />
+            </div>
+        </template>
 
-        <v-spacer />
+        <template v-slot:bottom>
+        </template>
 
-        <app-bottom-navigation />
-    </v-container>
+        <template v-slot:actions>
+            <app-bottom-navigation />
+
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

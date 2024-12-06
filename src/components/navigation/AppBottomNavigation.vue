@@ -6,9 +6,13 @@
             min-width="60"
             height="100%"
             variant="text"
+            @click="onClickPage('/home/main')"
         >
             <div class="d-flex flex-column">
-                <v-icon size="x-large">mdi-home</v-icon>
+                <v-icon
+                    size="x-large"
+                    class="mb-1"
+                >mdi-home</v-icon>
                 <span class="text-t-xs font-weight-semibold">홈</span>
             </div>
         </v-btn>
@@ -19,9 +23,13 @@
             min-width="60"
             height="100%"
             variant="text"
+            @click="onClickPage('/class')"
         >
             <div class="d-flex flex-column align-center">
-                <v-icon size="x-large">mdi-book-open-outline</v-icon>
+                <v-icon
+                    size="x-large"
+                    class="mb-1"
+                >mdi-book-open-outline</v-icon>
                 <span class="text-t-xs font-weight-semibold">클래스</span>
             </div>
         </v-btn>
@@ -32,9 +40,13 @@
             min-width="60"
             height="100%"
             variant="text"
+            @click="onClickPage('/challenge/mission')"
         >
             <div class="d-flex flex-column align-center">
-                <v-icon size="x-large">mdi-flag-outline</v-icon>
+                <v-icon
+                    size="x-large"
+                    class="mb-1"
+                >mdi-flag-outline</v-icon>
                 <span class="text-t-xs font-weight-semibold">챌린지</span>
             </div>
         </v-btn>
@@ -45,9 +57,13 @@
             min-width="60"
             height="100%"
             variant="text"
+            @click="onClickPage('/community')"
         >
             <div class="d-flex flex-column align-center">
-                <v-icon size="x-large">mdi-web</v-icon>
+                <v-icon
+                    size="x-large"
+                    class="mb-1"
+                >mdi-web</v-icon>
                 <span class="text-t-xs font-weight-semibold">커뮤니티</span>
             </div>
         </v-btn>
@@ -58,9 +74,13 @@
             min-width="60"
             height="100%"
             variant="text"
+            @click="onClickPage('/dashboard')"
         >
             <div class="d-flex flex-column align-center">
-                <v-icon size="x-large">mdi-dots-horizontal</v-icon>
+                <v-icon
+                    size="x-large"
+                    class="mb-1"
+                >mdi-dots-horizontal</v-icon>
                 <span class="text-t-xs font-weight-semibold">전체 보기</span>
             </div>
         </v-btn>
@@ -69,7 +89,13 @@
 </template>
 
 <script lang="ts" setup>
+const router = useRouter();
 const navigation = ref("home");
+
+const onClickPage = (path: string) => {
+    router.push(path);
+}
+
 </script>
 
 <style lang="scss" scoped>

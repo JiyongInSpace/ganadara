@@ -1,38 +1,94 @@
-
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <app-header-navigation />
+  <PageTemplate
+    space="px-0"
+    no-gap
+  >
+    <template v-slot:prepend-header>
+      <v-img
+        src="/images/home/main_logo.svg"
+        alt="logo"
+        width="32"
+        height="32"
+        class="flex-grow-0"
+      />
+    </template>
 
-    <div class="overflow-y-auto flex-grow-1">
+    <template v-slot:append-header>
+      <div>
+        <v-btn
+          icon
+          variant="text"
+          size="24"
+          class="mr-3"
+          @click="onClickNotice"
+        >
+          <v-badge
+            color="error"
+            dot
+          >
+            <v-img
+              src="@/assets/icons/basic/bell.svg"
+              width="24"
+              height="24"
+            />
+          </v-badge>
+        </v-btn>
+      </div>
+
+
+      <v-img
+        :src="profile_image"
+        width="32"
+        height="32"
+        v-ripple
+        class="flex-grow-0 cursor-pointer ml-2"
+        @click="onClickProfile"
+      />
+    </template>
+
+    <template v-slot:content>
       <div class="text-t-lg font-weight-bold px-4 mb-3">
         숏폼
       </div>
 
-      <div className="d-flex ga-4 overflow-x-auto px-4 mb-8">
-        <v-sheet
-          v-for="count in 10"
-          :key="count"
-          min-height="200"
-          color="secondary"
-          class="d-flex align-end text-shadow text-t-sm font-weight-semibold pa-3 rounded-4"
-          :style="{
-            aspectRatio: '122/200',
-          }"
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+        <div
+          v-for="shortformItem, index in dummy_shortform"
+          :key="shortformItem.id"
+          v-ripple
+          class="position-relative pa-0-5 flex-shrink-0 cursor-point"
+          @click="onClickShortForm(shortformItem.id)"
         >
-          Hi!
-        </v-sheet>
+          <v-img
+            :src="shortformItem.thumbnail"
+            width="122"
+            height="200"
+            alt="contact-us"
+            class="flex-grow-0 rounded-4 flex-shrink-0"
+            cover
+            :aspect-ratio="122 / 200"
+          />
+
+          <div class="position-absolute left-3 right-3 bottom-3 z-1">
+            <span class="text-t-sm text-text-white text-shadow font-weight-semibold">
+              {{ shortformItem.description }}
+            </span>
+          </div>
+        </div>
       </div>
 
       <div class="text-t-lg font-weight-bold px-4 mb-3">
         최근 학습
       </div>
 
-      <div className="d-flex ga-4 overflow-x-auto px-4 mb-8">
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
         <VideoThumbnail
           v-for="(recentVideoItem, index) in state.recentVideoList"
           :key="index"
           video-type="square"
           :video-info="recentVideoItem"
+          v-ripple
+          @click="onClickLecture(recentVideoItem.id)"
         />
       </div>
 
@@ -40,13 +96,15 @@
         신규 영상
       </div>
 
-      <div className="d-flex ga-4 overflow-x-auto px-4 mb-8">
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
 
         <VideoThumbnail
           v-for="(newVideoItem, index) in state.recentVideoList"
           :key="index"
           video-type="square"
           :video-info="newVideoItem"
+          v-ripple
+          @click="onClickLecture(newVideoItem.id)"
         />
       </div>
 
@@ -54,12 +112,15 @@
         내가 좋아할 만한 영상
       </div>
 
-      <div className="d-flex ga-4 overflow-x-auto px-4 mb-8">
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
         <VideoThumbnail
           v-for="(recommendedVideoItem, index) in state.recommendedVideoList"
           :key="index"
           video-type="rectangle"
           :video-info="recommendedVideoItem"
+          :max-height="163"
+          v-ripple
+          @click="onClickLecture(recommendedVideoItem.id)"
         />
       </div>
 
@@ -67,12 +128,14 @@
         테마 영상
       </div>
 
-      <div className="d-flex ga-4 overflow-x-auto px-4 mb-8">
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
         <VideoThumbnail
           v-for="(themeVideoItem, index) in state.themeVideoList"
           :key="index"
           video-type="square"
           :video-info="themeVideoItem"
+          v-ripple
+          @click="onClickLecture(themeVideoItem.id)"
         />
       </div>
 
@@ -81,7 +144,7 @@
       </div>
 
       <v-chip-group
-        class="mb-4 px-4 py-0"
+        class="flex-shrink-0 mb-4 px-4 py-0"
         selected-class="bg-black text-text-primary_on-brand"
         v-model="selectedContentCategory"
         column
@@ -98,12 +161,14 @@
         </v-chip>
       </v-chip-group>
 
-      <div className="d-flex ga-4 overflow-x-auto px-4 mb-8">
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
         <VideoThumbnail
           v-for="(popularVideoItem, index) in state.popularVideoList"
           :key="index"
           :video-info="popularVideoItem"
           video-type="square"
+          v-ripple
+          @click="onClickLecture(popularVideoItem.id)"
         />
       </div>
 
@@ -261,20 +326,33 @@
           block
           variant="tonal"
           class="primary"
+          @click="onClickChat"
         >
           AI랑 채팅하러 가기
         </v-btn>
       </v-sheet>
-    </div>
+    </template>
 
-    <app-bottom-navigation />
-  </v-container>
+    <template v-slot:bottom>
+    </template>
+
+    <template v-slot:actions>
+      <app-bottom-navigation />
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
+
+const router = useRouter();
+const userStore = useUserStore();
+const { profile_image } = storeToRefs(userStore);
 
 export interface IShortForm {
+  id: string;
   title: string;
   thumbnail: string;
   progressPercentage: number;
@@ -375,9 +453,49 @@ const { t } = useI18n({
   useScope: "local", // 로컬 스코프 설정
 });
 
+const dummy_shortform = [
+  {
+    id: "1",
+    title: "Short-form Title",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    description: "Short-form Description",
+  },
+  {
+    id: "1",
+    title: "Short-form Title",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    description: "Short-form Description",
+  },
+  {
+    id: "1",
+    title: "Short-form Title",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    description: "Short-form Description",
+  },
+  {
+    id: "1",
+    title: "Short-form Title",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    description: "Short-form Description",
+  },
+  {
+    id: "1",
+    title: "Short-form Title",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    description: "Short-form Description",
+  },
+  {
+    id: "1",
+    title: "Short-form Title",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    description: "Short-form Description",
+  },
+]
+
 const dummy_data = {
   videoList: [
     {
+      id: "1",
       title: "Theme Video Title1",
       creator: {
         name: "creator",
@@ -388,6 +506,7 @@ const dummy_data = {
       singlePurchase: true
     },
     {
+      id: "1",
       title: "Theme Video Title2",
       creator: {
         name: "creator",
@@ -398,6 +517,7 @@ const dummy_data = {
       singlePurchase: false
     },
     {
+      id: "1",
       title: "Theme Video Title3 Theme Video Title3 Theme Video Title3",
       creator: {
         name: "creator",
@@ -454,12 +574,32 @@ const dummy_tags = [
 
 
 // EVENT
+const onClickProfile = () => {
+  router.push("/dashboard/profile")
+}
+const onClickNotice = () => {
+  router.push("/dashboard/notice")
+}
+
+
+const onClickShortForm = (id: string) => {
+  router.push("/class/shortform/" + id)
+}
+
+const onClickLecture = (id: string) => {
+  router.push("/class/regular/" + id)
+}
+
 const onClickTotalDailyMission = () => {
-  alert("onClickTotalDailyMission");
+  router.push("/challenge/mission")
 }
 
 const onClickDailyMission = (_mission: any) => {
-  alert(_mission.title);
+  router.push("/challenge/mission/" + _mission.title)
+}
+
+const onClickChat = () => {
+  router.push("/dashboard/additional/ai_chat")
 }
 
 </script>

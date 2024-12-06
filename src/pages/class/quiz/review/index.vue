@@ -1,63 +1,60 @@
 <template>
-    <v-container
-        class="height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto background-quaternary"
+    <PageTemplate
+        back-button
+        header-background="tertiary"
+        background="tertiary"
+        no-gap
     >
-        <!-- TITLE -->
-        <v-toolbar
-            class="bg-transparent"
-            height="56"
-        >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-            >
-                <path
-                    d="M15 18L9 12L15 6"
-                    stroke="black"
-                    stroke-width="1.4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                />
-            </svg>
+        <template v-slot:center-header>
+            배운 내용 복습하기
+        </template>
 
-            <div class="text-t-lg font-weight-bold position-center">
-                배운 내용 복습하기
+        <template v-slot:content>
+            <div class="d-flex justify-space-between align-center mb-4">
+                <v-chip-group
+                    v-model="chipExpression.tab.value"
+                    class="ga-2 flex-shrink-0"
+                    selected-class="bg-black text-text-primary_on-brand"
+                    mandatory
+                >
+                    <v-chip
+                        v-for="chipExpressionItem in chipExpression.list"
+                        class="border-border-primary ma-0 mr-2"
+                        :value="chipExpressionItem"
+                    >
+                        <span class="text-t-xs">
+                            {{ t(`sub_tab.${chipExpressionItem}`) }}
+                        </span>
+                    </v-chip>
+                </v-chip-group>
+
+                <div class="d-flex align-center ga-3">
+                    <span class="text-t-xs font-weight-medium text-text-secondary">
+                        오답 리스트에 자동 저장하기
+                    </span>
+                    <v-switch
+                        hide-details
+                        density="compact"
+                        color="primary"
+                    />
+                </div>
             </div>
-        </v-toolbar>
 
-        <v-chip-group
-            class="ga-2 mb-4 flex-shrink-0"
-            selected-class="bg-black"
-            v-model="chipExpression.tab.value"
-            mandatory
-        >
-            <v-chip
-                v-for="chipExpressionItem in chipExpression.list"
-                class="background-tertiary"
-                :value="chipExpressionItem"
+            <v-tabs-window
+                v-model="chipExpression.tab.value"
+                class="overflow-y-auto"
             >
-                <span class="text-t-xs">
-                    {{ t(`sub_tab.${chipExpressionItem}`) }}
-                </span>
-            </v-chip>
-        </v-chip-group>
+                <v-tabs-window-item :value="EXPRESSION_CHIP.SENTENCE">
+                    <ExpressionSentenceList :sentences="state.class.expression.sentences" />
+                </v-tabs-window-item>
 
-        <v-tabs-window
-            v-model="chipExpression.tab.value"
-            class="overflow-y-auto"
-        >
-            <v-tabs-window-item :value="EXPRESSION_CHIP.SENTENCE">
-                <ExpressionSentenceList :sentences="state.class.expression.sentences" />
-            </v-tabs-window-item>
+                <v-tabs-window-item :value="EXPRESSION_CHIP.WORD">
+                    <ExpressionWordList :words="state.class.expression.words" />
+                </v-tabs-window-item>
+            </v-tabs-window>
+        </template>
+    </PageTemplate>
 
-            <v-tabs-window-item :value="EXPRESSION_CHIP.WORD">
-                <ExpressionWordList :words="state.class.expression.words" />
-            </v-tabs-window-item>
-        </v-tabs-window>
-    </v-container>
 
 </template>
 

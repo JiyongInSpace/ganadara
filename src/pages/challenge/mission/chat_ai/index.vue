@@ -17,6 +17,7 @@
                     variant="tonal"
                     size="large"
                     block
+                    @click="onClickParticipate"
                 >
                     미션 참여하고 적립하기
                 </v-btn>
@@ -72,6 +73,8 @@
 
 <script lang="ts" setup>
 
+const router = useRouter();
+
 const state = reactive({
     missioninfo: {
         daily: true,
@@ -84,5 +87,8 @@ const state = reactive({
     },
 })
 
+const onClickParticipate = () => {
+    router.push("/dashboard/additional/ai_chat")
+}
 
 </script>

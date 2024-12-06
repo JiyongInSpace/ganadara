@@ -1,166 +1,166 @@
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        이용권
-      </span>
-    </div>
+  <PageTemplate back-button>
+    <template v-slot:prepend-header>
+    </template>
 
-    <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
-      <div class="d-flex flex-column ga-2-5 pt-5 pb-5 px-4">
-        <div class="text-t-lg font-weight-bold mb-2-5">
-          앱 이름의 모든 콘텐츠를
-          무제한으로 즐기세요!
-        </div>
+    <template v-slot:center-header>
+      이용권
+    </template>
 
-        <div class="text-t-sm font-weight-medium text-text-tertiary mb-5">
-          이용권을 선택하세요.
-        </div>
+    <template v-slot:content>
+      <div class="text-t-lg font-weight-bold mb-2-5">
+        앱 이름의 모든 콘텐츠를
+        무제한으로 즐기세요!
+      </div>
 
-        <v-chip-group
-          selected-class="bg-black text-text-primary_on-brand"
-          v-model="state.selectedCategory"
-          column
+      <div class="text-t-sm font-weight-medium text-text-tertiary mb-5">
+        이용권을 선택하세요.
+      </div>
+
+      <v-chip-group
+        selected-class="bg-black text-text-primary_on-brand"
+        v-model="state.selectedCategory"
+        column
+      >
+        <v-chip
+          v-for="tag in state.category"
+          :key="tag.key"
+          :value="tag.key"
+          variant="outlined"
+          size="small"
+          class="border-border-primary my-0 ml-0 mr-2 mb-2"
         >
-          <v-chip
-            v-for="tag in state.category"
-            :key="tag.key"
-            :value="tag.key"
-            variant="outlined"
-            size="small"
-            class="border-border-primary my-0 ml-0 mr-2 mb-2"
-          >
-            <span v-text="tag.value" />
-          </v-chip>
-        </v-chip-group>
+          <span v-text="tag.value" />
+        </v-chip>
+      </v-chip-group>
 
-        <div>
-          <div
-            v-for="ticket in filteredTickets"
-            :key="ticket.id"
+      <div>
+        <div
+          v-for="ticket in filteredTickets"
+          :key="ticket.id"
+        >
+          <v-card
+            variant="outlined"
+            class="position-relative background-base rounded-12 flex-shrink-0 py-5 px-4 mt-5 overflow-visible cursor-pointer"
+            :class="`${state.selectedTicketId === ticket.id ? 'border-border-brand' : 'border-border-primary'}`"
+            @click="onClickTicket(ticket.id)"
           >
-            <v-card
-              variant="outlined"
-              class="position-relative background-base rounded-12 flex-shrink-0 py-5 px-4 mt-5 overflow-visible cursor-pointer"
-              :class="`${state.selectedTicketId === ticket.id ? 'border-border-brand' : 'border-border-primary'}`"
-              @click="onClickTicket(ticket.id)"
+            <v-chip
+              v-if="ticket.isPopular"
+              class="position-absolute primary xxs left-2 px-4"
+              :style="{
+                left: '10px',
+                top: '-10px',
+              }"
             >
+              인기
+            </v-chip>
+
+            <div class="d-flex align-center mb-2">
+              <span class="text-t-xl font-weight-bold mr-2">
+                {{ ticket.planName }}
+              </span>
+
               <v-chip
-                v-if="ticket.isPopular"
-                class="position-absolute primary xxs left-2 px-4"
-                :style="{
-                  left: '10px',
-                  top: '-10px',
-                }"
+                v-if="ticket.billingType == 'recurring'"
+                size="small"
+                class="brand"
+                variant="outlined"
               >
-                인기
+                {{ ticket.billingType }}
               </v-chip>
 
-              <div class="d-flex align-center mb-2">
-                <span class="text-t-xl font-weight-bold mr-2">
-                  {{ ticket.planName }}
+              <div class="ml-auto">
+                <v-icon
+                  v-if="state.selectedTicketId === ticket.id"
+                  icon="mdi-record-circle"
+                  class="text-text-brand-tertiary"
+                />
+
+                <v-icon
+                  v-else
+                  icon="mdi-checkbox-blank-circle-outline"
+                  class="text-text-placeholder_subtle"
+                />
+              </div>
+            </div>
+
+            <div>
+              <span>
+                <span class="font-weight-medium text-text-quaternary text-decoration-line-through mr-1">
+                  {{ ticket.originalPrice.toLocaleString() }}원
                 </span>
+                <span class="font-weight-bold text-primary">
+                  {{ ticket.paymentPrice.toLocaleString() }}원
+                </span>
+              </span>
+            </div>
+          </v-card>
 
-                <v-chip
-                  v-if="ticket.billingType == 'recurring'"
-                  size="small"
-                  class="brand"
-                  variant="outlined"
-                >
-                  {{ ticket.billingType }}
-                </v-chip>
+          <div
+            v-if="state.selectedTicketId === ticket.id && ticket.billingType == 'recurring'"
+            class="px-4 mt-5"
+          >
+            <div class="text-t-lg font-weight-bold pb-2-5 mb-5 border-b">
+              주문 및 정기 자동 결제 신청 동의
+            </div>
 
-                <div class="ml-auto">
-                  <v-icon
-                    v-if="state.selectedTicketId === ticket.id"
-                    icon="mdi-record-circle"
-                    class="text-text-brand-tertiary"
-                  />
-
-                  <v-icon
-                    v-else
-                    icon="mdi-checkbox-blank-circle-outline"
-                    class="text-text-placeholder_subtle"
-                  />
+            <v-checkbox
+              v-model="state.isCheckOrder"
+              value="marketing"
+              hide-details
+              class="py-0 mb-1"
+              color="primary"
+              true-icon="mdi-record-circle"
+              false-icon="mdi-checkbox-blank-circle-outline"
+            >
+              <template v-slot:label>
+                <div class="text-text-primary text-t-sm font-weight-medium">
+                  주문 상품 정보에 대한 동의
                 </div>
-              </div>
+              </template>
+            </v-checkbox>
 
-              <div>
-                <span>
-                  <span class="font-weight-medium text-text-quaternary text-decoration-line-through mr-1">
-                    {{ ticket.originalPrice.toLocaleString() }}원
-                  </span>
-                  <span class="font-weight-bold text-primary">
-                    {{ ticket.paymentPrice.toLocaleString() }}원
-                  </span>
-                </span>
-              </div>
+            <v-card
+              variant="outlined"
+              class="text-t-sm border-none background-secondary rounded-12 flex-shrink-0 pa-2-5 mb-5"
+            >
+              주문하실 상품, 가격 등을 최종 확인하였으며, 구매에 동의하시겠습니다?
             </v-card>
 
-            <div
-              v-if="state.selectedTicketId === ticket.id && ticket.billingType == 'recurring'"
-              class="px-4 mt-5"
+            <v-checkbox
+              v-model="state.isCheckAutoPayment"
+              value="marketing"
+              hide-details
+              class="mb-1"
+              color="primary"
+              true-icon="mdi-record-circle"
+              false-icon="mdi-checkbox-blank-circle-outline"
             >
-              <div class="text-t-lg font-weight-bold pb-2-5 mb-5 border-b">
-                주문 및 정기 자동 결제 신청 동의
-              </div>
+              <template v-slot:label>
+                <div class="text-t-sm font-weight-medium">
+                  정기 자동 결제 신청 동의
+                </div>
+              </template>
+            </v-checkbox>
 
-              <v-checkbox
-                v-model="state.isCheckOrder"
-                value="marketing"
-                hide-details
-                class="py-0 mb-1"
-                color="primary"
-                true-icon="mdi-record-circle"
-                false-icon="mdi-checkbox-blank-circle-outline"
-              >
-                <template v-slot:label>
-                  <div class="text-text-primary text-t-sm font-weight-medium">
-                    주문 상품 정보에 대한 동의
-                  </div>
-                </template>
-              </v-checkbox>
+            <v-card
+              variant="outlined"
+              class="text-t-sm border-none background-secondary rounded-12 flex-shrink-0 pa-2-5 mb-5"
+            >
+              결제 요금은 최초 등록한 결제 수단으로 결제됩니다. 최초 등록 이후 비밀번호 등 결제 정보 입력의 절차 없이 결제됩니다.
+            </v-card>
 
-              <v-card
-                variant="outlined"
-                class="text-t-sm border-none background-secondary rounded-12 flex-shrink-0 pa-2-5 mb-5"
-              >
-                주문하실 상품, 가격 등을 최종 확인하였으며, 구매에 동의하시겠습니다?
-              </v-card>
-
-              <v-checkbox
-                v-model="state.isCheckAutoPayment"
-                value="marketing"
-                hide-details
-                class="mb-1"
-                color="primary"
-                true-icon="mdi-record-circle"
-                false-icon="mdi-checkbox-blank-circle-outline"
-              >
-                <template v-slot:label>
-                  <div class="text-t-sm font-weight-medium">
-                    정기 자동 결제 신청 동의
-                  </div>
-                </template>
-              </v-checkbox>
-
-              <v-card
-                variant="outlined"
-                class="text-t-sm border-none background-secondary rounded-12 flex-shrink-0 pa-2-5 mb-5"
-              >
-                결제 요금은 최초 등록한 결제 수단으로 결제됩니다. 최초 등록 이후 비밀번호 등 결제 정보 입력의 절차 없이 결제됩니다.
-              </v-card>
-
-              <div class="text-center text-t-sm font-weight-medium">
-                정기 결제는 언제든지 해지할 수 있습니다.
-              </div>
+            <div class="text-center text-t-sm font-weight-medium">
+              정기 결제는 언제든지 해지할 수 있습니다.
             </div>
           </div>
         </div>
       </div>
+    </template>
 
-      <v-spacer />
 
+    <template v-slot:actions>
       <div class="pt-4 px-2-5 pb-8">
         <div class="d-flex justify-center mb-5">
           <v-btn variant="text">
@@ -181,8 +181,8 @@
           결제하기
         </v-btn>
       </div>
-    </div>
-  </v-container>
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -304,7 +304,7 @@ watch(
 
 const onClickPayment = () => {
   alert("onClickPayment");
-  router.push("/dashboard/purchase/complete");
+  router.push("/dashboard/payment/purchase/complete");
 }
 
 // 번역

@@ -50,7 +50,7 @@
             :answerInfo="(state.answerList.find((response: IUserResponse) => response.quizItemId === currentQuiz?.id) as IUserResponse)"
         />
 
-        <div class="flex-grow-0 w-100">
+        <div class="d-flex flex-column flex-grow-1 w-100">
             <AnswerOptions
                 :quizInfo="currentQuiz?.answer"
                 :answerInfo="(state.answerList.find((response: IUserResponse) => response.quizItemId === currentQuiz?.id) as IUserResponse)"

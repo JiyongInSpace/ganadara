@@ -1,6 +1,9 @@
 <template>
-    <v-container class="fill-height d-flex flex-column pt-0">
-        <div class="w-100 h-14 d-flex align-center justify-space-between">
+    <PageTemplate
+        space="px-4"
+        no-spacer
+    >
+        <template v-slot:prepend-header>
             <v-btn
                 v-if="currentStep > 0"
                 icon="mdi-close"
@@ -8,7 +11,9 @@
                 variant="text"
                 @click="buttonClose.event.onClick"
             />
+        </template>
 
+        <template v-slot:append-header>
             <v-btn
                 v-if="currentStep > 0"
                 size="small"
@@ -18,67 +23,54 @@
             >
                 건너뛰기
             </v-btn>
-        </div>
+        </template>
 
-        <v-expand-transition>
-            <v-progress-linear
-                v-if="currentStep > 0"
-                v-model="currentStep"
-                :max="totalSteps + 1"
-                class="mb-5"
-            />
-        </v-expand-transition>
+        <template v-slot:content>
+            <v-expand-transition>
+                <v-progress-linear
+                    v-if="currentStep > 0"
+                    v-model="currentStep"
+                    :max="totalSteps + 1"
+                    class="mb-5"
+                    color="primary"
+                />
+            </v-expand-transition>
 
-        <!-- <div
-            v-if="currentStep > 0"
-            class="d-flex w-100 ga-1 mb-11"
-        >
-            <LinearStepper
-                v-model="currentStep"
-                :steps="totalSteps"
-            />
-        </div> -->
-
-        <Survey_step_0
-            v-if="currentStep === 0"
-            :userName="userName"
-            @onClickNext="compButtonNext.event.onClick"
-            @onClickPrev="compButtonPrev.event.onClick"
-        />
-        <Survey_step_1
-            v-if="currentStep === 1"
-            :userName="userName"
-            :defaultValue="userSurvey"
-            @onClickNext="compButtonNext.event.onClick"
-            @onClickPrev="compButtonPrev.event.onClick"
-        />
-        <Survey_step_2
-            v-if="currentStep === 2"
-            :defaultValue="userSurvey"
-            @onClickNext="compButtonNext.event.onClick"
-            @onClickPrev="compButtonPrev.event.onClick"
-        />
-        <Survey_step_3
-            v-if="currentStep === 3"
-            @onClickNext="compButtonNext.event.onClick"
-            @onClickPrev="compButtonPrev.event.onClick"
-        />
-
-        <!--
-            관심사 삭제 ?
-            <Survey_step_4
-                v-if="currentStep === 4"
+            <Survey_step_0
+                v-if="currentStep === 0"
+                :userName="userName"
                 @onClickNext="compButtonNext.event.onClick"
                 @onClickPrev="compButtonPrev.event.onClick"
-            /> 
-        -->
+            />
+            <Survey_step_1
+                v-if="currentStep === 1"
+                :userName="userName"
+                :defaultValue="userSurvey"
+                @onClickNext="compButtonNext.event.onClick"
+                @onClickPrev="compButtonPrev.event.onClick"
+            />
+            <Survey_step_2
+                v-if="currentStep === 2"
+                :defaultValue="userSurvey"
+                @onClickNext="compButtonNext.event.onClick"
+                @onClickPrev="compButtonPrev.event.onClick"
+            />
+            <Survey_step_3
+                v-if="currentStep === 3"
+                @onClickNext="compButtonNext.event.onClick"
+                @onClickPrev="compButtonPrev.event.onClick"
+            />
+        </template>
 
-        <Survey_skip
-            v-model="dialogSkip.value.value"
-            @onClickCancel="compButtonCancel.event.onClick"
-            @onClickSkip="compButtonSkip.event.onClick"
-        />
-    </v-container>
+        <template v-slot:actions>
+            <Survey_skip
+                v-model="dialogSkip.value.value"
+                @onClickCancel="compButtonCancel.event.onClick"
+                @onClickSkip="compButtonSkip.event.onClick"
+            />
+        </template>
+    </PageTemplate>
+
 </template>
 
 <script lang="ts" setup>
@@ -147,7 +139,7 @@ const compButtonSkip = {
 const compButtonPrev = {
     event: {
         onClick: (_event: any) => {
-            if(currentStep.value > 0) {
+            if (currentStep.value > 0) {
                 currentStep.value--;
             }
         }

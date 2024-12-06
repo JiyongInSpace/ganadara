@@ -93,6 +93,7 @@ export interface IComment {
 }
 
 export interface IRanker {
+  id: string
   rank: number
   name: string
   profileImage: string

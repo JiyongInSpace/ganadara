@@ -1,12 +1,20 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                탈퇴
-            </span>
-        </div>
+    <PageTemplate
+        space="pa-0"
+        back-button
+        no-spacer
+    >
+        <template v-slot:prepend-header>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
+        <template v-slot:center-header>
+            탈퇴
+        </template>
+
+        <template v-slot:append-header>
+        </template>
+
+        <template v-slot:content>
             <div class="d-flex flex-column ga-2-5 pt-5 pb-5 px-4">
                 <div class="text-t-lg font-weight-bold mb-2-5">
                     정말 탈퇴하시려고요?<br />
@@ -21,6 +29,17 @@
                     class="px-4"
                 />
             </div>
+
+            <dialog-withdraw-confirm
+                v-model:dialog="state.withdrawDialog"
+                @onClickWithdrawConfirm="handleWithdrawConfirm"
+            />
+        </template>
+
+        <template v-slot:bottom>
+        </template>
+
+        <template v-slot:actions>
 
             <div class="d-flex flex-column background-secondary ga-2-5 pt-4 px-2-5 pb-8">
                 <v-btn
@@ -43,13 +62,8 @@
                     가나다라 계속 이용하기
                 </v-btn>
             </div>
-        </div>
-
-        <dialog-withdraw-confirm 
-            v-model:dialog="state.withdrawDialog"
-            @onClickWithdrawConfirm="handleWithdrawConfirm"
-        />
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

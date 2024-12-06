@@ -18,6 +18,7 @@
             class="mb-1 flex-grow-0"
             :readonly="isSended"
             :rules="inputEmail.rules"
+            density="compact"
         >
             <template v-slot:prepend-inner>
                 <v-icon icon="mdi-email-outline" />
@@ -52,6 +53,7 @@
                 :error-messages="inputValidationCode.errorMessages.value"
                 :readonly="inputValidationCode.isValid.value"
                 @input="inputValidationCode.event.onInput"
+                density="compact"
             >
                 <template v-slot:append-inner>
                     <v-icon

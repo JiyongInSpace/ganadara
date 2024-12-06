@@ -6,6 +6,7 @@
             :title="ranker.name"
             :subtitle="ranker.score"
             height="66"
+            @click="onClickUser(ranker.id)"
         >
             <template v-slot:prepend>
                 <v-img
@@ -49,6 +50,7 @@
                     variant="outlined"
                     width="65"
                     height="32"
+                    @click="onClickFollow"
                 >
                     {{ ranker.isFollowing ? '팔로우' : '팔로잉' }}
                 </v-btn>
@@ -64,6 +66,7 @@
                 :title="ranker.name"
                 :subtitle="ranker.score"
                 height="66"
+                @click="onClickUser(ranker.id)"
             >
                 <template v-slot:prepend>
                     <v-sheet
@@ -115,9 +118,11 @@
         </v-list>
     </div>
 </template>
- 
+
 <script lang="ts" setup>
 import { IRanker } from '@/interfaces';
+
+const router = useRouter();
 
 const props = defineProps<{
     rankerList: IRanker[];
@@ -137,4 +142,12 @@ const otherRanks = computed(() => {
     return props.rankerList.slice(3); // 4등 이후
 });
 
+const onClickUser = (_id: string) => {
+    router.push(`/community/user/${_id}`);
+}
+
+const onClickFollow = (_event: any) => {
+    _event.stopPropagation();
+    alert("팔로우");
+}
 </script>

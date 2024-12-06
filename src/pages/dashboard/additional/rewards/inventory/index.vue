@@ -1,60 +1,54 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
-
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        space="pa-0"
+        back-button
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 나의 서랍
             </span>
+        </template>
 
-            <v-spacer />
-        </div>
-
-        <div>
-            <v-tabs
-                v-model="tabMain.tab.value"
-                align-tabs="center"
-                stacked
-                grow
-                height="48"
-            >
-                <v-tab
-                    v-for="(mainTabItem, i) in tabMain.list"
-                    :key="i"
-                    :value="mainTabItem"
-                    class="border-b flex-1-1-100"
+        <template v-slot:content>
+            <div>
+                <v-tabs
+                    v-model="tabMain.tab.value"
+                    align-tabs="center"
+                    stacked
+                    grow
+                    height="48"
                 >
-                    {{ mainTabItem }}
-                </v-tab>
-            </v-tabs>
-        </div>
+                    <v-tab
+                        v-for="(mainTabItem, i) in tabMain.list"
+                        :key="i"
+                        :value="mainTabItem"
+                        class="border-b flex-1-1-100"
+                    >
+                        {{ t(mainTabItem) }}
+                    </v-tab>
+                </v-tabs>
+            </div>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-3 py-4">
-            <RewardsList
-                v-if="tabMain.tab.value == 'goods'"
-                :list="state.goods"
-                type="gift"
-            />
+            <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-3 py-4">
+                <RewardsList
+                    v-if="tabMain.tab.value == 'goods'"
+                    :list="state.goods"
+                    type="gift"
+                />
 
-            <RewardsList
-                v-if="tabMain.tab.value == 'gift'"
-                :list="state.gifts"
-                type="gift"
-            />
-        </div>
-
-        <v-spacer />
-
-        <app-bottom-navigation />
-    </v-container>
+                <RewardsList
+                    v-if="tabMain.tab.value == 'gift'"
+                    :list="state.gifts"
+                    type="gift"
+                />
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IRewardItem } from "@/interfaces";
+import { useI18n } from "vue-i18n";
 
 const tabMain = {
     list: [
@@ -126,6 +120,18 @@ const dummy_follower = [
     },
 ] as IRewardItem[];
 
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            gift: "상품권",
+            goods: "디지털 굿즈",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -133,10 +139,3 @@ const dummy_follower = [
     width: 8px !important;
 }
 </style>
-
-25
-15
-10
-10
-10
-30

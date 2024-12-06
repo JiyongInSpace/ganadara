@@ -1,79 +1,89 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
-
-            <span class="text-t-xl font-weight-semibold">
-                유저네임
+    <PageTemplate
+        space="pa-0"
+        back-button
+        no-gap
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
+                {{ state.user.nickName }}
             </span>
+        </template>
 
-            <v-spacer />
-        </div>
-
-        <div>
-            <v-tabs
-                v-model="tabMain.tab.value"
-                align-tabs="center"
-                stacked
-                grow
-                height="48"
-            >
-                <v-tab
-                    v-for="(mainTabItem, i) in tabMain.list"
-                    :key="i"
-                    :value="mainTabItem"
-                    class="border-b flex-1-1-100"
+        <template v-slot:content>
+            <div>
+                <v-tabs
+                    v-model="tabMain.tab.value"
+                    align-tabs="center"
+                    stacked
+                    grow
+                    height="48"
                 >
-                    {{ mainTabItem }}
-                </v-tab>
-            </v-tabs>
-        </div>
+                    <v-tab
+                        v-for="(mainTabItem, i) in tabMain.list"
+                        :key="i"
+                        :value="mainTabItem"
+                        class="border-b flex-1-1-100"
+                    >
+                        {{ t(mainTabItem) }}
+                    </v-tab>
+                </v-tabs>
+            </div>
 
-        <v-tabs-window v-model="tabMain.tab.value">
-            <v-tabs-window-item value="following">
-                <CommunityFollowing
-                    :followList="state.following"
-                    isFollowing
-                />
-            </v-tabs-window-item>
+            <v-tabs-window v-model="tabMain.tab.value">
+                <v-tabs-window-item value="follow">
+                    <CommunityFollowing
+                        :followList="state.follow"
+                        follower
+                    />
+                </v-tabs-window-item>
 
-            <v-tabs-window-item value="follower">
-                <CommunityFollowing
-                    :followList="state.follower"
-                    :isFollowing="false"
-                />
-            </v-tabs-window-item>
-        </v-tabs-window>
+                <v-tabs-window-item value="follower">
+                    <CommunityFollowing
+                        :followList="state.follower"
+                    />
+                </v-tabs-window-item>
+            </v-tabs-window>
+        </template>
 
-        <v-spacer />
+        <template v-slot:bottom>
+        </template>
 
-        <app-bottom-navigation />
-    </v-container>
+        <template v-slot:actions>
+            <app-bottom-navigation />
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IUser } from "@/interfaces";
+import { useI18n } from "vue-i18n";
 
 const tabMain = {
     list: [
-        'following',
+        'follow',
         'follower',
     ],
-    tab: ref('following'),
+    tab: ref('follow'),
 }
 
 onMounted(() => {
     // 데이터
-    state.following = dummy_follower;
+    state.follow = dummy_follower;
     state.follower = dummy_follower;
 });
 
 const state = reactive({
-    following: [] as IUser[],
+    user: {
+        name: 'userName',
+        nickName: 'UserNickName',
+        description: 'Descriptions',
+        following: 9999,
+        follower: 9999,
+        rank: 9999,
+        contents: 9999,
+    },
+    follow: [] as IUser[],
     follower: [] as IUser[],
 });
 
@@ -82,7 +92,7 @@ const dummy_follower = [
         id: "1",
         name: '김철수',
         profileImage: '/images/class/dummy_profile_image.png',
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
         isFollowing: false,
     },
     {
@@ -90,66 +100,77 @@ const dummy_follower = [
         name: '김영희',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     },
     {
         id: "3",
         name: '박민수',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        isFollowing: false,
+        description: "lorem ipsum dolor",
     },
     {
         id: "4",
         name: '이지수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     },
     {
         id: "5",
         name: '최영수',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        isFollowing: false,
+        description: "lorem ipsum dolor",
     },
     {
         id: "6",
         name: '이민지',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     },
     {
         id: "7",
         name: '박영희',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     },
     {
         id: "8",
         name: '김민수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     },
     {
         id: "9",
         name: '최지수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     },
     {
         id: "10",
         name: '박철수',
         profileImage: '/images/class/dummy_profile_image.png',
         isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        description: "lorem ipsum dolor",
     }
 ] as IUser[];
 
+const { t } = useI18n({
+    messages: {
+        ko: {
+            follow: "팔로우",
+            following: "팔로잉",
+            follower: "팔로워",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 </script>
 
 <style lang="scss" scoped>

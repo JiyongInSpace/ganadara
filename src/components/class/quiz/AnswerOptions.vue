@@ -49,21 +49,12 @@
                     :value="answerItem.id"
                     variant="outlined"
                     class="rounded-lg border border-2 w-100 h-100 d-flex justify-center align-center"
-                    active-class="bg-primary"
+                    active-class="foreground-secondary text-white"
                 >
-                    <v-card
-                        class="background-tertiary rounded-lg elevation-0 d-flex justify-center align-center"
-                        height="72"
-                        width="72"
-                    >
-                        <v-icon
-                            icon="mdi-play"
-                            size="44"
-                            color="primary"
-                        />
-                    </v-card>
-
-
+                    <v-icon
+                        icon="mdi-volume-high"
+                        size="54"
+                    />
                 </v-list-item>
             </v-card>
         </v-list>
@@ -88,7 +79,7 @@
                     :value="answerItem.id"
                     variant="outlined"
                     class="rounded-lg px-3-5 text-t-md border border-2 w-100 h-100 d-block position-relative overflow-hidden"
-                    active-class="bg-primary"
+                    active-class="foreground-secondary text-white"
                 >
                     <v-img
                         :src="answerItem.resource"
@@ -114,7 +105,7 @@
                 :value="answerItem.id"
                 variant="outlined"
                 class="border rounded-lg px-3-5 text-t-md"
-                active-class="bg-primary"
+                active-class="foreground-secondary text-white"
                 :class="index == quizInfo?.options.length - 1 ? 'mb-0' : 'mb-2-5'"
             >
                 <div class="d-flex align-center">
@@ -139,7 +130,7 @@
                 :value="answerItem.id"
                 variant="outlined"
                 class="border rounded-lg px-3-5 text-t-m w-fit"
-                active-class="bg-primary"
+                active-class="foreground-secondary text-white"
             >
                 <div class="d-flex align-center">
                     <span class="font-weight-medium truncate">
@@ -159,7 +150,7 @@
                 :key="answerItem.id"
                 :active="selectedAnswer.includes(answerItem.id)"
                 class="border rounded-lg px-3-5 text-t-m w-fit"
-                active-class="bg-primary"
+                active-class="foreground-secondary text-white"
                 @click="onClickListItem(answerItem.id)"
             >
                 <div class="d-flex align-center">
@@ -224,7 +215,7 @@
                                 :value="subQuizItem.id"
                                 variant="outlined"
                                 class="border rounded-lg px-3-5 text-t-md bg-white mb-2-5"
-                                active-class="bg-primary"
+                                active-class="foreground-secondary text-white"
                             >
                                 <div class="d-flex align-center">
                                     <span class="font-weight-medium truncate">
@@ -255,18 +246,22 @@
         }"
     />
 
+    <v-spacer />
+
     <!-- NEXT -->
-    <v-btn
-        v-if="quizInfo?.type != 'input'"
-        variant="tonal"
-        size="x-large"
-        class="primary"
-        block
-        :disabled="disabledButton"
-        @click="buttonNext.onClick"
-    >
-        확인
-    </v-btn>
+     <div>
+         <v-btn
+             v-if="quizInfo?.type != 'input'"
+             variant="tonal"
+             size="x-large"
+             class="primary "
+             block
+             :disabled="disabledButton"
+             @click="buttonNext.onClick"
+         >
+             확인
+         </v-btn>
+     </div>
 </template>
 
 <script lang="ts" setup>

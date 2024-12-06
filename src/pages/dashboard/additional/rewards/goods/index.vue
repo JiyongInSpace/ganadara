@@ -1,130 +1,143 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
-
-            <span class="text-t-xl font-weight-semibold">
-                스토어
+    <PageTemplate
+        back-button
+        space="pa-0"
+        background="secondary"
+        no-spacer
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
+                상품권
             </span>
+        </template>
 
-            <v-spacer />
-        </div>
+        <template v-slot:content>
+            <div class="d-flex flex-column flex-grow-1 overflow-y-auto ga-2">
+                <div class="background-primary">
+                    <v-img
+                        :src="state.goodsInfo.imgUrl"
+                        :aspect-ratio="375 / 300"
+                        cover
+                        class="flex-grow-0"
+                    ></v-img>
 
-        <div>
-            <v-tabs
-                v-model="tabMain.tab.value"
-                align-tabs="center"
-                stacked
-                grow
-                height="48"
+                    <div class="py-5 px-4">
+                        <div class="font-weight-medium mb-1">
+                            {{ state.goodsInfo.name }}
+                        </div>
+
+                        <div class="text-t-xl font-weight-bold mb-1">
+                            {{ state.goodsInfo.price?.toLocaleString() }}원
+                        </div>
+                    </div>
+                </div>
+
+                <div class="background-primary py-2-5 flex-grow-1">
+                    <div class="py-5 px-4">
+                        <div class="text-t-md font-weight-bold mb-1">
+                            상품 설명
+                        </div>
+
+                        <div class="text-t-sm font-weight-medium">
+                            {{ state.goodsInfo.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <v-dialog
+                v-model="state.dialog"
+                transition="dialog-bottom-transition"
+                max-width="400"
             >
-                <v-tab
-                    v-for="(mainTabItem, i) in tabMain.list"
-                    :key="i"
-                    :value="mainTabItem"
-                    class="border-b flex-1-1-100"
+                <v-card class="pt-9 px-5 pb-5 text-center rounded-16">
+                    <div class="text-t-xl font-weight-bold mb-1 text-center">
+                        포인트가 부족합니다
+                    </div>
+
+                    <div class="mb-6 font-weight-medium text-text-quaternary text-center">
+                        상품 구입을 위한 포인트가 부족합니다. <br />
+                        잔여 포인트 확인 후 구매해 주세요.
+                    </div>
+
+                    <div class="d-flex justify-center ga-3">
+                        <v-btn
+                            class="primary flex-1-1-100"
+                            variant="tonal"
+                            size="large"
+                            @click="onClickOk"
+                        >
+                            확인
+                        </v-btn>
+                    </div>
+                </v-card>
+            </v-dialog>
+        </template>
+
+        <template v-slot:actions>
+            <div class="background-primary pt-4 pb-8 px-2-5">
+                <v-btn
+                    class="primary flex-1-1-100"
+                    variant="tonal"
+                    size="large"
+                    block
+                    :disabled="state.goodsInfo.status == 'completed'"
+                    @click="onClickPurchase"
                 >
-                    {{ mainTabItem }}
-                </v-tab>
-            </v-tabs>
-        </div>
-
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-3 py-4">
-            <RewardsList
-                v-if="tabMain.tab.value == 'goods'"
-                :list="state.goods"
-                type="goods"
-            />
-
-            <RewardsList
-                v-if="tabMain.tab.value == 'gift'"
-                :list="state.gifts"
-                type="gift"
-            />
-        </div>
-
-        <v-spacer />
-
-        <app-bottom-navigation />
-    </v-container>
+                    {{ state.goodsInfo.status != 'completed' ? '구매하기' : '판매 종료' }}
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IRewardItem } from "@/interfaces";
 
-const tabMain = {
-    list: [
-        'goods',
-        'gift',
-    ],
-    tab: ref('goods'),
-}
+const router = useRouter();
+const route = useRoute();
 
 onMounted(() => {
-    // 데이터
-    state.goods = dummy_follower;
-    state.gifts = dummy_follower;
+    state.goodsInfo = dummy_follower;
 });
 
 const state = reactive({
-    goods: [] as IRewardItem[],
-    gifts: [] as IRewardItem[],
+    goodsInfo: {} as IRewardItem,
+    dialog: false,
 });
 
-const dummy_follower = [
-    {
+const onClickPurchase = () => {
+    const isAbleToPurchase = true;
+
+    if (!isAbleToPurchase) {
+        // 구매 불가능
+        state.dialog = true;
+        return;
+    }
+
+    router.push("/dashboard/additional/rewards/complete")
+}
+
+const onClickOk = () => {
+    state.dialog = false;
+}
+
+// ================================================================================================================================
+const dummy_follower = {
+    id: 1,
+    name: "스타벅스_아이스아메리카노 ",
+    imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
+    price: 2450,
+    status: "ongoing",
+    limit: 39990,
+    description: "디지털로 만든 세상에 단 하나뿐인 일러스트 작품입니다. 구매시 정품 인증서까지 함께 배송됩니다.디지털로 만든 세상에 단 하나뿐인 일러스트 작품입니다. 구매시 정품 인증서까지 함께 배송됩니다.디지털로 만든 세상에 단 하나뿐인 일러스트 작품입니다. 구매시 정품 인증서까지 함께 배송됩니다.디지털로 만든 세상에 단 하나뿐인 일러스트 작품입니다. 구매시 정품 인증서까지 함께 배송됩니다.",
+    creator: {
         id: 1,
-        name: "스타벅스_아이스아메리카노 ",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
-        status: "ongoing",
-        limit: 39990,
+        name: "김민수",
+        profileImgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
     },
-    {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
-        status: "completed",
-        limit: 39990,
-    },
-    {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
-        status: "completed",
-        limit: 39990,
-    },
-    {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
-        status: "ongoing",
-        limit: 39990,
-    },
-    {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
-        status: "ongoing",
-        limit: 39990,
-    },
-    {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
-        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
-        status: "ongoing",
-        limit: 39990,
-    },
-] as IRewardItem[];
+    isSelling: true,
+} as IRewardItem;
 
 </script>
 
@@ -132,4 +145,4 @@ const dummy_follower = [
 :deep(.v-list-item__spacer) {
     width: 8px !important;
 }
-</style>
+</style> 

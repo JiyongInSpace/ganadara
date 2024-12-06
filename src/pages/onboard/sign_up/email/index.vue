@@ -1,36 +1,48 @@
 <template>
-  <v-container class="d-flex flex-column fill-height">
-    <div class="py-2 w-100">
+  <PageTemplate
+    back-button
+    no-spacer
+  >
+    <template v-slot:append-header>
       <v-btn
-        icon="mdi-arrow-left"
+        v-if="currentStep == 0"
         size="small"
         variant="text"
-        @click="buttonBack.event.onClick"
+        class="mt-1 font-weight-semibold px-0"
+      >
+        건너뛰기
+      </v-btn>
+    </template>
+
+    <template v-slot:content>
+      <Select_country
+        v-if="currentStep === 0"
+        :defaultValue="signUpInfo"
+        @onClickNext="compButtonNext.event.onClick"
       />
-    </div>
 
-    <Select_country
-      v-if="currentStep === 0"
-      :defaultValue="signUpInfo"
-      @onClickNext="compButtonNext.event.onClick"
-    />
+      <Create_password
+        v-if="currentStep === 1"
+        :defaultValue="signUpInfo"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+      <Pick_username
+        v-if="currentStep === 2"
+        :defaultValue="signUpInfo"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+      <Verify_email
+        v-if="currentStep === 3"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+    </template>
 
-    <Create_password
-      v-if="currentStep === 1"
-      :defaultValue="signUpInfo"
-      @onClickNext="compButtonNext.event.onClick"
-    />
-    <Pick_username
-      v-if="currentStep === 2"
-      :defaultValue="signUpInfo"
-      @onClickNext="compButtonNext.event.onClick"
-    />
-    <Verify_email
-      v-if="currentStep === 3"
-      @onClickNext="compButtonNext.event.onClick"
-    />
+    <template v-slot:bottom>
+    </template>
 
-  </v-container>
+    <template v-slot:actions>
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -60,7 +72,7 @@ const signUpInfo = reactive({
 const buttonBack = {
   event: {
     onClick: (_event: any) => {
-      if(currentStep.value === 0) {
+      if (currentStep.value === 0) {
         router.push("/onboard/sign_up")
       }
 

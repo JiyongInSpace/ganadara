@@ -17,6 +17,7 @@
             placeholder="나이 선택"
             class="mb-5"
             hide-details
+            density="compact"
         >
             <template v-slot:message>
                 <div class="text-t-md font-weight-bold py-2 px-4">
@@ -50,6 +51,7 @@
             placeholder="시작 시간"
             class="mb-2-5"
             hide-details
+            density="compact"
         >
             <template v-slot:prepend-item>
                 <div class="text-t-md font-weight-bold py-2 px-4">
@@ -68,6 +70,7 @@
             return-object
             placeholder="종료 시간"
             hide-details
+            density="compact"
         >
             <template v-slot:prepend-item>
                 <div class="text-t-md font-weight-bold py-2 px-4">

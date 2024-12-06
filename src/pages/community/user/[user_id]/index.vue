@@ -15,6 +15,7 @@
                 v-if="isCreator && !isMypage"
                 variant="outlined"
                 class="secondary px-2"
+                @click="onClickDonate"
             >
                 <v-icon icon="mdi-heart"></v-icon>
                 후원
@@ -41,7 +42,10 @@
                     />
 
                     <div class="d-flex justify-space-between ga-5 flex-grow-1 px-6">
-                        <div class="text-center flex-1-1-100">
+                        <div
+                            class="text-center flex-1-1-100 cursor-pointer"
+                            @click="onClickFollow"
+                        >
                             <div class="text-t-md font-weight-semibold">
                                 {{ state.user.following.toLocaleString() }}
                             </div>
@@ -51,7 +55,10 @@
                             </div>
                         </div>
 
-                        <div class="text-center flex-1-1-100">
+                        <div
+                            class="text-center flex-1-1-100 cursor-pointer"
+                            @click="onClickFollow"
+                        >
                             <div class="text-t-md font-weight-semibold">
                                 {{ state.user.follower.toLocaleString() }}
                             </div>
@@ -87,6 +94,7 @@
                             v-if="!isMypage"
                             class="primary flex-1-1-100"
                             variant="tonal"
+                            @click="onClickFollow"
                         >
                             팔로우
                         </v-btn>
@@ -94,6 +102,7 @@
                         <v-btn
                             variant="outlined"
                             class="secondary flex-1-1-100"
+                            @click="onClickBadge"
                         >
                             배지
                         </v-btn>
@@ -115,9 +124,11 @@
                             item-value="code"
                             variant="outlined"
                             return-object
-                            class="flex-1-1-100 small"
+                            class="flex-1-1-100"
                             hide-details
                             placeholder="SNS"
+                            density="compact"
+                            height="36px"
                         >
                         </v-select>
 
@@ -176,7 +187,7 @@
                         class="px-4 border-border-primary ma-0 mr-2"
                         @click="() => tabMain.subtab.value = tag"
                     >
-                        <span v-text="tag"></span>
+                        <span v-text="t(tag)"></span>
                     </v-chip>
                 </v-chip-group>
 
@@ -196,8 +207,10 @@
                                 width="100%"
                                 height="100%"
                                 alt="contact-us"
-                                class="flex-grow-0"
+                                class="flex-grow-0 cursor-pointer"
                                 :aspect-ratio="1 / 1"
+                                v-ripple
+                                @click="onClickFeed('1')"
                             />
                         </div>
                     </v-col>
@@ -214,6 +227,7 @@
                     <div
                         v-for="count in 10"
                         class="d-flex ga-2 mb-4"
+                        @click="onClickRegular('1')"
                     >
                         <v-img
                             src="/images/home/dummy_thumbnail2.png"
@@ -250,7 +264,10 @@
                         cols="4"
                         v-for="count in 10"
                     >
-                        <div class="pa-0-5">
+                        <div
+                            class="position-relative pa-0-5"
+                            @click="onClickShortform('1')"
+                        >
                             <v-img
                                 src="/images/home/dummy_thumbnail2.png"
                                 width="100%"
@@ -260,19 +277,16 @@
                                 cover
                                 :aspect-ratio="122 / 200"
                             />
+
+                            <div class="position-absolute left-3 right-3 bottom-3 z-1">
+                                <span class="text-t-sm text-text-white text-shadow font-weight-semibold">
+                                    Short-form Title maximum of three lines
+                                </span>
+                            </div>
                         </div>
                     </v-col>
                 </v-row>
             </div>
-
-            <!-- <div class="position-fixed bottom-24 right-4">
-                <v-btn
-                    size="x-large"
-                    class="primary"
-                    icon="mdi-plus"
-                />
-            </div> -->
-
         </template>
 
         <template v-slot:actions>
@@ -287,6 +301,7 @@ import { storeToRefs } from 'pinia';
 import { RouteLocationNormalizedLoaded } from 'vue-router';
 import { useI18n } from "vue-i18n";
 
+const router = useRouter();
 const userStore = useUserStore();
 const { id, is_creator } = storeToRefs(userStore);
 
@@ -328,17 +343,42 @@ const tabMain = {
     subtab: ref('class'),
 }
 
+const onClickDonate = () => {
+    router.push(`/community/user/${route.params.user_id}/donate`);
+}
+
+const onClickBadge = () => {
+    router.push(`/community/user/${route.params.user_id}/badge`);
+}
+
+const onClickFollow = () => {
+    router.push(`/community/user/${route.params.user_id}/follow`);
+}
+
+const onClickFeed = (id: string) => {
+    router.push(`/community?id=${id}`)
+}
+
+const onClickRegular = (id: string) => {
+    router.push(`/class/regular/${id}`)
+}
+
+const onClickShortform = (id: string) => {
+    router.push(`/class/shortform/${id}`)
+}
+
 const { t } = useI18n({
     messages: {
         ko: {
             feed: "피드",
             content: "콘텐츠",
+            class: "정규학습",
+            shortform: "숏폼",
         },
     },
     inheritLocale: true, // 전역 locale 상속
     useScope: "local", // 로컬 스코프 설정
 });
-
 
 </script>
 

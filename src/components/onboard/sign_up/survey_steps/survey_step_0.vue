@@ -24,6 +24,7 @@
     <div class="actions">
         <v-btn
             variant="outlined"
+            class="border-border-primary"
             size="x-large"
             @click="buttonSkip.event.onClick"
         >

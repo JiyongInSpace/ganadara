@@ -419,9 +419,6 @@ body {
     }
 }
 
-
-
-
 // Input
 .v-input.v-text-field {
     --v-input-control-height: 44px;
@@ -480,9 +477,10 @@ input[type=number]{
 
 // Select
 .v-select.v-select--single {
+    
     .v-input__control{
         min-height: 44px !important;
-
+        
         .v-field {
             border-radius: 8px;
             border-color: rgb(var(--v-border-primary));
@@ -806,6 +804,18 @@ li {
 }
 .right-4 {
     right: 16px;
+}
+.bottom-1 {
+    bottom: 4px;
+}
+.bottom-2 {
+    bottom: 8px;
+}
+.bottom-3 {
+    bottom: 12px;
+}
+.bottom-4 {
+    bottom: 16px;
 }
 .left-3 {
     left: 12px;

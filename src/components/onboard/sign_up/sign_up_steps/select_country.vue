@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-4 w-100 flex-grow-1 d-flex flex-column">
+    <div class="pt-4 w-100 flex-grow-1 d-flex flex-column ">
         <div class="mb-4 text-d-xs font-weight-bold">
             국가를 선택해 주세요.
         </div>
@@ -14,6 +14,7 @@
             return-object
             placeholder="국가 선택"
             class="flex-grow-0"
+            density="compact"
         >
         </v-select>
 
@@ -44,7 +45,7 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-    if(!props.defaultValue.results.country) return; 
+    if (!props.defaultValue.results.country) return;
     selectCountry.value.value = countries.all.find(country => country.alpha2 === props.defaultValue.results.country);
 })
 

@@ -37,6 +37,7 @@
                     class="flex-grow-0 z-1"
                     attach="body"
                     hide-details
+                    density="compact"
                 >
                 </v-select>
             </div>

@@ -64,6 +64,7 @@
                         <v-btn
                             class="px-2-5 py-1"
                             variant="outlined"
+                            @click="onClickCommunity"
                         >
                             <span class="text-t-xs font-weight-semibold">
                                 바로가기
@@ -134,6 +135,9 @@
 </template>
 
 <script lang="ts" setup>
+
+const router = useRouter();
+
 const state = reactive({
     missioninfo: {
         daily: true,
@@ -168,4 +172,8 @@ const computedTotalClearMission = computed(() => {
     return state.detail.missions.filter((missionItem) => missionItem.complete === missionItem.total).length
 })
 
+
+const onClickCommunity = () => {
+    router.push("/community")
+}
 </script>

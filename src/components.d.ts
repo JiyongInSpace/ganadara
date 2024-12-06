@@ -61,6 +61,7 @@ declare module 'vue' {
     DialogReviewAction: typeof import('./components/dashboard/additional/review/DialogReviewAction.vue')['default']
     DialogSelectLanguage: typeof import('./components/dashboard/additional/ai_translation/DialogSelectLanguage.vue')['default']
     DialogSelectLevel: typeof import('./components/dashboard/additional/review/DialogSelectLevel.vue')['default']
+    DialogSelectNotice: typeof import('./components/dashboard/notice/DialogSelectNotice.vue')['default']
     DialogSelectPaymentMethod: typeof import('./components/dashboard/payment/DialogSelectPaymentMethod.vue')['default']
     DialogSelectSort: typeof import('./components/dashboard/additional/review/DialogSelectSort.vue')['default']
     DialogSkip: typeof import('./components/class/quiz/DialogSkip.vue')['default']

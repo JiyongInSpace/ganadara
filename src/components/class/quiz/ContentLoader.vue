@@ -1,8 +1,5 @@
 <template>
-
-    <v-spacer />
-
-    <div class="text-text-disabled text-t-md font-weight-medium text-center mb-4">
+    <div class="text-text-disabled text-t-md font-weight-medium text-center pt-12 mb-4">
         {{ contentInfo?.question.prompt }}
     </div>
 
@@ -101,19 +98,12 @@
     <!-- TEXT -->
     <v-card
         v-if="contentInfo?.question.type === 'text'"
-        class="py-5 pr-2 pl-4 background-secondary rounded-16 mb-4 overflow-auto"
+        class="py-5 px-4 background-secondary rounded-16 mb-4 overflow-auto elevation-0"
     >
-        <div class="overflow-auto text-t-md font-weight-bold pr-4 overflow-auto">
+        <div class="overflow-auto text-t-md font-weight-bold overflow-auto">
             {{ contentInfo?.question.resource }}
         </div>
     </v-card>
-
-
-    <div class="text-t-md font-weight-bold text-center mb-5">
-        {{ contentInfo?.question.content }}
-    </div>
-
-    <v-spacer />
 </template>
 
 <script lang="ts" setup>

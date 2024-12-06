@@ -74,6 +74,7 @@ declare module 'vue-router/auto-routes' {
     '/dashboard/additional/statistics/level_test/[id]/': RouteRecordInfo<'/dashboard/additional/statistics/level_test/[id]/', '/dashboard/additional/statistics/level_test/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/dashboard/additional/statistics/mock_test/': RouteRecordInfo<'/dashboard/additional/statistics/mock_test/', '/dashboard/additional/statistics/mock_test', Record<never, never>, Record<never, never>>,
     '/dashboard/additional/statistics/mock_test/[id]/': RouteRecordInfo<'/dashboard/additional/statistics/mock_test/[id]/', '/dashboard/additional/statistics/mock_test/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/dashboard/notice/': RouteRecordInfo<'/dashboard/notice/', '/dashboard/notice', Record<never, never>, Record<never, never>>,
     '/dashboard/payment/': RouteRecordInfo<'/dashboard/payment/', '/dashboard/payment', Record<never, never>, Record<never, never>>,
     '/dashboard/payment/coupon/': RouteRecordInfo<'/dashboard/payment/coupon/', '/dashboard/payment/coupon', Record<never, never>, Record<never, never>>,
     '/dashboard/payment/history/': RouteRecordInfo<'/dashboard/payment/history/', '/dashboard/payment/history', Record<never, never>, Record<never, never>>,

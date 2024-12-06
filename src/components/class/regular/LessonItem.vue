@@ -63,15 +63,19 @@
                     width="80%"
                     max-width="280"
                 >
-                    <div class="text-t-xl font-weight-semibold">퀴즈 카테고리 타이틀</div>
-                    <div class="text-t-sm text-text-quaternary mb-4">8문제</div>
+                    <div class="text-t-xl font-weight-semibold">
+                        {{ state.currentStep.title }}
+                    </div>
+                    <div class="text-t-sm text-text-quaternary mb-4">
+                        {{ state.currentStep.time ? `${state.currentStep.time}분` : `${state.currentStep.number}문제` }}
+                    </div>
                     <v-btn
                         size="large"
                         class="w-100"
                         variant="outlined"
+                        @click="onClickGoToPage"
                     >
-                        <!-- @click="goToPage" -->
-                        퀴즈 풀기
+                        {{ state.currentStep?.type == 'video' ? '영상 시청하기' : '퀴즈 풀기' }}
                     </v-btn>
                 </v-card>
             </v-menu>
@@ -723,6 +727,8 @@
                         @click="() => {
                             if (info.step > 2) {
                                 onClickStep(3)
+                            } else {
+                                snackbar.showSnackbar('이전 단계를 먼저 진행해주세요.');
                             }
                         }"
                     />
@@ -888,6 +894,8 @@
                         @click="() => {
                             if (info.step != 0) {
                                 onClickStep(1);
+                            } else {
+                                snackbar.showSnackbar('이전 단계를 먼저 진행해주세요.');
                             }
                         }"
                     />
@@ -919,6 +927,8 @@
                         @click="() => {
                             if (info.step > 1) {
                                 onClickStep(2);
+                            } else {
+                                snackbar.showSnackbar('이전 단계를 먼저 진행해주세요.');
                             }
                         }"
                     />
@@ -1158,7 +1168,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useSnackbarStore } from '@/stores/snackbar';
 
+const snackbar = useSnackbarStore();
+
+const router = useRouter();
 const props = defineProps<{
     info: any;
 }>();
@@ -1166,6 +1180,7 @@ const props = defineProps<{
 const state = reactive({
     menu: false,
     clickedTarget: undefined,
+    currentStep: undefined as any,
 });
 
 const targetElement = ref();
@@ -1181,16 +1196,27 @@ onMounted(() => {
 const onClickStep = (step: number) => {
     if (step == 1) {
         state.clickedTarget = targetElement.value;
+        state.currentStep = props.info.steps[0];
     } else if (step == 2) {
         state.clickedTarget = targetElement2.value;
+        state.currentStep = props.info.steps[1];
     } else if (step == 3) {
         state.clickedTarget = targetElement3.value;
+        state.currentStep = props.info.steps[2];
     }
 
     setTimeout(() => {
         state.menu = true;
     }, 100)
 };
+
+const onClickGoToPage = () => {
+    if (state.currentStep.type == 'video') {
+        router.push('/class/regular/1' + state.currentStep.id)
+    } else if (state.currentStep.type == 'quiz') {
+        router.push('/class/quiz/' + state.currentStep.id)
+    }
+}
 
 </script>
 

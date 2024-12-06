@@ -1,13 +1,11 @@
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        이용권
-      </span>
-    </div>
+  <PageTemplate back-button>
+    <template v-slot:center-header>
+      이용권
+    </template>
 
-    <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
-      <div class="d-flex flex-column ga-2-5 pt-5 pb-5 px-4">
+    <template v-slot:content>
+      <div class="d-flex flex-column ga-2-5">
         <div class="text-t-lg font-weight-bold mb-2-5">
           가나다라 이용권 결제가 완료되었습니다.
         </div>
@@ -22,9 +20,13 @@
         :isInProgress="false"
       />
 
-      <v-spacer />
+    </template>
 
-      <div class="pt-4 px-2-5 pb-8">
+    <template v-slot:bottom>
+    </template>
+
+    <template v-slot:actions>
+      <div class="px-2-5 pb-8">
         <v-btn
           variant="tonal"
           size="x-large"
@@ -34,8 +36,8 @@
           확인
         </v-btn>
       </div>
-    </div>
-  </v-container>
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>

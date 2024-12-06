@@ -296,7 +296,7 @@ const onClickProfile = () => {
 }
 
 const onClickLanguage = () => {
-    alert('onClickLaugnage');
+    router.push("/dashboard/setting/language");
 }
 
 const onClickPoint = () => {
@@ -325,6 +325,7 @@ const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_learningRanking.png',
         title: 'learningRanking',
+        to: '/community/ranking',
     },
     {
         imageUrl: '/images/dashboard/main/menu_shortFormLearning.png',
@@ -354,14 +355,17 @@ const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_learningMissions.png',
         title: 'learningMissions',
+        to: '/challenge/mission/study',
     },
     {
         imageUrl: '/images/dashboard/main/menu_attendanceCheck.png',
         title: 'attendanceCheck',
+        to: '/challenge/mission/check',
     },
     {
         imageUrl: '/images/dashboard/main/menu_donate.png',
         title: 'donate',
+        to: '/challenge/mission/donate',
     },
     {
         imageUrl: '/images/dashboard/main/menu_badge.png',

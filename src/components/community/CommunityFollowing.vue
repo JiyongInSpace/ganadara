@@ -2,15 +2,16 @@
     <div class="overflow-y-auto flex-grow-1 pb-3 pt-0">
         <v-list class="pt-0">
             <v-list-item
-                v-for="(ranker, index) in props.followList"
+                v-for="(userInfo, index) in props.followList"
                 :key="index"
-                :title="ranker.name"
-                :subtitle="ranker.description"
+                :title="userInfo.name"
+                :subtitle="userInfo.description"
                 height="66"
+                @click="onClickUser(userInfo.id)"
             >
                 <template v-slot:prepend>
                     <v-img
-                        :src="ranker.profileImage"
+                        :src="userInfo.profileImage"
                         width="40"
                         class="rounded-circle"
                     />
@@ -30,13 +31,14 @@
 
                 <template v-slot:append>
                     <v-btn
+                        v-if="follower"
                         class="flex-1-1-100"
-                        :class="isFollowing ? 'primary' : 'secondary'"
+                        :class="userInfo.isFollowing ? 'primary' : 'secondary'"
                         variant="outlined"
                         width="65"
                         height="32"
                     >
-                        {{ isFollowing ? '팔로우' : '팔로잉' }}
+                        {{ userInfo.isFollowing ? '팔로우' : '팔로잉' }}
                     </v-btn>
                 </template>
             </v-list-item>
@@ -47,10 +49,14 @@
 <script lang="ts" setup>
 import { IUser } from '@/interfaces';
 
+const router = useRouter();
+
 const props = defineProps<{
     followList: IUser[];
-    isFollowing: boolean;
+    follower?: boolean;
 }>();
 
-
+const onClickUser = (userId: string) => {
+    router.push(`/community/user/${userId}`);
+}
 </script>

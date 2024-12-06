@@ -120,7 +120,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/community.png",
-            to: "coummunity",
+            to: "community",
             point: 2000
         },
         {

@@ -86,6 +86,7 @@ declare module 'vue' {
     Level_test_step_0: typeof import('./components/onboard/sign_up/level_test_steps/level_test_step_0.vue')['default']
     Level_test_step_results: typeof import('./components/onboard/sign_up/level_test_steps/level_test_step_results.vue')['default']
     Log_in_by_email: typeof import('./components/onboard/log_in/email/log_in_by_email.vue')['default']
+    PageTemplate: typeof import('./components/common/template/PageTemplate.vue')['default']
     Pick_username: typeof import('./components/onboard/sign_up/sign_up_steps/pick_username.vue')['default']
     ProgressBar: typeof import('./components/common/ui/ProgressBar.vue')['default']
     QuizWizard: typeof import('./components/class/quiz/QuizWizard.vue')['default']

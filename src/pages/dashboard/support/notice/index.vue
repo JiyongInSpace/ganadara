@@ -1,12 +1,13 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                공지사항
-            </span>
-        </div>
+    <PageTemplate
+        space="px-4"
+        back-button
+    >
+        <template v-slot:center-header>
+            공지사항
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-4">
+        <template v-slot:content>
             <div
                 v-for="item, key in state.noticeList"
                 :key="key"
@@ -23,7 +24,7 @@
                         </div>
 
                         <div class="text-t-sm font-weight-medium text-text-quaternary">
-                            {{ item.created_at }}
+                            {{ format(item.created_at, "yyyy.MM.dd") }}
                         </div>
                     </div>
 
@@ -33,15 +34,14 @@
                     />
                 </div>
             </div>
-        </div>
 
-        <DialogNoticeDetails 
-            v-model:dialog="dialog"
-        />
-    </v-container>
+            <DialogNoticeDetails v-model:dialog="dialog" />
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
+import { format } from 'date-fns';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 

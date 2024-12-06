@@ -46,8 +46,6 @@
                 type="gift"
             />
         </div>
-        <!-- <CommunityAchievementList v-if="tabMain.tab.value == 'achievement'" />
-        <CommunityGoodsList v-if="tabMain.tab.value == 'goods'" /> -->
 
         <v-spacer />
 

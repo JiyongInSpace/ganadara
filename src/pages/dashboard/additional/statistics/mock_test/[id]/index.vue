@@ -1,22 +1,14 @@
 <template>
-    <v-container
-        class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto background-secondary"
+    <PageTemplate
+        back-button
+        header-background="secondary"
+        background="secondary"
     >
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
+        <template v-slot:center-header>
+            모의고사
+        </template>
 
-            <span class="text-t-xl font-weight-semibold">
-                모의고사
-            </span>
-
-            <v-spacer />
-        </div>
-
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto ga-2 px-4 py-5">
+        <template v-slot:content>
             <div class="py-2-5 mb-2">
                 <TestResultItem :info="state.testInfo" />
             </div>
@@ -43,15 +35,12 @@
             </div>
 
             <ReviewTestList :list="state.allProblems" />
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IExamItem } from '@/interfaces';
-
-
-const router = useRouter();
 
 onMounted(() => {
     // 데이터

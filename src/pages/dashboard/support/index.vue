@@ -1,14 +1,16 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
-<template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                고객센터
-            </span>
-        </div>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto background-secondary">
-            <div class="background-primary pt-9 pb-5 px-4 mb-2">
+<template>
+    <PageTemplate
+        back-button
+        background="secondary"
+        space="pa-0"
+    >
+        <template v-slot:center-header>
+            고객센터
+        </template>
+
+        <template v-slot:content>
+            <div class="background-primary pt-9 pb-5 px-4">
                 <div class="d-flex justify-space-between align-center mb-4">
                     <span class="text-t-lg font-weight-bold">
                         자주 묻는 질문
@@ -31,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="background-primary py-5 px-4 mb-2">
+            <div class="background-primary py-5 px-4">
                 <div
                     class="d-flex align-center mb-5"
                     v-ripple
@@ -89,16 +91,14 @@
                 </v-row>
             </div>
 
-            <DialogPolicy 
+            <DialogPolicy
                 v-model:dialog="state.dialogPolicy"
                 :currentPolicyKey="state.currentPolicyKey"
             />
 
-            <DialogCookies 
-                v-model:dialog="state.dialogCookies"
-            />
-        </div>
-    </v-container>
+            <DialogCookies v-model:dialog="state.dialogCookies" />
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -147,7 +147,7 @@ const onClickFaq = () => {
 }
 
 const onClickFaqItem = (key: number) => {
-    alert("onClickFaqItem: " + key);
+    router.push("/dashboard/support/faq?id=" + key)
 }
 
 const onClickNotice = () => {
@@ -159,7 +159,7 @@ const onClickContact = () => {
 }
 
 const onClickTerms = (key: string) => {
-    if(key == "cookie") {
+    if (key == "cookie") {
         state.dialogCookies = true;
         return;
     }

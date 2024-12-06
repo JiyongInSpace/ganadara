@@ -1,74 +1,71 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
-
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        back-button
+        space="pa-0"
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 구매 완료
             </span>
+        </template>
 
-            <v-spacer />
-        </div>
+        <template v-slot:content>
+            <div class="d-flex flex-column flex-grow-1 overflow-y-auto py-5 px-4 ga-2">
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto py-5 px-4 ga-2">
+                <div class="text-d-xs font-weight-bold mb-2-5">
+                    구매가 완료되었습니다!
+                </div>
 
-            <div class="text-d-xs font-weight-bold mb-2-5">
-                구매가 완료되었습니다!
-            </div>
-
-            <div class="mb-10">
-                상품은 --- 에서 확인할 수 있습니다.
-            </div>
+                <div class="mb-10">
+                    상품은 --- 에서 확인할 수 있습니다.
+                </div>
 
 
-            <div class="d-flex ga-2-5">
-                <v-img
-                    :src="state.goodsInfo.imgUrl"
-                    :aspect-ratio="1"
-                    cover
-                    width="120"
-                    height="120"
-                    class="rounded-8 flex-grow-0"
-                ></v-img>
+                <div class="d-flex ga-2-5">
+                    <v-img
+                        :src="state.goodsInfo.imgUrl"
+                        :aspect-ratio="1"
+                        cover
+                        width="120"
+                        height="120"
+                        class="rounded-8 flex-grow-0"
+                    ></v-img>
 
-                <div>
-                    <div class="font-weight-medium mb-1">
-                        {{ state.goodsInfo.name }}
-                    </div>
+                    <div>
+                        <div class="font-weight-medium mb-1">
+                            {{ state.goodsInfo.name }}
+                        </div>
 
-                    <div class="text-t-xl font-weight-bold mb-1">
-                        {{ state.goodsInfo.price?.toLocaleString() }}원
+                        <div class="text-t-xl font-weight-bold mb-1">
+                            {{ state.goodsInfo.price?.toLocaleString() }}원
+                        </div>
                     </div>
                 </div>
             </div>
+        </template>
 
-            <v-spacer />
-        </div>
+        <template v-slot:actions>
+            <div class="d-flex pt-4 pb-8 px-2-5 ga-1-5">
+                <v-btn
+                    class="secondary flex-1-1-100"
+                    variant="outlined"
+                    size="large"
+                    @click="onClickGoToGoods"
+                >
+                    상품 보러 가기
+                </v-btn>
 
-        <div class="d-flex pt-4 pb-8 px-2-5 ga-1-5">
-            <v-btn
-                class="secondary flex-1-1-100"
-                variant="outlined"
-                size="large"
-                @click="onClickGoToGoods"
-            >
-                상품 보러 가기
-            </v-btn>
-
-            <v-btn
-                class="primary flex-1-1-100"
-                variant="tonal"
-                size="large"
-                @click="onClickInventory"
-            >
-                보유한 상품 보러 가기
-            </v-btn>
-        </div>
-    </v-container>
+                <v-btn
+                    class="primary flex-1-1-100"
+                    variant="tonal"
+                    size="large"
+                    @click="onClickInventory"
+                >
+                    보유한 상품 보러 가기
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

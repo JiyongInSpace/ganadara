@@ -1,13 +1,18 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                설정
+    <PageTemplate
+        back-button
+        no-spacer
+        background="secondary"
+        space="pa-0"
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
+                학습 성향
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto background-secondary">
-            <div class="px-4 py-5 mb-2 background-primary">
+        <template v-slot:content>
+            <div class="background-primary py-5 px-4">
                 <div class="mb-5 text-d-xs font-weight-semibold">
                     기본 학습 정보
                 </div>
@@ -88,13 +93,13 @@
                 </div>
             </div>
 
-            <div class="flex-grow-1 px-4 py-5 background-primary">
+            <div class="flex-grow-1 pt-10 px-4 pb-5 background-primary">
                 <div class="mb-1 text-d-xs font-weight-semibold">
                     관심 주제
                 </div>
 
                 <v-chip-group
-                    selected-class="primary"
+                    selected-class="primary border-border-brand"
                     v-model="interests"
                     column
                     multiple
@@ -105,9 +110,11 @@
                         :value="tag.code"
                         variant="outlined"
                         size="x-large"
+                        class="border-border-primary"
                     >
                         <v-icon
-                            icon="mdi-town-hall"
+                            :icon="`mdi-${tag.icon}`"
+                            size="20"
                             start
                         />
 
@@ -115,20 +122,22 @@
                     </v-chip>
                 </v-chip-group>
             </div>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column ga-5 pt-4 px-2-5 pb-8 background-primary">
-            <v-btn
-                variant="tonal"
-                block
-                size="large"
-                class="primary"
-                @click="onClickSave"
-            >
-                저장하기
-            </v-btn>
-        </div>
-    </v-container>
+        <template v-slot:actions>
+            <div class="d-flex flex-column ga-5 pt-4 px-2-5 pb-8 background-primary">
+                <v-btn
+                    variant="tonal"
+                    block
+                    size="large"
+                    class="primary"
+                    @click="onClickSave"
+                >
+                    저장하기
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -174,51 +183,63 @@ const interests = ref<string[]>([]);
 const languagesTags = [
     {
         text: '회화',
-        code: 'conversation'
+        code: 'conversation',
+        icon: 'message-processing-outline'
     },
     {
         text: '학업',
-        code: 'studies'
+        code: 'studies',
+        icon: 'pencil-outline'
     },
     {
         text: '시험',
-        code: 'exams'
+        code: 'exams',
+        icon: 'book-open-outline'
     },
     {
         text: '취업',
-        code: 'employment'
+        code: 'employment',
+        icon: 'laptop',
     },
     {
         text: '업무',
-        code: 'work'
+        code: 'work',
+        icon: 'calendar-blank-outline'
     },
     {
         text: '이직',
-        code: 'job_change'
+        code: 'job_change',
+        icon: 'bag-checked'
     },
     {
         text: '여행',
-        code: 'travel'
+        code: 'travel',
+        icon: 'umbrella-beach-outline'
     },
     {
         text: '취미',
-        code: 'hobbies'
+        code: 'hobbies',
+        icon: 'cart-outline'
     },
     {
         text: '자기계발',
-        code: 'self_development'
+        code: 'self_development',
+        icon: 'book-open-outline'
     },
     {
         text: '외국인친구',
-        code: 'foreign_friends'
+        code: 'foreign_friends',
+        icon: 'hand-heart-outline'
     },
     {
         text: '언어권문화이해',
-        code: 'understanding_of_culture'
+        code: 'understanding_of_culture',
+        icon: 'star-four-points-outline'
     },
     {
         text: '다문화가정',
-        code: 'multicultural_family'
+        code: 'multicultural_family',
+        icon: 'emoticon-happy-outline'
     },
 ]
 
@@ -228,9 +249,3 @@ const onClickSave = () => {
 }
 
 </script>
-
-<style lang="scss" scoped>
-.h-14 {
-    height: 56px;
-}
-</style>

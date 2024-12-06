@@ -169,3 +169,26 @@ export interface IExamItem {
   elapsed_time?: number;
   ideal_time?: number;
 }
+
+export interface IBadge {
+  imageUrl: string;
+  name: string;
+  description: string;
+  isAchieved: boolean;
+}
+
+export interface IGoods {
+  imageUrl: string;
+  name: string;
+  description: string;
+  points: number;
+  user: {
+      name: string;
+      profileImage: string;
+  }
+}
+
+export interface IExperienceItem {
+  label: string;
+  percentage: number;
+}

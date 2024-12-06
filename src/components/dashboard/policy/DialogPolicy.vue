@@ -14,9 +14,17 @@
                 </span>
             </v-sheet>
 
+            <v-btn
+                icon="mdi-close"
+                class="position-absolute top-3 right-3"
+                size="small"
+                variant="text"
+                @click="dialog = false"
+            />
+
             <div class="pt-8 pb-2-5 mb-8">
                 <div class="text-t-lg font-weight-bold mb-5">
-                    {{ currentPolicyKey }}
+                    {{ t(`policy.${currentPolicyKey}`) }}
                 </div>
 
                 <v-select
@@ -40,6 +48,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
 const dialog = defineModel("dialog");
 
 const props = defineProps<{
@@ -82,6 +91,16 @@ watch(
         state.content = `${state.history.find(item => item.key === newSelected)?.value} 내용이 표시됩니다. `;
     }
 );
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            //
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,13 +1,16 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                설정
-            </span>
-        </div>
+    <PageTemplate
+        space="pa-0"
+        back-button
+        background="secondary"
+        no-spacer
+    >
+        <template v-slot:center-header>
+            설정
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto background-secondary">
-            <div class="px-4 py-5 background-primary mb-2">
+        <template v-slot:content>
+            <div class="px-4 py-5 background-primary">
                 <div class="text-t-sm text-text-quaternary mb-2-5">
                     앱 및 기능
                 </div>
@@ -53,10 +56,12 @@
                             마케팅 안내
                         </div>
 
-                        <v-icon
-                            icon="mdi-chevron-right"
-                            class="text-text-disabled"
-                        ></v-icon>
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="24"
+                            height="24"
+                            class="flex-grow-0 opacity-40"
+                        />
                     </v-sheet>
                 </div>
 
@@ -71,10 +76,12 @@
                             언어
                         </div>
 
-                        <v-icon
-                            icon="mdi-chevron-right"
-                            class="text-text-disabled"
-                        ></v-icon>
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="24"
+                            height="24"
+                            class="flex-grow-0 opacity-40"
+                        />
                     </v-sheet>
                 </div>
 
@@ -89,17 +96,19 @@
                             학습 성향
                         </div>
 
-                        <v-icon
-                            icon="mdi-chevron-right"
-                            class="text-text-disabled"
-                        ></v-icon>
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="24"
+                            height="24"
+                            class="flex-grow-0 opacity-40"
+                        />
                     </v-sheet>
                 </div>
             </div>
 
             <div class="flex-grow-1 px-4 py-5 background-primary">
                 <div class="text-t-sm text-text-quaternary mb-2-5">
-                    앱 및 기능
+                    데이터
                 </div>
 
                 <div class="pb-2">
@@ -113,15 +122,28 @@
                             캐시 데이터
                         </div>
 
-                        <v-icon
-                            icon="mdi-chevron-right"
-                            class="text-text-disabled"
-                        ></v-icon>
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="24"
+                            height="24"
+                            class="flex-grow-0 opacity-40"
+                        />
                     </v-sheet>
                 </div>
             </div>
 
-            <div class="d-flex flex-column ga-5 pt-4 px-2-5 pb-8 background-primary">
+            <DialogLogout
+                v-model:dialog="state.dialogLogout"
+                @onClickLogout="onClickLogout"
+            />
+            <DialogWithdraw
+                v-model:dialog="state.dialogWithdraw"
+                @onClickWithdraw="onClickWithdraw"
+            />
+        </template>
+
+        <template v-slot:actions>
+            <div class="d-flex flex-column ga-3 pt-4 px-2-5 pb-8 background-primary">
                 <v-btn
                     variant="tonal"
                     size="x-large"
@@ -142,17 +164,8 @@
                     </span>
                 </v-btn>
             </div>
-        </div>
-
-        <DialogLogout 
-            v-model:dialog="state.dialogLogout"
-            @onClickLogout="onClickLogout"
-        />
-        <DialogWithdraw 
-            v-model:dialog="state.dialogWithdraw"
-            @onClickWithdraw="onClickWithdraw"
-        />
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -163,7 +176,6 @@ import { storeToRefs } from 'pinia';
 
 const userStore = useUserStore();
 const router = useRouter();
-const { name, subscription } = storeToRefs(userStore);
 
 const state = reactive({
     dialogLogout: false,

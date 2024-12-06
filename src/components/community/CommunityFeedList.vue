@@ -10,7 +10,8 @@
         <div class="position-fixed bottom-4 right-4">
             <v-btn
                 size="x-large"
-                class="primary"
+                variant="tonal"
+                class="primary rounded-circle"
                 icon="mdi-plus"
                 @click="state.ui.dialog = true"
             />

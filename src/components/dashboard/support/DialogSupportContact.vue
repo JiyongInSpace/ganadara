@@ -13,7 +13,7 @@
                 <v-icon
                     icon="mdi-close"
                     size="small"
-                    class="position-absolute top-2 left-0 cursor-pointer"
+                    class="position-absolute top-4 left-0 cursor-pointer"
                     @click="buttonCancel.event.onClick"
                 />
             </div>

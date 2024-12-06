@@ -1,12 +1,7 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate back-button>
 
-            </span>
-        </div>
-
-        <div class="pt-4 px-4 w-100 flex-grow-1 d-flex flex-column">
+        <template v-slot:content>
             <div class="mb-1 text-d-xs font-weight-bold">
                 휴대폰을 인증해 주세요
             </div>
@@ -20,59 +15,51 @@
                 size="large"
                 class="primary flex-grow-0"
                 block
-                :disabled="buttonNext.isValid.value"
-                @click="buttonPass.event.onClick"
+                :disabled="state.isValid"
+                @click="onClickButtonPass"
             >
                 PASS로 인증하기
             </v-btn>
-        </div>
+        </template>
 
-        <v-spacer />
+        <template v-slot:bottom>
+        </template>
 
-        <div class="pt-4 px-2-5 pb-8">
-            <v-btn
-                variant="tonal"
-                size="large"
-                class="primary flex-grow-0"
-                block
-                :disabled="!buttonNext.isValid.value"
-                @click="buttonNext.event.onClick"
-            >
-                확인
-            </v-btn>
-        </div>
-    </v-container>
+        <template v-slot:actions>
+            <div class="pt-4 px-2-5 pb-8">
+                <v-btn
+                    variant="tonal"
+                    size="large"
+                    class="primary flex-grow-0"
+                    block
+                    :disabled="!state.isValid"
+                    @click="onClickButtonNext"
+                >
+                    확인
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
+const router = useRouter();
 
-const emit = defineEmits<{
-    (e: 'onClickNext', email: string): void
-}>()
+const state = reactive({
+    foundedEmail: '',
+    isValid: false,
+})
 
-const foundedEmail = ref('');
+const onClickButtonPass = () => {
+    alert("PASS");
 
-const buttonPass = {
-    event: {
-        onClick: () => {
-            alert("PASS");
-
-            const isValid = true;
-            buttonNext.isValid.value = isValid;
-            foundedEmail.value = "robin582@careerzen.org"
-        }
-    }
+    const isValid = true;
+    state.isValid = isValid;
+    state.foundedEmail = "robin582@careerzen.org"
 }
 
-const buttonNext = {
-    isValid: ref(false),
-    event: {
-        onClick: () => {
-            emit('onClickNext', foundedEmail.value);
-        }
-    },
+const onClickButtonNext = () => {
+    alert(state.foundedEmail);
+    router.push("/dashboard/profile");
 }
-
 </script>
-
-<style scoped lang="scss"></style>

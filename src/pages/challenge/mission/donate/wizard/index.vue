@@ -1,129 +1,129 @@
 <template>
-    <v-container
-        class="pt-0 pb-10 px-4 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto"
+    <PageTemplate
+        back-button
+        no-spacer
     >
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
+        <template v-slot:center-header>
+            등록
+        </template>
 
-            <span class="text-t-xl font-weight-semibold">
-                후원
-            </span>
+        <template v-slot:content>
+            <v-spacer v-if="state.donationStep === 2"></v-spacer>
+
+            <div class="d-flex flex-column align-center pt-4 mb-11">
+                <v-img
+                    :src="state.user.profileImage"
+                    width="56"
+                    height="56"
+                    class="mx-auto mb-4"
+                />
+
+                <div class="text-center text-t-lg font-weight-medium mb-4">
+                    {{ state.user.nickname }} 님에게
+                </div>
+
+                <div class="text-center text-d-xs font-weight-bold mb-2">
+                    <span v-if="state.howMuch === 0">
+                        얼마를 보낼까요?
+                    </span>
+                    <span v-else>
+                        {{ state.howMuch.toLocaleString() }}
+                    </span>
+                </div>
+
+                <div class="text-t-xs text-text-quaternary">
+                    후원 후 취소 또는 변경할 수 없습니다.
+                </div>
+            </div>
 
             <v-spacer />
-        </div>
 
-        <v-spacer v-if="state.donationStep === 2"></v-spacer>
-
-        <div class="d-flex flex-column align-center pt-4 mb-11">
-            <v-img
-                :src="state.user.profileImage"
-                width="56"
-                height="56"
-                class="mx-auto mb-4"
-            />
-
-            <div class="text-center text-t-lg font-weight-medium mb-4">
-                {{ state.user.nickname }} 님에게
-            </div>
-
-            <div class="text-center text-d-xs font-weight-bold mb-2">
-                <span v-if="state.howMuch === 0">
-                    얼마를 보낼까요?
-                </span>
-                <span v-else>
-                    {{ state.howMuch.toLocaleString() }}
-                </span>
-            </div>
-
-            <div class="text-t-xs text-text-quaternary">
-                후원 후 취소 또는 변경할 수 없습니다.
-            </div>
-        </div>
-
-        <v-spacer />
-
-        <div v-if="state.donationStep == 1">
-            <v-card
-                variant="tonal"
-                class="px-4 py-2 rounded-6 mb-3"
-                @click="toggleCurrency"
-            >
-                <span class="text-t-sm font-weight-medium mr-3">
-                    내 {{ state.currency === 'won' ? '원' : '포인트' }}
-                </span>
-
-                <span class="text-t-sm font-weight-medium">
-                    {{ wallet[state.currency].toLocaleString() }}
-                </span>
-            </v-card>
-
-            <div class="d-flex ga-2 mb-7">
-                <v-btn
-                    class="flex-1-1-100 secondary"
-                    variant="outlined"
-                    @click="updateHowMuch(10000)"
+            <div v-if="state.donationStep == 1">
+                <v-card
+                    variant="tonal"
+                    class="px-4 py-2 rounded-6 mb-3"
+                    @click="toggleCurrency"
                 >
-                    10,000
-                </v-btn>
-                <v-btn
-                    class="flex-1-1-100 secondary"
-                    variant="outlined"
-                    @click="updateHowMuch(30000)"
-                >
-                    30,000
-                </v-btn>
-                <v-btn
-                    class="flex-1-1-100 secondary"
-                    variant="outlined"
-                    @click="updateHowMuch(50000)"
-                >
-                    50,000
-                </v-btn>
-                <v-btn
-                    class="flex-1-1-100 secondary"
-                    variant="outlined"
-                    @click="updateHowMuch(wallet[state.currency])"
-                >
-                    전액
-                </v-btn>
-            </div>
+                    <span class="text-t-sm font-weight-medium mr-3">
+                        내 {{ state.currency === 'won' ? '원' : '포인트' }}
+                    </span>
 
-            <div class="mb-1">
-                <v-row no-gutters>
-                    <v-col
-                        v-for="(keypadItem, index) in keypad"
-                        :key="index"
-                        cols="4"
-                        class="mb-5"
+                    <span class="text-t-sm font-weight-medium">
+                        {{ wallet[state.currency].toLocaleString() }}
+                    </span>
+                </v-card>
+
+                <div class="d-flex ga-2 mb-7">
+                    <v-btn
+                        class="flex-1-1-100 secondary"
+                        variant="outlined"
+                        @click="updateHowMuch(10000)"
                     >
-                        <div class="px-2">
-                            <v-btn
-                                block
-                                variant="text"
-                                class="text-d-xs font-weight-medium"
-                                @click="handleKeypadClick(keypadItem.value)"
-                            >
-                                {{ keypadItem.value }}
-                            </v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
-            </div>
-        </div>
+                        10,000
+                    </v-btn>
+                    <v-btn
+                        class="flex-1-1-100 secondary"
+                        variant="outlined"
+                        @click="updateHowMuch(30000)"
+                    >
+                        30,000
+                    </v-btn>
+                    <v-btn
+                        class="flex-1-1-100 secondary"
+                        variant="outlined"
+                        @click="updateHowMuch(50000)"
+                    >
+                        50,000
+                    </v-btn>
+                    <v-btn
+                        class="flex-1-1-100 secondary"
+                        variant="outlined"
+                        @click="updateHowMuch(wallet[state.currency])"
+                    >
+                        전액
+                    </v-btn>
+                </div>
 
-        <v-btn
-            variant="tonal"
-            size="x-large"
-            class="primary"
-            @click="onClickDonate"
-        >
-            확인
-        </v-btn>
-    </v-container>
+                <div class="mb-1">
+                    <v-row no-gutters>
+                        <v-col
+                            v-for="(keypadItem, index) in keypad"
+                            :key="index"
+                            cols="4"
+                            class="mb-5"
+                        >
+                            <div class="px-2">
+                                <v-btn
+                                    block
+                                    variant="text"
+                                    class="text-d-xs font-weight-medium"
+                                    @click="handleKeypadClick(keypadItem.value)"
+                                >
+                                    {{ keypadItem.value }}
+                                </v-btn>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </div>
+            </div>
+
+            <v-btn
+                variant="tonal"
+                size="x-large"
+                class="primary"
+                @click="onClickDonate"
+            >
+                확인
+            </v-btn>
+        </template>
+
+        <template v-slot:bottom>
+        </template>
+
+        <template v-slot:actions>
+        </template>
+    </PageTemplate>
+
 </template>
 
 <script lang="ts" setup>

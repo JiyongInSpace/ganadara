@@ -4,6 +4,52 @@ button:
   prev: 이전
   back: 뒤로가기
   go: 이동
+  ok: 확인
 intro:
   hi: 안녕, {name}!
 not-found: 찾을 수 없습니다
+billingType:
+  recurring: 정기 결제 
+  single: 일회성 결제
+language:
+  ko: 한국어
+  en: 영어
+  jp: 일본어
+  cn: 중국어
+  fr: 프랑스어
+  de: 독일어
+country:
+  ko: 한국
+  us: 미국
+  jp: 일본
+  cn: 중국
+  fr: 프랑스
+  de: 독일
+category:
+  dashboard: 전체 보기
+dashboard:
+  learningStats: 학습통계 
+  learningRanking: 학습랭킹 
+  shortFormLearning: 숏폼학습 
+  reviewSession: 복습하기 
+  levelTest: 레벨 테스트 
+  aiChat: AI채팅 
+  aiTranslation: AI번역 
+  learningMissions: 학습미션 
+  attendanceCheck: 출석체크 
+  donate: 후원하기 
+  badge: 배지 
+  store: 스토어 
+  event: 이벤트 
+  mockTest: 모의고사 
+  brand: 브랜드 
+policy:
+  terms: 이용약관
+  recurring: 정기 결제 이용약관
+  location: 위치기반 서비스 이용약관
+  policy: 운영 정책
+  privacy: 개인정보 처리 방침
+  copyright: 저작권 보호 정책
+  ai: AI 서비스 이용약관
+  youth: 청소년보호 정책
+  cookie: 쿠키 수집 정책

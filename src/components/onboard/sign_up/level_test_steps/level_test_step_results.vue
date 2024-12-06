@@ -2,32 +2,30 @@
     <v-spacer />
 
     <div class="w-100 d-flex justify-center rounded-xl">
-        <Progress-bar
-            :strokeWidth="24"
-            :percentage="percentage"
+        <ProgressBar
+            :level="level"
             :size="{ width: 241, height: 228 }"
-            hasBackground
             class="mb-5"
         >
             <div class="text-center">
                 <div class="text-t-sm">
-                    레벨테스트 결과
+                    레벨 테스트 결과
                 </div>
 
                 <div class="text-d-md font-weight-semibold">
                     Level <span v-text="level" />
                 </div>
             </div>
-        </Progress-bar>
+        </ProgressBar>
     </div>
 
     <div class="text-t-sm font-weight-regular text-center mb-2">
         레벨 테스트가 완료되었습니다!
     </div>
 
-    <div class="w-100 text-t-lg font-weight-bold text-center">
-        당신은 Lvl.7 사용자 중에<br />
-        상위 10%입니다.
+    <div class="w-100 text-t-lg text-center mb-10">
+        당신은 Lvl.{{ level }} 사용자 중<br />
+        <span class="font-weight-bold">상위 {{ percentage }}%</span>입니다.
     </div>
 
     <v-spacer />

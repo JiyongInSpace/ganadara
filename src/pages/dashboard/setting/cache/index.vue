@@ -1,66 +1,63 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        back-button
+        no-spacer
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 캐시 데이터
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
-            <div class="px-4 py-5 mb-2">
-                <div class="text-t-sm text-text-quaternary mb-5">
-                    가나다라/마이풀의 혜택과 소식을 알려드릴게요.
-                </div>
-
-                <div class="pb-2 mb-2-5 border-b">
-                    <v-sheet
-                        class="d-flex justify-space-between align-center cursor-pointer"
-                        v-ripple
-                        height="40"
-                    >
-                        <div class="text-t-sm font-weight-medium ">
-                            캐시 데이터 수집 허용
-                        </div>
-
-                        <v-switch
-                            color="primary"
-                            v-model="state.cache"
-                            hide-details
-                        />
-                    </v-sheet>
-                </div>
-
-                <v-card
-                    variant="outlined"
-                    class="text-t-sm border-border-primary background-secondary py-5 px-3 rounded-8"
-                    v-html="guide_text"
-                >
-                </v-card>
+        <template v-slot:content>
+            <div class="text-t-sm text-text-quaternary mb-5">
+                가나다라/마이풀의 혜택과 소식을 알려드릴게요.
             </div>
-        </div>
 
-        <div class="d-flex flex-column ga-5 pt-4 px-2-5 pb-8 background-primary">
-            <v-btn
-                variant="tonal"
-                block
-                size="large"
-                class="primary"
-                @click="onClickDeleteCache"
+            <div class="pb-2 mb-2-5 border-b">
+                <v-sheet
+                    class="d-flex justify-space-between align-center cursor-pointer"
+                    v-ripple
+                    height="40"
+                >
+                    <div class="text-t-sm font-weight-medium">
+                        캐시 데이터 수집 허용
+                    </div>
+
+                    <v-switch
+                        color="primary"
+                        v-model="state.cache"
+                        hide-details
+                    />
+                </v-sheet>
+            </div>
+
+            <v-card
+                variant="outlined"
+                class="text-t-sm border-border-primary background-secondary text-text-tertiary py-5 px-3 rounded-8"
+                v-html="guide_text"
             >
-                캐시 데이터 삭제하러 가기
-            </v-btn>
-        </div>
-    </v-container>
+            </v-card>
+        </template>
+
+        <template v-slot:actions>
+            <div class="d-flex flex-column ga-5 pt-4 px-2-5 pb-8 background-primary">
+                <v-btn
+                    variant="tonal"
+                    block
+                    size="large"
+                    class="primary"
+                    @click="onClickDeleteCache"
+                >
+                    캐시 데이터 삭제하러 가기
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
-import { storeToRefs } from 'pinia';
-
-const userStore = useUserStore();
-const router = useRouter();
 
 const state = reactive({
     cache: false,
@@ -92,17 +89,8 @@ const onClickDeleteCache = () => {
 // 번역
 const { t } = useI18n({
     messages: {
-        en: {
-            main_tab: {
-                coupons: "나의 쿠폰",
-                history: "쿠폰 내역",
-            },
-        },
         ko: {
-            main_tab: {
-                coupons: "전체",
-                history: "팔로잉",
-            },
+            //
         },
     },
     inheritLocale: true, // 전역 locale 상속

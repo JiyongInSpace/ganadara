@@ -22,7 +22,7 @@
                     @click="buttonCancel.event.onClick"
                     variant="outlined"
                     size="large"
-                    class="flex-1-1-100"
+                    class="flex-1-1-100 border-border-primary"
                 >
                     취소
                 </v-btn>

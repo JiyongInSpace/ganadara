@@ -1,5 +1,9 @@
 <template>
     <ChallengeTemplate :info="state.missioninfo">
+        <template v-slot:title>
+            커뮤니티 미션
+        </template>
+
         <template v-slot:content>
             <div class="pb-12">
 

@@ -1,66 +1,67 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                모의고사
-            </span>
-        </div>
+    <PageTemplate back-button>
+        <template v-slot:center-header>
+            모의고사
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-4 py-5">
-            <div
-                v-for="testItem, index in state.testList"
-                class="d-flex align-center border-b py-2 cursor-pointer"
-                v-ripple
-                @click="() => onClickMockTest(testItem.key)"
-            >
-                <div class="py-2 flex-grow-1">
-                    <div class="mb-1">
-                        <span class="font-weight-bold">
-                            {{ testItem.title }}
-                        </span>
-
-                        <v-chip
-                            v-if="testItem.status === 'completed'"
-                            variant="outlined"
-                            class="xxs brand ml-2"
-                        >
-                            {{ testItem.status }}
-                        </v-chip>
-                        <v-chip
-                            v-if="testItem.status === 'ongoing'"
-                            variant="outlined"
-                            class="xxs border-border-brand text-text-brand-tertiary ml-2"
-                        >
-                            {{ testItem.status }}
-                        </v-chip>
-                        <v-chip
-                            v-if="testItem.status === 'not_started'"
-                            variant="outlined"
-                            size="x-small"
-                            class="xxs secondary ml-2"
-                        >
-                            {{ testItem.status }}
-                        </v-chip>
-                    </div>
-
-                    <div class="text-t-sm font-weight-medium">
-                        총 {{ testItem.quizNumber }}문제
-                    </div>
-                </div>
+        <template v-slot:content>
+            <div>
 
                 <div
-                    v-if="testItem.score"
-                    class="font-weight-bold"
+                    v-for="testItem, index in state.testList"
+                    class="d-flex align-center border-b py-2 cursor-pointer"
+                    v-ripple
+                    @click="() => onClickMockTest(testItem.key)"
                 >
-                    {{ testItem.score }}점
+                    <div class="py-2 flex-grow-1">
+                        <div class="mb-1">
+                            <span class="font-weight-bold">
+                                {{ testItem.title }}
+                            </span>
+
+                            <v-chip
+                                v-if="testItem.status === 'completed'"
+                                variant="outlined"
+                                class="xxs brand ml-2"
+                            >
+                                {{ t(testItem.status) }}
+                            </v-chip>
+                            <v-chip
+                                v-if="testItem.status === 'ongoing'"
+                                variant="outlined"
+                                class="xxs border-border-brand text-text-brand-tertiary ml-2"
+                            >
+                                {{ t(testItem.status) }}
+                            </v-chip>
+                            <v-chip
+                                v-if="testItem.status === 'not_started'"
+                                variant="outlined"
+                                size="x-small"
+                                class="xxs secondary ml-2"
+                            >
+                                {{ t(testItem.status) }}
+                            </v-chip>
+                        </div>
+
+                        <div class="text-t-sm font-weight-medium">
+                            총 {{ testItem.quizNumber }}문제
+                        </div>
+                    </div>
+
+                    <div
+                        v-if="testItem.score"
+                        class="font-weight-bold"
+                    >
+                        {{ testItem.score }}점
+                    </div>
                 </div>
             </div>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
 const router = useRouter();
 
 const state = reactive({
@@ -108,6 +109,20 @@ const onClickMockTest = (key: string) => {
     alert("TEST");
     router.push(`/dashboard/additional/mock_test/${key}/complete`);
 }
+
+
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            completed: "완료",
+            ongoing: "진행 중",
+            not_started: "미응시",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 
 
 </script>

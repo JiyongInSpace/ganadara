@@ -20,7 +20,13 @@
                 </div>
 
                 <div class="text-t-md font-weight-semibold">
-                    {{ item.reward }} {{ item.point }}
+                    <span v-if="item.reward == 'point'">
+                        최대 {{ item.point }}P 받아가기
+                    </span>
+
+                    <span v-else>
+                        선물 받아가기
+                    </span>
                 </div>
             </div>
         </v-sheet>
@@ -35,14 +41,17 @@ interface Mission {
     tag: string;
     imageUrl: string;
     point: number;
+    to: string;
 }
+
+const router = useRouter();
 
 const props = defineProps<{
     list: Mission[];
 }>();
 
 const onClickMissionItem = (_mission: Mission) => {
-
+    router.push("/challenge/mission/" + _mission.to);
 }
 
 </script>

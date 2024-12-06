@@ -1,5 +1,9 @@
 <template>
     <ChallengeTemplate :info="state.missioninfo">
+        <template v-slot:title>
+            출석 체크
+        </template>
+
         <template v-slot:content>
             <div class="pb-12">
                 <div class="mb-10">

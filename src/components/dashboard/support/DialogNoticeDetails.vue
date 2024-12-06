@@ -13,32 +13,33 @@
                 </span>
             </v-sheet>
 
+            <v-btn
+                icon="mdi-close"
+                class="position-absolute top-3 right-3"
+                size="small"
+                variant="text"
+                @click="dialog = false"
+            />
+
             <div class="pt-8 pb-2-5 border-b mb-8">
                 <div class="text-t-lg font-weight-bold mb-1">
                     {{ state.title }}
                 </div>
 
                 <div class="text-t-sm font-weight-medium text-text-quaternary">
-                    {{ state.created_at }}
+                    {{ format(state.created_at, "yyyy.MM.dd") }}
                 </div>
             </div>
 
-            <div v-html="state.content">
-            </div>
+            <div v-html="state.content" />
         </v-card>
     </v-bottom-sheet>
 </template>
 
 <script lang="ts" setup>
-const dialog = defineModel("dialog");
+import { format } from 'date-fns';
 
-const props = defineProps<{
-    // info: {
-    //     title: string;
-    //     subtitle: string;
-    //     description: string;
-    // }
-}>();
+const dialog = defineModel("dialog");
 
 const state = reactive({
     title: "업데이트 안내",

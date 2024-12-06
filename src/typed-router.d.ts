@@ -51,6 +51,7 @@ declare module 'vue-router/auto-routes' {
     '/dashboard/': RouteRecordInfo<'/dashboard/', '/dashboard', Record<never, never>, Record<never, never>>,
     '/dashboard/additional/ai_chat/': RouteRecordInfo<'/dashboard/additional/ai_chat/', '/dashboard/additional/ai_chat', Record<never, never>, Record<never, never>>,
     '/dashboard/additional/ai_translation/': RouteRecordInfo<'/dashboard/additional/ai_translation/', '/dashboard/additional/ai_translation', Record<never, never>, Record<never, never>>,
+    '/dashboard/additional/badge/': RouteRecordInfo<'/dashboard/additional/badge/', '/dashboard/additional/badge', Record<never, never>, Record<never, never>>,
     '/dashboard/additional/level_test/': RouteRecordInfo<'/dashboard/additional/level_test/', '/dashboard/additional/level_test', Record<never, never>, Record<never, never>>,
     '/dashboard/additional/level_test/result/': RouteRecordInfo<'/dashboard/additional/level_test/result/', '/dashboard/additional/level_test/result', Record<never, never>, Record<never, never>>,
     '/dashboard/additional/mock_test/': RouteRecordInfo<'/dashboard/additional/mock_test/', '/dashboard/additional/mock_test', Record<never, never>, Record<never, never>>,

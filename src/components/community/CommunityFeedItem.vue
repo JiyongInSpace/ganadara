@@ -4,7 +4,10 @@
             class="d-flex px-4 justify-space-between align-center"
             height="56"
         >
-            <div class="d-flex ga-2 align-center">
+            <div
+                class="d-flex ga-2 align-center cursor-pointer"
+                @click="onClickProfile(feedItem.user.id)"
+            >
                 <v-img
                     :src="feedItem.user.profileImage"
                     width="32"
@@ -67,20 +70,24 @@
                     :is-active="false"
                     line-color="--v-text-primary"
                     size="24"
+                    class="cursor-pointer"
+                    @click="onClickLike"
                 />
                 <v-img
                     src="/icons/IconMessageCircle.svg"
                     width="24"
                     height="24"
                     alt="message"
-                    class="flex-grow-0"
+                    class="flex-grow-0 cursor-pointer"
+                    @click="onClickComment"
                 />
                 <v-img
                     src="/icons/IconLink.svg"
                     width="24"
                     height="24"
                     alt="link"
-                    class="flex-grow-0"
+                    class="flex-grow-0 cursor-pointer"
+                    @click="onClickShare"
                 />
             </div>
 
@@ -99,7 +106,7 @@
         <div class="px-4">
             <div class="text-t-sm mb-3 d-flex align-center ga-2">
                 <v-sheet
-                    class="d-flex position-relative"
+                    class="d-flex position-relative flex-shrink-0"
                     height="24"
                     :width="24 + (feedItem.likes.slice(0, 3).length - 1) * 20"
                 >
@@ -110,7 +117,7 @@
                         width="24"
                         height="24"
                         cover
-                        class="position-absolute rounded-circle flex-grow-0"
+                        class="position-absolute rounded-circle flex-grow-0 flex-shrink-0"
                         :style="{
                             left: (index * 20) + 'px',
                             zIndex: index,
@@ -163,8 +170,8 @@ import { IFeedItem } from '@/interfaces';
 import DialogReport from './DialogReport.vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/user';
-import { RouteLocationNormalizedLoaded } from 'vue-router/auto';
 
+const router = useRouter();
 const userStore = useUserStore();
 
 interface FeedItemWithCarousel extends IFeedItem {
@@ -194,8 +201,29 @@ const isMyFeed = computed(() => {
     return String(id.value) == props.feedItem.user.id;
 })
 
+const onClickProfile = (userId: string) => {
+    router.push(`/community/user/${userId}`)
+};
 
 const onClickCommercial = () => {
     alert('더 알아보기');
+};
+
+const onClickLike = () => {
+    alert('좋아요');
+};
+
+const onClickComment = () => {
+    state.ui.dialogComment = true;
+};
+
+const onClickShare = async () => {
+    try {
+        await navigator.share({
+            url: window.location.href, // 현재 페이지 URL
+        });
+    } catch (error) {
+        console.error("공유 실패:", error);
+    }
 };
 </script>

@@ -1,12 +1,10 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                전화번호 변경
-            </span>
-        </div>
+    <PageTemplate pre-close-button>
+        <template v-slot:center-header>
+            전화번호 변경
+        </template>
 
-        <div class="pt-5 px-4 w-100 flex-grow-1 d-flex flex-column">
+        <template v-slot:content>
             <v-text-field
                 v-model="phoneNumber"
                 type="tel"
@@ -18,25 +16,24 @@
                 :messages="isPhoneValid ? '올바른 전화번호 형식입니다.' : ''"
                 :error-messages="errorMessages"
                 @input="formatPhoneNumber"
-            >
-            </v-text-field>
-        </div>
+            />
+        </template>
 
-        <v-spacer />
-
-        <div class="pt-4 px-2-5 pb-8">
-            <v-btn
-                variant="tonal"
-                size="x-large"
-                class="primary flex-grow-0"
-                block
-                :disabled="!isPhoneValid"
-                @click="onSubmit"
-            >
-                전화번호 변경
-            </v-btn>
-        </div>
-    </v-container>
+        <template v-slot:actions>
+            <div class="pt-4 px-2-5 pb-8">
+                <v-btn
+                    variant="tonal"
+                    size="x-large"
+                    class="primary flex-grow-0"
+                    block
+                    :disabled="!isPhoneValid"
+                    @click="onSubmit"
+                >
+                    전화번호 변경
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -75,6 +72,5 @@ const onSubmit = () => {
     }
 
     router.push("/dashboard/profile/phone/pass");
-    // alert(`전화번호 ${phoneNumber.value}가 제출되었습니다.`);
 };
 </script>

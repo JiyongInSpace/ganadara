@@ -1,4 +1,4 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
+
 <template>
     <div
         class="overflow-x-auto flex-shrink-0 cursor-pointer"

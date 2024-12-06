@@ -30,7 +30,7 @@
                     class="flex-1-1-100"
                     variant="text"
                     size="large"
-                    @click="buttonReportConfirm.event.onClick"
+                    @click="onClickReport"
                 >
                     <template v-slot:prepend>
                         <v-icon
@@ -65,7 +65,7 @@
                     variant="outlined"
                     class="flex-1-1-100"
                     size="large"
-                    @click="buttonCancel.event.onClick"
+                    @click="onClickCancel"
                 >
                     취소
                 </v-btn>
@@ -74,7 +74,7 @@
                     class="primary flex-1-1-100"
                     variant="tonal"
                     size="large"
-                    @click="buttonReport.event.onClick"
+                    @click="onClickDelete"
                 >
                     삭제
                 </v-btn>
@@ -146,32 +146,21 @@ const selectedRadio = computed(() => {
     return radioList.find(radio => radio.value === state.radios);
 })
 
-const buttonCancel = {
-    event: {
-        onClick: () => {
-            dialogSecond.value = false;
-        }
-    }
+const onClickCancel = () => {
+    dialogSecond.value = false;
 }
 
-const buttonReport = {
-    event: {
-        onClick: () => {
-            snackbar.showSnackbar("신고 접수가 완료되었습니다.");
-            // console.log(props.reportId);
-            dialog.value = false;
-            dialogSecond.value = false;
-            state.radios = null;
-        }
-    }
+const onClickDelete = () => {
+    // console.log(props.editId);
+
+    snackbar.showSnackbar("댓글이 삭제되었습니다.");
+    dialog.value = false;
+    dialogSecond.value = false;
+    state.radios = null;
 }
 
-const buttonReportConfirm = {
-    event: {
-        onClick: () => {
-            dialogSecond.value = true;
-        }
-    }
+const onClickReport = () => {
+    dialogSecond.value = true;
 }
 </script>
 

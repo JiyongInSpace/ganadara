@@ -1,19 +1,22 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                설정
+    <PageTemplate
+        back-button
+        no-spacer
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
+                언어
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto py-5 px-4">
+        <template v-slot:content>
             <Survey_step_2
                 :defaultValue="userSurvey"
                 setting
                 @onClickNext="compButtonNext.event.onClick"
             />
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -35,9 +38,3 @@ const compButtonNext = {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.h-14 {
-    height: 56px;
-}
-</style>

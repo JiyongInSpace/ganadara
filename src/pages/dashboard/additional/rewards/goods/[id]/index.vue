@@ -1,23 +1,17 @@
 <template>
-    <v-container
-        class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto background-secondary"
+    <PageTemplate
+        back-button
+        space="pa-0"
+        background="secondary"
+        no-spacer
     >
-        <div
-            class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 background-primary px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
-
-            <span class="text-t-xl font-weight-semibold">
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 디지털 굿즈
             </span>
+        </template>
 
-            <v-spacer />
-        </div>
-
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto ga-2">
+        <template v-slot:content>
             <div class="background-primary">
                 <v-img
                     :src="state.goodsInfo.imgUrl"
@@ -78,6 +72,36 @@
                 </div>
             </div>
 
+            <v-dialog
+                v-model="state.dialog"
+                transition="dialog-bottom-transition"
+                max-width="400"
+            >
+                <v-card class="pt-9 px-5 pb-5 text-center rounded-16">
+                    <div class="text-t-xl font-weight-bold mb-1 text-center">
+                        포인트가 부족합니다
+                    </div>
+
+                    <div class="mb-6 font-weight-medium text-text-quaternary text-center">
+                        상품 구입을 위한 포인트가 부족합니다. <br />
+                        잔여 포인트 확인 후 구매해 주세요.
+                    </div>
+
+                    <div class="d-flex justify-center ga-3">
+                        <v-btn
+                            class="primary flex-1-1-100"
+                            variant="tonal"
+                            size="large"
+                            @click="onClickOk"
+                        >
+                            확인
+                        </v-btn>
+                    </div>
+                </v-card>
+            </v-dialog>
+        </template>
+
+        <template v-slot:actions>
             <div class="background-primary pt-4 pb-8 px-2-5">
                 <v-btn
                     class="primary flex-1-1-100"
@@ -90,36 +114,8 @@
                     {{ state.goodsInfo.status != 'completed' ? '구매하기' : '판매 종료' }}
                 </v-btn>
             </div>
-        </div>
-
-        <v-dialog
-            v-model="state.dialog"
-            transition="dialog-bottom-transition"
-            max-width="400"
-        >
-            <v-card class="pt-9 px-5 pb-5 text-center rounded-16">
-                <div class="text-t-xl font-weight-bold mb-1 text-center">
-                    포인트가 부족합니다
-                </div>
-
-                <div class="mb-6 font-weight-medium text-text-quaternary text-center">
-                    상품 구입을 위한 포인트가 부족합니다. <br />
-                    잔여 포인트 확인 후 구매해 주세요.
-                </div>
-
-                <div class="d-flex justify-center ga-3">
-                    <v-btn
-                        class="primary flex-1-1-100"
-                        variant="tonal"
-                        size="large"
-                        @click="onClickOk"
-                    >
-                        확인
-                    </v-btn>
-                </div>
-            </v-card>
-        </v-dialog>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

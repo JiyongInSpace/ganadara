@@ -20,7 +20,8 @@ export const useUserStore = defineStore(
       },
       learning: {
         language: 'en',
-        level: 3
+        country: 'US',
+        level: 3,
       },
       // subscription: null as null | {
       //   planName: string

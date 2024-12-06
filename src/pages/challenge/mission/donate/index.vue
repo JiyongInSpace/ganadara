@@ -1,5 +1,9 @@
 <template>
     <ChallengeTemplate :info="state.missioninfo">
+        <template v-slot:title>
+            후원
+        </template>
+
         <template v-slot:content>
             <div class="pb-12">
                 <div class="d-flex justify-space-between mb-3">
@@ -76,7 +80,7 @@
                                 {{ donationItem.title }}
                             </div>
 
-                            <div class="text-t-sm truncate mb-2"> 
+                            <div class="text-t-sm truncate mb-2">
                                 {{ donationItem.description }}
                             </div>
 

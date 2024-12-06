@@ -1,5 +1,9 @@
 <template>
     <ChallengeTemplate :info="state.missioninfo">
+        <template v-slot:title>
+            퀴즈
+        </template>
+
         <template v-slot:content>
             <div class="pb-12">
                 <v-img

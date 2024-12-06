@@ -1,5 +1,4 @@
 <template>
-
     <div
         v-if="item.type == 'notification'"
         class="text-t-xs font-weight-bold text-center text-text-quaternary"
@@ -53,6 +52,7 @@
                             :key="index"
                             width="6"
                             height="6"
+                            flat
                             :color="color"
                         ></v-card>
                     </div>

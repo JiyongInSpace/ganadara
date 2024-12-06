@@ -179,13 +179,4 @@ const compButtonNext = {
         }
     }
 }
-
-
-
 </script>
-
-<style lang="scss" scoped>
-.h-14 {
-    height: 56px;
-}
-</style>

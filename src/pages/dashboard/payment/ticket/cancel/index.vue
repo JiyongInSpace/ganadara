@@ -1,26 +1,24 @@
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        정기 결제 해지
-      </span>
-    </div>
+  <PageTemplate back-button>
+    <template v-slot:center-header>
+      정기 결제 해지
+    </template>
 
-    <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
-      <div class="d-flex flex-column ga-2-5 pt-5 pb-5 px-4">
+    <template v-slot:content>
+      <div>
         <div class="text-t-lg font-weight-bold mb-2-5">
           {{ name }}님 정말 해지하시겠습니까?
         </div>
-
+  
         <div class="text-t-sm font-weight-medium text-text-tertiary mb-10">
           지금 정기 결제를 해지하시면 {{ subscription.endDate }}까지만 이용할 수 있습니다.
         </div>
-
+  
         <div class="text-t-lg font-weight-bold">
           해지하시는 이유는 무엇인가요?<br />
           (복수 선택 가능)
         </div>
-
+  
         <v-checkbox
           v-for="option in reason_option"
           :key="option.key"
@@ -37,9 +35,9 @@
           </template>
         </v-checkbox>
       </div>
+    </template>
 
-      <v-spacer />
-
+    <template v-slot:actions>
       <div class="pt-4 px-2-5 pb-8">
         <v-btn
           variant="tonal"
@@ -49,11 +47,11 @@
           :disabled="selectedReasons.length === 0"
           @click="handleConfirm"
         >
-          확인
+          정기 결제 해지
         </v-btn>
       </div>
-    </div>
-  </v-container>
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>

@@ -4,7 +4,6 @@
         variant="outline"
         v-ripple="hasClickListener"
     >
-        <!-- @click="onCardClick" -->
         <div class="d-flex justify-space-between">
             <span class="text-t-lg font-weight-bold">
                 {{ info?.name }}
@@ -21,7 +20,7 @@
         <div class="text-t-sm font-weight-medium mt-2-5">
             날짜:
             <span>
-                {{ info?.date }}
+                {{ info?.date && format(info.date, "yyyy.MM.dd") }}
             </span>
         </div>
 
@@ -66,6 +65,7 @@
 
 <script lang="ts" setup>
 import { IExamItem } from '@/interfaces';
+import { format } from 'date-fns';
 
 const props = defineProps<{
     info?: IExamItem;

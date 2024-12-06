@@ -1,49 +1,42 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate back-button>
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 복습하기
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column px-4 py-10">
-            <div class="font-weight-bold pa-5 mb-2-5">
+        <template v-slot:content>
+            <v-card
+                class="font-weight-bold text-white rounded-10 pa-5 mb-0-5"
+                image="/images/dashboard/review/review_banner.png"
+                flat
+            >
                 복습을 통해 <br />
                 더 빠르게 성장하세요 !
-            </div>
+            </v-card>
 
             <v-card
                 v-for="option in review_options"
                 variant="outlined"
-                class="border-none background-secondary rounded-12 px-4 py-5 mb-2-5"
+                class="border-none background-secondary rounded-12 px-4 py-5 mb-0-5"
                 @click="() => onClickReview(option.key)"
             >
 
                 <div class="d-flex justify-space-between align-center">
-                    <div class="text-t-md font-weight-medium">
+                    <div class="text-t-md font-weight-bold">
                         {{ option.title }}
                     </div>
 
                     <v-icon icon="mdi-chevron-right" />
                 </div>
             </v-card>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/stores/user';
-import { format } from 'date-fns';
-import { storeToRefs } from 'pinia';
-
-const userStore = useUserStore();
-const { subscription } = storeToRefs(userStore);
 const router = useRouter();
-
-const state = reactive({
-    
-});
 
 const review_options = [
     {
@@ -64,14 +57,7 @@ const review_options = [
     },
 ]
 
-
-//  ======
 const onClickReview = (key: string) => {
     router.push('/dashboard/additional/review/' + key);
 }
-
-
 </script>
-
-
-<style lang="scss" scoped></style>

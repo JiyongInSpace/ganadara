@@ -1,29 +1,26 @@
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        나의 결제 내역
-      </span>
-    </div>
+  <PageTemplate
+    back-button
+    ap-close-button
+  >
+    <template v-slot:center-header>
+      나의 결제 내역
+    </template>
 
-    <div class="d-flex flex-column ga-2-5 flex-grow-1 overflow-y-auto py-10 px-4">
+    <template v-slot:content>
       <DashboardPaymentHistoryItem
         v-for="historyItem in state.historyList"
         :key="historyItem.id"
         :historyItem="historyItem"
+        class="background-secondary border-0"
       />
-    </div>
-  </v-container>
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IPaymentHistoryItem } from '@/interfaces';
 import { useI18n } from 'vue-i18n';
-
-const MAIN_TAB = {
-  COUPONS: "coupons",
-  HISTORY: "history",
-}
 
 const state = reactive({
   historyList: [
@@ -87,14 +84,6 @@ const state = reactive({
 const loading = ref(false);
 
 // UI ========================================
-
-const tabMain = {
-  list: [
-    MAIN_TAB.COUPONS,
-    MAIN_TAB.HISTORY,
-  ],
-  tab: ref(MAIN_TAB.COUPONS),
-}
 
 // 번역
 const { t } = useI18n({

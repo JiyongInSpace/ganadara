@@ -1,5 +1,9 @@
 <template>
     <ChallengeTemplate :info="state.missioninfo">
+        <template v-slot:title>
+            AI 채팅
+        </template>
+
         <template v-slot:content>
             <div class="pb-12">
                 <v-img

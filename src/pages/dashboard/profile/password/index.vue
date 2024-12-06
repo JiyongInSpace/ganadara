@@ -1,17 +1,15 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                비밀번호 재설정
-            </span>
-        </div>
+    <PageTemplate pre-close-button>
+        <template v-slot:center-header>
+            비밀번호 재설정
+        </template>
 
-        <div class="pt-5 px-4 w-100 flex-grow-1 d-flex flex-column">
-            <!-- 현재 비밀번호 -->
+        <template v-slot:content>
             <v-text-field
                 v-model="currentPassword.value.value"
                 class="flex-grow-0 mb-2-5"
                 :class="{ 'v-input--success': currentPassword.isValid.value }"
+                hide-details
                 variant="outlined"
                 name="currentPassword"
                 placeholder="현재 비밀번호를 입력하세요"
@@ -51,23 +49,23 @@
                 @input="validateConfirmPassword"
                 @click:append-inner="togglePasswordVisibility(confirmPassword)"
             />
-        </div>
+        </template>
 
-        <v-spacer />
-
-        <div class="pt-4 px-2-5 pb-8">
-            <v-btn
-                variant="tonal"
-                size="x-large"
-                class="primary flex-grow-0"
-                block
-                :disabled="!allFieldsValid"
-                @click="onSubmit"
-            >
-                확인
-            </v-btn>
-        </div>
-    </v-container>
+        <template v-slot:actions>
+            <div class="pt-4 px-2-5 pb-8">
+                <v-btn
+                    variant="tonal"
+                    size="x-large"
+                    class="primary flex-grow-0"
+                    block
+                    :disabled="!allFieldsValid"
+                    @click="onSubmit"
+                >
+                    확인
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -145,9 +143,3 @@ const onSubmit = () => {
     console.log("새 비밀번호:", newPassword.value.value);
 };
 </script>
-
-<style scoped>
-.mt-0-5 {
-    margin-top: 2px;
-}
-</style>

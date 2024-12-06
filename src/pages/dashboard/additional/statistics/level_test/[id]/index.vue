@@ -1,29 +1,21 @@
 <template>
-    <v-container
-        class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto background-secondary"
+    <PageTemplate
+        back-button
+        header-background="secondary"
+        background="secondary"
     >
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
+        <template v-slot:center-header>
+            레벨 테스트
+        </template>
 
-            <span class="text-t-xl font-weight-semibold">
-                레벨테스트
-            </span>
-
-            <v-spacer />
-        </div>
-
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto ga-2 px-4 py-5">
+        <template v-slot:content>
             <div class="py-2-5 mb-2">
                 <TestResultItem :info="state.testInfo" />
             </div>
 
             <div class="d-flex justify-space-between align-center">
                 <span class="font-weight-bold">
-                    오답 {{state.wrongAnswers.length}}개
+                    오답 {{ state.wrongAnswers.length }}개
                 </span>
 
                 <v-btn
@@ -38,13 +30,13 @@
 
             <div class="d-flex justify-space-between align-center">
                 <span class="font-weight-bold">
-                    전체 문제 {{state.allProblems.length}}개
+                    전체 문제 {{ state.allProblems.length }}개
                 </span>
             </div>
 
             <ReviewTestList :list="state.allProblems" />
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -57,7 +49,7 @@ onMounted(() => {
     // 데이터
     state.testInfo = {
         id: 1,
-        name: '레벨테스트1',
+        name: '레벨 테스트1',
         date: "2024-12-09T14:30:15.123Z",
         level: 3,
         wrong: 0,

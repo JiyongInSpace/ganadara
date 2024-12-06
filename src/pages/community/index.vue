@@ -1,19 +1,6 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
+
 <template>
   <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        커뮤니티
-      </span>
-
-      <v-img
-        src="/images/class/dummy_profile_image.png"
-        width="32"
-        height="32"
-        class="flex-grow-0"
-      />
-    </div>
-
     <div
       ref="refTabs"
       class="position-sticky top-0 z-1 foreground-white border-b border-border-primary"
@@ -21,16 +8,16 @@
       <v-tabs
         v-model="tabMain.tab.value"
         stacked
-        class="flex-shrink-0 text-text-quaternary font-weight-bold main-tab"
-        height="48"
+        class="flex-shrink-0 text-text-quaternary font-weight-bold main-tab px-4 my-3"
+        height="30"
         selected-class="text-text-primary"
-        grow
       >
         <v-tab
           v-for="tabMainItem in tabMain.list"
           :key="tabMainItem"
           :value="tabMainItem"
-          class="text-lowercase font-weight-bold flex-1-1-100"
+          min-width="auto"
+          class="text-lowercase font-weight-bold px-0 mr-5"
         >
           {{ t(`main_tab.${tabMainItem}`) }}
         </v-tab>
@@ -46,22 +33,17 @@
       </v-tabs-window-item>
 
       <v-tabs-window-item :value="MAIN_TAB.FOLLOWING">
-        <CommunityFollowing
-          :follow-list="state.following"
-          is-following
-        />
+        <CommunityFeedList :feedList="state.feedList" />
       </v-tabs-window-item>
 
       <v-tabs-window-item :value="MAIN_TAB.MY_COMMENTS">
-        MY_COMMENTS
+        <CommunityFeedList :feedList="state.feedList" />
       </v-tabs-window-item>
     </v-tabs-window>
-
   </v-container>
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { IFeedItem, IUser } from '@/interfaces';
 

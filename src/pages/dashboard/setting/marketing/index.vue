@@ -1,13 +1,17 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        back-button
+        no-spacer
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 마케팅 안내
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
-            <div class="px-4 py-5 mb-2">
+        <template v-slot:content>
+            <div>
+
                 <div class="text-t-sm text-text-quaternary mb-5">
                     가나다라/마이풀의 혜택과 소식을 알려드릴게요.
                 </div>
@@ -93,17 +97,13 @@
                     </v-sheet>
                 </div>
             </div>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
-import { storeToRefs } from 'pinia';
-
-const userStore = useUserStore();
 const router = useRouter();
 
 const state = reactive({
@@ -124,17 +124,8 @@ const onChange = () => {
 // 번역
 const { t } = useI18n({
     messages: {
-        en: {
-            main_tab: {
-                coupons: "나의 쿠폰",
-                history: "쿠폰 내역",
-            },
-        },
         ko: {
-            main_tab: {
-                coupons: "전체",
-                history: "팔로잉",
-            },
+            //
         },
     },
     inheritLocale: true, // 전역 locale 상속

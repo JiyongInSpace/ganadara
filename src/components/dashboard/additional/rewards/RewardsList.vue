@@ -21,7 +21,7 @@
                             }"
                         >
                             <span class="text-t-sm font-weight-medium px-2-5 py-1">
-                                {{ rewardItem.status }}
+                                {{ t(rewardItem.status) }}
                             </span>
                         </div>
 
@@ -55,6 +55,7 @@
 
 <script lang="ts" setup>
 import { IRewardItem } from '@/interfaces';
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
     list: IRewardItem[];
@@ -71,4 +72,14 @@ const onClickReward = (id: number) => {
     }
 }
 
+const { t } = useI18n({
+    messages: {
+        ko: {
+            completed: "판매 완료",
+            ongoing: "판매 중",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 </script>

@@ -1,12 +1,6 @@
 <template>
   <!-- PUBLISHING -->
   <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        이용권 관리
-      </span>
-    </div>
-
     <v-row justify="center">
       <v-col cols="auto">
         <v-card>
@@ -375,7 +369,7 @@
               variant="outlined"
               to="/dashboard/additional/level_test"
             >
-              부가기능(레벨테스트)
+              부가기능(레벨 테스트)
             </v-btn>
 
             <v-btn

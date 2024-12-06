@@ -1,34 +1,48 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                프로필 편집
-            </span>
+    <PageTemplate
+        space="px-4"
+        pre-close-button
+    >
+        <template v-slot:center-header>
+            {{ t("profile_title") }}
+        </template>
 
-        </div>
-
-        <div class="px-4">
+        <template v-slot:content>
             <div
-                className="position-relative w-fit mx-auto mb-2-5 "
+                className="position-relative w-fit mt-5 mx-auto mb-2-5"
                 @click="onClickProfile"
             >
                 <v-img
+                    v-if="profile_image"
                     :src="profile_image"
                     alt="profile image"
                     width="96"
                     height="96"
-                    class="flex-grow-0 rounded-circle overflow-hidden mr-2"
+                    class="flex-grow-0 rounded-circle overflow-hidden"
                 />
+
+                <v-sheet
+                    v-else
+                    width="96"
+                    height="96"
+                    class="d-flex justify-center align-center background-tertiary border-border-primary flex-grow-0 rounded-circle overflow-hidden"
+                >
+                    <v-icon
+                        icon="mdi-account-outline"
+                        size="48"
+                        class="text-text-tertiary"
+                    />
+                </v-sheet>
 
                 <v-sheet
                     height="26"
                     width="26"
-                    class="position-absolute bottom-0 right-0 rounded-circle d-flex justify-center align-center"
+                    class="position-absolute foreground-quaternary bottom-0 right-0 rounded-circle d-flex justify-center align-center"
                 >
                     <v-icon
                         icon="mdi-camera-outline"
                         size="x-small"
+                        class="text-white"
                     ></v-icon>
                 </v-sheet>
             </div>
@@ -52,10 +66,10 @@
                 }"
             >
                 <div class="font-weight-bold">
-                    이메일 주소
+                    {{ t("profile_email") }}
                 </div>
 
-                <div class="text-t-sm font-weight-medium text-text-tertiary">
+                <div class="text-t-sm font-weight-medium text-text-tertiary opacity-40">
                     {{ email }}
                 </div>
             </div>
@@ -67,7 +81,7 @@
                 }"
             >
                 <div class="font-weight-bold">
-                    휴대전화 번호
+                    {{ t("profile_phone") }}
                 </div>
 
                 <div
@@ -85,45 +99,42 @@
                 }"
             >
                 <div class="font-weight-bold">
-                    비밀번호
+                    {{ t("profile_password") }}
                 </div>
 
                 <div
                     class="text-t-sm font-weight-medium text-text-tertiary cursor-pointer"
                     @click="onClickSettingPassword"
                 >
-                    비밀번호 재설정
+                    {{ t("profile_password_set") }}
                 </div>
             </div>
-        </div>
+        </template>
 
-        <v-spacer />
-
-        <div class="d-flex justify-center pa-3 mb-2">
-            <v-btn
-                variant="tonal"
-                class="primary"
-                size="large"
-                block
-                @click="onClickSetting"
-            >
-                확인
-            </v-btn>
-        </div>
-    </v-container>
+        <template v-slot:actions>
+            <div class="d-flex justify-center pt-3 px-3 pb-8">
+                <v-btn
+                    variant="tonal"
+                    class="primary"
+                    size="large"
+                    block
+                    @click="onClickSetting"
+                >
+                    {{ t("button.ok") }}
+                </v-btn>
+            </div>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { useI18n } from "vue-i18n";
 
 const userStore = useUserStore();
 const { name, profile_image, email, phone_number } = storeToRefs(userStore);
 const router = useRouter();
-
-const state = reactive({
-
-});
 
 const onClickProfile = () => {
     alert("onClickProfile");
@@ -144,6 +155,20 @@ const onClickSetting = () => {
 const onClickSettingPassword = () => {
     router.push("/dashboard/profile/password");
 }
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            profile_title: "프로필 편집",
+            profile_email: "이메일 주소",
+            profile_phone: "휴대전화 번호",
+            profile_password: "비밀번호",
+            profile_password_set: "비밀번호 재설정",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 
 </script>
 

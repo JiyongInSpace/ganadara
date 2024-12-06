@@ -1,22 +1,21 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                레벨 테스트
-            </span>
-        </div>
+    <PageTemplate
+        space="px-4"
+        back-button
+    >
+        <template v-slot:center-header>
+            레벨 테스트
+        </template>
 
-        <div class="py-5 px-4">
-            <div class="font-weight-bold mb-10">
+        <template v-slot:content>
+            <div class="font-weight-bold mb-8">
                 현재 나의 레벨
             </div>
 
-            <div class="w-100 d-flex justify-center rounded-xl mb-10">
-                <Progress-bar
-                    :strokeWidth="24"
-                    :percentage="percentage"
+            <div class="w-100 d-flex justify-center rounded-xl mb-8">
+                <ProgressBar
+                    :level="level"
                     :size="{ width: 241, height: 228 }"
-                    hasBackground
                     class="mb-5"
                 >
                     <div class="text-center">
@@ -28,12 +27,12 @@
                             Level <span v-text="level" />
                         </div>
                     </div>
-                </Progress-bar>
+                </ProgressBar>
             </div>
 
-            <div class="w-100 text-t-lg font-weight-bold text-center mb-10">
-                당신은 Lvl.5 사용자 중<br />
-                상위 10%입니다.
+            <div class="w-100 text-t-lg text-center mb-10">
+                당신은 Lvl.{{ level }} 사용자 중<br />
+                <span class="font-weight-bold">상위 {{percentage}}%</span>입니다.
             </div>
 
             <v-btn
@@ -45,13 +44,13 @@
             >
                 테스트 다시 보기
             </v-btn>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 const router = useRouter();
-const level = ref(7);
+const level = ref(5);
 const percentage = ref(50);
 
 const onClickRetest = () => {

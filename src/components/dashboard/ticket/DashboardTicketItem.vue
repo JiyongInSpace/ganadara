@@ -14,7 +14,7 @@
                 class="brand"
                 variant="outlined"
             >
-                {{ ticketInfo.billingType }}
+                {{ t(`billingType.${ticketInfo.billingType}`) }}
             </v-chip>
         </div>
 
@@ -54,6 +54,7 @@
 <script lang="ts" setup>
 import { format } from 'date-fns';
 import { ITicketItem } from '@/interfaces';
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
     ticketInfo: ITicketItem;
@@ -62,6 +63,14 @@ const props = defineProps<{
 
 const couponIsExpired = computed(() => {
     return new Date() > new Date(props.ticketInfo.endDate);
+});
+
+const { t } = useI18n({
+    messages: {
+        //
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
 });
 
 </script>

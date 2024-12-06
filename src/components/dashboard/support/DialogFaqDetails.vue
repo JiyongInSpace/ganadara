@@ -13,6 +13,14 @@
                 </span>
             </v-sheet>
 
+            <v-btn
+                icon="mdi-close"
+                class="position-absolute top-3 right-3"
+                size="small"
+                variant="text"
+                @click="dialog = false"
+            />
+
             <div class="py-8">
                 <div class="mb-2-5">
                     <v-chip
@@ -28,22 +36,13 @@
                 </div>
             </div>
 
-            <div v-html="state.content">
-            </div>
+            <div v-html="state.content" />
         </v-card>
     </v-bottom-sheet>
 </template>
 
 <script lang="ts" setup>
 const dialog = defineModel("dialog");
-
-const props = defineProps<{
-    // info: {
-    //     title: string;
-    //     subtitle: string;
-    //     description: string;
-    // }
-}>();
 
 const state = reactive({
     category: "결제 방법",

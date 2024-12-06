@@ -1,49 +1,56 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
+    <PageTemplate
+        space="pa-0"
+        back-button
+    >
+        <template v-slot:center-header>
+            {{ t("badge") }}
+        </template>
+
+        <template v-slot:content>
+            <div>
+                <v-tabs
+                    v-model="tabMain.tab.value"
+                    align-tabs="center"
+                    stacked
+                    grow
+                    height="48"
+                >
+                    <v-tab
+                        v-for="(mainTabItem, i) in tabMain.list"
+                        :key="i"
+                        :value="mainTabItem"
+                        class="border-b flex-1-1-100"
+                    >
+                        {{ t(mainTabItem) }}
+                    </v-tab>
+                </v-tabs>
+            </div>
+
+            <CommunityAchievementList
+                v-if="tabMain.tab.value == 'achievement'"
+                :list="state.badges"
+                :user="isOtherUser"
             />
 
-            <span class="text-t-xl font-weight-semibold">
-                유저네임
-            </span>
-
-            <v-spacer />
-        </div>
-
-        <div>
-            <v-tabs
-                v-model="tabMain.tab.value"
-                align-tabs="center"
-                stacked
-                grow
-                height="48"
-            >
-                <v-tab
-                    v-for="(mainTabItem, i) in tabMain.list"
-                    :key="i"
-                    :value="mainTabItem"
-                    class="border-b flex-1-1-100"
-                >
-                    {{ mainTabItem }}
-                </v-tab>
-            </v-tabs>
-        </div>
-
-        <CommunityAchievementList v-if="tabMain.tab.value == 'achievement'" />
-        <CommunityGoodsList v-if="tabMain.tab.value == 'goods'" />
-
-        <v-spacer />
-
-        <app-bottom-navigation />
-    </v-container>
+            <CommunityGoodsList
+                v-if="tabMain.tab.value == 'goods'"
+                :list="state.goods"
+                :user="isOtherUser"
+            />
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
-import { IUser } from "@/interfaces";
+import { IBadge, IGoods } from "@/interfaces";
+import { useI18n } from "vue-i18n";
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
+
+const userStore = useUserStore();
+const route = useRoute();
+const { id } = storeToRefs(userStore);
 
 const tabMain = {
     list: [
@@ -55,87 +62,235 @@ const tabMain = {
 
 onMounted(() => {
     // 데이터
-    state.following = dummy_follower;
-    state.follower = dummy_follower;
+    state.badges = dummy_badges;
+    state.goods = dummy_goods;
 });
 
 const state = reactive({
-    following: [] as IUser[],
-    follower: [] as IUser[],
+    user: {
+        name: 'userName',
+        nickName: 'UserNickName',
+        description: 'Descriptions',
+        following: 9999,
+        follower: 9999,
+        rank: 9999,
+        contents: 9999,
+    },
+    badges: [] as IBadge[],
+    goods: [] as IGoods[],
 });
 
-const dummy_follower = [
-    {
-        id: "1",
-        name: '김철수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        isFollowing: false,
-    },
-    {
-        id: "2",
-        name: '김영희',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "3",
-        name: '박민수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "4",
-        name: '이지수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "5",
-        name: '최영수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "6",
-        name: '이민지',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "7",
-        name: '박영희',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "8",
-        name: '김민수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "9",
-        name: '최지수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    },
-    {
-        id: "10",
-        name: '박철수',
-        profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
-        description: "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+const isOtherUser = computed(() => {
+    if ((route.params as any)?.user_id == id.value) {
+        return undefined
     }
-] as IUser[];
+    return state.user;
+})
+
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            badge: "배지",
+            achievement: "성과",
+            goods: "디지털 굿즈",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
+// ================================================================================================================================
+const dummy_badges: IBadge[] = [
+    {
+        imageUrl: "/images/community/badges/badge_1.svg",
+        name: "첫 번째 배지",
+        description: "첫 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_2.svg",
+        name: "두 번째 배지",
+        description: "두 번째 배지를 획득했습니다.",
+        isAchieved: false,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_3.svg",
+        name: "세 번째 배지",
+        description: "세 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_4.svg",
+        name: "네 번째 배지",
+        description: "네 번째 배지를 획득했습니다.",
+        isAchieved: false,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_5.svg",
+        name: "다섯 번째 배지",
+        description: "다섯 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_6.svg",
+        name: "여섯 번째 배지",
+        description: "여섯 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_7.svg",
+        name: "일곱 번째 배지",
+        description: "일곱 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_8.svg",
+        name: "여덟 번째 배지",
+        description: "여덟 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_9.svg",
+        name: "아홉 번째 배지",
+        description: "아홉 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_10.svg",
+        name: "열 번째 배지",
+        description: "열 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_11.svg",
+        name: "열한 번째 배지",
+        description: "열한 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_12.svg",
+        name: "열두 번째 배지",
+        description: "열두 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_13.svg",
+        name: "열세 번째 배지",
+        description: "열세 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_14.svg",
+        name: "열네 번째 배지",
+        description: "열네 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_15.svg",
+        name: "열다섯 번째 배지",
+        description: "열다섯 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+    {
+        imageUrl: "/images/community/badges/badge_16.svg",
+        name: "열여섯 번째 배지",
+        description: "열여섯 번째 배지를 획득했습니다.",
+        isAchieved: true,
+    },
+]
+
+const dummy_goods: IGoods[] = [
+    {
+        imageUrl: "/images/community/badges/badge_1.svg",
+        name: "첫 번째 굿즈",
+        description: "첫 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_2.svg",
+        name: "두 번째 굿즈",
+        description: "두 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_3.svg",
+        name: "세 번째 굿즈",
+        description: "세 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_4.svg",
+        name: "네 번째 굿즈",
+        description: "네 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_5.svg",
+        name: "다섯 번째 굿즈",
+        description: "다섯 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_6.svg",
+        name: "여섯 번째 굿즈",
+        description: "여섯 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_7.svg",
+        name: "일곱 번째 굿즈",
+        description: "일곱 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_8.svg",
+        name: "여덟 번째 굿즈",
+        description: "여덟 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+    {
+        imageUrl: "/images/community/badges/badge_9.svg",
+        name: "아홉 번째 굿즈",
+        description: "아홉 번째 굿즈를 획득했습니다.",
+        points: 1000,
+        user: {
+            name: "김철수",
+            profileImage: "/images/class/dummy_profile_image.png",
+        }
+    },
+]
 
 </script>
 

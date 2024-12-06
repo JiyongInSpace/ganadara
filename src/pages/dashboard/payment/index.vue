@@ -1,16 +1,17 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
-<template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                이용권 관리
-            </span>
-        </div>
 
-        <div class="px-4 py-10">
+<template>
+    <PageTemplate
+        back-button
+        ap-close-button
+    >
+        <template v-slot:center-header>
+            이용권 관리
+        </template>
+
+        <template v-slot:content>
             <v-card
                 variant="outlined"
-                class="border-border-secondary background-secondary rounded-12 pa-5 mb-4"
+                class="flex-shrink-0 border-border-secondary background-secondary rounded-12 pa-5 mb-4"
             >
                 <div class="d-flex justify-space-between align-center mb-5">
                     <div class="text-t-md font-weight-medium">
@@ -20,10 +21,14 @@
                     <v-btn
                         icon
                         variant="text"
-                        size="small"
+                        size="20"
                         @click="onClickTicket"
                     >
-                        <v-icon icon="mdi-chevron-right" />
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="20"
+                            height="20"
+                        />
                     </v-btn>
                 </div>
 
@@ -33,7 +38,7 @@
                     size="x-large"
                     class="primary flex-grow-0"
                     block
-                    @click="onClickPurchase"    
+                    @click="onClickPurchase"
                 >
                     이용권 구매하기
                 </v-btn>
@@ -53,7 +58,7 @@
                             class="brand"
                             variant="outlined"
                         >
-                            {{ subscription.billingType }}
+                            {{ t(`billingType.${subscription.billingType}`) }}
                         </v-chip>
                     </div>
 
@@ -66,7 +71,7 @@
 
             <v-card
                 variant="outlined"
-                class="border-border-secondary background-secondary rounded-12 pa-5 mb-4"
+                class="flex-shrink-0 border-border-secondary background-secondary rounded-12 pa-5 mb-4"
             >
                 <div class="d-flex justify-space-between align-center mb-2">
                     <div class="text-t-md font-weight-medium">
@@ -76,10 +81,14 @@
                     <v-btn
                         icon
                         variant="text"
-                        size="small"
+                        size="20"
                         @click="onClickCoupon"
                     >
-                        <v-icon icon="mdi-chevron-right" />
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="20"
+                            height="20"
+                        />
                     </v-btn>
                 </div>
 
@@ -93,7 +102,7 @@
 
             <v-card
                 variant="outlined"
-                class="border-border-secondary background-secondary rounded-12 pa-5 mb-4"
+                class="flex-shrink-0 border-border-secondary background-secondary rounded-12 pa-5 mb-4"
             >
 
                 <div class="d-flex justify-space-between align-center mb-2">
@@ -104,10 +113,14 @@
                     <v-btn
                         icon
                         variant="text"
-                        size="small"
+                        size="20"
                         @click="onClickPaymentHistory"
                     >
-                        <v-icon icon="mdi-chevron-right" />
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="20"
+                            height="20"
+                        />
                     </v-btn>
                 </div>
 
@@ -120,14 +133,24 @@
 
             <v-card
                 variant="outlined"
-                class="border-border-secondary background-secondary rounded-12 pa-5 mb-4"
+                class="flex-shrink-0 border-border-secondary background-secondary rounded-12 pa-5 mb-4"
             >
                 <div class="d-flex justify-space-between align-center mb-5">
                     <div class="text-t-md font-weight-medium">
                         나의 결제 수단
                     </div>
 
-                    <v-icon icon="mdi-chevron-right" />
+                    <v-btn
+                        icon
+                        variant="text"
+                        size="20"
+                    >
+                        <v-img
+                            src="@/assets/icons/basic/chevron-right.svg"
+                            width="20"
+                            height="20"
+                        />
+                    </v-btn>
                 </div>
 
                 <v-btn
@@ -176,16 +199,17 @@
                     </div>
                 </v-btn>
             </v-card>
-        </div>
 
-        <DialogSelectPaymentMethod
-            v-model:dialog="dialog"
-            :paymentMethod="computedSelectedPaymentMethod"
-        />
-    </v-container>
+            <DialogSelectPaymentMethod
+                v-model:dialog="dialog"
+                :paymentMethod="computedSelectedPaymentMethod"
+            />
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
 import { ICouponItem } from '@/interfaces';
 import { useUserStore } from '@/stores/user';
 import { format } from 'date-fns';
@@ -271,8 +295,17 @@ const onClickSelectPaymentMethod = (_paymentMethodId: number) => {
     dialog.value = true;
 }
 
+const { t } = useI18n({
+    messages: {
+        ko: {
+            //
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
+
 </script>
 
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

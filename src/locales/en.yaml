@@ -4,6 +4,3 @@ button:
   prev: Prev
   back: Back
   go: GO
-intro:
-  hi: Hi, {name}!
-not-found: Not found

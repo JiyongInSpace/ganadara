@@ -1,22 +1,14 @@
 <template>
-    <v-container
-        class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto background-secondary"
+    <PageTemplate
+        back-button
+        header-background="secondary"
+        background="secondary"
     >
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
+        <template v-slot:center-header>
+            단원평가
+        </template>
 
-            <span class="text-t-xl font-weight-semibold">
-                단원평가
-            </span>
-
-            <v-spacer />
-        </div>
-
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto ga-2 px-4 py-5">
+        <template v-slot:content>
             <div
                 v-for="testItem in state.chapterTestList"
                 class="py-2-5"
@@ -26,8 +18,8 @@
                     @click="onClickTestItem(testItem.id)"
                 />
             </div>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

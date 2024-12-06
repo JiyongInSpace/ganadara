@@ -1,12 +1,17 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        space="pa-0"
+        background="secondary"
+        back-button
+        no-spacer
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 알림
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto background-secondary">
+        <template v-slot:content>
             <div class="px-4 py-5 mb-2 background-primary">
                 <div class="text-t-sm text-text-quaternary mb-5">
                     퀴즈 알림
@@ -74,8 +79,8 @@
                     </v-sheet>
                 </div>
             </div>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

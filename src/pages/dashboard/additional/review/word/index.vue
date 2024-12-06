@@ -1,29 +1,30 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-    <v-container
-        class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto background-secondary"
+    <PageTemplate
+        back-button
+        header-background="secondary"
+        background="secondary"
     >
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 단어 모아보기
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-4 py-5">
+        <template v-slot:content>
             <div class="d-flex justify-space-between align-center mb-2-5">
                 <span class="text-t-lg font-weight-bold">
                     {{ state.words.length }}개 단어
                 </span>
 
-                <div>
+                <div class="d-flex ga-2-5">
                     <DialogSelectLevel />
                     <DialogSelectSort />
                 </div>
             </div>
-            
+
             <ReviewWordList :words="state.words" />
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

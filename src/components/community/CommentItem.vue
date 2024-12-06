@@ -6,6 +6,9 @@
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEnd"
+        @mousedown="handleTouchStart"
+        @mousemove="handleTouchMove"
+        @mouseup="handleTouchEnd"
     >
         <div
             class="d-flex py-2 ga-2 position-relative transition-all px-4"
@@ -39,7 +42,10 @@
                     {{ commentItem.text }}
                 </div>
 
-                <div class="text-t-xs font-weight-medium text-text-quaternary">
+                <div
+                    class="text-t-xs font-weight-medium text-text-quaternary cursor-pointer"
+                    @click="onClickReply"
+                >
                     답글 달기
                 </div>
             </div>
@@ -50,8 +56,9 @@
                 <IconHeart
                     :is-active="commentItem.isLiked!!"
                     size="16"
-                    class="mb-1-5"
+                    class="mb-1-5 cursor-pointer"
                     line-color="--v-text-primary"
+                    @click="onClickLike"
                 />
 
                 <div class="text-text-tertiary">
@@ -65,6 +72,7 @@
                     class="foreground-quaternary d-flex align-center"
                     width="48"
                     height="100%"
+                    @click="onClickReply"
                 >
                     <v-img
                         src="/icons/IconCornerUpLeft.svg"
@@ -96,9 +104,7 @@
                     width="48"
                     height="100%"
                 >
-                    <DialogReport
-                        :report-id="commentItem.id"
-                    />
+                    <DialogReport :report-id="commentItem.id" />
                 </v-sheet>
             </div>
         </div>
@@ -124,7 +130,7 @@
                     variant="outlined"
                     class="flex-1-1-100"
                     size="large"
-                    @click="buttonCancel.event.onClick"
+                    @click="onClickCancel"
                 >
                     취소
                 </v-btn>
@@ -133,7 +139,7 @@
                     class="primary flex-1-1-100"
                     variant="tonal"
                     size="large"
-                    @click="buttonReport.event.onClick"
+                    @click="onClickDelete"
                 >
                     삭제하기
                 </v-btn>
@@ -159,20 +165,29 @@ const props = withDefaults(defineProps<{
     isMine: false,
 });
 
+const emit = defineEmits<{
+    (e: 'onClickReply', id: any): void,
+}>();
+
 const startX = ref(0);
 const currentSwipe = ref(0);
 const isSwiping = ref(false);
 const isOpen = ref(false);
 
-function handleTouchStart(event: any) {
-    startX.value = event.touches[0].clientX;
+function handleTouchStart(event: TouchEvent | MouseEvent) {
+    if ('touches' in event) {
+        startX.value = event.touches[0].clientX;
+    } else {
+        startX.value = event.clientX;
+    }
     isSwiping.value = true;
 }
 
-function handleTouchMove(event: any) {
+function handleTouchMove(event: TouchEvent | MouseEvent) {
     if (!isSwiping.value) return;
 
-    const currentX = event.touches[0].clientX;
+    const currentX =
+        'touches' in event ? event.touches[0].clientX : event.clientX;
     const diffX = currentX - startX.value;
 
     if (diffX > 0 && isOpen.value) {
@@ -186,13 +201,13 @@ function handleTouchMove(event: any) {
 
 function handleTouchEnd() {
     isSwiping.value = false;
-    // 여기에서 스와이프 거리에 따른 로직을 추가할 수 있습니다.
-    // 예: 스와이프 거리가 특정 임계값을 넘으면 액션을 실행
+    // 스와이프 거리에 따른 로직
     if (Math.abs(currentSwipe.value) > 50) {
         isOpen.value = true;
     } else {
         isOpen.value = false;
     }
+
     // 스와이프 후 위치 초기화
     if (isOpen.value) {
         currentSwipe.value = -96;
@@ -203,21 +218,28 @@ function handleTouchEnd() {
 
 const dialogSecond = ref(false);
 
-const buttonCancel = {
-    event: {
-        onClick: () => {
-            dialogSecond.value = false;
+const onClickCancel = () => {
+    dialogSecond.value = false;
+}
+
+const onClickDelete = () => {
+    snackbar.showSnackbar("댓글이 삭제되었습니다.");
+    dialogSecond.value = false;
+}
+
+const onClickLike = () => {
+    props.commentItem.isLiked = !props.commentItem.isLiked
+
+    if (props.commentItem.likes !== undefined) {
+        if (props.commentItem.isLiked) {
+            props.commentItem.likes += 1;
+        } else {
+            props.commentItem.likes -= 1;
         }
     }
 }
 
-const buttonReport = {
-    event: {
-        onClick: () => {
-            snackbar.showSnackbar("신고 접수가 완료되었습니다.");
-            dialogSecond.value = false;
-        }
-    }
+const onClickReply = () => {
+    emit('onClickReply', props.commentItem.id);
 }
-
 </script>

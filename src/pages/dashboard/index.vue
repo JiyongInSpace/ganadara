@@ -1,36 +1,59 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
-                전체 보기
-            </span>
+    <PageTemplate space="px-4">
+        <template v-slot:prepend-header>
+            {{ t(`category.dashboard`) }}
+        </template>
 
-        </div>
+        <template v-slot:append-header>
+            <v-btn
+                icon
+                variant="text"
+                size="24"
+                class="mr-5"
+                @click="onClickNotice"
+            >
+                <v-img
+                    src="@/assets/icons/basic/bell.svg"
+                    width="24"
+                    height="24"
+                />
+            </v-btn>
 
-        <div class="px-4">
+            <v-btn
+                icon
+                variant="text"
+                size="24"
+                @click="onClickSettings"
+            >
+                <v-img
+                    src="@/assets/icons/basic/settings.svg"
+                    width="24"
+                    height="24"
+                />
+            </v-btn>
+        </template>
+
+        <template v-slot:content>
             <v-card
                 variant="outlined"
-                class="border-none background-secondary rounded-12 flex-shrink-0 pa-5 mb-5"
+                class="flex-shrink-0 border-none background-secondary rounded-12 pa-5 mb-5"
             >
-                <!-- class="rounded-12 pa-4 mb-4" -->
                 <div class="d-flex align-center mb-3">
-                    <div
-                        className="position-relative"
-                        @click="onClickProfile"
-                    >
+                    <div className="position-relative mr-2">
                         <v-img
                             :src="profile_image"
                             alt="profile image"
                             width="52"
                             height="52"
-                            class="flex-grow-0 rounded-circle overflow-hidden mr-2"
+                            class="flex-grow-0 rounded-circle overflow-hidden"
                         />
 
                         <v-sheet
                             height="24"
                             width="24"
-                            class="position-absolute bottom-0 right-0 rounded-circle d-flex justify-center align-center"
+                            v-ripple
+                            class="position-absolute bottom-0 right-0 rounded-circle d-flex justify-center align-center cursor-pointer"
+                            @click="onClickProfile"
                         >
                             <v-icon
                                 icon="mdi-pencil-outline"
@@ -50,23 +73,41 @@
                     height="56"
                 >
                     <span class="text-t-sm font-weight-medium">
-                        학습 언어
+                        {{ t(`dashboard_language`) }}
                     </span>
 
                     <div class="d-flex align-center text-t-md font-weight-bold">
-                        <span class="mr-1">
-                            {{ learning.language }}
+                        <v-img
+                            :src="`/icons/country/${learning.country}.png`"
+                            width="20"
+                            height="20"
+                            class="mr-1"
+                        />
 
+                        <span class="mr-1">
+                            {{ t(`language.${learning.language}`) }}
                         </span>
 
                         <v-chip
                             size="small"
-                            class="secondary"
+                            class="secondary font-weight-medium mr-2"
                             variant="outlined"
                         >
                             Lv.{{ learning.level }}
                         </v-chip>
-                        <v-icon icon="mdi-chevron-right" />
+
+                        <v-btn
+                            icon
+                            variant="text"
+                            size="20"
+                            @click="onClickLanguage"
+                        >
+                            <v-img
+                                src="@/assets/icons/basic/chevron-right.svg"
+                                width="20"
+                                height="20"
+                            />
+                        </v-btn>
                     </div>
                 </v-card>
 
@@ -76,20 +117,33 @@
                 >
                     <div class="d-flex justify-space-between py-2">
                         <span class="text-t-sm font-weight-medium">
-                            사용 가능 포인트
+                            {{ t(`dashboard_point`) }}
                         </span>
 
 
                         <div class="d-flex align-center text-t-md font-weight-bold">
-                            {{ wallet.point.toLocaleString() }} P
+                            <span class="mr-1">
+                                {{ wallet.point.toLocaleString() }} P
+                            </span>
 
-                            <v-icon icon="mdi-chevron-right" />
+                            <v-btn
+                                icon
+                                variant="text"
+                                size="20"
+                                @click="onClickPoint"
+                            >
+                                <v-img
+                                    src="@/assets/icons/basic/chevron-right.svg"
+                                    width="20"
+                                    height="20"
+                                />
+                            </v-btn>
                         </div>
                     </div>
 
                     <div class="d-flex justify-space-between py-2">
                         <span class="text-t-sm font-weight-medium">
-                            나의 이용권
+                            {{ t("dashboard_subscription") }}
                         </span>
 
                         <v-spacer />
@@ -98,18 +152,32 @@
                             v-if="subscription"
                             class="d-flex align-center text-t-md font-weight-bold"
                         >
-                            <div>
-                                {{ subscription?.planName }}
+                            <div class="mr-1">
+                                <span class="mr-1">
+                                    {{ subscription?.planName }}
+                                </span>
 
                                 <v-chip
                                     size="small"
                                     class="brand"
                                     variant="outlined"
                                 >
-                                    {{ subscription?.billingType }}
+                                    {{ t(`billingType.${subscription?.billingType}`) }}
                                 </v-chip>
                             </div>
-                            <v-icon icon="mdi-chevron-right" />
+
+                            <v-btn
+                                icon
+                                variant="text"
+                                size="20"
+                                @click="onClickTicket"
+                            >
+                                <v-img
+                                    src="@/assets/icons/basic/chevron-right.svg"
+                                    width="20"
+                                    height="20"
+                                />
+                            </v-btn>
                         </div>
                     </div>
                 </v-card>
@@ -117,7 +185,7 @@
 
             <v-card
                 variant="outlined"
-                class="border-none background-secondary rounded-12 flex-shrink-0 d-flex flex-wrap rounded-12 pa-3"
+                class="border-none background-secondary rounded-12 flex-shrink-0 d-flex flex-wrap rounded-12 pa-3 mb-4"
             >
                 <div
                     v-for="(dashboard_item, key) in dashboard_menu"
@@ -137,71 +205,73 @@
                     />
 
                     <span class="text-t-xs">
-                        {{ dashboard_item.title }}
+                        {{ t(`dashboard.${dashboard_item.title}`) }}
                     </span>
                 </div>
             </v-card>
-        </div>
+        </template>
 
-        <v-spacer />
+        <template v-slot:bottom>
+            <div class="pa-3">
+                <div class="d-flex justify-center mb-2">
+                    <v-btn
+                        class="mr-7"
+                        variant="text"
+                        @click="onClickNotification"
+                    >
+                        <v-icon
+                            icon="mdi-bell-outline"
+                            class="mr-1-5"
+                            size="large"
+                        />
 
-        <div class="pa-3">
-            <div class="d-flex justify-center mb-2">
-                <v-btn
-                    class="mr-7"
-                    variant="text"
-                    @click="onClickNotice"
-                >
-                    <v-icon
-                        icon="mdi-bell-outline"
-                        class="mr-1-5"
-                        size="large"
-                    />
+                        <span>
+                            {{ t(`dashboard_notice`) }}
+                        </span>
+                    </v-btn>
 
-                    <span>
-                        공지사항
-                    </span>
-                </v-btn>
+                    <v-btn
+                        variant="text"
+                        @click="onClickContact"
+                    >
+                        <v-icon
+                            icon="mdi-help-circle-outline"
+                            class="mr-1-5"
+                            size="large"
+                        />
 
-                <v-btn
-                    variant="text"
-                    @click="onClickContact"
-                >
-                    <v-icon
-                        icon="mdi-help-circle-outline"
-                        class="mr-1-5"
-                        size="large"
-                    />
+                        <span>
+                            {{ t(`dashboard_contact`) }}
+                        </span>
+                    </v-btn>
+                </div>
 
-                    <span>
-                        고객센터
-                    </span>
-                </v-btn>
+                <div class="d-flex justify-center ga-2">
+                    <v-btn
+                        v-for="(sns, key) in footer_sns"
+                        :key="key"
+                        icon
+                        size="x-small"
+                        variant="text"
+                        @click="onClickSns(sns.href)"
+                    >
+                        <v-img
+                            :src="sns.imageUrl"
+                            width="32"
+                            height="32"
+                        ></v-img>
+                    </v-btn>
+                </div>
             </div>
-
-            <div class="d-flex justify-center ga-2">
-                <v-btn
-                    v-for="(sns, key) in footer_sns"
-                    :key="key"
-                    icon
-                    size="x-small"
-                    variant="text"
-                    @click="onclickSns(sns.href)"
-                >
-                    <v-img
-                        :src="sns.imageUrl"
-                        width="32"
-                        height="32"
-                    ></v-img>
-                </v-btn>
-            </div>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
+import PageTemplate from '@/components/common/template/PageTemplate.vue';
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { useI18n } from "vue-i18n";
 
 const userStore = useUserStore();
 const { name, profile_image, wallet, subscription, learning } = storeToRefs(userStore);
@@ -211,100 +281,127 @@ const state = reactive({
 
 });
 
+// HEADER
+const onClickNotice = () => {
+    alert('onClickNotice');
+}
+
+const onClickSettings = () => {
+    router.push("/dashboard/setting");
+}
+
+// CONTENT
 const onClickProfile = () => {
     router.push("/dashboard/profile");
 }
 
+const onClickLanguage = () => {
+    alert('onClickLaugnage');
+}
+
+const onClickPoint = () => {
+    alert('onClickPoint');
+}
+
+const onClickTicket = () => {
+    router.push("/dashboard/payment");
+}
+
 const onClickDashboardItem = (dashboard_item: any) => {
-    if(dashboard_item.to) {
+    if (dashboard_item.to) {
         router.push(dashboard_item.to);
         return;
     }
     alert(dashboard_item);
 }
 
-const onClickNotice = () => {
-    alert('onClickNotice');
-}
-
-const onClickContact = () => {
-    alert('onClickContact');
-}
-
-
-const onclickSns = (href: string) => {
-    window.open(href, '_blank');
-}
 
 const dashboard_menu = [
     {
         imageUrl: '/images/dashboard/main/menu_learningStats.png',
-        title: '학습통계',
+        title: 'learningStats',
         to: '/dashboard/additional/statistics',
     },
     {
         imageUrl: '/images/dashboard/main/menu_learningRanking.png',
-        title: '학습랭킹',
+        title: 'learningRanking',
     },
     {
         imageUrl: '/images/dashboard/main/menu_shortFormLearning.png',
-        title: '숏폼학습',
+        title: 'shortFormLearning',
+        to: '/community'
     },
     {
         imageUrl: '/images/dashboard/main/menu_reviewSession.png',
-        title: '복습하기',
+        title: 'reviewSession',
         to: '/dashboard/additional/review',
     },
     {
         imageUrl: '/images/dashboard/main/menu_levelTest.png',
-        title: '레벨테스트',
+        title: 'levelTest',
         to: '/dashboard/additional/level_test',
     },
     {
         imageUrl: '/images/dashboard/main/menu_aiChat.png',
-        title: 'AI채팅',
+        title: 'aiChat',
         to: '/dashboard/additional/ai_chat',
     },
     {
         imageUrl: '/images/dashboard/main/menu_aiTranslation.png',
-        title: 'AI번역',
+        title: 'aiTranslation',
         to: '/dashboard/additional/ai_translation',
     },
     {
         imageUrl: '/images/dashboard/main/menu_learningMissions.png',
-        title: '학습미션',
+        title: 'learningMissions',
     },
     {
         imageUrl: '/images/dashboard/main/menu_attendanceCheck.png',
-        title: '출석체크',
+        title: 'attendanceCheck',
     },
     {
         imageUrl: '/images/dashboard/main/menu_donate.png',
-        title: '후원하기',
+        title: 'donate',
     },
     {
         imageUrl: '/images/dashboard/main/menu_badge.png',
-        title: '배지',
+        title: 'badge',
+        to: '/dashboard/additional/badge',
     },
     {
         imageUrl: '/images/dashboard/main/menu_store.png',
-        title: '스토어',
+        title: 'store',
         to: '/dashboard/additional/rewards',
     },
     {
         imageUrl: '/images/dashboard/main/menu_event.png',
-        title: '이벤트',
+        title: 'event',
     },
     {
         imageUrl: '/images/dashboard/main/menu_mockTest.png',
-        title: '모의고사',
+        title: 'mockTest',
         to: '/dashboard/additional/mock_test',
     },
     {
         imageUrl: '/images/dashboard/main/menu_brand.png',
-        title: '브랜드',
+        title: 'brand',
     }
 ]
+
+
+// FOOTER
+const onClickContact = () => {
+    router.push("/dashboard/support");
+}
+
+const onClickNotification = () => {
+    router.push("/dashboard/support/notice");
+}
+
+const onClickSns = (href: string) => {
+    window.open(href, '_blank');
+}
+
 
 const footer_sns = [
     {
@@ -333,6 +430,20 @@ const footer_sns = [
     },
 ]
 
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            dashboard_language: "학습 언어",
+            dashboard_point: "사용 가능 포인트",
+            dashboard_subscription: "나의 이용권",
+            dashboard_contact: "고객센터",
+            dashboard_notice: "공지사항",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 
 </script>
 

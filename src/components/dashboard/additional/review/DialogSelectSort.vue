@@ -10,7 +10,7 @@
                 size="small"
                 v-bind="activatorProps"
             >
-                {{ state.selectedSort == 'saveDate' ? '저장' : '학습' }}
+                {{ state.selectedSort == 'saveDate' ? '저장 날짜순' : '학습 날짜순' }}
 
                 <v-icon icon="mdi-chevron-down"></v-icon>
             </v-btn>

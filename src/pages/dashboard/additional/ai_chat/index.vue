@@ -1,76 +1,92 @@
-<!-- src="https://vjs.zencdn.net/v/oceans.mp4" -->
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <span class="text-t-xl font-weight-semibold">
+    <PageTemplate
+        back-button
+    >
+        <template v-slot:prepend-header>
+            <span class="ml-1">
                 AI 채팅
             </span>
-        </div>
+        </template>
 
-        <div class="d-flex flex-column flex-grow-1 overflow-y-auto px-4 py-5">
+        <template v-slot:content>
             <AiChatList :list="state.chatList"></AiChatList>
-        </div>
+        </template>
 
-        <div v-if="!state.isFreeConversation && state.answerList && state.answerList.length > 0">
-            <div class="d-flex ga-2 overflow-x-auto pt-2 px-2 pb-5">
-                <v-card
-                    v-for="answerItem, index in state.answerList"
-                    color="#FEF0C7"
-                    max-width="326"
-                    min-height="92"
-                    class="py-2-5 px-3-5 flex-shrink-0"
-                    flat
-                    @click="onClickAnswer(answerItem)"
-                >
-                    {{ answerItem.message }}
-                </v-card>
-            </div>
-        </div>
-
-        <v-btn
-            v-if="!state.isFreeConversation"
-            block
-            variant="tonal"
-            class="primary rounded-0 flex-grow-0 text-none"
-            size="large"
-            @click="onClickGoingForFreeConversation"
-        >
-            Going for a free conversation
-        </v-btn>
-
-        <div class="d-flex align-center background-secondary ga-1 py-4 px-6">
-            <div
-                class="flex-grow-1"
-                :style="{
-                    height: '40px',
-                }"
-            >
-                <v-textarea
-                    v-if="state.inputMethod == 'text'"
-                    v-model="state.message"
-                    :append-inner-icon="state.message && 'mdi-send-outline'"
-                    hide-details
-                    variant="outlined"
-                    placeholder="메세지를 입력하세요."
-                    :auto-grow="true"
-                    rows="1"
-                    max-rows="10"
-                    @click:appendInner="onClickSendMessage"
-                />
-
-                <div
-                    v-else
-                    class="d-flex justify-center align-center h-100"
-                >
-                    <v-img
-                        src="/images/dashboard/ai_chat/voice.png"
-                        height="30"
+        <template v-slot:actions>
+            <div v-if="!state.isFreeConversation && state.answerList && state.answerList.length > 0">
+                <div class="d-flex ga-2 overflow-x-auto pt-2 px-2 pb-5">
+                    <v-card
+                        v-for="answerItem, index in state.answerList"
+                        color="#FEF0C7"
+                        max-width="326"
+                        min-height="92"
+                        class="py-2-5 px-3-5 flex-shrink-0"
+                        flat
+                        @click="onClickAnswer(answerItem)"
                     >
-                    </v-img>
+                        {{ answerItem.message }}
+                    </v-card>
                 </div>
             </div>
 
-            <div>
+            <v-btn
+                v-if="!state.isFreeConversation"
+                block
+                variant="tonal"
+                class="primary rounded-0 flex-grow-0 text-none"
+                size="large"
+                @click="onClickGoingForFreeConversation"
+            >
+                Going for a free conversation
+            </v-btn>
+
+            <div class="d-flex align-center background-secondary ga-1 py-4 px-6">
+                <div
+                    class="flex-grow-1"
+                >
+                    <v-textarea
+                        v-if="state.inputMethod == 'text'"
+                        v-model="state.message"
+                        :append-inner-icon="state.message && 'mdi-send-outline'"
+                        hide-details
+                        variant="outlined"
+                        placeholder="메세지를 입력하세요."
+                        auto-grow
+                        rows="1"
+                        max-rows="10"
+                        min-height="40"
+                        @click:appendInner="onClickSendMessage"
+                    />
+
+                    <div
+                        v-else
+                        class="d-flex justify-center align-center h-100"
+                    >
+                        <v-img
+                            src="/images/dashboard/ai_chat/voice.png"
+                            height="30"
+                        >
+                        </v-img>
+                    </div>
+                </div>
+
+                <div>
+                    <v-btn
+                        size="small"
+                        variant="text"
+                        class="pa-0"
+                        width="28"
+                        min-width="28"
+                        height="28"
+                        @click="onClickMicrophone"
+                    >
+                        <v-icon
+                            icon="mdi-microphone-outline"
+                            size="20"
+                        ></v-icon>
+                    </v-btn>
+                </div>
+
                 <v-btn
                     size="small"
                     variant="text"
@@ -78,31 +94,16 @@
                     width="28"
                     min-width="28"
                     height="28"
-                    @click="onClickMicrophone"
+                    @click="onClickQuestion"
                 >
                     <v-icon
-                        icon="mdi-microphone-outline"
+                        icon="mdi-comment-question-outline"
                         size="20"
                     ></v-icon>
                 </v-btn>
             </div>
-
-            <v-btn
-                size="small"
-                variant="text"
-                class="pa-0"
-                width="28"
-                min-width="28"
-                height="28"
-                @click="onClickQuestion"
-            >
-                <v-icon
-                    icon="mdi-comment-question-outline"
-                    size="20"
-                ></v-icon>
-            </v-btn>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -241,5 +242,11 @@ const onClickQuestion = () => {
 
 </script>
 
-
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.v-field.v-field--appended){
+    align-items: end;
+}
+:deep(.v-field__append-inner) {
+    padding-bottom: 10px;
+}
+</style>

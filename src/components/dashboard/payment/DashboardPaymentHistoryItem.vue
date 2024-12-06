@@ -13,7 +13,7 @@
                 class="brand"
                 variant="outlined"
             >
-                {{ historyItem.billingType }}
+                {{ t(`billingType.${historyItem.billingType}`) }}
             </v-chip>
         </div>
 
@@ -70,9 +70,20 @@
 <script lang="ts" setup>
 import { IPaymentHistoryItem } from '@/interfaces';
 import { format } from 'date-fns';
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
     historyItem: IPaymentHistoryItem;
 }>();
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            //
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 
 </script>

@@ -446,7 +446,7 @@ body {
 
     .v-field__input {
         padding: 10px 8px;
-        min-height: auto;
+        // min-height: auto;
         &::placeholder {
             opacity: 1; /* Firefox */
             @extend .text-text-placeholder;
@@ -646,6 +646,9 @@ li {
 // 프리텐다드 (한글 기준)
 
 // SPACING ===========================================
+.mt-0-5 {
+    margin-top: 2px;
+}
 .mt-2-5 {
     margin-top: 10px;
 }
@@ -748,6 +751,10 @@ li {
     border-radius: 8px !important;
 }
 
+.rounded-10 {
+    border-radius: 10px !important;
+}
+
 .rounded-12 {
     border-radius: 16px !important;
 }
@@ -779,11 +786,26 @@ li {
 .top-1 {
     top: 4px;
 }
+.top-2 {
+    top: 8px;
+}
+.top-3 {
+    top: 12px;
+}
 .top-4 {
     top: 16px;
 }
 .right-1 {
     right: 4px;
+}
+.right-2 {
+    right: 8px;
+}
+.right-3 {
+    right: 12px;
+}
+.right-4 {
+    right: 16px;
 }
 .left-3 {
     left: 12px;

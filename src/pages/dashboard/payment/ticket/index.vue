@@ -1,15 +1,17 @@
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-      <span class="text-t-xl font-weight-semibold">
-        정기 결제 해지
-      </span>
-    </div>
+  <PageTemplate
+    back-button
+    background="secondary"
+    space="pa-0"
+  >
+    <template v-slot:center-header>
+      이용권
+    </template>
 
-    <div class="d-flex flex-column flex-grow-1 overflow-y-auto">
+    <template v-slot:content>
       <div
         v-if="subscription"
-        class="d-flex flex-column ga-2-5 pt-10 pb-5 px-4 mb-2"
+        class="d-flex flex-column background-primary ga-2-5 pt-10 pb-5 px-4"
       >
         <div class="text-t-lg font-weight-bold mb-5">
           나의 이용권 내역
@@ -36,7 +38,7 @@
         </div>
       </div>
 
-      <div class="d-flex flex-column ga-2-5 pt-5 pb-5 px-4">
+      <div class="d-flex flex-column background-primary ga-2-5 pt-5 pb-5 px-4">
         <div class="text-t-lg font-weight-bold mb-5">
           만료 이용권
         </div>
@@ -47,8 +49,8 @@
           :key="key"
         />
       </div>
-    </div>
-  </v-container>
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>
@@ -113,7 +115,7 @@ const state = reactive({
 });
 
 const onClickCancelSubscription = () => {
-  router.push("/dashboard/ticket/cancel");
+  router.push("/dashboard/payment/ticket/cancel");
 };
 
 // UI ========================================

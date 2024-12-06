@@ -108,7 +108,7 @@
                         <v-btn variant="outlined">
                             <template v-slot:prepend>
                                 <v-img
-                                    src="/images/community/Ai.png"
+                                    src="/images/community/AI.svg"
                                     width="20"
                                     height="20"
                                 />

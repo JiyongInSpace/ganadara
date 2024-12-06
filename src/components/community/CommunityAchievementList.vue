@@ -1,15 +1,21 @@
 <template>
     <div class="py-8 text-center border-b">
         <div class="text-t-lg font-weight-semibold mb-2">
-            나의 대표 배지
+            {{ user ? user.name : "나" }}의 대표 배지
         </div>
 
         <div
             v-if="!state.mainBadge"
             class="text-t-sm text-text-tertiary"
         >
-            마음에 드는 배지를 골라 <br />
-            대표 배지로 설정해 보세요.
+            <span v-if="user">
+                설정한 대표 배지가 없습니다.
+            </span>
+
+            <span v-else>
+                마음에 드는 배지를 골라 <br />
+                대표 배지로 설정해 보세요.
+            </span>
         </div>
 
         <div v-else>
@@ -28,10 +34,10 @@
 
     <div class="font-weight-bold text-t-md pt-5 px-4 mb-4">
         <span>
-            내 배지
+            {{ user ? user.name + " 배지" : "내 배지" }}
         </span>
 
-        <span class="text-primary">
+        <span class="text-primary ml-1">
             {{ achievedBadges.length }}
         </span>
     </div>
@@ -39,7 +45,7 @@
     <div class="flex-grow-1 overflow-y-auto py-5 px-4">
         <v-row>
             <v-col
-                v-for="badgeItem in badges"
+                v-for="badgeItem in list"
                 cols="4"
             >
                 <div @click="() => onClickBadge(badgeItem)">
@@ -78,30 +84,28 @@
             </div>
 
             <v-btn
+                v-if="!user"
                 variant="outlined"
                 class="flex-1-1-100"
                 size="large"
                 @click="() => setMainBadge(state.currentBadge)"
             >
-                대표 배지 설정하기
+                {{ state.mainBadge?.name == state.currentBadge.name ? "대표 배지 해제하기" : "대표 배지 설정하기" }}
             </v-btn>
         </v-card>
     </v-bottom-sheet>
 </template>
 
 <script lang="ts" setup>
+import { IBadge } from '@/interfaces';
 import { useSnackbarStore } from '@/stores/snackbar';
 
-
-interface IBadge {
-    imageUrl: string;
-    name: string;
-    description: string;
-    isAchieved: boolean;
-}
+const props = defineProps<{
+    user?: any;
+    list: IBadge[];
+}>();
 
 const state = reactive({
-    ownBadges: [] as IBadge[],
     mainBadge: undefined as IBadge | undefined,
     currentBadge: {
         imageUrl: "",
@@ -116,123 +120,30 @@ const state = reactive({
 
 const snackbar = useSnackbarStore();
 
-onMounted(() => {
-    state.ownBadges = badges;
-})
-
 const onClickBadge = (_badge: IBadge) => {
-    if (!_badge.isAchieved) return;
+    if (!_badge.isAchieved) {
+        snackbar.showSnackbar("잠긴 배지는 볼 수 없습니다.");
+        return;
+    };
     state.ui.dialog = true;
     state.currentBadge = _badge;
 }
 
 const setMainBadge = (_badge: IBadge) => {
+    if (state.mainBadge == _badge) {
+        state.mainBadge = undefined;
+        state.ui.dialog = false;
+        snackbar.showSnackbar("대표 배지를 해제했습니다.");
+        return;
+    }
     state.mainBadge = _badge;
     state.ui.dialog = false;
     snackbar.showSnackbar("대표 배지를 설정했습니다.");
 }
 
-const badges: IBadge[] = [
-    {
-        imageUrl: "/images/community/badges/badge_1.svg",
-        name: "첫 번째 배지",
-        description: "첫 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_2.svg",
-        name: "두 번째 배지",
-        description: "두 번째 배지를 획득했습니다.",
-        isAchieved: false,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_3.svg",
-        name: "세 번째 배지",
-        description: "세 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_4.svg",
-        name: "네 번째 배지",
-        description: "네 번째 배지를 획득했습니다.",
-        isAchieved: false,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_5.svg",
-        name: "다섯 번째 배지",
-        description: "다섯 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_6.svg",
-        name: "여섯 번째 배지",
-        description: "여섯 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_7.svg",
-        name: "일곱 번째 배지",
-        description: "일곱 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_8.svg",
-        name: "여덟 번째 배지",
-        description: "여덟 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_9.svg",
-        name: "아홉 번째 배지",
-        description: "아홉 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_10.svg",
-        name: "열 번째 배지",
-        description: "열 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_11.svg",
-        name: "열한 번째 배지",
-        description: "열한 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_12.svg",
-        name: "열두 번째 배지",
-        description: "열두 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_13.svg",
-        name: "열세 번째 배지",
-        description: "열세 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_14.svg",
-        name: "열네 번째 배지",
-        description: "열네 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_15.svg",
-        name: "열다섯 번째 배지",
-        description: "열다섯 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-    {
-        imageUrl: "/images/community/badges/badge_16.svg",
-        name: "열여섯 번째 배지",
-        description: "열여섯 번째 배지를 획득했습니다.",
-        isAchieved: true,
-    },
-]
 
 const achievedBadges = computed(() => {
-    return badges.filter((badge) => badge.isAchieved);
+    return props.list.filter((badge) => badge.isAchieved);
 })
 
 </script>

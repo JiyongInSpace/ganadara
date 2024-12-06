@@ -1,22 +1,12 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
+    <PageTemplate back-button>
+        <template v-slot:center-header>
+            <slot name="title">
+                title
+            </slot>
+        </template>
 
-            <span class="text-t-xl font-weight-semibold">
-                <slot name="title">
-                    MISSION TITLE
-                </slot>
-            </span>
-
-            <v-spacer />
-        </div>
-
-        <div class="py-2 px-4 flex-grow-1 overflow-y-auto">
+        <template v-slot:content>
             <div class="mb-2">
                 <div class="d-flex ga-1 mb-3">
                     <v-chip
@@ -102,8 +92,8 @@
                     notice
                 </slot>
             </div>
-        </div>
-    </v-container>
+        </template>
+    </PageTemplate>
 </template>
 
 <script lang="ts" setup>

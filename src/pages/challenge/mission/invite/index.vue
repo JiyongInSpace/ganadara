@@ -1,5 +1,9 @@
 <template>
     <ChallengeTemplate :info="state.missioninfo">
+        <template v-slot:title>
+            친구 초대
+        </template>
+
         <template v-slot:content>
             <div class="pb-12">
                 <div class="border py-8 mb-8 rounded-8">

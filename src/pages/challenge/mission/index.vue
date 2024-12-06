@@ -1,41 +1,34 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-        <div class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 px-5">
-            <v-btn
-                icon="mdi-chevron-left"
-                size="small"
-                variant="text"
-            />
+    <PageTemplate back-button>
+        <template v-slot:center-header>
+            전체 미션
+        </template>
 
-            <span class="text-t-xl font-weight-semibold">
-                전체 미션
-            </span>
-
-            <v-spacer />
-        </div>
-
-        <v-chip-group
-            class="px-4 py-6 flex-shrink-0"
-            selected-class="bg-black text-text-primary_on-brand"
-            v-model="selectedContentCategory"
-            column
-        >
-            <v-chip
-                v-for="tag in state.tagList"
-                :key="tag.key"
-                :value="tag.key"
-                variant="outlined"
-                size="small"
-                class="border-border-primary my-0 ml-0 mr-2"
+        <template v-slot:content>
+            <v-chip-group
+                class="flex-shrink-0 mb-2"
+                selected-class="bg-black text-text-primary_on-brand"
+                v-model="selectedContentCategory"
+                column
             >
-                <span v-text="tag.value" />
-            </v-chip>
-        </v-chip-group>
+                <v-chip
+                    v-for="tag in state.tagList"
+                    :key="tag.key"
+                    :value="tag.key"
+                    variant="outlined"
+                    size="small"
+                    class="border-border-primary my-0 ml-0 mr-2"
+                >
+                    <span v-text="tag.value" />
+                </v-chip>
+            </v-chip-group>
 
-        <div class="px-4">
-            <ChallengeMissionList :list="filteredMissionList" />
-        </div>
-    </v-container>
+            <div>
+                <ChallengeMissionList :list="filteredMissionList" />
+            </div>
+        </template>
+    </PageTemplate>
+
 </template>
 
 <script lang="ts" setup>
@@ -64,6 +57,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/point.png",
+            to: "roulette",
             point: 2000
         },
         {
@@ -72,6 +66,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/invite.png",
+            to: "invite",
             point: 2000
         },
         {
@@ -80,6 +75,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/quiz.png",
+            to: "quiz",
             point: 2000
         },
         {
@@ -88,6 +84,7 @@ const state = reactive({
             reward: "gift",
             tag: "reward",
             imageUrl: "/images/challenge/reward.png",
+            to: "",
             point: 0
         },
         {
@@ -96,6 +93,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/chat_ai.png",
+            to: "chat_ai",
             point: 2000
         },
         {
@@ -104,6 +102,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/check.png",
+            to: "check",
             point: 2000
         },
         {
@@ -112,6 +111,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/quiz.png",
+            to: "study",
             point: 2000
         },
         {
@@ -120,6 +120,7 @@ const state = reactive({
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/community.png",
+            to: "coummunity",
             point: 2000
         },
         {
@@ -128,6 +129,7 @@ const state = reactive({
             reward: "social",
             tag: "donate",
             imageUrl: "/images/challenge/donate_social.png",
+            to: "donate",
             point: 0
         },
         {
@@ -136,6 +138,7 @@ const state = reactive({
             reward: "creator",
             tag: "donate",
             imageUrl: "/images/challenge/donate_creator.png",
+            to: "",
             point: 0
         },
     ]

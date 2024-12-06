@@ -34,7 +34,7 @@
                         class="font-weifht-semibold"
                         :class="chipColorByStatus(videoItem.status)"
                     >
-                        {{ videoItem.status }}
+                        {{ t(videoItem.status) }}
                     </v-chip>
                 </div>
             </div>
@@ -43,22 +43,19 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
+
 export interface IVideoItem {
     id: number;
     thumbnail: string;
     title: string;
     description: string;
-    status: "ongoing" | "completed" | "not-started";
+    status: "ongoing" | "completed" | "not_started";
 }
 
 const props = defineProps<{
     videos: IVideoItem[];
 }>();
-
-const state = reactive({
-    expanded: null as number | null,
-    action: false,
-})
 
 const onClickVideoItem = (id: number) => {
     alert(id);
@@ -76,6 +73,18 @@ const chipColorByStatus = (status: string) => {
             return "disabled_color";
     }
 }
+
+const { t } = useI18n({
+    messages: {
+        ko: {
+            completed: "완료",
+            ongoing: "진행 중",
+            not_started: "복습 전",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
 
 </script>
 

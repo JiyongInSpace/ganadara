@@ -1,48 +1,55 @@
-
 <template>
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <div
-      ref="refTabs"
-      class="position-sticky top-0 z-1 foreground-white"
-    >
-      <v-tabs
-        v-model="tabMain.tab.value"
-        stacked
-        class="flex-shrink-0 text-text-quaternary font-weight-bold main-tab px-4 my-3"
-        height="30"
-        selected-class="text-text-primary"
+  <PageTemplate space="pa-0">
+    <template v-slot:prepend-header>
+      <div
+        ref="refTabs"
+        class="position-sticky top-0 z-1 foreground-white"
       >
-        <v-tab
-          v-for="tabMainItem in tabMain.list"
-          :key="tabMainItem"
-          :value="tabMainItem"
-          min-width="auto"
-          class="text-lowercase font-weight-bold px-0 mr-5"
+        <v-tabs
+          v-model="tabMain.tab.value"
+          stacked
+          class="flex-shrink-0 text-text-quaternary font-weight-bold main-tab"
+          height="30"
+          selected-class="text-text-primary"
         >
-          <span class="text-t-xl">
-            {{ t(`main_tab.${tabMainItem}`) }}
-          </span>
-        </v-tab>
-      </v-tabs>
-    </div>
+          <v-tab
+            v-for="tabMainItem in tabMain.list"
+            :key="tabMainItem"
+            :value="tabMainItem"
+            min-width="auto"
+            class="text-lowercase font-weight-bold px-0 mr-5"
+          >
+            <span class="text-t-xl">
+              {{ t(`main_tab.${tabMainItem}`) }}
+            </span>
+          </v-tab>
+        </v-tabs>
+      </div>
+    </template>
 
-    <v-tabs-window
-      v-model="tabMain.tab.value"
-      class="overflow-y-auto flex-grow-1"
-    >
-      <v-tabs-window-item :value="MAIN_TAB.ALL">
-        <CommunityFeedList :feedList="state.feedList" />
-      </v-tabs-window-item>
+    <template v-slot:content>
+      <v-tabs-window
+        v-model="tabMain.tab.value"
+        class="overflow-y-auto flex-grow-1"
+      >
+        <v-tabs-window-item :value="MAIN_TAB.ALL">
+          <CommunityFeedList :feedList="state.feedList" />
+        </v-tabs-window-item>
 
-      <v-tabs-window-item :value="MAIN_TAB.FOLLOWING">
-        <CommunityFeedList :feedList="state.feedList" />
-      </v-tabs-window-item>
+        <v-tabs-window-item :value="MAIN_TAB.FOLLOWING">
+          <CommunityFeedList :feedList="state.feedList" />
+        </v-tabs-window-item>
 
-      <v-tabs-window-item :value="MAIN_TAB.MY_COMMENTS">
-        <CommunityFeedList :feedList="state.feedList" />
-      </v-tabs-window-item>
-    </v-tabs-window>
-  </v-container>
+        <v-tabs-window-item :value="MAIN_TAB.MY_COMMENTS">
+          <CommunityFeedList :feedList="state.feedList" />
+        </v-tabs-window-item>
+      </v-tabs-window>
+    </template>
+
+    <template v-slot:actions>
+      <app-bottom-navigation />
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>

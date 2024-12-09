@@ -20,7 +20,7 @@
             </div>
 
             <div class="text-t-sm text-center mb-7">
-                총 1,000,000, 502원
+                총 1,000,000,502원
             </div>
 
             <div

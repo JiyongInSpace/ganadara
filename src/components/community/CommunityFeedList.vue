@@ -7,7 +7,12 @@
             my-feed
         />
 
-        <div class="position-fixed bottom-4 right-4">
+        <div
+            class="position-fixed right-4"
+            :style="{
+                bottom: '96px',
+            }"
+        >
             <v-btn
                 size="x-large"
                 variant="tonal"

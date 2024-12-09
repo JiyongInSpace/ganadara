@@ -11,7 +11,6 @@ declare module 'vue' {
     AiChatList: typeof import('./components/dashboard/additional/ai_chat/AiChatList.vue')['default']
     AnswerOptions: typeof import('./components/class/quiz/AnswerOptions.vue')['default']
     AppBottomNavigation: typeof import('./components/navigation/AppBottomNavigation.vue')['default']
-    AppHeaderNavigation: typeof import('./components/navigation/AppHeaderNavigation.vue')['default']
     ChallengeMissionList: typeof import('./components/challenge/ChallengeMissionList.vue')['default']
     ChallengeTemplate: typeof import('./components/challenge/common/ChallengeTemplate.vue')['default']
     CommentItem: typeof import('./components/community/CommentItem.vue')['default']

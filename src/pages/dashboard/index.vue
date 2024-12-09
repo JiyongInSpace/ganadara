@@ -264,6 +264,10 @@
                 </div>
             </div>
         </template>
+
+        <template v-slot:actions>
+            <app-bottom-navigation />
+        </template>
     </PageTemplate>
 </template>
 

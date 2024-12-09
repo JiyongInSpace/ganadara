@@ -8,12 +8,20 @@
             variant="text"
             @click="onClickPage('/home/main')"
         >
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column align-center">
                 <v-icon
                     size="x-large"
                     class="mb-1"
-                >mdi-home</v-icon>
-                <span class="text-t-xs font-weight-semibold">홈</span>
+                    :class="isActive('/home')"
+                >
+                    mdi-home
+                </v-icon>
+                <span
+                    class="text-t-xs font-weight-semibold"
+                    :class="isActive('/home')"
+                >
+                    {{ t('home') }}
+                </span>
             </div>
         </v-btn>
 
@@ -29,8 +37,16 @@
                 <v-icon
                     size="x-large"
                     class="mb-1"
-                >mdi-book-open-outline</v-icon>
-                <span class="text-t-xs font-weight-semibold">클래스</span>
+                    :class="isActive('/class')"
+                >
+                    mdi-book-open-outline
+                </v-icon>
+                <span
+                    class="text-t-xs font-weight-semibold"
+                    :class="isActive('/class')"
+                >
+                    {{ t('class') }}
+                </span>
             </div>
         </v-btn>
 
@@ -40,14 +56,22 @@
             min-width="60"
             height="100%"
             variant="text"
-            @click="onClickPage('/challenge/mission')"
+            @click="onClickPage('/challenge')"
         >
             <div class="d-flex flex-column align-center">
                 <v-icon
                     size="x-large"
                     class="mb-1"
-                >mdi-flag-outline</v-icon>
-                <span class="text-t-xs font-weight-semibold">챌린지</span>
+                    :class="isActive('/challenge')"
+                >
+                    mdi-flag-outline
+                </v-icon>
+                <span
+                    class="text-t-xs font-weight-semibold"
+                    :class="isActive('/challenge')"
+                >
+                    {{ t('challenge') }}
+                </span>
             </div>
         </v-btn>
 
@@ -63,8 +87,16 @@
                 <v-icon
                     size="x-large"
                     class="mb-1"
-                >mdi-web</v-icon>
-                <span class="text-t-xs font-weight-semibold">커뮤니티</span>
+                    :class="isActive('/community')"
+                >
+                    mdi-web
+                </v-icon>
+                <span
+                    class="text-t-xs font-weight-semibold"
+                    :class="isActive('/community')"
+                >
+                    {{ t('community') }}
+                </span>
             </div>
         </v-btn>
 
@@ -80,8 +112,16 @@
                 <v-icon
                     size="x-large"
                     class="mb-1"
-                >mdi-dots-horizontal</v-icon>
-                <span class="text-t-xs font-weight-semibold">전체 보기</span>
+                    :class="isActive('/dashboard')"
+                >
+                    mdi-dots-horizontal
+                </v-icon>
+                <span
+                    :class="isActive('/dashboard')"
+                    class="text-t-xs font-weight-semibold"
+                >
+                    {{ t('dashboard') }}
+                </span>
             </div>
         </v-btn>
     </div>
@@ -89,13 +129,92 @@
 </template>
 
 <script lang="ts" setup>
+import i18n from '@/i18n';
+import { useI18n } from "vue-i18n";
+import { useLangStore } from '@/stores/lang'
+
+const route = useRoute();
 const router = useRouter();
 const navigation = ref("home");
+const langStore = useLangStore();
 
 const onClickPage = (path: string) => {
     router.push(path);
 }
 
+const isActive = (_category: string) => {
+    if (route.fullPath.startsWith(_category)) {
+        return "text-text-primary"
+    }
+
+    return "";
+}
+
+
+
+// 다국어
+const { t, locale } = useI18n({
+    messages: {
+        ko: {
+            home: "홈",
+            class: "클래스",
+            challenge: "챌린지",
+            community: "커뮤니티",
+            dashboard: "전체 보기",
+        },
+        en: {
+            home: "Home",
+            class: "Classes",
+            challenge: "Challenges",
+            community: "Community",
+            dashboard: "View All",
+        },
+        cn: {
+            home: "首页",
+            class: "课程",
+            challenge: "挑战",
+            community: "社区",
+            dashboard: "查看全部",
+        },
+        sp: {
+            home: "Inicio",
+            class: "Clases",
+            challenge: "Desafíos",
+            community: "Comunidad",
+            dashboard: "Ver todo",
+        },
+        vi: {
+            home: "Trang Chủ",
+            class: "Lớp Học",
+            challenge: "Thách Thức",
+            community: "Cộng Đồng",
+            dashboard: "Xem Tất cả",
+        },
+        jp: {
+            home: "ホーム",
+            class: "クラス",
+            challenge: "チャレンジ",
+            community: "コミュニティ",
+            dashboard: "すべてを表示",
+        },
+        fr: {
+            home: "Accueil",
+            class: "Cours",
+            challenge: "Défis",
+            community: "Communauté",
+            dashboard: "Voir Tout",
+        },
+    },
+    inheritLocale: true, // 전역 locale 상속
+    useScope: "local", // 로컬 스코프 설정
+});
+
+watch(
+    () => langStore.currentLang,
+    () => {
+        locale.value = langStore.currentLang as any;
+    }
+)
 </script>
 
 <style lang="scss" scoped>

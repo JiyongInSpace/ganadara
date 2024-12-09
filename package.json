@@ -17,6 +17,7 @@
     "date-fns": "^3.6.0",
     "lodash-es": "^4.17.21",
     "roboto-fontface": "*",
+    "swiper": "^11.1.15",
     "vee-validate": "^4.13.1",
     "video.js": "^7.21.6",
     "vue": "^3.4.21",

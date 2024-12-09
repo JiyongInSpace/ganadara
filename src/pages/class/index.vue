@@ -22,35 +22,36 @@
             :key="i"
             :value="mainTabItem"
           >
-          <div class="d-flex align-center ga-1">
-            <v-img
-              v-if="mainTabItem === 'regular'"
-              src="/images/class/regular.png"
-              width="24"
-              height="24"
-            />
-            <v-img
-              v-if="mainTabItem === 'short_form'"
-              src="/images/class/short_form.svg"
-              width="24"
-              height="24"
-            />
-            <span class="font-weight-semibold">
-              {{ t(mainTabItem) }}
-            </span>
-          </div>
+            <div class="d-flex align-center ga-1">
+              <v-img
+                v-if="mainTabItem === 'regular'"
+                src="/images/class/regular.png"
+                width="24"
+                height="24"
+              />
+              <v-img
+                v-if="mainTabItem === 'short_form'"
+                src="/images/class/short_form.svg"
+                width="24"
+                height="24"
+              />
+              <span class="font-weight-semibold">
+                {{ t(mainTabItem) }}
+              </span>
+            </div>
           </v-tab>
         </v-tabs>
       </div>
 
-      <RegularMain v-if="tabMain.tab.value == 'regular'"/>
-      <LectureList v-if="tabMain.tab.value == 'lecture'"/>
+      <RegularMain v-if="tabMain.tab.value == 'regular'" />
+      <LectureList v-if="tabMain.tab.value == 'lecture'" />
     </template>
 
     <template v-slot:bottom>
     </template>
 
     <template v-slot:actions>
+      <app-bottom-navigation />
     </template>
   </PageTemplate>
 </template>

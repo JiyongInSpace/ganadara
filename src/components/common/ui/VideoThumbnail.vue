@@ -18,7 +18,7 @@
         >
             <div v-if="videoInfo.singlePurchase">
                 <v-chip class="bg-black rounded-4 sm ">
-                    개별 구매
+                    {{ t('purchase') }}
                 </v-chip>
             </div>
 
@@ -58,6 +58,8 @@
 <script lang="ts" setup>
 import { IShortForm } from '@/pages/home/main/index.vue';
 import { useI18n } from 'vue-i18n';
+import { useLangStore } from '@/stores/lang'
+const langStore = useLangStore();
 
 
 const props = defineProps<{
@@ -73,29 +75,47 @@ const onClickVideoThumbnail = () => {
 };
 
 
-// 번역
-const { t } = useI18n({
+
+// 다국어
+const { t, locale } = useI18n({
     messages: {
-        en: {
-            main_tab: {
-                all: "전체",
-                following: "팔로잉",
-                my_comments: "내가 남긴 댓글",
-            },
-        },
         ko: {
-            main_tab: {
-                all: "전체",
-                following: "팔로잉",
-                my_comments: "내가 남긴 댓글",
-            },
+            purchase: "개별구매",
+        },
+        en: {
+            purchase: "Individual Purchase",
+        },
+        cn: {
+            purchase: "个人购买",
+        },
+        sp: {
+            purchase: "Compra Individual",
+        },
+        vi: {
+            purchase: "Mua Lẻ Cá Nhân",
+        },
+        jp: {
+            purchase: "個人購入",
+        },
+        fr: {
+            purchase: "Achat Individuel",
         },
     },
     inheritLocale: true, // 전역 locale 상속
     useScope: "local", // 로컬 스코프 설정
 });
 
+watch(
+    () => langStore.currentLang,
+    () => {
+        locale.value = langStore.currentLang as any;
+    }
+)
+
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+
+</style>

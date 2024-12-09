@@ -255,19 +255,24 @@
           <div
             v-for="(dailyMissionItem, index) in dailyMissionList"
             :key="index"
-            className="d-flex flex-column justify-center text-center cursor-pointer px-5 py-4"
+            className="d-flex flex-column justify-center text-center cursor-pointer flex-1-1-100 px-5 py-4"
             @click="() => onClickDailyMission(dailyMissionItem)"
           >
             <v-img
               :src="dailyMissionItem.imageUrl"
               height="56"
               width="56"
-              class="mb-2 rounded-circle"
+              class="mx-auto mb-2 rounded-circle"
             />
 
-            <span class="text-t-md font-weight-semibold">
-              {{ dailyMissionItem.title }}
-            </span>
+            <div
+              class="text-t-md font-weight-semibold"
+              :style="{
+                height: '48px'
+              }"
+            >
+              {{ t(`mission.${dailyMissionItem.key}`) }}
+            </div>
           </div>
         </div>
       </div>
@@ -738,6 +743,12 @@ const { t, locale } = useI18n({
       banner_title: "학습언어로 채팅하고 싶다면?",
       banner_subtitle: "AI랑 채팅하기",
       banner_button: "AI랑 채팅하러 가기",
+      mission: {
+        roulette: "룰렛",
+        invite: "친구초대",
+        quiz: "퀴즈",
+        gift: "선물",
+      }
     },
     en: {
       language: {
@@ -765,6 +776,12 @@ const { t, locale } = useI18n({
       banner_title: "If you want to chat with AI",
       banner_subtitle: "Chat with AI",
       banner_button: "Go Chat with AI",
+      mission: {
+        roulette: "Roulette",
+        invite: "Invite Friends",
+        quiz: "Quiz",
+        gift: "Gift",
+      }
     },
     cn: {
       language: {
@@ -792,6 +809,12 @@ const { t, locale } = useI18n({
       banner_title: "如果您想与人工智能聊天",
       banner_subtitle: "与 AI 聊天",
       banner_button: "去与 AI 聊天",
+      mission: {
+        roulette: "轮盘",
+        invite: "邀请好友",
+        quiz: "测验",
+        gift: "礼物",
+      }
     },
     sp: {
       language: {
@@ -819,6 +842,12 @@ const { t, locale } = useI18n({
       banner_title: "Si quieres chatear con IA",
       banner_subtitle: "Chatear con IA",
       banner_button: "Ir a chatear con IA",
+      mission: {
+        roulette: "Ruleta",
+        invite: "Invitar amigos",
+        quiz: "Quiz",
+        gift: "Regalo",
+      }
     },
     vi: {
       language: {
@@ -846,6 +875,12 @@ const { t, locale } = useI18n({
       banner_title: "Nếu bạn muốn trò chuyện với trí tuệ nhân tạo?",
       banner_subtitle: "Trò chuyện với Trí Tuệ Nhân Tạo",
       banner_button: "Đi Trò chuyện với Trí Tuệ Nhân Tạo",
+      mission: {
+        roulette: "Rơle",
+        invite: "Mời Bạn Bè",
+        quiz: "Trắc nghiệm",
+        gift: "Quà tặng",
+      }
     },
     jp: {
       language: {
@@ -873,6 +908,12 @@ const { t, locale } = useI18n({
       banner_title: "AIとチャットしたい場合",
       banner_subtitle: "AIとチャット",
       banner_button: "AIとチャットに移動",
+      mission: {
+        roulette: "ルーレット",
+        invite: "友達を招待",
+        quiz: "クイズ",
+        gift: "ギフト",
+      }
     },
     fr: {
       language: {
@@ -900,6 +941,12 @@ const { t, locale } = useI18n({
       banner_title: "Si vous souhaitez discuter avec une IA",
       banner_subtitle: "Discuter avec l'IA",
       banner_button: "Aller Discuter avec l'IA",
+      mission: {
+        roulette: "Roulette",
+        invite: "Inviter des Amis",
+        quiz: "Quiz",
+        gift: "Cadeau",
+      }
     },
   },
   inheritLocale: true, // 전역 locale 상속

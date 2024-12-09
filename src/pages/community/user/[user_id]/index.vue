@@ -111,6 +111,7 @@
                             v-if="isMypage"
                             class="primary flex-1-1-100"
                             variant="tonal"
+                            @click="onClickProfile"
                         >
                             프로필 수정
                         </v-btn>
@@ -365,6 +366,10 @@ const onClickRegular = (id: string) => {
 
 const onClickShortform = (id: string) => {
     router.push(`/class/shortform/${id}`)
+}
+
+const onClickProfile = () => {
+    router.push("/dashboard/profile");
 }
 
 const { t } = useI18n({

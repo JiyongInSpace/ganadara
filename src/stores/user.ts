@@ -12,8 +12,8 @@ export const useUserStore = defineStore(
       phone_number: '010-1234-5678',
       profile_image:
         '/images/class/dummy_profile_image.png',
-      is_creator: true,
-      // is_creator: false,
+      // is_creator: true,
+      is_creator: false,
       wallet: {
         won: 8123,
         point: 10123

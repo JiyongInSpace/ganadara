@@ -47,7 +47,7 @@ const emit = defineEmits<{
     (e: 'onClickGoToHome', id: any): void,
 }>()
 
-const level = ref(7);
+const level = ref(4);
 const percentage = ref(50);
 
 

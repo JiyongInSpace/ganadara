@@ -60,12 +60,18 @@
                 variant="text"
                 size="small"
                 class="my-2 text-decoration-underline"
-                to="/onboard/find_email"
-                >
-            <!-- @click="buttonFindAccount.event.onClick" -->
+                @click="buttonFindAccount.event.onClick"
+            >
+                <!-- to="/onboard/find_email" -->
                 계정 정보를 잊으셨나요?
             </v-btn>
         </div>
+
+        <!-- 임시 (시스템 메시지 대용) -->
+        <DialogTempFindAccount 
+            v-model:dialog="dialogTemp"
+        />
+        <!-- -------------------- -->
     </div>
 </template>
 
@@ -97,9 +103,10 @@ const inputPassword = {
 const buttonNext = {
     event: {
         onClick: () => {
-            const emailIsValid = true;
+            // const emailIsValid = true;
 
-            if(!emailIsValid) {
+            // if(!emailIsValid) {
+            if (inputEmail.value.value != "test@ganadara.com") {
                 inputPassword.errorMessages.value = "이메일이나 비밀번호를 확인해 주세요.";
                 return;
             }
@@ -112,15 +119,20 @@ const buttonNext = {
     }
 }
 
-// const buttonFindAccount = {
-//     event: {
-//         onClick: () => {
-//             //
-//         }
-//     }
-// }
+const buttonFindAccount = {
+    event: {
+        onClick: () => {
+            dialogTemp.value = true;
+        }
+    }
+}
+
+
+// <!-- 임시 (시스템 메시지 대용) -->
+const dialogTemp = ref(false);
+
+
 
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

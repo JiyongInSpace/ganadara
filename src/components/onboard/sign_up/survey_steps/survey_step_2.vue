@@ -42,7 +42,6 @@
             class="mb-10"
             selected-class="foreground-brand-primary text-text-primary_on-brand"
             v-model="selectedLanguageYouWant"
-            multiple
             column
         >
             <v-chip

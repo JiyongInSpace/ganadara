@@ -153,9 +153,9 @@ const inputValidationCode = {
             alert("email is verified")
 
             // 에러발생
-            const emailVerifyResult = true;
+            // const emailVerifyResult = true;
 
-            if (!emailVerifyResult) {
+            if (inputValidationCode.value.value !== "123456") {
                 // 오류 발생시 에러메시지 표시
                 inputValidationCode.errorMessages.value = '인증번호가 일치하지 않습니다.';
                 return;

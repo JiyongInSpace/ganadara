@@ -8,7 +8,7 @@
                 다음에 하시겠습니까?
             </div>
 
-            <div class="mb-7">
+            <div class="text-t-sm text-text-tertiary mb-5">
                 언제든 내 정보를 수정할 수 있어요.
             </div>
 
@@ -16,7 +16,7 @@
                 <v-btn
                     @click="buttonCancel.event.onClick"
                     variant="outlined"
-                    class="flex-1-1-100"
+                    class="secondary flex-1-1-100"
                     size="large"
                 >
                     취소

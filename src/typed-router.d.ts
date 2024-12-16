@@ -106,6 +106,7 @@ declare module 'vue-router/auto-routes' {
     '/onboard/landing/': RouteRecordInfo<'/onboard/landing/', '/onboard/landing', Record<never, never>, Record<never, never>>,
     '/onboard/log_in/': RouteRecordInfo<'/onboard/log_in/', '/onboard/log_in', Record<never, never>, Record<never, never>>,
     '/onboard/log_in/email/': RouteRecordInfo<'/onboard/log_in/email/', '/onboard/log_in/email', Record<never, never>, Record<never, never>>,
+    '/onboard/reset_password/': RouteRecordInfo<'/onboard/reset_password/', '/onboard/reset_password', Record<never, never>, Record<never, never>>,
     '/onboard/sign_up/': RouteRecordInfo<'/onboard/sign_up/', '/onboard/sign_up', Record<never, never>, Record<never, never>>,
     '/onboard/sign_up/email/': RouteRecordInfo<'/onboard/sign_up/email/', '/onboard/sign_up/email', Record<never, never>, Record<never, never>>,
     '/onboard/sign_up/social/': RouteRecordInfo<'/onboard/sign_up/social/', '/onboard/sign_up/social', Record<never, never>, Record<never, never>>,

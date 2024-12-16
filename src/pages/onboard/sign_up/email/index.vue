@@ -9,30 +9,35 @@
         size="small"
         variant="text"
         class="mt-1 font-weight-semibold px-0"
+        @click="dialogSkip.value.value = true"
       >
         건너뛰기
       </v-btn>
     </template>
-
+    <!-- "<순서 변경>
+    1. 이메일 가입 >> 국가선택 >> 약관동의+닉네임/추천코드 입력 >> 이메일인증 >> 비밀번호입력 으로 수정 필요" -->
     <template v-slot:content>
       <Select_country
         v-if="currentStep === 0"
         :defaultValue="signUpInfo"
         @onClickNext="compButtonNext.event.onClick"
       />
-
-      <Create_password
+      <Pick_username
         v-if="currentStep === 1"
         :defaultValue="signUpInfo"
         @onClickNext="compButtonNext.event.onClick"
       />
-      <Pick_username
+      <Verify_email
         v-if="currentStep === 2"
-        :defaultValue="signUpInfo"
         @onClickNext="compButtonNext.event.onClick"
       />
-      <Verify_email
-        v-if="currentStep === 3"
+      <Find_account
+        v-if="currentStep === 3 && signUpInfo.results.country === 'KR'"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+      <Create_password
+        v-if="currentStep === 4"
+        :defaultValue="signUpInfo"
         @onClickNext="compButtonNext.event.onClick"
       />
     </template>
@@ -41,14 +46,21 @@
     </template>
 
     <template v-slot:actions>
+      <Survey_skip
+        v-model="dialogSkip.value.value"
+        @onClickCancel="compButtonCancel.event.onClick"
+        @onClickSkip="compButtonSkip.event.onClick"
+      />
     </template>
   </PageTemplate>
 </template>
 
 <script lang="ts" setup>
+import Verify_phone from '@/components/onboard/sign_up/sign_up_steps/verify_phone.vue';
+
 const router = useRouter();
 
-const totalSteps = ref(4);
+const totalSteps = ref(5);
 const currentStep = ref(0);
 
 const signUpInfo = reactive({
@@ -91,6 +103,9 @@ const compButtonNext = {
         }
       }
 
+      if(currentStep.value == 2 && signUpInfo.results.country != 'KR') {
+        currentStep.value++;
+      }
       currentStep.value++;
 
       // 결과 전달 ========================
@@ -102,4 +117,26 @@ const compButtonNext = {
     }
   }
 }
+
+const dialogSkip = {
+  value: ref(false),
+}
+
+const compButtonCancel = {
+  event: {
+    onClick: () => {
+      dialogSkip.value.value = false;
+    }
+  }
+}
+
+const compButtonSkip = {
+  event: {
+    onClick: () => {
+      currentStep.value++;
+      dialogSkip.value.value = false;
+    }
+  }
+}
+
 </script>

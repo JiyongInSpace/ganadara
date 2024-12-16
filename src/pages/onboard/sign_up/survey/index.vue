@@ -31,7 +31,7 @@
                     v-if="currentStep > 0"
                     v-model="currentStep"
                     :max="totalSteps + 1"
-                    class="mb-5"
+                    class="flex-shrink-0 mb-5"
                     color="primary"
                 />
             </v-expand-transition>
@@ -40,7 +40,7 @@
                 v-if="currentStep === 0"
                 :userName="userName"
                 @onClickNext="compButtonNext.event.onClick"
-                @onClickPrev="compButtonPrev.event.onClick"
+                @onClickSkip="buttonSkip.event.onClick"
             />
             <Survey_step_1
                 v-if="currentStep === 1"

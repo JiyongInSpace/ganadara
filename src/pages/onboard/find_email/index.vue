@@ -1,25 +1,21 @@
 <template>
-  <v-container class="d-flex flex-column fill-height">
-    <div class="py-2 w-100 h-14">
-      <v-btn
+  <PageTemplate
+    back-button
+    no-spacer
+  >
+    <template v-slot:content>
+      <Find_account
         v-if="!isFound"
-        icon="mdi-arrow-left"
-        size="small"
-        variant="text"
+        @onClickNext="compButtonNext.event.onClick"
       />
-    </div>
-    
-    <Find_account
-      v-if="!isFound"
-      @onClickNext="compButtonNext.event.onClick"
-    />
 
-    <Find_account_result
-      v-if="isFound"
-      :foundedEmail="foundedEmail"
-      @onClickNext="compButtonNext.event.onClick"
-    />
-  </v-container>
+      <Find_account_result
+        v-if="isFound"
+        :foundedEmail="foundedEmail"
+        @onClickNext="compButtonNext.event.onClick"
+      />
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>

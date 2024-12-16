@@ -6,7 +6,10 @@
         transition="dialog-bottom-transition"
     >
         <template v-slot:default>
-            <v-card class="pt-5 px-4 pb-4">
+            <v-card
+                class="pt-5 px-4 pb-4"
+                minHeight="95vh"
+            >
                 <div class="mb-5 ml-auto">
                     <v-btn
                         class="flex-grow-0"
@@ -143,7 +146,7 @@ const buttonClose = {
 watch(
     () => props.termsValues,
     (_event) => {
-        if(_event.length === serviceTermsItems.length) {
+        if (_event.length === serviceTermsItems.length) {
             checkboxTerms.allTerms.value = true;
         } else {
             checkboxTerms.allTerms.value = false;

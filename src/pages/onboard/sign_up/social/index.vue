@@ -5,9 +5,11 @@
   >
     <template v-slot:append-header>
       <v-btn
+        v-if="currentStep == 0"
         size="small"
         variant="text"
         class="mt-1 font-weight-semibold px-0"
+        @click="dialogSkip.value.value = true"
       >
         건너뛰기 
       </v-btn>
@@ -24,12 +26,21 @@
         :defaultValue="signUpInfo"
         @onClickNext="compButtonNext.event.onClick"
       />
+      <Find_account
+        v-if="currentStep === 2 && signUpInfo.results.country === 'KR'"
+        @onClickNext="compButtonNext.event.onClick"
+      />
     </template>
 
     <template v-slot:bottom>
     </template>
 
     <template v-slot:actions>
+      <Survey_skip
+        v-model="dialogSkip.value.value"
+        @onClickCancel="compButtonCancel.event.onClick"
+        @onClickSkip="compButtonSkip.event.onClick"
+      />
     </template>
   </PageTemplate>
   <!-- 
@@ -60,7 +71,7 @@
 
 const router = useRouter();
 
-const totalSteps = ref(2);
+const totalSteps = ref(3);
 const currentStep = ref(0);
 
 const signUpInfo = reactive({
@@ -98,6 +109,10 @@ const compButtonNext = {
         }
       }
 
+      if(currentStep.value == 1 && signUpInfo.results.country != 'KR') {
+        currentStep.value++;
+      }
+      
       currentStep.value++;
 
       // 결과 전달 ========================
@@ -109,4 +124,26 @@ const compButtonNext = {
     }
   }
 }
+
+const dialogSkip = {
+  value: ref(false),
+}
+
+const compButtonCancel = {
+  event: {
+    onClick: () => {
+      dialogSkip.value.value = false;
+    }
+  }
+}
+
+const compButtonSkip = {
+  event: {
+    onClick: () => {
+      currentStep.value++;
+      dialogSkip.value.value = false;
+    }
+  }
+}
+
 </script>

@@ -71,7 +71,9 @@ const buttonCancel = {
 const buttonSkip = {
     event: {
         onClick: () => {
+            alert("HOME");
             dialogSkip.value.value = false;
+            router.push("/");
         }
     }
 }

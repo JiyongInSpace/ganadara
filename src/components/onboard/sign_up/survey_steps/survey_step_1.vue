@@ -1,7 +1,7 @@
 <template>
     <div class="w-100">
         <div class="mb-5 text-d-xs font-weight-semibold">
-            <span v-text="userName"/> 님에 대해 더 알고 싶어요!
+            <span v-text="userName" /> 님에 대해 더 알고 싶어요!
         </div>
 
         <div class="text-t-sm mb-1-5">나이</div>
@@ -24,7 +24,7 @@
                     message
                 </div>
             </template>
-            
+
             <template v-slot:no-data>
                 <div class="text-t-md font-weight-bold py-2 px-4">
                     no-data
@@ -35,6 +35,21 @@
                 <div class="text-t-md font-weight-bold py-2 px-4">
                     나이를 선택해 주세요
                 </div>
+            </template>
+
+            <template v-slot:item="{ props, item }">
+                <v-list-item
+                    v-bind="props"
+                    :title="item.title"
+                >
+                    <template v-slot:append>
+                        <v-icon
+                            v-if="selectAge.value.value?.code === item.value"
+                            icon="mdi-check"
+                            color="primary"
+                        />
+                    </template>
+                </v-list-item>
             </template>
         </v-select>
 
@@ -53,10 +68,29 @@
             hide-details
             density="compact"
         >
+            <template v-slot:selection="{ item }">
+                {{ item.title }}~
+            </template>
+
             <template v-slot:prepend-item>
                 <div class="text-t-md font-weight-bold py-2 px-4">
                     방해 금지 시작 시간을 선택해 주세요
                 </div>
+            </template>
+
+            <template v-slot:item="{ props, item }">
+                <v-list-item
+                    v-bind="props"
+                    :title="item.title"
+                >
+                    <template v-slot:append>
+                        <v-icon
+                            v-if="selectStudyTime.startDate.value?.code === item.value"
+                            icon="mdi-check"
+                            color="primary"
+                        />
+                    </template>
+                </v-list-item>
             </template>
         </v-select>
 
@@ -76,6 +110,21 @@
                 <div class="text-t-md font-weight-bold py-2 px-4">
                     방해 금지 종료 시간을 선택해 주세요
                 </div>
+            </template>
+
+            <template v-slot:item="{ props, item }">
+                <v-list-item
+                    v-bind="props"
+                    :title="item.title"
+                >
+                    <template v-slot:append>
+                        <v-icon
+                            v-if="selectStudyTime.endDate.value?.code === item.value"
+                            icon="mdi-check"
+                            color="primary"
+                        />
+                    </template>
+                </v-list-item>
             </template>
         </v-select>
     </div>
@@ -117,7 +166,7 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-    if(!props.defaultValue.results.age) return; 
+    if (!props.defaultValue.results.age) return;
     selectAge.value.value = selectAge.items.find((item) => item.code === props.defaultValue.results.age);
     selectStudyTime.startDate.value = selectStudyTime.items.find((item) => item.code === props.defaultValue.results.startDate);
     selectStudyTime.endDate.value = selectStudyTime.items.find((item) => item.code === props.defaultValue.results.endDate);

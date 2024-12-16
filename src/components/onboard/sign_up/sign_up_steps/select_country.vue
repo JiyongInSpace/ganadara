@@ -16,6 +16,20 @@
             class="flex-grow-0"
             density="compact"
         >
+            <template v-slot:item="{ props, item }">
+                <v-list-item
+                    v-bind="props"
+                    :title="item.title"
+                >
+                    <template v-slot:append>
+                        <v-icon
+                            v-if="selectCountry.value.value?.code === item.value"
+                            icon="mdi-check"
+                            color="primary"
+                        />
+                    </template>
+                </v-list-item>
+            </template>
         </v-select>
 
         <v-spacer />

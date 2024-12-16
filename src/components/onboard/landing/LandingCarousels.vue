@@ -3,8 +3,8 @@
         v-model="model"
         :show-arrows="false"
         hide-delimiters
-        class="mb-7"
-        height="467"
+        class="mt-16 mb-7"
+        height="300"
         disabled
     >
         <v-carousel-item
@@ -25,8 +25,10 @@
             {{ carouselData[model].title }}
         </div>
 
-        <div class="text-t-md text-text-secondary">
-            {{ carouselData[model].description }}
+        <div
+            class="text-t-md text-text-secondary"
+            v-html="carouselData[model].description"
+        >
         </div>
 
         <div class="text-t-md text-text-secondary">
@@ -96,7 +98,7 @@ const { t } = useI18n({
 const model = ref(0);
 const onClickNext = () => {
     // model은 2ㄱ가 최대
-    if(model.value === 2) {
+    if (model.value === 2) {
         console.log
         router.push("/onboard/sign_up");
         return;
@@ -113,17 +115,17 @@ const carouselData = [
     {
         imageUrl: "/images/onboard/carousel_01.svg",
         title: "언어 학습을 게임처럼!",
-        description: "AI가 추천하는 맞춤형 언어 학습을 매일 단계별로 도전해 보세요. 언어 학습도 하고 보상도 놓치지 마세요.",
+        description: "AI가 추천하는 맞춤형 언어 학습을<br/> 매일 단계별로 도전해 보세요.<br/> 언어 학습도 하고 보상도 놓치지 마세요.",
     },
     {
         imageUrl: "/images/onboard/carousel_02.svg",
         title: "너의 일상을 말해줘",
-        description: "나의 기분과 하루를 공유하고 나만의 학습 노하우를 친구들과 나누어 보세요. 다양한 크리에이터들의 소식도 확인할 수 있어요.",
+        description: "나의 기분과 하루를 공유하고<br/> 나만의 학습 노하우를 친구들과 나누어 보세요.<br/> 다양한 크리에이터들의 소식도 확인할 수 있어요.",
     },
     {
         imageUrl: "/images/onboard/carousel_03.svg",
         title: "매일 쏟아지는 포인트!",
-        description: "하루하루 미션을 수행하고 포인트를 모아 보세요. 포인트로 수강권 할인도 받고 따뜻한 후원을 할 수 있어요.",
+        description: "하루하루 미션을 수행하고 포인트를 모아 보세요.<br/> 포인트로 수강권 할인도 받고<br/> 따뜻한 후원을 할 수 있어요.",
     }
 
 ]

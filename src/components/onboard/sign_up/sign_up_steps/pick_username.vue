@@ -61,7 +61,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        이용약관 (필수)
+                        이용약관
                     </div>
 
                     <v-btn
@@ -94,7 +94,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        위치기반 서비스 이용약관 (필수)
+                        위치기반 서비스 이용약관
                     </div>
 
                     <v-btn
@@ -127,7 +127,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        개인정보처리 방침 (필수)
+                        개인정보처리 방침
                     </div>
 
                     <v-btn
@@ -160,40 +160,7 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        만 14세 이상입니다. (필수)
-                    </div>
-
-                    <v-btn
-                        class="ml-auto flex-grow-0"
-                        icon
-                        variant="text"
-                        width="20"
-                        height="20"
-                        @click="checkboxGroupServiceTerms.event.onClickChevron"
-                    >
-                        <v-img
-                            src="/icons/IconChevronRight.svg"
-                            width="20"
-                            height="20"
-                        ></v-img>
-                    </v-btn>
-                </div>
-            </template>
-        </v-checkbox>
-
-        <v-checkbox
-            v-model="checkboxGroupServiceTerms.value.value"
-            value="marketing"
-            true-icon="mdi-check-circle"
-            false-icon="mdi-check-circle"
-            hide-details
-            class="px-2-5"
-            color="primary"
-        >
-            <template v-slot:label>
-                <div class="d-flex flex-grow-1">
-                    <div class="text-t-md font-weight-medium">
-                        마케팅 목적에 따른 개인정보 수집 및 이용 동의 (선택)
+                        만 14세 이상입니다.
                     </div>
 
                     <v-btn
@@ -226,7 +193,40 @@
             <template v-slot:label>
                 <div class="d-flex flex-grow-1">
                     <div class="text-t-md font-weight-medium">
-                        쿠키 수집 동의 (옵션선택) (GDPR / CPRA)
+                        쿠키 수집동의
+                    </div>
+
+                    <v-btn
+                        class="ml-auto flex-grow-0"
+                        icon
+                        variant="text"
+                        width="20"
+                        height="20"
+                        @click="dialogCookieSettting = true"
+                    >
+                        <v-img
+                            src="/icons/IconChevronRight.svg"
+                            width="20"
+                            height="20"
+                        ></v-img>
+                    </v-btn>
+                </div>
+            </template>
+        </v-checkbox>
+
+        <v-checkbox
+            v-model="checkboxGroupServiceTerms.value.value"
+            value="marketing"
+            true-icon="mdi-check-circle"
+            false-icon="mdi-check-circle"
+            hide-details
+            class="px-2-5"
+            color="primary"
+        >
+            <template v-slot:label>
+                <div class="d-flex flex-grow-1">
+                    <div class="text-t-md font-weight-medium">
+                        개인정보 수집 및 이용동의(선택)
                     </div>
 
                     <v-btn
@@ -246,6 +246,7 @@
                 </div>
             </template>
         </v-checkbox>
+
 
         <v-spacer />
 
@@ -269,6 +270,8 @@
             v-model:termsValues="checkboxGroupServiceTerms.value.value"
             @click:allTerms="checkboxGroupServiceTerms.event.onChangeAllTerms"
         />
+
+        <DialogSignupCookies v-model:dialog="dialogCookieSettting" />
     </div>
 </template>
 
@@ -283,13 +286,14 @@ const props = defineProps<{
 }>();
 
 onMounted(() => {
-    if(!props.defaultValue.results.user_name) return;
+    if (!props.defaultValue.results.user_name) return;
     inputUserName.value.value = props.defaultValue.results.user_name;
     inputReferralCode.value.value = props.defaultValue.results.referral_code;
     checkboxGroupServiceTerms.value.value = props.defaultValue.results.service_terms;
 })
 
 const allTerms = ref(false);
+const dialogCookieSettting = ref(false);
 
 const serviceTermsItems = [
     "terms",
@@ -328,6 +332,8 @@ const checkboxGroupServiceTerms = {
     },
 };
 
+
+
 const buttonNext = {
     event: {
         onClick: () => {
@@ -352,7 +358,7 @@ const dialogTermsOfService = {
 watch(
     checkboxGroupServiceTerms.value,
     (_event) => {
-        if(_event.length === serviceTermsItems.length) {
+        if (_event.length === serviceTermsItems.length) {
             allTerms.value = true;
         } else {
             allTerms.value = false;

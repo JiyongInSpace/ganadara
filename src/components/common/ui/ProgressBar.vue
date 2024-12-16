@@ -90,6 +90,18 @@
             />
         </svg>
 
+        <v-img
+            src="/images/common/deco_progress.png"
+            alt="deco_progress"
+            class="position-absolute z-10 top-0 animate__animated animate__fadeIn"
+            :style="{
+                marginTop: '-12px',
+                width: `${size.width}px`,
+                height: `${size.height}px`,
+                transform: 'scale(1.5)',
+            }"
+        />
+
         <div class="position-absolute text-center position-center">
             <slot />
         </div>

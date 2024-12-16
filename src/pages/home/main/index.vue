@@ -129,7 +129,7 @@
 
           <div class="position-absolute left-3 right-3 bottom-3 z-1">
             <span class="text-t-sm text-text-white text-shadow font-weight-semibold">
-              {{ shortformItem.description }}
+              {{ t(`category1.${shortformItem.description}`) }}
             </span>
           </div>
         </div>
@@ -316,7 +316,7 @@
           class="px-4 ga-4 mb-3 pb-8"
         >
           <swiper-slide
-            v-for="(popularUserItem, index) in state.popularUserList"
+            v-for="(popularUserItem, index) in computedUserList"
             :key="index"
             :style="{
               width: '340px',
@@ -473,6 +473,7 @@ const state = reactive({
   popularTagList: [] as IPopularTag[],
   popularVideoList: [] as IShortForm[],
   popularUserList: [] as IPopularUser[],
+  popularCreatorList: [] as IPopularUser[],
 });
 
 const loading = ref(false);
@@ -485,12 +486,22 @@ onMounted(() => {
   state.popularTagList = dummy_tags;
   state.popularVideoList = dummy_data.videoList;
   state.popularUserList = dummy_users;
+  state.popularCreatorList = dummy_creators;
 })
 
 
 // UI ========================================
 const selectedContentCategory = ref("1");
 const selectedUserCategory = ref("1");
+
+const computedUserList = computed(() => {
+  if (selectedUserCategory.value === "1") {
+    return state.popularUserList;
+  } else {
+    return state.popularCreatorList;
+  }
+})
+
 
 const dailyMissionList = [
   {
@@ -515,142 +526,6 @@ const dailyMissionList = [
   },
 ];
 
-
-
-const dummy_shortform = [
-  {
-    id: "1",
-    thumbnail: "/images/home/dummy_thumbnail2.png",
-    title: "Short-form Title",
-    description: "Short-form Description",
-  },
-  {
-    id: "1",
-    thumbnail: "/images/home/dummy_thumbnail2.png",
-    title: "Short-form Title",
-    description: "Short-form Description",
-  },
-  {
-    id: "1",
-    thumbnail: "/images/home/dummy_thumbnail2.png",
-    title: "Short-form Title",
-    description: "Short-form Description",
-  },
-  {
-    id: "1",
-    thumbnail: "/images/home/dummy_thumbnail2.png",
-    title: "Short-form Title",
-    description: "Short-form Description",
-  },
-  {
-    id: "1",
-    thumbnail: "/images/home/dummy_thumbnail2.png",
-    title: "Short-form Title",
-    description: "Short-form Description",
-  },
-  {
-    id: "1",
-    thumbnail: "/images/home/dummy_thumbnail2.png",
-    title: "Short-form Title",
-    description: "Short-form Description",
-  },
-]
-
-const dummy_data = {
-  videoList: [
-    {
-      id: "1",
-      title: "Theme Video Title1",
-      creator: {
-        name: "creator",
-        profileImage: "/images/class/dummy_profile_image.png",
-      },
-      thumbnail: "/images/home/dummy_thumbnail.png",
-      progressPercentage: 0,
-      singlePurchase: true
-    },
-    {
-      id: "1",
-      title: "Theme Video Title2",
-      creator: {
-        name: "creator",
-        profileImage: "/images/class/dummy_profile_image.png",
-      },
-      thumbnail: "/images/home/dummy_thumbnail2.png",
-      progressPercentage: 80,
-      singlePurchase: false
-    },
-    {
-      id: "1",
-      title: "Theme Video Title3 Theme Video Title3 Theme Video Title3",
-      creator: {
-        name: "creator",
-        profileImage: "/images/class/dummy_profile_image.png",
-      },
-      thumbnail: "/images/home/dummy_thumbnail.png",
-      progressPercentage: 40,
-      singlePurchase: true
-    },
-  ] as IShortForm[],
-}
-
-const dummy_users = [
-  {
-    id: "1",
-    name: "creator",
-    profileImage: "/images/class/dummy_profile_image.png",
-    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    isLiked: false,
-    likes: 9999,
-  },
-  {
-    id: "2",
-    name: "creator2",
-    profileImage: "/images/class/dummy_profile_image.png",
-    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    isLiked: true,
-    likes: 10,
-  },
-  {
-    id: "3",
-    name: "creator3",
-    profileImage: "/images/class/dummy_profile_image.png",
-    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    isLiked: false,
-    likes: 33,
-  },
-  {
-    id: "2",
-    name: "creator2",
-    profileImage: "/images/class/dummy_profile_image.png",
-    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    isLiked: true,
-    likes: 10,
-  },
-  {
-    id: "3",
-    name: "creator3",
-    profileImage: "/images/class/dummy_profile_image.png",
-    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    isLiked: false,
-    likes: 33,
-  },
-]
-
-const dummy_tags = [
-  {
-    key: "1",
-    value: "tag1",
-  },
-  {
-    key: "2",
-    value: "tag2",
-  },
-  {
-    key: "3",
-    value: "tag3",
-  },
-] as IPopularTag[];
 
 
 // EVENT
@@ -690,7 +565,7 @@ const sort_options = [
   },
   {
     code: 'en',
-    value: 'US',
+    value: 'EN',
   },
   {
     code: 'cn',
@@ -712,6 +587,14 @@ const sort_options = [
     code: 'fr',
     value: 'FR',
   },
+  {
+    code: 'id',
+    value: 'ID',
+  },
+  {
+    code: 'ru',
+    value: 'RU',
+  }
 ]
 
 // 다국어
@@ -726,6 +609,8 @@ const { t, locale } = useI18n({
         vi: "베트남어",
         jp: "일본어",
         fr: "프랑스어",
+        id: "인도네시아어",
+        ru: "러시아어",
       },
       category: {
         category1: "숏폼",
@@ -736,6 +621,12 @@ const { t, locale } = useI18n({
         category6: "놓치면 안 되는 따끈한 인기 콘텐츠",
         category7: "데일리 미션",
         category8: "인기 유저",
+      },
+      category1: {
+        value1: "직장 동료와 아침 인사 후 스몰 토크 이어가기",
+        value2: "직장생활 시리즈 50",
+        value3: "실생활에서 쓸 수 있는 기초 문장 100선",
+        value4: "Olivia와 배우는 필수 영어 회화",
       },
       view_all: "전체 보기",
       regular_user: "일반유저",
@@ -759,6 +650,8 @@ const { t, locale } = useI18n({
         vi: "Vietnamese",
         jp: "Japanese",
         fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
       },
       category: {
         category1: "Short-form",
@@ -769,6 +662,12 @@ const { t, locale } = useI18n({
         category6: "Must-see hot trending content",
         category7: "Daily Mission",
         category8: "Popular User",
+      },
+      category1: {
+        value1: "Continue small talk with coworkers after saying good morning",
+        value2: "Work Life Series 50",
+        value3: "100 basic sentences that can be used in real life",
+        value4: "Essential English Conversation Learned with Olivia",
       },
       view_all: "View All",
       regular_user: "Regular User",
@@ -792,6 +691,8 @@ const { t, locale } = useI18n({
         vi: "베트남어",
         jp: "일본어",
         fr: "프랑스어",
+        id: "인도네시아어",
+        ru: "러시아어",
       },
       category: {
         category1: "简式",
@@ -802,6 +703,12 @@ const { t, locale } = useI18n({
         category6: "必看的热门趋势内容",
         category7: "每日任务",
         category8: "热门用户",
+      },
+      category1: {
+        value1: "早上好后继续与同事闲聊",
+        value2: "《工作生活系列50》",
+        value3: "100个可以在现实生活中使用的基本句子",
+        value4: "与 Olivia 一起学习的基本英语会话",
       },
       view_all: "查看全部",
       regular_user: "普通用户",
@@ -825,6 +732,8 @@ const { t, locale } = useI18n({
         vi: "Vietnamese",
         jp: "Japanese",
         fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
       },
       category: {
         category1: "Formulario corto",
@@ -835,6 +744,12 @@ const { t, locale } = useI18n({
         category6: "Contenido de tendencia caliente que no te puedes perder",
         category7: "Misión diaria",
         category8: "Usuario popular",
+      },
+      category1: {
+        value1: "Continuar la pequeña charla con los compañeros de trabajo después de decir buenos días",
+        valor2: "Vida laboral Serie 50",
+        valor3: "100 oraciones básicas que se pueden usar en la vida real",
+        valor4: "Conversación en inglés esencial aprendida con Olivia",
       },
       view_all: "Ver todo",
       regular_user: "Usuario regular",
@@ -858,6 +773,8 @@ const { t, locale } = useI18n({
         vi: "Vietnamese",
         jp: "Japanese",
         fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
       },
       category: {
         category1: "Biểu mẫu ngắn",
@@ -868,6 +785,12 @@ const { t, locale } = useI18n({
         category6: "Nội dung nổi bật đáng xem",
         category7: "Nhiệm vụ hàng ngày",
         category8: "Người Dùng Phổ Biến",
+      },
+      category1: {
+        value1: "Tiếp tục trò chuyện nhỏ với đồng nghiệp sau khi chào buổi sáng",
+        value2: "Chuỗi cuộc sống công việc 50",
+        value3: "100 câu cơ bản có thể sử dụng trong đời thực",
+        value4: "Hội thoại tiếng Anh thiết yếu học cùng Olivia",
       },
       view_all: "Xem Tất cả",
       regular_user: "Người Dùng Thường Xuyên",
@@ -891,6 +814,8 @@ const { t, locale } = useI18n({
         vi: "Vietnamese",
         jp: "Japanese",
         fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
       },
       category: {
         category1: "短い形式",
@@ -901,6 +826,12 @@ const { t, locale } = useI18n({
         category6: "必見のホットなトレンドコンテンツ",
         category7: "デイリーミッション",
         category8: "人気ユーザー",
+      },
+      category1: {
+        value1: "職場の同僚と朝の挨拶後にスモールトークを続ける",
+        value2: "職場生活シリーズ 50",
+        value3: "実生活で使える基礎文章100選",
+        value4: "Oliviaと学ぶ必須英語会話",
       },
       view_all: "すべてを表示",
       regular_user: "通常ユーザー",
@@ -924,6 +855,8 @@ const { t, locale } = useI18n({
         vi: "Vietnamese",
         jp: "Japanese",
         fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
       },
       category: {
         category1: "Forme courte",
@@ -934,6 +867,12 @@ const { t, locale } = useI18n({
         category6: "Contenu Tendance à ne pas Manquer",
         category7: "Mission Quotidienne",
         category8: "Utilisateur Populaire",
+      },
+      category1: {
+        value1: "Continuez la conversation avec vos collègues après leur avoir dit bonjour",
+        value2: "Série Vie professionnelle 50",
+        value3: "100 phrases de base utilisables dans la vraie vie",
+        value4: "Conversation essentielle en anglais apprise avec Olivia",
       },
       view_all: "Voir Tout",
       regular_user: "Utilisateur Régulier",
@@ -946,6 +885,88 @@ const { t, locale } = useI18n({
         invite: "Inviter des Amis",
         quiz: "Quiz",
         gift: "Cadeau",
+      }
+    },
+    id: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Formulir singkat",
+        category2: "Studi Terbaru",
+        category3: "Video Baru",
+        category4: "Konten Populer yang Harus Dilihat",
+        category5: "Video Bertheme",
+        category6: "Konten Trending Panas yang Harus Dilihat",
+        category7: "Misi Harian",
+        category8: "Pengguna Populer",
+      },
+      category1: {
+        value1: "Lanjutkan obrolan ringan dengan rekan kerja setelah mengucapkan selamat pagi",
+        value2: "Kehidupan Kerja Seri 50",
+        value3: "100 kalimat dasar yang dapat digunakan dalam kehidupan nyata",
+        value4: "Percakapan Penting Bahasa Inggris yang Dipelajari dengan Olivia",
+      },
+      view_all: "Lihat Semua",
+      regular_user: "Pengguna Biasa",
+      creator: "Pembuat",
+      banner_title: "Jika Anda ingin mengobrol dengan kecerdasan buatan",
+      banner_subtitle: "Obrolan dengan AI",
+      banner_button: "Ayo Mengobrol dengan AI",
+      mission: {
+        roulette: "Roda Keberuntungan",
+        invite: "Undang Teman",
+        quiz: "Kuis",
+        gift: "Hadiah",
+      }
+    },
+    ru: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Краткая форма",
+        category2: "Недавние исследования",
+        category3: "Новые видео",
+        category4: "Популярный контент, который стоит посмотреть",
+        category5: "Тематические видео",
+        category6: "Просмотр обязательного горячего контента",
+        category7: "Ежедневная миссия",
+        category8: "Популярный пользователь",
+      },
+      category1: {
+        value1: "«Продолжить светскую беседу с коллегами после доброго утра»",
+        value2: "Work Life Series 50",
+        value3: "100 основных предложений, которые можно использовать в реальной жизни",
+        value4: "Основы разговорного английского языка, изученные с Оливией",
+      },
+      view_all: "Просмотреть все",
+      regular_user: "Обычный пользователь",
+      creator: "Создатель",
+      banner_title: "Если вы хотите пообщаться с искусственным интеллектом",
+      banner_subtitle: "Общайтесь с ИИ",
+      banner_button: "Перейти к чату с ИИ",
+      mission: {
+        roulette: "Рулетка",
+        invite: "Пригласить друзей",
+        quiz: "Викторина",
+        gift: "Подарок",
       }
     },
   },
@@ -963,6 +984,197 @@ watch(
     immediate: true
   }
 )
+
+
+
+
+const dummy_shortform = [
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value4",
+    description: "value4",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value3",
+    description: "value3",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value2",
+    description: "value2",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value1",
+    description: "value1",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value4",
+    description: "value4",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value3",
+    description: "value3",
+  },
+]
+
+const dummy_data = {
+  videoList: [
+    {
+      id: "1",
+      title: "value1",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail.png",
+      progressPercentage: 0,
+      singlePurchase: true
+    },
+    {
+      id: "1",
+      title: "value2",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail2.png",
+      progressPercentage: 80,
+      singlePurchase: false
+    },
+    {
+      id: "1",
+      title: "value3",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail.png",
+      progressPercentage: 40,
+      singlePurchase: true
+    },
+    {
+      id: "1",
+      title: "value4",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail.png",
+      progressPercentage: 40,
+      singlePurchase: true
+    },
+  ] as IShortForm[],
+}
+
+const dummy_creators = [
+  {
+    id: "1",
+    name: "creator",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 23,
+  },
+  {
+    id: "2",
+    name: t("creator2"),
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 41,
+  },
+  {
+    id: "3",
+    name: "creator3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 23,
+  },
+  {
+    id: "2",
+    name: "creator2",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 43,
+  },
+  {
+    id: "3",
+    name: "creator3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 23,
+  },
+]
+const dummy_users = [
+  {
+    id: "1",
+    name: "user",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 9999,
+  },
+  {
+    id: "2",
+    name: "user2",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 10,
+  },
+  {
+    id: "3",
+    name: "user3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 33,
+  },
+  {
+    id: "2",
+    name: "user2",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 10,
+  },
+  {
+    id: "3",
+    name: "user3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 33,
+  },
+]
+
+const dummy_tags = [
+  {
+    key: "1",
+    value: "tag1",
+  },
+  {
+    key: "2",
+    value: "tag2",
+  },
+  {
+    key: "3",
+    value: "tag3",
+  },
+] as IPopularTag[];
 
 </script>
 

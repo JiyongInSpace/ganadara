@@ -132,11 +132,11 @@
 import i18n from '@/i18n';
 import { useI18n } from "vue-i18n";
 import { useLangStore } from '@/stores/lang'
+const langStore = useLangStore();
 
 const route = useRoute();
 const router = useRouter();
 const navigation = ref("home");
-const langStore = useLangStore();
 
 const onClickPage = (path: string) => {
     router.push(path);
@@ -203,6 +203,20 @@ const { t, locale } = useI18n({
             challenge: "Défis",
             community: "Communauté",
             dashboard: "Voir Tout",
+        },
+        id: {
+            home: "Beranda",
+            class: "Kelas",
+            challenge: "Tantangan",
+            community: "Komunitas",
+            dashboard: "Lihat Semua",
+        },
+        ru: {
+            home: "Домой",
+            class: "Уроки",
+            challenge: "Испытания",
+            community: "Сообщество",
+            dashboard: "Просмотреть все",
         },
     },
     inheritLocale: true, // 전역 locale 상속

@@ -11,7 +11,7 @@
         </div>
   
         <div class="text-t-sm font-weight-medium text-text-tertiary mb-10">
-          지금 정기 결제를 해지하시면 {{ subscription.endDate }}까지만 이용할 수 있습니다.
+          지금 정기 결제를 해지하시면 {{ subscription?.endDate }}까지만 이용할 수 있습니다.
         </div>
   
         <div class="text-t-lg font-weight-bold">

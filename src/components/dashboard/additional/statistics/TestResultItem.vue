@@ -82,7 +82,7 @@ const cardClass = computed(() =>
         : 'border-border-secondary background-primary rounded-12 pa-4'
 );
 
-const formattedStudyTime = (_number: number) => {
+const formattedStudyTime = (_number: number | undefined) => {
     if (!_number) return '00:00';
 
     const minutes = Math.floor(_number / 60); // 분 계산

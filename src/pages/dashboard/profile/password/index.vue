@@ -5,7 +5,6 @@
         </template>
 
         <template v-slot:content>
-            {{ currentPassword.value.value }} 
             <v-text-field
                 v-model="currentPassword.value.value"
                 class="flex-grow-0 mb-2-5"

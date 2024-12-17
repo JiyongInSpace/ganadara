@@ -1,9 +1,28 @@
 <template>
-    <PageTemplate back-button space="pa-0">
+    <PageTemplate
+        back-button
+        space="pa-0"
+    >
         <template v-slot:prepend-header>
             <span class="ml-1">
                 스토어
             </span>
+        </template>
+
+        <template v-slot:append-header>
+            <v-btn
+                icon
+                variant="text"
+                class="secondary"
+                size="24"
+                @click="onClickStorage"
+            >
+                <v-img
+                    src="/icons/IconStorage.svg"
+                    width="24"
+                    height="24"
+                />
+            </v-btn>
         </template>
 
         <template v-slot:content>
@@ -37,6 +56,7 @@
                     v-if="tabMain.tab.value == 'gift'"
                     :list="state.gifts"
                     type="gift"
+                    no-label
                 />
             </div>
         </template>
@@ -47,6 +67,7 @@
 import { IRewardItem } from "@/interfaces";
 import { useI18n } from "vue-i18n";
 
+const router = useRouter();
 const tabMain = {
     list: [
         'goods',
@@ -57,8 +78,8 @@ const tabMain = {
 
 onMounted(() => {
     // 데이터
-    state.goods = dummy_follower;
-    state.gifts = dummy_follower;
+    state.goods = dummy_goods;
+    state.gifts = dummy_gifts;
 });
 
 const state = reactive({
@@ -66,7 +87,11 @@ const state = reactive({
     gifts: [] as IRewardItem[],
 });
 
-const dummy_follower = [
+const onClickStorage = () => {
+    router.push('/dashboard/additional/rewards/inventory');
+}
+
+const dummy_goods = [
     {
         id: 1,
         name: "스타벅스_아이스아메리카노 ",
@@ -76,7 +101,7 @@ const dummy_follower = [
         limit: 39990,
     },
     {
-        id: 1,
+        id: 2,
         name: "스타벅스_아이스아메리카노 ",
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
@@ -84,18 +109,18 @@ const dummy_follower = [
         limit: 39990,
     },
     {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
+        id: 2,
+        name: "스타벅스_아이스아메리카노",
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "completed",
         limit: 39990,
     },
     {
-        id: 1,
-        name: "스타벅스_아이스아메리카노 ",
+        id: 3,
+        name: "스타벅스_아이스아메리카노 두 잔",
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
-        price: 2450,
+        price: 100050,
         status: "ongoing",
         limit: 39990,
     },
@@ -110,6 +135,41 @@ const dummy_follower = [
     {
         id: 1,
         name: "스타벅스_아이스아메리카노 ",
+        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
+        price: 2450,
+        status: "ongoing",
+        limit: 39990,
+    },
+] as IRewardItem[];
+
+const dummy_gifts = [
+    {
+        id: 1,
+        name: "스타벅스_카페라떼",
+        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
+        price: 2450,
+        status: "ongoing",
+        limit: 39990,
+    },
+    {
+        id: 2,
+        name: "스타벅스_카페라떼두 잔",
+        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
+        price: 100050,
+        status: "ongoing",
+        limit: 39990,
+    },
+    {
+        id: 1,
+        name: "스타벅스_카페라떼",
+        imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
+        price: 2450,
+        status: "ongoing",
+        limit: 39990,
+    },
+    {
+        id: 1,
+        name: "스타벅스_카페라떼",
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "ongoing",

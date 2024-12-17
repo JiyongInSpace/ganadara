@@ -1,12 +1,10 @@
 <template>
     <PageTemplate
-        back-button
+        ap-close-button
         space="pa-0"
     >
-        <template v-slot:prepend-header>
-            <span class="ml-1">
-                구매 완료
-            </span>
+        <template v-slot:center-header>
+            구매 완료
         </template>
 
         <template v-slot:content>

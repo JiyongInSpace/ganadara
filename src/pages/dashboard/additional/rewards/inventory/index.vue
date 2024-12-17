@@ -33,13 +33,15 @@
                 <RewardsList
                     v-if="tabMain.tab.value == 'goods'"
                     :list="state.goods"
-                    type="gift"
+                    type="goods"
+                    no-label
                 />
 
                 <RewardsList
                     v-if="tabMain.tab.value == 'gift'"
                     :list="state.gifts"
                     type="gift"
+                    no-label
                 />
             </div>
         </template>

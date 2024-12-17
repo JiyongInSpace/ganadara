@@ -124,8 +124,20 @@ import { IRewardItem } from "@/interfaces";
 const router = useRouter();
 const route = useRoute();
 
+
 onMounted(() => {
     state.goodsInfo = dummy_follower;
+
+    // 퍼블리싱 확인을 위한 더미데이터 변경 =======
+    if ((route.params as any).id == "2") {
+        state.goodsInfo.status = "completed";
+    }
+
+    if ((route.params as any).id == "3") {
+        state.goodsInfo.name = "스타벅스_아이스아메리카노 두 잔";
+        state.goodsInfo.price = 100050;
+    }
+    // ==========================================
 });
 
 const state = reactive({
@@ -134,7 +146,11 @@ const state = reactive({
 });
 
 const onClickPurchase = () => {
-    const isAbleToPurchase = true;
+    let isAbleToPurchase = true;
+
+    if ((route.params as any).id == "3") {
+        isAbleToPurchase = false;
+    }
 
     if (!isAbleToPurchase) {
         // 구매 불가능
@@ -148,6 +164,7 @@ const onClickPurchase = () => {
 const onClickOk = () => {
     state.dialog = false;
 }
+
 
 // ================================================================================================================================
 const dummy_follower = {

@@ -14,6 +14,7 @@
                         @click="onClickReward(rewardItem.id)"
                     >
                         <div
+                            v-if="!noLabel"
                             class="position-absolute top-0 left-0 z-1 rounded-ts-lg rounded-be-lg"
                             :class="{
                                 'foreground-brand-primary text-text-primary_on-brand': rewardItem.status == 'ongoing',
@@ -59,6 +60,7 @@ import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
     list: IRewardItem[];
+    noLabel?: boolean;
     type: 'goods' | 'gift';
 }>();
 

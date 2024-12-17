@@ -237,8 +237,8 @@ const state = reactive({
             tag: '스탠다드 1개월',
             name: '첫 결제 50% 할인',
             desc: '첫 결제 고객이라면 스탠다드 1개월 이용권을 50% 할인된 금액으로 이용해 보세요!',
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: "2024-11-10T14:30:15.123Z",
+            endDate: "2024-12-31T14:30:15.123Z",
         },
     ] as ICouponItem[],
     myHistory: [

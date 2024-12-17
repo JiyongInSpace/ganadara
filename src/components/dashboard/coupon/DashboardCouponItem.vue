@@ -28,10 +28,10 @@
             variant="tonal"
             class="flex-grow-0 primary"
             block
-            :disabled="couponIsExpired"
+            :disabled="couponIsExpired || couponInfo.isUsed"
         >
             <!-- 기간이 지났을 경우 "기간만료" 출력 -->
-            {{ couponIsExpired ? "기간만료" : "사용하기" }}
+            {{ couponIsExpired ? "기간만료" : couponInfo.isUsed ? "사용완료" : "사용하기" }}
         </v-btn>
     </v-card>
 </template>

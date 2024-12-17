@@ -13,8 +13,10 @@
                 <template v-slot:append-inner>
                     <v-btn
                         size="large"
-                        variant="outlined"
+                        variant="tonal"
                         class="rounded-s-0 rounded-e-lg"
+                        :class="{'primary': state.ui.input}"
+                        :disabled="!state.ui.input"
                         min-height="44"
                     >
                         등록
@@ -64,5 +66,9 @@ const state = reactive({
 <style lang="scss" scoped>
 :deep(.v-field--appended) {
     padding-right: 0px;
+}
+
+.v-input.v-text-field {
+    --v-input-control-height: "auto";
 }
 </style>

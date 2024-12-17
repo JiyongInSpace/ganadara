@@ -8,9 +8,9 @@
         </template>
 
         <template v-slot:content>
-            <div class="d-flex flex-column ga-2-5 px-4">
+            <div class="d-flex flex-column ga-2-5">
                 <v-chip-group
-                    selected-class="bg-black text-text-primary_on-brand"
+                    selected-class="bg-black text-text-primary_on-brand flex-nowrap"
                     v-model="state.selectedCategory"
                     column
                 >
@@ -19,8 +19,8 @@
                         :key="tag.key"
                         :value="tag.key"
                         variant="outlined"
-                        size="small"
-                        class="border-border-primary my-0 ml-0"
+                        size="large"
+                        class="border-border-primary my-0 ml-0 flex-shrink-0"
                     >
                         <span v-text="tag.value" />
                     </v-chip>
@@ -176,4 +176,9 @@ const { t } = useI18n({
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+:deep(.v-slide-group__content) {
+    flex-wrap: nowrap !important;
+    padding: 0 16px;
+}
+</style>

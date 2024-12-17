@@ -71,8 +71,8 @@ const state = reactive({
     paymentPrice: 10000,
     originalPrice: 20000,
     billingType: "recurring",
-    startDate: "2024-11-10T14:30:15.123Z",
-    endDate: "2024-12-10T14:30:15.123Z",
+    startDate: "2024-11-25T14:30:15.123Z",
+    endDate: "2024-12-25T14:30:15.123Z",
   },
   historyList: [
     {

@@ -83,6 +83,8 @@ declare module 'vue-router/auto-routes' {
     '/dashboard/payment/register/': RouteRecordInfo<'/dashboard/payment/register/', '/dashboard/payment/register', Record<never, never>, Record<never, never>>,
     '/dashboard/payment/ticket/': RouteRecordInfo<'/dashboard/payment/ticket/', '/dashboard/payment/ticket', Record<never, never>, Record<never, never>>,
     '/dashboard/payment/ticket/cancel/': RouteRecordInfo<'/dashboard/payment/ticket/cancel/', '/dashboard/payment/ticket/cancel', Record<never, never>, Record<never, never>>,
+    '/dashboard/payment/ticket/cancel/complete/': RouteRecordInfo<'/dashboard/payment/ticket/cancel/complete/', '/dashboard/payment/ticket/cancel/complete', Record<never, never>, Record<never, never>>,
+    '/dashboard/payment/ticket/cancel/retention_offer/': RouteRecordInfo<'/dashboard/payment/ticket/cancel/retention_offer/', '/dashboard/payment/ticket/cancel/retention_offer', Record<never, never>, Record<never, never>>,
     '/dashboard/profile/': RouteRecordInfo<'/dashboard/profile/', '/dashboard/profile', Record<never, never>, Record<never, never>>,
     '/dashboard/profile/nickname/': RouteRecordInfo<'/dashboard/profile/nickname/', '/dashboard/profile/nickname', Record<never, never>, Record<never, never>>,
     '/dashboard/profile/password/': RouteRecordInfo<'/dashboard/profile/password/', '/dashboard/profile/password', Record<never, never>, Record<never, never>>,

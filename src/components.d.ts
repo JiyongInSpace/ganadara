@@ -69,6 +69,7 @@ declare module 'vue' {
     DialogSupportContactInProgress: typeof import('./components/dashboard/support/DialogSupportContactInProgress.vue')['default']
     DialogTempFindAccount: typeof import('./components/onboard/log_in/temp/DialogTempFindAccount.vue')['default']
     DialogUnitCompleted: typeof import('./components/class/regular/DialogUnitCompleted.vue')['default']
+    DialogUnsubscribe: typeof import('./components/dashboard/payment/DialogUnsubscribe.vue')['default']
     DialogWithdraw: typeof import('./components/dashboard/setting/DialogWithdraw.vue')['default']
     DialogWithdrawConfirm: typeof import('./components/dashboard/setting/DialogWithdrawConfirm.vue')['default']
     ExpressionSentenceList: typeof import('./components/class/regular/ExpressionSentenceList.vue')['default']

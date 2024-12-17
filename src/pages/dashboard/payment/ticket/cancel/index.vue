@@ -105,9 +105,10 @@ const reason_option = [
 ]
 
 const handleConfirm = () => {
-  alert("해지 사유:" + selectedReasons.value); // 선택된 해지 사유 출력
+  // alert("해지 사유:" + selectedReasons.value); // 선택된 해지 사유 출력
   // 추가 처리 로직 작성 (예: 서버에 데이터 전송)
   // router.push('/dashboard'); // 처리 후 다른 페이지로 이동
+  router.push("/dashboard/payment/ticket/cancel/retention_offer");
 };
 
 // 번역

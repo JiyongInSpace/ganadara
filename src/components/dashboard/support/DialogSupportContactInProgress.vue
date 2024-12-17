@@ -112,20 +112,22 @@
                 </div>
 
                 <div class="mb-6">
-                    <div
-                        v-if="fileInputCapture.files.value"
-                        class="text-t-xs font-weight-medium truncate mb-2 border w-fit px-2 rounded-6 py-0-5"
-                    >
-                        <span class="mr-1">
-                            {{ fileInputCapture.files.value?.name || 0 }}
-                        </span>
+                    <div class="d-flex flex-wrap ga-1-5">
+                        <div
+                            v-for="fileItem in fileInputCapture.files.value"
+                            class="text-t-xs font-weight-medium truncate mb-2 border w-fit px-2 rounded-6 py-0-5"
+                        >
+                            <span class="mr-1">
+                                {{ fileItem.name }}
+                            </span>
 
-                        <v-icon
-                            icon="mdi-close"
-                            size="small"
-                            class="cursor-pointer"
-                            @click="fileInputCapture.files.value = null"
-                        ></v-icon>
+                            <v-icon
+                                icon="mdi-close"
+                                size="small"
+                                class="cursor-pointer flex-shrink-0"
+                                @click="fileInputCapture.files.value.splice(fileInputCapture.files.value.indexOf(fileItem), 1)"
+                            ></v-icon>
+                        </div>
                     </div>
 
                     <div
@@ -145,6 +147,8 @@
                         <input
                             type="file"
                             ref="fileInput"
+                            multiple
+                            accept="image/*"
                             @change="fileInputCapture.event.onChange"
                         />
                     </div>
@@ -233,10 +237,22 @@ const buttonFileInput = {
 }
 
 const fileInputCapture = {
-    files: ref(),
+    files: ref<any[]>([]),
     event: {
         onChange: (_event: any) => {
-            fileInputCapture.files.value = _event.target.files[0];
+            const files = Array.from(_event.target.files); // 선택된 파일 목록
+            if (files.length > 3) {
+                snackbar.showSnackbar("최대 3장까지만 선택할 수 있습니다.");
+            }
+
+            // 최대 3개의 파일만 저장
+            console.log(files.slice(0, 3));
+            fileInputCapture.files.value = files.slice(0, 3);
+
+            console.log(fileInputCapture.files.value);
+
+            // input의 파일 선택 상태 초기화
+            _event.target.value = "";
         }
     }
     // fileInput.value.$refs.input.click();
@@ -262,7 +278,7 @@ const buttonContactUs = {
             // console.log(fileInputCapture.files.value);
 
             textareaMessage.value.value = "";
-            fileInputCapture.files.value = null;
+            fileInputCapture.files.value = [];
 
             snackbar.showSnackbar("문의가 완료되었습니다.");
         }

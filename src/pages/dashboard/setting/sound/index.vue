@@ -21,15 +21,15 @@
                         height="40"
                     >
                         <div class="text-t-sm font-weight-medium ">
-                            켜키
+                            켜기
                         </div>
 
 
                         <v-icon
-                            :icon="state.sound ? 'mdi-record-circle' : 'mdi-checkbox-blank-circle-outline'"
+                            :icon="sound ? 'mdi-record-circle' : 'mdi-checkbox-blank-circle-outline'"
                             class="cursor-pointer"
-                            :class="state.sound ? 'text-text-brand-tertiary' : 'text-text-placeholder_subtle'"
-                            @click="state.sound = true"
+                            :class="sound ? 'text-text-brand-tertiary' : 'text-text-placeholder_subtle'"
+                            @click="sound = true"
                         />
                     </v-sheet>
                 </div>
@@ -44,10 +44,10 @@
                         </div>
 
                         <v-icon
-                            :icon="!state.sound ? 'mdi-record-circle' : 'mdi-checkbox-blank-circle-outline'"
+                            :icon="!sound ? 'mdi-record-circle' : 'mdi-checkbox-blank-circle-outline'"
                             class="cursor-pointer"
-                            :class="!state.sound ? 'text-text-brand-tertiary' : 'text-text-placeholder_subtle'"
-                            @click="state.sound = false"
+                            :class="!sound ? 'text-text-brand-tertiary' : 'text-text-placeholder_subtle'"
+                            @click="sound = false"
                         />
                     </v-sheet>
                 </div>
@@ -57,11 +57,12 @@
 </template>
 
 <script lang="ts" setup>
-const router = useRouter();
+import { storeToRefs } from 'pinia';
+import { useSettingStore } from '@/stores/setting';
 
-const state = reactive({
-    sound: false,
-});
+const router = useRouter();
+const settingStore = useSettingStore();
+const { sound } = storeToRefs(settingStore);
 
 
 </script>

@@ -26,7 +26,14 @@
                             알림
                         </div>
 
-                        <v-switch hide-details />
+                        <v-switch
+                            color="primary"
+                            hide-details
+                            :model-value="notification.notification1
+                                || notification.notification2
+                                || notification.notification3
+                                "
+                        />
                     </v-sheet>
                 </div>
 
@@ -41,7 +48,11 @@
                             효과음/진동
                         </div>
 
-                        <v-switch hide-details />
+                        <v-switch
+                            color="primary"
+                            hide-details
+                            :model-value="sound"
+                        />
                     </v-sheet>
                 </div>
 
@@ -173,9 +184,12 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { useSettingStore } from '@/stores/setting';
 
-const userStore = useUserStore();
 const router = useRouter();
+const settingStore = useSettingStore();
+const { notification, sound } = storeToRefs(settingStore);
+
 
 const state = reactive({
     dialogLogout: false,

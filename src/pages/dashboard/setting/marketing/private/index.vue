@@ -41,7 +41,7 @@
                     elevation="0"
                     @click="onClickDisagree"
                 >
-                    동의 철회하기
+                    {{ marketing ? "동의 철회하기" : "동의하기" }}
                 </v-btn>
             </div>
         </template>
@@ -52,8 +52,12 @@
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
+import { storeToRefs } from 'pinia';
+import { useSettingStore } from '@/stores/setting';
 
 const router = useRouter();
+const settingStore = useSettingStore();
+const { marketing } = storeToRefs(settingStore);
 
 const state = reactive({
     dialog: false,

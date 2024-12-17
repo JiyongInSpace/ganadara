@@ -22,7 +22,6 @@
                         class="d-flex justify-space-between align-center cursor-pointer"
                         v-ripple
                         height="40"
-                        @change="onChange"
                     >
                         <div class="text-t-sm font-weight-medium ">
                             알림 내용1
@@ -30,7 +29,7 @@
 
                         <v-switch
                             color="primary"
-                            v-model="state.notification1"
+                            v-model="notification.notification1"
                             hide-details
                         />
                     </v-sheet>
@@ -41,7 +40,6 @@
                         class="d-flex justify-space-between align-center cursor-pointer"
                         v-ripple
                         height="40"
-                        @change="onChange"
                     >
                         <div class="text-t-sm font-weight-medium ">
                             알림 내용2
@@ -49,7 +47,7 @@
 
                         <v-switch
                             color="primary"
-                            v-model="state.notification2"
+                            v-model="notification.notification2"
                             hide-details
                         />
                     </v-sheet>
@@ -73,7 +71,7 @@
 
                         <v-switch
                             color="primary"
-                            v-model="state.notification3"
+                            v-model="notification.notification3"
                             hide-details
                         />
                     </v-sheet>
@@ -86,21 +84,14 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { useSettingStore } from '@/stores/setting';
 
-const userStore = useUserStore();
 const router = useRouter();
+const settingStore = useSettingStore();
 
-const state = reactive({
-    notification1: false,
-    notification2: false,
-    notification3: false,
-});
 
-const onChange = () => {
-    console.log(state);
-}
+const { notification } = storeToRefs(settingStore);
 
 // 번역
 const { t } = useI18n({

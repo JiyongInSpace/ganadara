@@ -29,7 +29,7 @@
 
                         <div>
                             <span class="text-t-xs font-weight-medium">
-                                동의함
+                                {{ marketing ? "동의함" : "철회함" }}
                             </span>
 
                             <v-icon
@@ -104,7 +104,12 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { useSettingStore } from '@/stores/setting';
+
 const router = useRouter();
+const settingStore = useSettingStore();
+const { marketing } = storeToRefs(settingStore);
 
 const state = reactive({
     private: false,

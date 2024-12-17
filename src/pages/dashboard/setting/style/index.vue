@@ -67,6 +67,10 @@
                         class="flex-1-1-100"
                         density="compact"
                     >
+                        <template v-slot:selection="{ item }">
+                            {{ item.title }}~
+                        </template>
+
                         <template v-slot:prepend-item>
                             <div class="text-t-md font-weight-bold py-2 px-4">
                                 방해 금지 시작 시간을 선택해 주세요
@@ -87,6 +91,10 @@
                         class="flex-1-1-100"
                         density="compact"
                     >
+                        <template v-slot:selection="{ item }">
+                            ~{{ item.title }}
+                        </template>
+
                         <template v-slot:prepend-item>
                             <div class="text-t-md font-weight-bold py-2 px-4">
                                 방해 금지 종료 시간을 선택해 주세요

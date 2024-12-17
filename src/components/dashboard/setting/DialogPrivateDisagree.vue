@@ -9,11 +9,11 @@
             max-width="400"
         >
             <div class="text-t-xl font-weight-bold text-center mb-1">
-                개인정보 수집 및 이용 동의 철회
+                개인정보 수집 및 이용 동의 {{ marketing ? "철회" : "" }}
             </div>
 
             <div class="text-t-md font-weight-medium mb-8 text-center text-text-quaternary">
-                개인정보 수집 및 이용 동의를 철회할까요?
+                {{ marketing ? "개인정보 수집 및 이용 동의를 철회할까요?" : "개인정보 수집 및 이용 동의할까요?" }}
             </div>
 
             <div class="d-flex justify-center ga-3">
@@ -27,12 +27,12 @@
                 </v-btn>
 
                 <v-btn
-                    @click="buttonDisagree.event.onClick"
+                    @click="buttonMarketing.event.onClick"
                     class="primary flex-1-1-100"
                     variant="tonal"
                     size="large"
                 >
-                    철회하기
+                    {{ marketing ? "철회하기" : "동의하기" }}
                 </v-btn>
             </div>
         </v-card>
@@ -40,7 +40,13 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia';
+import { useSettingStore } from '@/stores/setting';
+
+const settingStore = useSettingStore();
+const { marketing } = storeToRefs(settingStore);
 const dialog = defineModel("dialog");
+const router = useRouter();
 
 const emit = defineEmits<{
     (e: 'onClickCancel'): void,
@@ -51,16 +57,16 @@ const buttonCancel = {
     event: {
         onClick: () => {
             dialog.value = false;
-            // emit('onClickCancel');
         }
     }
 }
 
-const buttonDisagree = {
+const buttonMarketing = {
     event: {
         onClick: () => {
-            emit('onClickDisagree');
+            marketing.value = !marketing.value;
             dialog.value = false;
+            router.push("/dashboard/setting/marketing")
         }
     }
 }

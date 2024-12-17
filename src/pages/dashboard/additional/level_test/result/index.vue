@@ -17,7 +17,7 @@
                     >
                         <div class="text-center">
                             <div class="text-t-sm">
-                                나의 레벨
+                                레벨 테스트 결과
                             </div>
 
                             <div class="text-d-md font-weight-semibold">
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="w-100 text-t-lg text-center mb-10">
-                    당신은 Lvl.{{ level }} 사용자 중<br />
+                    당신은 Level.{{ level }} 사용자 중<br />
                     <span class="font-weight-bold">상위 {{ percentage }}%</span>입니다.
                 </div>
             </div>

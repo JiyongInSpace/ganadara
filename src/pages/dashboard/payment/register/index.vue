@@ -1,4 +1,3 @@
-
 <template>
     <PageTemplate
         space="pa-0"
@@ -29,6 +28,8 @@
                                 placeholder="카드 번호 ‘-’ 없이 입력"
                                 class="xs"
                                 hide-details
+                                maxlength="16"
+                                @input="validateCardNumber"
                             />
                         </div>
                     </div>
@@ -47,6 +48,8 @@
                                     placeholder="MMYY"
                                     class="xs"
                                     hide-details
+                                    maxlength="4"
+                                    @input="validateExpirationDate"
                                 />
                             </div>
                         </div>
@@ -64,6 +67,8 @@
                                     placeholder="뒷면 숫자 3자리"
                                     class="xs"
                                     hide-details
+                                    maxlength="3"
+                                    @input="validateCVC"
                                 />
                             </div>
                         </div>
@@ -82,6 +87,9 @@
                                 placeholder="비밀번호 앞 2자리 숫자"
                                 class="xs"
                                 hide-details
+                                maxlength="2"
+                                type="password"
+                                @input="validateCardPassword"
                             />
                         </div>
                     </div>
@@ -275,8 +283,28 @@ const isFormValid = computed(() => {
 });
 
 const onClickSubmit = () => {
-    snackbar.showSnackbar(`ㅋ카드를 등록했습니다.`);
+    snackbar.showSnackbar(`{카드사명}(${state.cardNumber.slice(0, 4)}) 카드를 등록했습니다.`, 100000);
 }
+
+const validateCardNumber = () => {
+    // 숫자만 입력하고 최대 16자리로 제한
+    state.cardNumber = state.cardNumber.replace(/[^0-9]/g, '').slice(0, 16);
+};
+
+const validateExpirationDate = () => {
+    // 숫자만 입력하고 최대 4자리로 제한
+    state.expirationDate = state.expirationDate.replace(/[^0-9]/g, '').slice(0, 4);
+};
+
+const validateCVC = () => {
+    // 숫자만 입력하고 최대 3자리로 제한
+    state.cvc = state.cvc.replace(/[^0-9]/g, '').slice(0, 3);
+};
+
+const validateCardPassword = () => {
+    // 숫자만 입력하고 최대 2자리로 제한
+    state.cardPassword = state.cardPassword.replace(/[^0-9]/g, '').slice(0, 2);
+};
 </script>
 
 

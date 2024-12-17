@@ -165,6 +165,12 @@
                     @click="onClickSelectPaymentMethod(paymentMethod.id)"
                 >
                     <div class="d-flex justify-space-between align-center">
+                        <v-img
+                            :src="paymentMethod.icon"
+                            width="18"
+                            height="18"
+                            class="flex-grow-0 mr-2"
+                        />
                         <span class="text-t-lg font-weight-bold mr-1">
                             {{ paymentMethod.name }}({{ paymentMethod.number }})
                         </span>
@@ -250,6 +256,7 @@ const state = reactive({
         {
             id: 0,
             name: "신한",
+            icon: "/icons/bank/shinhan.png",
             type: "credit",
             number: "1234",
             isDefault: true,
@@ -257,6 +264,7 @@ const state = reactive({
         {
             id: 1,
             name: "카카오",
+            icon: "/icons/bank/kakao.png",
             type: "cash",
             number: "1234",
             isDefault: false,

@@ -10,7 +10,14 @@
             </div> -->
 
             <div class="d-flex justify-space-between align-center mb-6">
-                <div>
+                <div class="d-flex align-center">
+                    <v-img
+                        :src="paymentMethod?.icon"
+                        width="18"
+                        height="18"
+                        class="flex-grow-0 mr-2"
+                    />
+
                     <span class="text-t-lg font-weight-bold mr-1">
                         {{ paymentMethod?.name }}({{ paymentMethod?.number }})
                     </span>
@@ -107,6 +114,7 @@ const props = defineProps<{
         type: string,
         number: string,
         isDefault: boolean,
+        icon: string,
     };
 }>();
 

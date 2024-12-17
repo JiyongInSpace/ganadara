@@ -40,6 +40,8 @@ export interface IChatItem {
     date: string;
     link?: string;
     image?: string;
+    information?: string;
+    select?: any[];
     type?: 'message' | 'notification';
     loading?: boolean;
 }

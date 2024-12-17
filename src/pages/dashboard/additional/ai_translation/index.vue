@@ -53,7 +53,7 @@
                                 {{ state.translationInput }}
 
                                 <IconRecording
-                                    v-if="state.inputMethod == 'voice'"
+                                    v-if="state.translationInput"
                                     :size="24"
                                     :isActive="state.isRecording"
                                 />
@@ -92,11 +92,36 @@
                 </div>
 
                 <v-sheet
-                    class="flex-1-1-100 overflow-y-auto py-3 px-5 background-secondary"
+                    class="d-flex flex-1-1-100 overflow-y-auto py-3 px-5 background-secondary"
                     height="50%"
                 >
                     <!-- 번역 결과 -->
-                    {{ state.translationOutput }}
+                    <div class="flex-grow-1">
+                        {{ state.translationOutput }}
+
+                        <IconRecording
+                            v-if="state.translationOutput"
+                            :size="24"
+                            :isActive="state.isRecording"
+                        />
+                    </div>
+
+                    <div>
+                        <v-btn
+                            :variant="state.outputMethod == 'voice' ? 'tonal' : 'outlined'"
+                            class="rounded-xl px-0"
+                            :class="state.outputMethod == 'voice' ? 'primary' : 'secondary'"
+                            size="x-small"
+                            width="36"
+                            height="36"
+                            @click="onClickMicrophone2"
+                        >
+                            <v-icon
+                                icon="mdi-microphone-outline"
+                                size="20"
+                            ></v-icon>
+                        </v-btn>
+                    </div>
                 </v-sheet>
             </div>
         </template>
@@ -110,7 +135,9 @@ const state = reactive({
         output: 'en',
     },
     inputMethod: 'text',
+    outputMethod: 'text',
     isRecording: false,
+    isRecording2: false,
 
     translationInput: '',
     translationOutput: '',
@@ -122,6 +149,14 @@ const onClickMicrophone = () => {
         return;
     }
     state.inputMethod = 'voice';
+};
+
+const onClickMicrophone2 = () => {
+    if (state.outputMethod == 'voice') {
+        state.outputMethod = 'text';
+        return;
+    }
+    state.outputMethod = 'voice';
 };
 
 const onClickChangeLanguage = () => {

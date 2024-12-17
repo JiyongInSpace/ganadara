@@ -24,6 +24,13 @@
                         {{ item.user.name }}
                     </div>
 
+                    <div
+                        v-if="item.information"
+                        class="font-weight-medium"
+                    >
+                        {{ item.information }}
+                    </div>
+
                     <v-img
                         v-if="item.image"
                         :src="item.image"
@@ -33,7 +40,7 @@
                     ></v-img>
 
                     <v-card
-                        v-if="!item.loading"
+                        v-if="!item.loading && item.message"
                         class="border-border-primary background-secondary rounded-8 rounded-ts-0 py-2-5 px-3-5"
                         variant="outlined"
                     >
@@ -41,6 +48,38 @@
                             class="font-weight-medium"
                             v-html="item.message"
                         />
+                    </v-card>
+
+                    <v-card
+                        v-if="item.select"
+                        class="border-border-primary rounded-8 rounded-ts-0"
+                        variant="outlined"
+                    >
+                        <div
+                            v-for="selectItem in item.select"
+                            class="d-flex justify-space-between border-b py-2-5 px-3-5 cursor-pointer"
+                            @click="onClickSelect(selectItem)"
+                        >
+                            {{ selectItem.text }}
+
+                            <div>
+                                <v-chip
+                                    v-if="selectItem.isBest"
+                                    variant="outlined"
+                                    color="primary"
+                                    class="sm flex-grow-0 flex-shrink-0"
+                                >
+                                    BEST
+                                </v-chip>
+                            </div>
+                        </div>
+
+                        <div
+                            class="text-center py-2-5 px-3-5 cursor-pointer"
+                            @click="onClickMore"
+                        >
+                            more <v-icon icon="mdi-chevron-down" />
+                        </div>
                     </v-card>
 
                     <div
@@ -68,7 +107,7 @@
 
             <div v-if="item.link">
                 <v-btn
-                    class="secondary rounded-xl py-1-5"
+                    class="secondary rounded-xl py-1-5 mb-1-5"
                     variant="outlined"
                     size="small"
                     @click="onClickLink(item.link)"
@@ -78,24 +117,37 @@
                     </span>
                 </v-btn>
             </div>
+
+            <IconRecording
+                v-if="item.type == 'message' && !item.loading"
+                :size="24"
+                :isActive="false"
+            />
         </div>
     </div>
 
-    <div
-        v-if="item.type != 'notification' && !item.user"
-        class="d-flex justify-end ga-3"
-    >
-        <div class="text-t-xs text-text-quaternary align-self-end truncate flex-shrink-0">
-            {{ computedDate }}
+    <div v-if="item.type != 'notification' && !item.user">
+        <div class="d-flex justify-end ga-3 mb-1-5">
+            <div class="text-t-xs text-text-quaternary align-self-end truncate flex-shrink-0">
+                {{ computedDate }}
+            </div>
+
+            <div class="w-fit">
+                <v-card
+                    class="border-border-primary background-secondary rounded-8 rounded-te-0 py-2-5 px-3-5"
+                    variant="outlined"
+                >
+                    {{ item.message }}
+                </v-card>
+            </div>
         </div>
 
-        <div class="w-fit">
-            <v-card
-                class="border-border-primary background-secondary rounded-8 rounded-te-0 py-2-5 px-3-5"
-                variant="outlined"
-            >
-                {{ item.message }}
-            </v-card>
+        <div class="d-flex justify-end">
+            <IconRecording
+                v-if="item.type == 'message' && !item.loading"
+                :size="24"
+                :isActive="false"
+            />
         </div>
     </div>
 </template>
@@ -133,6 +185,14 @@ const updateColors = () => {
 
 const onClickLink = (link: string) => {
     window.open(link, '_blank');
+};
+
+const onClickSelect = (selectItem: { text: string }) => {
+    alert(selectItem.text);
+};
+
+const onClickMore = () => {
+    alert("서버에서 목록을 더 불러옵니다.");
 };
 
 // 컴포넌트가 마운트될 때 애니메이션 시작

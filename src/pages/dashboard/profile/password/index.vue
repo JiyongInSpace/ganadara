@@ -5,6 +5,7 @@
         </template>
 
         <template v-slot:content>
+            {{ currentPassword.value.value }} 
             <v-text-field
                 v-model="currentPassword.value.value"
                 class="flex-grow-0 mb-2-5"
@@ -149,8 +150,9 @@ const allFieldsValid = computed(() => {
 
 // 제출 핸들러
 const onSubmit = () => {
-    if(currentPassword.value.value != password.value) {
+    if (currentPassword.value.value != password.value) {
         currentPassword.errorMessages.value = "비밀번호가 틀렸습니다.";
+        return;
     }
 
     password.value = newPassword.value.value;

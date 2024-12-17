@@ -85,16 +85,19 @@ const onClickNickname = (_event: any) => {
     _event.preventDefault();
 
     // 에러발생
-    const emailVerifyResult = true;
+    // const emailVerifyResult = true;
 
-    if (!emailVerifyResult) {
+    // if (!emailVerifyResult) {
+        
+    if (state.value == 'test') {
         // 오류 발생시 에러메시지 표시
         state.errorMessages = '닉네임 사용이 불가능합니다.';
         return;
     } else {
-        // 이메일 확인 성공시
+        // 닉네임 중복 확인 성공
         state.errorMessages = '';
         state.isValid = true;
+        name.value = state.value;
     }
     // =================================
 }
@@ -120,5 +123,9 @@ const { t } = useI18n({
 <style lang="scss" scoped>
 :deep(.v-field--appended) {
     padding-right: 0px;
+}
+
+.v-input.v-text-field {
+    --v-input-control-height: "auto";
 }
 </style>

@@ -71,6 +71,6 @@ const onSubmit = () => {
         return;
     }
 
-    router.push("/dashboard/profile/phone/pass");
+    router.push("/dashboard/profile/phone/pass?phone=" + phoneNumber.value);
 };
 </script>

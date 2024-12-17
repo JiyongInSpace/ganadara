@@ -65,12 +65,12 @@ const dummy = {
     lc: [
         {
             id: 1,
-            name: 'LC1',
+            name: '마이풀로 배우는 필수 영어 회화',
             date: "2024-12-09T14:30:15.123Z",
             score: 100,
             wrong: 0,
-            elapsed_time: 223,
-            ideal_time: 600,
+            elapsed_time: 203,
+            ideal_time: 540,
         },
         {
             id: 2,
@@ -78,8 +78,8 @@ const dummy = {
             date: "2024-12-09T14:30:15.123Z",
             score: 100,
             wrong: 0,
-            elapsed_time: 223,
-            ideal_time: 600,
+            elapsed_time: 203,
+            ideal_time: 540,
         },
     ],
     rc: [
@@ -89,8 +89,8 @@ const dummy = {
             date: "2024-12-09T14:30:15.123Z",
             score: 100,
             wrong: 0,
-            elapsed_time: 223,
-            ideal_time: 600,
+            elapsed_time: 203,
+            ideal_time: 540,
         },
     ]
 }

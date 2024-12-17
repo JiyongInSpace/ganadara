@@ -12,11 +12,16 @@
                 class="mr-5"
                 @click="onClickNotice"
             >
-                <v-img
-                    src="@/assets/icons/basic/bell.svg"
-                    width="24"
-                    height="24"
-                />
+                <v-badge
+                    color="error"
+                    dot
+                >
+                    <v-img
+                        src="@/assets/icons/basic/bell.svg"
+                        width="24"
+                        height="24"
+                    />
+                </v-badge>
             </v-btn>
 
             <v-btn
@@ -187,27 +192,32 @@
                 variant="outlined"
                 class="border-none background-secondary rounded-12 flex-shrink-0 d-flex flex-wrap rounded-12 pa-3 mb-4"
             >
-                <div
-                    v-for="(dashboard_item, key) in dashboard_menu"
-                    :key="key"
-                    :style="{
-                        width: '80px',
-                        height: '72px'
-                    }"
-                    class="d-flex flex-column justify-center text-center cursor-pointer mb-4"
-                    @click="onClickDashboardItem(dashboard_item)"
-                >
-                    <v-img
-                        :src="dashboard_item.imageUrl"
-                        width="40"
-                        height="40"
-                        class="mx-auto mb-1"
-                    />
+                <v-row no-gutters>
+                    <v-col
+                        v-for="(dashboard_item, key) in dashboard_menu"
+                        :key="key"
+                        cols="3"
+                    >
+                        <div
+                            :style="{
+                                height: '72px'
+                            }"
+                            class="d-flex flex-column justify-center text-center cursor-pointer mx-auto mb-4"
+                            @click="onClickDashboardItem(dashboard_item)"
+                        >
+                            <v-img
+                                :src="dashboard_item.imageUrl"
+                                width="40"
+                                height="40"
+                                class="mx-auto mb-1"
+                            />
 
-                    <span class="text-t-xs">
-                        {{ t(`dashboard.${dashboard_item.title}`) }}
-                    </span>
-                </div>
+                            <span class="text-t-xs">
+                                {{ t(`dashboard.${dashboard_item.title}`) }}
+                            </span>
+                        </div>
+                    </v-col>
+                </v-row>
             </v-card>
         </template>
 
@@ -287,7 +297,7 @@ const state = reactive({
 
 // HEADER
 const onClickNotice = () => {
-    alert('onClickNotice');
+    router.push("/dashboard/notice");
 }
 
 const onClickSettings = () => {

@@ -1,4 +1,3 @@
-
 <template>
     <PageTemplate
         back-button
@@ -6,6 +5,10 @@
     >
         <template v-slot:center-header>
             이용권 관리
+        </template>
+
+        <template v-slot:append-header>
+            <v-btn @click="onClickAllDelete">(임시)데이터 비우기</v-btn>
         </template>
 
         <template v-slot:content>
@@ -203,6 +206,8 @@
             <DialogSelectPaymentMethod
                 v-model:dialog="dialog"
                 :paymentMethod="computedSelectedPaymentMethod"
+                @onClickSetDefault="onClickSetDefault"
+                @onClickDelete="onClickDelete"
             />
         </template>
     </PageTemplate>
@@ -283,6 +288,21 @@ const onClickRegisterPaymentMethod = () => {
     router.push("/dashboard/payment/register");
 }
 
+// 결제 수단 설정 ======
+const onClickSetDefault = (method_info: any) => {
+    state.myPaymentMethods.forEach((paymentMethod) => {
+        paymentMethod.isDefault = paymentMethod.id === method_info.id;
+    });
+}
+
+// 결제 수단 삭제 ======
+const onClickDelete = (method_info: any) => {
+    state.myPaymentMethods = state.myPaymentMethods.filter((paymentMethod) => paymentMethod.id !== method_info.id);
+    if (method_info.isDefault) {
+        state.myPaymentMethods[0].isDefault = true;
+    }
+}
+
 const dialog = ref(false);
 const selectedPaymentMethod = ref(0);
 const computedSelectedPaymentMethod = computed(() => {
@@ -290,9 +310,15 @@ const computedSelectedPaymentMethod = computed(() => {
 });
 
 const onClickSelectPaymentMethod = (_paymentMethodId: number) => {
-    console.log(_paymentMethodId);
     selectedPaymentMethod.value = _paymentMethodId;
     dialog.value = true;
+}
+
+const onClickAllDelete = () => {
+    subscription.value = null;
+    state.myCoupons = [];
+    state.myHistory = [];
+    state.myPaymentMethods = [];
 }
 
 const { t } = useI18n({

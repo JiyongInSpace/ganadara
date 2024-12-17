@@ -9,7 +9,7 @@
 
     <template v-slot:content>
       <div class="text-t-lg font-weight-bold mb-2-5">
-        앱 이름의 모든 콘텐츠를
+        가나다라의 모든 콘텐츠를 <br />
         무제한으로 즐기세요!
       </div>
 
@@ -31,6 +31,28 @@
           class="border-border-primary my-0 ml-0 mr-2 mb-2"
         >
           <span v-text="tag.value" />
+
+          <v-tooltip
+            v-if="tag.tooltip"
+            location="bottom"
+          >
+            <template v-slot:activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="mdi-information-outline"
+                size="12"
+                class="ml-1"
+              ></v-icon>
+            </template>
+
+            <div
+              :style="{
+                maxWidth: '200px'
+              }"
+              class="text-center text-t-xs font-weight-medium"
+              v-html="tag.tooltip"
+            />
+          </v-tooltip>
         </v-chip>
       </v-chip-group>
 
@@ -204,6 +226,7 @@ const state = reactive({
     {
       key: "tag2",
       value: "광고 제거",
+      tooltip: "전면 광고 제거,<br/>제작 지원 광고는 노출될 수 있습니다."
     },
     {
       key: "tag3",
@@ -212,6 +235,7 @@ const state = reactive({
     {
       key: "tag4",
       value: "백그라운드 학습 지원",
+      tooltip: "영상 학습을 음성 학습으로<br/> 변경할 수 있습니다"
     },
   ],
   selectedCategory: undefined as string | undefined,
@@ -330,4 +354,142 @@ const { t } = useI18n({
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tooltip-top::before {
+  border-right: solid 8px transparent;
+  border-left: solid 8px transparent;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: -21;
+  content: '';
+  top: 100%;
+  left: 50%;
+  height: 0;
+  width: 0;
+}
+
+.tooltip-top.error::before {
+  border-top: solid 8px #ff6060;
+}
+
+.tooltip-top.success::before {
+  border-top: solid 8px #1B5E20;
+}
+
+.tooltip-top.secondary::before {
+  border-top: solid 8px #3f3f3f;
+}
+
+.tooltip-top.primary::before {
+  border-top: solid 8px #246fb3;
+}
+
+.tooltip-top.info::before {
+  border-top: solid 8px #2196f3;
+}
+
+
+.tooltip-bottom::before {
+  border-right: solid 8px transparent;
+  border-left: solid 8px transparent;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: -21;
+  content: '';
+  bottom: 100%;
+  left: 50%;
+  height: 0;
+  width: 0;
+}
+
+.tooltip-bottom.error::before {
+  border-bottom: solid 8px #ff6060;
+}
+
+.tooltip-bottom.success::before {
+  border-bottom: solid 8px #1B5E20;
+}
+
+.tooltip-bottom.secondary::before {
+  border-bottom: solid 8px #3f3f3f;
+}
+
+.tooltip-bottom.primary::before {
+  border-bottom: solid 8px #246fb3;
+}
+
+.tooltip-bottom.info::before {
+  border-bottom: solid 8px #2196f3;
+}
+
+
+.tooltip-right::before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  /* To the left of the tooltip */
+  margin-top: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-top: solid 8px transparent;
+  border-bottom: solid 8px transparent;
+  border-left: solid 8px transparent;
+}
+
+.tooltip-right.error::before {
+  border-right: solid 8px #ff6060 !important;
+}
+
+.tooltip-right.success::before {
+  border-right: solid 8px #1B5E20 !important;
+}
+
+.tooltip-right.secondary::before {
+  border-right: solid 8px #3f3f3f !important;
+}
+
+.tooltip-right.primary::before {
+  border-right: solid 8px #246fb3 !important;
+}
+
+.tooltip-right.info::before {
+  border-right: solid 8px #2196f3 !important;
+}
+
+
+
+.tooltip-left::before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  /* To the left of the tooltip */
+  margin-top: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-top: solid 8px transparent;
+  border-bottom: solid 8px transparent;
+  border-right: solid 8px transparent;
+}
+
+.tooltip-left.error::before {
+  border-left: solid 8px #ff6060 !important;
+}
+
+.tooltip-left.success::before {
+  border-left: solid 8px #1B5E20 !important;
+}
+
+.tooltip-left.secondary::before {
+  border-left: solid 8px #3f3f3f !important;
+}
+
+.tooltip-left.primary::before {
+  border-left: solid 8px #246fb3 !important;
+}
+
+.tooltip-left.info::before {
+  border-left: solid 8px #2196f3 !important;
+}
+</style>

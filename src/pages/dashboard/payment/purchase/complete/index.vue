@@ -7,7 +7,7 @@
     <template v-slot:content>
       <div class="d-flex flex-column ga-2-5">
         <div class="text-t-lg font-weight-bold mb-2-5">
-          가나다라 이용권 결제가 완료되었습니다.
+          가나다라 이용권 결제가<br/> 완료되었습니다.
         </div>
 
         <div class="text-t-sm font-weight-medium text-text-tertiary mb-5">

@@ -111,14 +111,15 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-    (e: 'onClickCancel'): void,
-    (e: 'onClickSubscribe'): void
+    (e: 'onClickDelete', method: any): void,
+    (e: 'onClickSetDefault', method: any): void
 }>();
 
 const buttonSet = {
     event: {
         onClick: () => {
             dialog.value = false;
+            emit('onClickSetDefault', props.paymentMethod);
         }
     }
 }
@@ -147,6 +148,7 @@ const buttonDeleteConfirm = {
         onClick: () => {
             dialog.value = false;
             dialogSecond.value = false;
+            emit('onClickDelete', props.paymentMethod);
         }
     }
 }

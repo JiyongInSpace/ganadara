@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 const emit = defineEmits<{
-    (e: 'onCompleteCountry', id: any): void // 국가코드 반환
+    (e: 'onComplete', id: any): void // 전화번호 반환
 }>()
 
 const buttonPass = {

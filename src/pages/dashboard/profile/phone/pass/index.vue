@@ -40,26 +40,64 @@
             </div>
         </template>
     </PageTemplate>
+
+    <v-dialog
+        v-model="state.dialog"
+        transition="dialog-bottom-transition"
+    >
+        <v-card
+            class="pt-9 px-5 pb-5 text-center rounded-16 mx-auto"
+            width="100%"
+            max-width="400"
+        >
+            <div class="text-t-xl font-weight-bold text-center mb-6">
+                인증이 완료되었습니다.
+            </div>
+
+            <div class="d-flex justify-center ga-3">
+                <v-btn
+                    class="primary flex-1-1-100"
+                    variant="tonal"
+                    size="large"
+                    @click="state.dialog = false"
+                >
+                    확인
+                </v-btn>
+            </div>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
+
+const userStore = useUserStore();
 const router = useRouter();
+const route = useRoute();
+const { phone_number } = storeToRefs(userStore);
 
 const state = reactive({
-    foundedEmail: '',
+    phone_number: '',
     isValid: false,
+    dialog: false,
+})
+
+
+onMounted(() => {
+    state.phone_number = route.query.phone as string;
 })
 
 const onClickButtonPass = () => {
     alert("PASS");
+    state.dialog = true;
 
     const isValid = true;
     state.isValid = isValid;
-    state.foundedEmail = "robin582@careerzen.org"
 }
 
 const onClickButtonNext = () => {
-    alert(state.foundedEmail);
+    phone_number.value = state.phone_number;
     router.push("/dashboard/profile");
 }
 </script>

@@ -9,14 +9,16 @@
                 v-model="currentPassword.value.value"
                 class="flex-grow-0 mb-2-5"
                 :class="{ 'v-input--success': currentPassword.isValid.value }"
-                hide-details
+                :hide-details="!currentPassword.errorMessages.value"
                 variant="outlined"
                 name="currentPassword"
                 placeholder="현재 비밀번호를 입력하세요"
                 :rules="currentPassword.rules"
                 :type="currentPassword.type.value"
                 :append-inner-icon="currentPassword.type.value === 'password' ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
+                :error-messages="currentPassword.errorMessages.value || ''"
                 @click:append-inner="togglePasswordVisibility(currentPassword)"
+                @input="currentPassword.errorMessages.value = ''"
             />
 
             <!-- 새 비밀번호 -->
@@ -70,6 +72,13 @@
 
 <script lang="ts" setup>
 import { ref, computed } from "vue";
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
+
+const userStore = useUserStore();
+const router = useRouter();
+const route = useRoute();
+const { password } = storeToRefs(userStore);
 
 // 정규식: 영문+숫자+특수문자 조합 8~32자
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,32}$/;
@@ -82,6 +91,7 @@ const currentPassword = {
     rules: [
         (v: string) => !!v || "현재 비밀번호를 입력해 주세요.",
     ],
+    errorMessages: ref(""),
 };
 
 // 새 비밀번호
@@ -139,7 +149,11 @@ const allFieldsValid = computed(() => {
 
 // 제출 핸들러
 const onSubmit = () => {
-    console.log("현재 비밀번호:", currentPassword.value.value);
-    console.log("새 비밀번호:", newPassword.value.value);
+    if(currentPassword.value.value != password.value) {
+        currentPassword.errorMessages.value = "비밀번호가 틀렸습니다.";
+    }
+
+    password.value = newPassword.value.value;
+    router.push("/dashboard/profile");
 };
 </script>

@@ -8,6 +8,11 @@
             학습 통계
         </template>
 
+        <!-- (임시) 퍼블리싱 확인용 -->
+        <template v-slot:append-header>
+            <v-btn @click="onClickAllDelete">(임시)데이터 비우기</v-btn>
+        </template>
+
         <template v-slot:content>
             <div class="background-primary px-4 py-5">
                 <v-chip-group
@@ -22,8 +27,8 @@
                         :key="tag.key"
                         :value="tag.key"
                         variant="outlined"
-                        size="small"
-                        class="border-border-primary my-0 ml-0 mr-2"
+                        size="large"
+                        class="border-border-primary px-4 my-0 ml-0 mr-2"
                     >
                         <span v-text="tag.value" />
                     </v-chip>
@@ -136,7 +141,7 @@
 
                         <v-progress-linear
                             color="primary"
-                            :model-value="100 - state.levelTop"
+                            :model-value="state.levelTop"
                             rounded
                             height="9"
                         />
@@ -371,6 +376,27 @@ const formattedStudyTime = (_number: number) => {
 
     return `${formattedMinutes}:${formattedSeconds}`;
 };
+
+
+// 임시 함수
+const onClickAllDelete = () => {
+    state.experience = 0;
+    state.studyTime = 0;
+    state.attendanceStreak = 0;
+    state.questionCount = 0;
+    state.experienceList = [];
+
+    state.level = 0;
+    state.levelTop = 0;
+
+    state.mockTestNumber = 0;
+    state.mockTestAverage = 0;
+    state.mockTestTop = 0;
+
+    state.chapterTestNumber = 0;
+    state.chapterTestAverage = 0;
+    state.chapterTestTop = 0;
+}
 
 //=========================================================
 

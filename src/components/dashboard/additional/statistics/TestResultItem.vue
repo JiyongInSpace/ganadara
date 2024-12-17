@@ -57,7 +57,7 @@
         >
             문제풀이 시간 / 권장 시간 :
             <span>
-                {{ info?.elapsed_time }} / {{ info?.ideal_time }}
+                {{ formattedStudyTime(info?.elapsed_time) }} / {{ formattedStudyTime(info?.ideal_time) }}
             </span>
         </div>
     </v-card>
@@ -81,4 +81,18 @@ const cardClass = computed(() =>
         ? 'border-border-secondary background-primary cursor-pointer rounded-12 pa-4'
         : 'border-border-secondary background-primary rounded-12 pa-4'
 );
+
+const formattedStudyTime = (_number: number) => {
+    if (!_number) return '00:00';
+
+    const minutes = Math.floor(_number / 60); // 분 계산
+    const seconds = _number % 60; // 초 계산
+
+    // 두 자리 형식으로 변환
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+};
+
 </script>

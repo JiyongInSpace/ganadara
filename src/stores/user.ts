@@ -21,8 +21,9 @@ export const useUserStore = defineStore(
       learning: {
         language: 'en',
         country: 'US',
-        level: 3,
+        level: 3
       },
+      password: 'asdfASDF1!',
       // subscription: null as null | {
       //   planName: string
       //   billingType: string
@@ -30,10 +31,15 @@ export const useUserStore = defineStore(
       //   endDate: string
       // },
       subscription: {
-        planName: "스탠다드 1개월",        // 이용권 이름
-        billingType: "recurring",    // 결제 방식
-        startDate: "2022-01-01",     // 이용권 시작일
-        endDate: "2022-02-01",       // 이용권 종료일
+        planName: '스탠다드 1개월', // 이용권 이름
+        billingType: 'recurring', // 결제 방식
+        startDate: '2022-01-01', // 이용권 시작일
+        endDate: '2022-02-01' // 이용권 종료일
+      } as null | {
+        planName: string
+        billingType: string
+        startDate: string
+        endDate: string
       }
     }),
     actions: {}

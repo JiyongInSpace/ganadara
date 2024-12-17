@@ -5,7 +5,7 @@
         background="secondary"
     >
         <template v-slot:center-header>
-            모의고사
+            {{ state.testInfo?.name }}
         </template>
 
         <template v-slot:content>
@@ -36,17 +36,33 @@
 
             <ReviewTestList :list="state.allProblems" />
         </template>
+
+        <template v-slot:actions>
+            <div class="pt-4 px-2-5 pb-8 background-secondary">
+                <v-btn
+                    variant="tonal"
+                    size="large"
+                    class="primary flex-grow-0"
+                    block
+                    @click="onClickButtonNext"
+                >
+                    모의고사 다시 보기
+                </v-btn>
+            </div>
+        </template>
     </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IExamItem } from '@/interfaces';
 
+const router = useRouter();
+
 onMounted(() => {
     // 데이터
     state.testInfo = {
         id: 1,
-        name: 'LC1',
+        name: '마이풀로 배우는 필수 영어 회화',
         date: "2024-12-09T14:30:15.123Z",
         score: 100,
         wrong: 0,
@@ -107,7 +123,10 @@ const state = reactive<{
     wrongAnswers: [],
 });
 
-
+const onClickButtonNext = () => {
+    alert("모의고사 다시보기");
+    router.push("/dashboard/additional/statistics/mock_test");
+}
 </script>
 
 <style lang="scss" scoped></style>

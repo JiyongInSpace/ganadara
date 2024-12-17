@@ -36,12 +36,25 @@
 
             <ReviewTestList :list="state.allProblems" />
         </template>
+
+        <template v-slot:actions>
+            <div class="pt-4 px-2-5 pb-8 background-secondary">
+                <v-btn
+                    variant="tonal"
+                    size="large"
+                    class="primary flex-grow-0"
+                    block
+                    @click="onClickButtonNext"
+                >
+                    레벨테스트 다시 보기
+                </v-btn>
+            </div>
+        </template>
     </PageTemplate>
 </template>
 
 <script lang="ts" setup>
 import { IExamItem } from '@/interfaces';
-
 
 const router = useRouter();
 
@@ -108,6 +121,10 @@ const state = reactive<{
     wrongAnswers: [],
 });
 
+const onClickButtonNext = () => {
+    alert("레벨테스트 다시 보기");
+    router.push("/dashboard/additional/statistics/level_test");
+}
 
 </script>
 

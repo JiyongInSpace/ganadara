@@ -246,7 +246,14 @@
               variant="outlined"
               to="/challenge/mission/roulette"
             >
-              미션(룰렛)
+              미션(룰렛_포인트)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/roulette_gift"
+            >
+              미션(룰렛_경품)
             </v-btn>
 
             <v-btn

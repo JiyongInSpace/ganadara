@@ -33,7 +33,8 @@
                         :src="donationItem.thumbnailImage"
                         width="80"
                         height="80"
-                        class="flex-grow-0 mr-2"
+                        cover
+                        class="flex-grow-0 rounded-8 mr-2"
                     />
 
                     <div class="flex-grow-1 truncate">
@@ -109,7 +110,7 @@ const state = reactive({
             group: "아동복지재단",
             title: "어린이 체험 교육 학습비 후원",
             description: "어린이들의 체험 교육을 위한 학습 비용을 후원합니다.",
-            thumbnailImage: "/images/class/dummy_profile_image.png",
+            thumbnailImage: "/images/challenge/donation_default.jpeg",
             percent: 80,
             donation: 999999,
             type: "tag1"
@@ -119,7 +120,7 @@ const state = reactive({
             group: "아동복지재단",
             title: "어린이 체험 교육 학습비 후원",
             description: "어린이들의 체험 교육을 위한 학습 비용을 후원합니다.",
-            thumbnailImage: "/images/class/dummy_profile_image.png",
+            thumbnailImage: "/images/challenge/donation_default.jpeg",
             percent: 80,
             donation: 999999,
             type: "tag1"
@@ -129,7 +130,7 @@ const state = reactive({
             group: "아동복지재단",
             title: "어린이 체험 교육 학습비 후원",
             description: "어린이들의 체험 교육을 위한 학습 비용을 후원합니다.",
-            thumbnailImage: "/images/class/dummy_profile_image.png",
+            thumbnailImage: "/images/challenge/donation_default.jpeg",
             percent: 80,
             donation: 999999,
             type: "tag2"
@@ -139,7 +140,7 @@ const state = reactive({
             group: "아동복지재단",
             title: "어린이 체험 교육 학습비 후원",
             description: "어린이들의 체험 교육을 위한 학습 비용을 후원합니다.",
-            thumbnailImage: "/images/class/dummy_profile_image.png",
+            thumbnailImage: "/images/challenge/donation_default.jpeg",
             percent: 80,
             donation: 999999,
             type: "tag3"

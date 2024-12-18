@@ -49,15 +49,17 @@
                         variant="tonal"
                         size="large"
                         block
+                        @click="onClickShare"
                     >
                         나의 초대 코드 공유하기
                     </v-btn>
 
                     <v-btn
-                        class="flex-1-1-100"
+                        class="flex-1-1-100 secondary"
                         variant="outlined"
                         size="large"
                         block
+                        @click="onClickCopy"
                     >
                         클립보드 복사하기
                     </v-btn>
@@ -102,6 +104,7 @@
                             variant="text"
                             class="pa-0"
                             size="small"
+                            @click="onClickInviteMembers"
                         >
                             자세히 보기
                         </v-btn>
@@ -141,53 +144,29 @@
         </template>
 
         <template v-slot:notice>
-            <ul class="text-t-sm">
-                <li>
-                    1일 1회 참여 가능한 미션입니다.
-                </li>
-
-                <li>
-                    해당 미션은 개인정보 수집 및 이용 동의 및 알림 PUSH 설정 회원만 참여 가능합니다.
-                </li>
-
-                <li>
-                    보상 포인트 발급 시, 발급일 기준으로 90일까지 사용 가능하며 이후 자동으로 소멸됩니다.
-                </li>
-
-                <li>
-                    포인트 적립은 실시간이 아니며, 적립 완료 안내 팝업이 뜨더라도 실제 적립까지는 시간이 소요될 수 있습니다.
-                </li>
-
-                <li>
-                    적립 받은 포인트는 전체 보기 > 포인트 내역에서 확인 가능합니다.
-                </li>
-
-                <li>
-                    AI 채팅 대화, 관련 제품 사용 정보, 위치 정보, 의견을 수집합니다.
-                </li>
-
-                <li>
-                    AI 채팅 대화는 지속적으로 개선되고 있으며 때때로 마이풀의 입장을 대변하지 않는 부정확하거나 불쾌감을 주거나 부적절한 정보를 제공할 수도 있습니다.
-                </li>
-
-                <li>
-                    일시적으로 사용자가 증가하거나 광고 정책에 맞지 않는 대상자의 경우 참여가 제한될 수 있습니다.
-                </li>
-
-                <li>
-                    비정상적, 불법적인 방법으로 이벤트에 참여하신 경우, 당첨 후에도 취소될 수 있습니다.
-                </li>
-
-                <li>
-                    당사 사정에 따라 조기 종료 또는 사전 고지 없이 변경하거나 종료될 수 있습니다.
-                </li>
-
+            <ul class="text-t-sm text-text-secondary">
+                <li class="dot">해당 미션은 개인정보 수집 및 이용 동의 및 알림 PUSH 설정 회원만 참여 가능합니다.</li>
+                <li class="dot">보상 포인트 발급 시, 발급일 기준으로 90일까지 사용 가능하며 이후 자동으로 소멸됩니다.</li>
+                <li class="dot">포인트 적립은 실시간이 아니며, 적립 완료 안내 팝업이 뜨더라도 실제 적립까지는 시간이 소요될 수 있습니다.</li>
+                <li class="dot">적립 받은 포인트는 전체보기 > 포인트 내역에서 확인 가능합니다.</li>
+                <li class="dot">일시적으로 사용자가 증가하거나 광고 정책에 맞지 않는 대상자의 경우 참여가 제한될 수 있습니다.</li>
+                <li class="dot">비정상적, 불법적인 방법으로 이벤트에 참여하신 경우, 당첨 후에도 취소될 수 있습니다.</li>
+                <li class="dot">당사 사정에 따라 조기 종료 또는 사전 고지 없이 변경하거나 종료될 수 있습니다.</li>
+                <li class="dot">친구 초대 코드는 회원 가입 시에만 입력할 수 있습니다.<br />초대받은 친구의 계정은 3일 동안 로그인 이력이 확인되어야 하며, 확인 되지 않을 경우
+                    지급되지 않습니다.</li>
+                <li class="dot">초대코드 오입력 등으로 인한 리워드 미적립은 추가 또는 재지급되지 않습니다.</li>
+                <li class="dot">본인인증 기준으로 지급되므로 탈퇴 후 재가입하더라도 중복 지급되지 않습니다.</li>
             </ul>
         </template>
     </ChallengeTemplate>
+
+    <DialogInviteMembers v-model:dialog="state.dialog" />
 </template>
 
 <script lang="ts" setup>
+import { useSnackbarStore } from '@/stores/snackbar';
+
+const snackbar = useSnackbarStore();
 
 const state = reactive({
     missioninfo: {
@@ -220,7 +199,8 @@ const state = reactive({
                 profileImage: "/images/class/dummy_profile_image.png",
             },
         ],
-    }
+    },
+    dialog: false,
 })
 
 const steps = [
@@ -238,4 +218,19 @@ const steps = [
     },
 ]
 
+const onClickShare = () => {
+    navigator.share({
+        text: state.detail.invitationCode,
+    })
+}
+
+const onClickCopy = () => {
+
+    navigator.clipboard.writeText(state.detail.invitationCode);
+    snackbar.showSnackbar('초대 코드가 클립보드에 복사되었습니다.');
+}
+
+const onClickInviteMembers = () => {
+    state.dialog = true;
+}
 </script>

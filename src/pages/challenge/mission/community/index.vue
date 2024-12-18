@@ -4,6 +4,16 @@
             커뮤니티 미션
         </template>
 
+        <!-- 퍼블리싱 확인용 버튼 (개발단계에서 삭제) -->
+        <template v-slot:append-header>
+            <v-btn @click="onClickCompleteMission">
+                <span class="text-t-xs">
+                    완료하기(검수용)
+                </span>
+            </v-btn>
+        </template>
+        <!-- ------------------------------- -->
+
         <template v-slot:content>
             <div class="pb-12">
 
@@ -79,7 +89,8 @@
                         variant="tonal"
                         size="large"
                         block
-                        :disabled="computedTotalClearMission !== state.detail.missions.length"
+                        :disabled="computedTotalClearMission !== state.detail.missions.length || state.missioninfo.completed"
+                        @click="onClickPoint"
                     >
                         포인트 적립하기
                     </v-btn>
@@ -89,46 +100,14 @@
 
         <template v-slot:notice>
             <ul class="text-t-sm">
-                <li>
-                    1일 1회 참여 가능한 미션입니다.
-                </li>
-
-                <li>
-                    해당 미션은 개인정보 수집 및 이용 동의 및 알림 PUSH 설정 회원만 참여 가능합니다.
-                </li>
-
-                <li>
-                    보상 포인트 발급 시, 발급일 기준으로 90일까지 사용 가능하며 이후 자동으로 소멸됩니다.
-                </li>
-
-                <li>
-                    포인트 적립은 실시간이 아니며, 적립 완료 안내 팝업이 뜨더라도 실제 적립까지는 시간이 소요될 수 있습니다.
-                </li>
-
-                <li>
-                    적립 받은 포인트는 전체 보기 > 포인트 내역에서 확인 가능합니다.
-                </li>
-
-                <li>
-                    AI 채팅 대화, 관련 제품 사용 정보, 위치 정보, 의견을 수집합니다.
-                </li>
-
-                <li>
-                    AI 채팅 대화는 지속적으로 개선되고 있으며 때때로 마이풀의 입장을 대변하지 않는 부정확하거나 불쾌감을 주거나 부적절한 정보를 제공할 수도 있습니다.
-                </li>
-
-                <li>
-                    일시적으로 사용자가 증가하거나 광고 정책에 맞지 않는 대상자의 경우 참여가 제한될 수 있습니다.
-                </li>
-
-                <li>
-                    비정상적, 불법적인 방법으로 이벤트에 참여하신 경우, 당첨 후에도 취소될 수 있습니다.
-                </li>
-
-                <li>
-                    당사 사정에 따라 조기 종료 또는 사전 고지 없이 변경하거나 종료될 수 있습니다.
-                </li>
-
+                <li class="dot">1일 1회 참여 가능한 미션이며, 매일 0시에 초기화됩니다.</li>
+                <li class="dot">해당 미션은 개인정보 수집 및 이용 동의 및 알림 PUSH 설정 회원만 참여 가능합니다.</li>
+                <li class="dot">매일 00:00 ~ 23:59 기준으로 포인트를 받을 수 있습니다.</li>
+                <li class="dot">보상 포인트 발급 시, 발급일 기준으로 90일까지 사용 가능하며 이후 자동으로 소멸됩니다.</li>
+                <li class="dot">포인트 적립은 실시간이 아니며, 적립 완료 안내 팝업이 뜨더라도 실제 적립까지는 시간이 소요될 수 있습니다.</li>
+                <li class="dot">적립 받은 포인트는 전체보기 > 포인트 내역에서 확인 가능합니다.</li>
+                <li class="dot">부당한 방법으로 이벤트에 참여한 것으로 판단되는 경우, 이벤트 보상이 지급되지 않으며 이용 제한 조치를 받을 수 있습니다.</li>
+                <li class="dot">당사 사정에 따라 조기 종료 또는 사전 고지 없이 변경하거나 종료될 수 있습니다.</li>
             </ul>
         </template>
     </ChallengeTemplate>
@@ -147,6 +126,7 @@ const state = reactive({
         title: "커뮤니티 참여하고 포인트 받으세요!",
         description: "하나만 참여해도 최대 {{포인트}}를 받을 수 있어요.",
         linkUrl: "https://www.naver.com",
+        completed: false,
     },
     detail: {
         missions: [
@@ -175,5 +155,18 @@ const computedTotalClearMission = computed(() => {
 
 const onClickCommunity = () => {
     router.push("/community")
+}
+
+const onClickPoint = () => {
+    alert('포인트 적립');
+    state.missioninfo.completed = true;
+}
+
+
+// 퍼블리싱 확인용 (개발단계에서 삭제) =========
+const onClickCompleteMission = () => {
+    state.detail.missions.forEach((missionItem) => {
+        missionItem.complete = missionItem.total
+    })
 }
 </script>

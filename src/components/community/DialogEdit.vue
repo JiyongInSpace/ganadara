@@ -153,7 +153,7 @@ const onClickCancel = () => {
 const onClickDelete = () => {
     // console.log(props.editId);
 
-    snackbar.showSnackbar("댓글이 삭제되었습니다.");
+    snackbar.showSnackbar("게시글이 삭제되었습니다.");
     dialog.value = false;
     dialogSecond.value = false;
     state.radios = null;

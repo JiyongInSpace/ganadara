@@ -39,6 +39,10 @@
     src: url('@/styles/fonts/Pretendard-Bold.woff2') format('woff2');
 }
 
+:root {
+    --vh: 100vh; /* 기본 값 */
+}
+
 body {
     font-family: 'Pretendard', sans-serif;
     font-style: normal;

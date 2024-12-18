@@ -230,6 +230,13 @@
 
             <v-btn
               variant="outlined"
+              to="/challenge/mission/default"
+            >
+              미션(기본 프레임)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
               to="/challenge/mission/quiz"
             >
               미션(퀴즈)

@@ -109,6 +109,11 @@
         <template v-slot:bottom>
            <AppFooter />
         </template>
+
+        <template v-slot:actions>
+            <slot name="actions">
+            </slot>
+        </template>
     </PageTemplate>
 </template>
 

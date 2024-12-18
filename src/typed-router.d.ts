@@ -25,6 +25,7 @@ declare module 'vue-router/auto-routes' {
     '/challenge/mission/chat_ai/': RouteRecordInfo<'/challenge/mission/chat_ai/', '/challenge/mission/chat_ai', Record<never, never>, Record<never, never>>,
     '/challenge/mission/check/': RouteRecordInfo<'/challenge/mission/check/', '/challenge/mission/check', Record<never, never>, Record<never, never>>,
     '/challenge/mission/community/': RouteRecordInfo<'/challenge/mission/community/', '/challenge/mission/community', Record<never, never>, Record<never, never>>,
+    '/challenge/mission/default/': RouteRecordInfo<'/challenge/mission/default/', '/challenge/mission/default', Record<never, never>, Record<never, never>>,
     '/challenge/mission/donate/': RouteRecordInfo<'/challenge/mission/donate/', '/challenge/mission/donate', Record<never, never>, Record<never, never>>,
     '/challenge/mission/donate/[id]/': RouteRecordInfo<'/challenge/mission/donate/[id]/', '/challenge/mission/donate/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/challenge/mission/donate/[id]/review/': RouteRecordInfo<'/challenge/mission/donate/[id]/review/', '/challenge/mission/donate/:id/review', { id: ParamValue<true> }, { id: ParamValue<false> }>,

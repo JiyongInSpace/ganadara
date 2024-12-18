@@ -31,7 +31,7 @@
             </div>
 
             <div :style="{
-                height: 'calc(100vh - 132px)',
+                height: `calc(var(--vh, 1vh) * 100 - 132px)`,
             }">
                 <div
                     class="position-relative d-flex background-primary overflow-y-auto ga-2 py-3 px-5 w-100"

@@ -12,7 +12,12 @@
             </div>
         </template>
 
-        <v-card class="pt-9 pb-5 rounded-t-16 elevation-0">
+        <v-card
+            class="pt-9 pb-5 rounded-t-16 elevation-0"
+            :style="{
+                maxHeight: `calc(var(--vh, 1vh) * 90)`,
+            }"
+        >
             <div class="text-t-xl font-weight-bold text-center mb-0-5">
                 댓글
             </div>

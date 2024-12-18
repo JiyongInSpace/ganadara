@@ -15,8 +15,17 @@
                     class="rounded-8"
                 />
 
-                <div class="text-t-sm font-weight-semibold">
-                    {{ feedItem.user.name }}
+                <div>
+                    <div class="text-t-sm font-weight-semibold">
+                        {{ feedItem.user.name }}
+                    </div>
+
+                    <div
+                        v-if="feedItem.content.isCommercial"
+                        class="text-t-xs text-text-tertiary"
+                    >
+                        광고
+                    </div>
                 </div>
             </div>
 
@@ -26,7 +35,7 @@
             />
             <!-- v-else -->
             <DialogReport
-                v-else
+                v-if="!isMyFeed && !feedItem.content.isCommercial"
                 v-model:dialog="state.ui.dialogReport"
                 :report-id="feedItem.content.id"
             />
@@ -42,12 +51,32 @@
             <v-carousel-item
                 v-for="(image, i) in feedItem.content.images"
                 :key="i"
+                class="position-relative"
             >
                 <v-img
                     :src="image"
                     :aspect-ratio="1 / 1"
                     cover
+                    :style="{
+                        filter: feedItem.isReported ? 'blur(25px)' : 'blur(0)'
+                    }"
                 />
+
+                <div
+                    v-if="feedItem.isReported"
+                    class="position-absolute top-0 left-0 w-100 h-100 d-flex flex-column justify-center align-center"
+                >
+                    <v-img
+                        src="/logo/logo_alert.svg"
+                        width="24"
+                        height="24"
+                        class="flex-grow-0 mb-1"
+                    ></v-img>
+
+                    <div class="font-weight-bold text-text-primary_on-brand text-shadow">
+                        콘텐츠를 확인 중입니다
+                    </div>
+                </div>
             </v-carousel-item>
         </v-carousel>
 
@@ -127,17 +156,29 @@
 
                 <span class="font-weight-medium">
                     <span class="font-weight-bold">
-                        Olivia
-                    </span>
-                    님 외
+                        Olivia Rhye</span>님 외
                     <span class="font-weight-bold">
-                        16명
-                    </span>
-                    이 좋아합니다.
+                        16명</span>이 좋아합니다.
                 </span>
             </div>
 
-            <div class="text-t-sm mb-1">
+            <div
+                v-if="feedItem.isReported"
+                class="d-flex align-center text-t-sm mb-1"
+            >
+                <v-img
+                    src="/logo/logo_alert.svg"
+                    width="16"
+                    height="16"
+                    class="flex-grow-0 mr-1"
+                ></v-img>
+                콘텐츠를 확인 중입니다
+            </div>
+
+            <div
+                v-else
+                class="text-t-sm mb-1"
+            >
                 {{ feedItem.content.text }}
             </div>
 
@@ -151,7 +192,20 @@
                     {{ feedItem.comments[0].name }}
                 </span>
 
-                <span class="truncate">
+                <span
+                    v-if="feedItem.comments[0].isReported"
+                    class="d-flex align-center text-t-sm mb-1 truncate"
+                >
+                    <v-img
+                        src="/logo/logo_alert.svg"
+                        width="16"
+                        height="16"
+                        class="flex-grow-0 mr-1"
+                    ></v-img>
+                    콘텐츠를 확인 중입니다
+                </span>
+
+                <span v-else>
                     {{ feedItem.comments[0].text }}
                 </span>
             </div>

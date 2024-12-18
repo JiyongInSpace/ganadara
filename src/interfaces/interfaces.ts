@@ -62,6 +62,8 @@ export interface IUserResponse {
 
 // community
 export interface IFeedItem {
+  id: string
+  isReported: boolean
   user: {
     id: string
     name: string
@@ -88,8 +90,10 @@ export interface IComment {
   text: string
   likes?: number // 댓글에 '좋아요' 기능 추가를 고려할 수 있습니다.
   isLiked?: boolean // 현재 사용자가 이 댓글을 좋아했는지 여부
+  isReported: boolean
   date: string
   replies?: IComment[] // 대댓글 배열
+  for?: string[]
 }
 
 export interface IRanker {
@@ -159,37 +163,36 @@ export interface IRewardItem {
   }
 }
 
-
 export interface IExamItem {
-  id: number;
-  name: string;
-  date: string;
-  wrong: number;
-  score?: number;
-  level?: number;
-  elapsed_time?: number;
-  ideal_time?: number;
+  id: number
+  name: string
+  date: string
+  wrong: number
+  score?: number
+  level?: number
+  elapsed_time?: number
+  ideal_time?: number
 }
 
 export interface IBadge {
-  imageUrl: string;
-  name: string;
-  description: string;
-  isAchieved: boolean;
+  imageUrl: string
+  name: string
+  description: string
+  isAchieved: boolean
 }
 
 export interface IGoods {
-  imageUrl: string;
-  name: string;
-  description: string;
-  points: number;
+  imageUrl: string
+  name: string
+  description: string
+  points: number
   user: {
-      name: string;
-      profileImage: string;
+    name: string
+    profileImage: string
   }
 }
 
 export interface IExperienceItem {
-  label: string;
-  percentage: number;
+  label: string
+  percentage: number
 }

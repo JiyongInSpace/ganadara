@@ -28,6 +28,8 @@ import { IFeedItem } from '@/interfaces';
 const state = reactive({
     feedList: [
         {
+            id: "1",
+            isReported: false,
             user: {
                 id: "5",
                 name: "김철수",
@@ -68,6 +70,8 @@ const state = reactive({
                     text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
                     likes: 5,
                     isLiked: true,
+                    isReported: false,
+                    expanded: false,
                     date: "2024-08-22",
                     replies: [
                         {
@@ -77,6 +81,7 @@ const state = reactive({
                             text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
                             likes: 3,
                             isLiked: false,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: []
                         },
@@ -87,6 +92,7 @@ const state = reactive({
                             text: "함께 해요!",
                             likes: 1,
                             isLiked: false,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: []
                         }
@@ -99,6 +105,8 @@ const state = reactive({
                     text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
                     likes: 5,
                     isLiked: true,
+                    isReported: false,
+                    expanded: false,
                     date: "2024-08-22",
                     replies: [
                         {
@@ -108,6 +116,7 @@ const state = reactive({
                             text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
                             likes: 3,
                             isLiked: true,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: []
                         },
@@ -118,6 +127,7 @@ const state = reactive({
                             text: "함께 해요!",
                             likes: 1,
                             isLiked: false,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: []
                         }
@@ -126,6 +136,8 @@ const state = reactive({
             ]
         },
         {
+            id: "1",
+            isReported: false,
             user: {
                 id: "6",
                 name: "김철수",
@@ -167,6 +179,7 @@ const state = reactive({
                     text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
                     likes: 5,
                     isLiked: true,
+                    isReported: false,
                     date: "2024-08-22",
                     replies: [
                         {
@@ -176,6 +189,7 @@ const state = reactive({
                             text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
                             likes: 3,
                             isLiked: false,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: [] // 추가 대댓글이 있다면 이 배열에 또 다른 댓글 객체를 추가
                         }
@@ -184,6 +198,8 @@ const state = reactive({
             ]
         },
         {
+            id: "1",
+            isReported: false,
             user: {
                 id: "1",
                 name: "김철수",
@@ -225,6 +241,7 @@ const state = reactive({
                     text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
                     likes: 5,
                     isLiked: true,
+                    isReported: false,
                     date: "2024-08-22",
                     replies: [
                         {
@@ -234,6 +251,7 @@ const state = reactive({
                             text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
                             likes: 3,
                             isLiked: false,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: []
                         },
@@ -244,6 +262,7 @@ const state = reactive({
                             text: "함께 해요!",
                             likes: 1,
                             isLiked: false,
+                            isReported: false,
                             date: "2024-08-22",
                             replies: []
                         }
@@ -256,6 +275,7 @@ const state = reactive({
                     text: "저도요! 모두 함께 힘내요!",
                     likes: 2,
                     isLiked: true,
+                    isReported: false,
                     date: "2024-08-22",
                     replies: []
                 }

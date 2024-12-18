@@ -29,18 +29,49 @@
                         {{ commentItem.name }}
                     </span>
 
-                    <span class="text-text-quaternary">
-                        {{
-                            formatDistanceToNow(
-                                new Date(commentItem.date),
-                                { locale: ko }
-                            )
-                        }}
-                    </span>
+                    <div>
+                        <span class="text-text-quaternary">
+                            {{
+                                formatDistanceToNow(
+                                    new Date(commentItem.date),
+                                    { locale: ko }
+                                )
+                            }}
+                        </span>
+
+                        <span
+                            v-if="isMine"
+                            class="text-text-quaternary"
+                        >
+                            • 내가 남긴 글
+                        </span>
+                    </div>
                 </div>
 
                 <div class="text-t-sm mb-1">
-                    {{ commentItem.text }}
+                    <span
+                        v-for="forItem in commentItem.for"
+                        class="text-info"
+                    >
+                        @{{ forItem }}
+                    </span>
+
+                    <div
+                        v-if="commentItem.isReported"
+                        class="d-flex align-center text-t-sm mb-1"
+                    >
+                        <v-img
+                            src="/logo/logo_alert.svg"
+                            width="16"
+                            height="16"
+                            class="flex-grow-0 mr-1"
+                        ></v-img>
+                        콘텐츠를 확인 중입니다
+                    </div>
+                    
+                    <span v-else>
+                        {{ commentItem.text }}
+                    </span>
                 </div>
 
                 <div

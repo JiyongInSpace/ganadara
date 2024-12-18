@@ -36,7 +36,10 @@
 
                 <v-spacer />
 
-                <div class="d-flex align-center ga-1">
+                <div
+                    v-if="tabMain.tab.value != 'total'"
+                    class="d-flex align-center ga-1"
+                >
                     <span class="text-t-sm">남은 시간</span>
                     <span class="text-t-md font-weight-semibold">{{ remainingTime }}</span>
                 </div>
@@ -91,15 +94,35 @@ const formattedDate = computed(() => {
 
 const updateRemainingTime = () => {
     const now = new Date();
-    const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-    const timeDiff = Number(endOfDay) - Number(now);
 
+    let endOfPeriod;
+    if (tabMain.tab.value === 'daily') {
+        // 하루 기준
+        endOfPeriod = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+    } else if (tabMain.tab.value === 'monthly') {
+        // 한 달 기준 (이번 달의 마지막 날)
+        endOfPeriod = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+    } else {
+        // total 또는 기타 경우
+        remainingTime.value = "∞"; // 제한 없음
+        return;
+    }
+
+    const timeDiff = Number(endOfPeriod) - Number(now);
+
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
     const seconds = Math.floor((timeDiff / 1000) % 60);
 
-    remainingTime.value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    // 결과 저장
+    if (tabMain.tab.value === 'monthly') {
+        remainingTime.value = `${days}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    } else {
+        remainingTime.value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 };
+
 
 onMounted(() => {
     // 데이터
@@ -113,6 +136,13 @@ onMounted(() => {
 
     onUnmounted(() => clearInterval(timer));
 });
+
+watch(
+    () => tabMain.tab.value,
+    () => {
+        updateRemainingTime();
+    }
+)
 
 const state = reactive({
     rankingDaily: [] as IRanker[],

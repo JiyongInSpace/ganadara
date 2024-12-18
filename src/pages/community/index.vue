@@ -65,9 +65,11 @@ const MAIN_TAB = {
 const state = reactive({
   feedList: [
     {
+      id: "1",
+      isReported: false,
       user: {
         id: "5",
-        name: "김철수",
+        name: "Olivia Rhye",
         profileImage: "/images/class/dummy_profile_image.png",
       },
       content: {
@@ -100,72 +102,95 @@ const state = reactive({
       comments: [
         {
           id: "6",
-          name: "김영희",
+          name: "Lana Steiner",
           profileImage: "/images/class/dummy_profile_image.png",
-          text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
+          text: "제 영어정복의 비결이 바로 마이풀입니다ㅎㅎ",
           likes: 5,
           isLiked: true,
+          isReported: false,
           date: "2024-08-22",
           replies: [
             {
-              id: "2",
-              name: "박준호",
+              id: "1",
+              name: "Olivia Rhye",
               profileImage: "/images/class/dummy_profile_image.png",
-              text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
+              text: "네 공감해요.",
               likes: 3,
               isLiked: false,
+              isReported: false,
+              date: "2024-08-22",
+              for: ["Lana Steiner"],
+              replies: []
+            },
+            {
+              id: "4",
+              name: "Lana Steiner",
+              profileImage: "/images/class/dummy_profile_image.png",
+              text: "저도 그렇습니다~",
+              likes: 1,
+              isLiked: false,
+              isReported: false,
+              date: "2024-08-22",
+              for: ["Olivia Rhye"],
+              replies: []
+            },
+            {
+              id: "5",
+              name: "James Dunn",
+              profileImage: "/images/class/dummy_profile_image.png",
+              text: "반가워요! 좋은 글 보고 가요.",
+              likes: 1,
+              isLiked: false,
+              isReported: false,
               date: "2024-08-22",
               replies: []
             },
             {
               id: "4",
-              name: "최영철",
+              name: "Lana Steiner",
               profileImage: "/images/class/dummy_profile_image.png",
-              text: "함께 해요!",
+              text: "저도 그렇습니다~",
               likes: 1,
               isLiked: false,
+              isReported: false,
               date: "2024-08-22",
+              for: ["Olivia Rhye"],
               replies: []
-            }
+            },
+            {
+              id: "1",
+              name: "Olivia Rhye",
+              profileImage: "/images/class/dummy_profile_image.png",
+              text: "두 분과 소통해서 즐거워요~",
+              likes: 1,
+              isLiked: false,
+              isReported: false,
+              date: "2024-08-22",
+              for: ["Olivia Rhye", "James Dunn"],
+              replies: []
+            },
           ]
         },
         {
-          id: "1",
-          name: "김영희",
+          id: "2",
+          name: "Olivia Rhye",
           profileImage: "/images/class/dummy_profile_image.png",
-          text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
+          text: "마이풀과 가나다라 최고라고 생각하고 있어요~~!!",
           likes: 5,
           isLiked: true,
+          isReported: false,
           date: "2024-08-22",
           replies: [
-            {
-              id: "2",
-              name: "박준호",
-              profileImage: "/images/class/dummy_profile_image.png",
-              text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
-              likes: 3,
-              isLiked: true,
-              date: "2024-08-22",
-              replies: []
-            },
-            {
-              id: "4",
-              name: "최영철",
-              profileImage: "/images/class/dummy_profile_image.png",
-              text: "함께 해요!",
-              likes: 1,
-              isLiked: false,
-              date: "2024-08-22",
-              replies: []
-            }
           ]
         },
       ]
     },
     {
+      id: "2",
+      isReported: false,
       user: {
         id: "1",
-        name: "김철수",
+        name: "AD Sponcer Name",
         profileImage: "/images/class/dummy_profile_image.png",
       },
       content: {
@@ -204,6 +229,7 @@ const state = reactive({
           text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
           likes: 5,
           isLiked: true,
+          isReported: false,
           date: "2024-08-22",
           replies: [
             {
@@ -221,6 +247,8 @@ const state = reactive({
       ]
     },
     {
+      id: "3",
+      isReported: true,
       user: {
         id: "1",
         name: "김철수",
@@ -256,34 +284,15 @@ const state = reactive({
       ],
       comments: [
         {
-          id: "1",
+          id: "3",
           name: "김영희",
           profileImage: "/images/class/dummy_profile_image.png",
-          text: "와우 대단하다! 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
+          text: "와우 대단하다? 영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
           likes: 5,
           isLiked: true,
+          isReported: true,
           date: "2024-08-22",
           replies: [
-            {
-              id: "2",
-              name: "박준호",
-              profileImage: "/images/class/dummy_profile_image2.png",
-              text: "정말 대단해요! 저도 김영희님처럼 열심히 해야겠어요.",
-              likes: 3,
-              isLiked: false,
-              date: "2024-08-22",
-              replies: []
-            },
-            {
-              id: "4",
-              name: "최영철",
-              profileImage: "/images/class/dummy_profile_image4.png",
-              text: "함께 해요!",
-              likes: 1,
-              isLiked: false,
-              date: "2024-08-22",
-              replies: []
-            }
           ]
         },
         {
@@ -293,6 +302,7 @@ const state = reactive({
           text: "저도요! 모두 함께 힘내요!",
           likes: 2,
           isLiked: true,
+          isReported: false,
           date: "2024-08-22",
           replies: []
         }

@@ -52,13 +52,22 @@ const state = reactive({
     ],
     missionList: [
         {
-            id: 1,
+            id: 0,
             title: "오늘도 룰렛 돌리고",
             reward: "point",
             tag: "reward",
             imageUrl: "/images/challenge/point.png",
             to: "roulette",
             point: 2000
+        },
+        {
+            id: 1,
+            title: "오늘도 룰렛 돌리고",
+            reward: "gift",
+            tag: "reward",
+            imageUrl: "/images/challenge/point.png",
+            to: "roulette_gift",
+            point: 0
         },
         {
             id: 2,

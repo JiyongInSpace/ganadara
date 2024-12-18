@@ -41,7 +41,12 @@
                                 :title="item.title"
                             >
                                 <template v-slot:prepend>
-                                    <v-icon :icon="getIcon(item.value)" />
+                                    <v-img
+                                        :src="getIcon(item.value)"
+                                        width="16"
+                                        height="16"
+                                        class="mr-2"
+                                    />
                                 </template>
                             </v-list-item>
                         </template>
@@ -55,10 +60,13 @@
                 :key="key"
                 class="d-flex py-4"
             >
-                <v-icon
-                    :icon="getIcon(item.type)"
-                    class="mr-2"
+                <v-img
+                    :src="getIcon(item.type)"
+                    width="24"
+                    height="24"
+                    class="flex-grow-0 mr-2"
                 />
+
 
                 <div class="flex-grow-1">
                     <div class="d-flex justify-space-between mb-1-5">
@@ -75,9 +83,10 @@
                 </div>
             </div>
 
-            <div 
+            <div
                 v-if="computedOldList.length > 0"
-            class="d-flex align-center">
+                class="d-flex align-center"
+            >
                 <div class="flex-1-1-100">
                     <v-divider></v-divider>
                 </div>
@@ -96,9 +105,11 @@
                 :key="key"
                 class="d-flex py-4"
             >
-                <v-icon
-                    :icon="getIcon(item.type)"
-                    class="mr-2"
+                <v-img
+                    :src="getIcon(item.type)"
+                    width="24"
+                    height="24"
+                    class="flex-grow-0 mr-2"
                 />
 
                 <div class="flex-grow-1">
@@ -211,19 +222,19 @@ const computedOldList = computed(() => {
 const getIcon = (_type: string) => {
     switch (_type) {
         case 'notice':
-            return 'mdi-bell';
+            return '/icons/IconNoticeAnnouncement.svg';
         case 'community':
-            return 'mdi-account-group';
+            return '/icons/IconNoticeMessage.svg';
         case 'challenge':
-            return 'mdi-trophy';
+            return '/icons/IconNoticeDate.svg';
         case 'class':
-            return 'mdi-school';
+            return '/icons/IconNoticePlay.svg';
         case 'ai':
-            return 'mdi-robot';
+            return '/icons/IconNoticeAi.svg';
         case 'etc':
-            return 'mdi-dots-horizontal';
+            return '/icons/IconNoticeSlider.svg';
         default:
-            return 'mdi-bell';
+            return '/icons/IconNoticeAll.svg';
     }
 }
 

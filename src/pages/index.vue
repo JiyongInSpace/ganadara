@@ -209,9 +209,23 @@
           <v-card-actions class="flex-wrap ga-2 mb-5">
             <v-btn
               variant="outlined"
+              to="/challenge"
+            >
+              메인
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
               to="/challenge/mission"
             >
               미션 리스트
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/common"
+            >
+              공통 팝업
             </v-btn>
 
             <v-btn

@@ -240,6 +240,7 @@ const onClickSendMessage = () => {
         type: "message",
     });
     state.message = '';
+    state.isFreeConversation = true;
 }
 
 const onClickMicrophone = () => {

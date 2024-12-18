@@ -17,6 +17,7 @@
                     @click="buttonCancel.event.onClick"
                     variant="outlined"
                     size="large"
+                    class="secondary"
                 >
                     취소
                 </v-btn>

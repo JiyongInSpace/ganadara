@@ -25,6 +25,7 @@
                     </span>
 
                     <span v-else>
+                        {{ item }}
                         선물 받아가기
                     </span>
                 </div>

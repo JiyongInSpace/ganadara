@@ -5,7 +5,7 @@
     >
         <v-card class="pt-9 px-5 pb-5 text-center rounded-t-16">
             <div class="text-t-xl font-weight-bold mb-1 text-center">
-                구독하고 콘텐츠 계속 보기
+                알림 푸시 동의하고 혜택 받기
             </div>
 
             <div class="text-t-md font-weight-medium text-text-quaternary mb-6 text-center mb-6">
@@ -37,7 +37,7 @@
                 <v-btn
                     @click="buttonCancel.event.onClick"
                     variant="outlined"
-                    class="flex-1-1-100"
+                    class="flex-1-1-100 secondary"
                     size="large"
                 >
                     나중에 하기

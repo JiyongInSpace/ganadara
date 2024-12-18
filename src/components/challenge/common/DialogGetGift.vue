@@ -35,7 +35,7 @@
                 <v-btn
                     @click="buttonCancel.event.onClick"
                     variant="outlined"
-                    class="flex-1-1-100"
+                    class="flex-1-1-100 secondary"
                     size="large"
                 >
                     닫기

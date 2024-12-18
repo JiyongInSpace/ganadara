@@ -18,6 +18,7 @@
             <ul class="text-t-sm text-text-secondary">
                 <li class="dot">1일 1회 참여 가능한 미션입니다.</li>
                 <li class="dot">해당 미션는 개인정보 수집 및 이용 동의 및 알림 PUSH 설정 회원만 참여 가능합니다.</li>
+                <li class="dot">경품 지급은 2024.12.12 가나다라 가입 시 입력하신 휴대전화 번호로 발송되며, 정보 오 입력 또는 삭제 시 재발송되지 않습니다.</li>
                 <li class="dot">보상 포인트 발급 시, 발급일 기준으로 90일까지 사용 가능하며 이후 자동으로 소멸됩니다.</li>
                 <li class="dot">포인트 적립은 실시간이 아니며, 적립 완료 안내 팝업이 뜨더라도 실제 적립까지는 시간이 소요될 수 있습니다.</li>
                 <li class="dot">적립 받은 포인트는 전체보기 > 포인트 내역에서 확인 가능합니다.</li>
@@ -28,10 +29,9 @@
         </template>
     </ChallengeTemplate>
 
-    <DialogGetPoint
+    <DialogGetGift
         v-model:dialog="state.missionResult.dialog"
-        :point="state.missionResult.point"
-        mission="룰렛 미션"
+        :gift="state.missionResult.point"
     />
     <DialogLose v-model:dialog="state.missionResult.dialogLose" />
 </template>
@@ -44,34 +44,33 @@ const state = reactive({
         point: true,
         gift: true,
         hot: true,
-        title: "룰렛 돌리고 포인트 받으세요!",
-        description: "최대 {{포인트}}를 받을 수 있어요.",
+        title: "룰렛 돌리고 경품 받으세요!",
+        description: "도전! 오늘은 행운의 룰렛 데이!",
         linkUrl: "https://www.naver.com",
-        reward: 'point' as "point" | "gift",
+        reward: 'gift' as "point" | "gift",
     },
 
     missionResult: {
         dialog: false,
         dialogLose: false,
-        point: 0,
+        point: '',
         completed: false,
     },
 })
 
 const rouletteInfo = [
-    20, 50, 100, 5, 0, 1000
+    '경품1',
+    '경품2',
+    '경품3',
+    '경품4',
+    '경품5',
+    '경품6',
 ]
 
 const onStopRoulette = (_point: number) => {
     state.missionResult.point = rouletteInfo[_point];
     state.missionResult.completed = true;
-
-    if(state.missionResult.point === 0) {
-        state.missionResult.dialogLose = true;
-        return;
-    } else {
-        state.missionResult.dialog = true;
-    }
+    state.missionResult.dialog = true;
 }
 
 </script>

@@ -24,8 +24,15 @@
                         최대 {{ item.point }}P 받아가기
                     </span>
 
-                    <span v-else>
-                        {{ item }}
+                    <span v-if="item.reward == 'creator'">
+                        크리에이터 후원하기
+                    </span>
+
+                    <span v-if="item.reward == 'social'">
+                        따뜻한 마음 기부하기
+                    </span>
+
+                    <span v-if="item.reward == 'gift'">
                         선물 받아가기
                     </span>
                 </div>
@@ -54,5 +61,6 @@ const props = defineProps<{
 const onClickMissionItem = (_mission: Mission) => {
     router.push("/challenge/mission/" + _mission.to);
 }
+
 
 </script>

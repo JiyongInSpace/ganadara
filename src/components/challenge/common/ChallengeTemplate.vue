@@ -72,10 +72,14 @@
                     <v-btn
                         variant="outlined"
                         size="small"
+                        class="secondary"
                         icon
                         @click="onClickLink"
                     >
-                        <v-icon icon="mdi-link"></v-icon>
+                        <v-img src="/icons/IconLink.svg"
+                            width="20"
+                            height="20"
+                        />
                     </v-btn>
                 </div>
 
@@ -86,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="px-4">
+            <div class="px-4 pb-8">
                 <div class="font-weight-bold mb-3">
                     확인해 주세요!
                 </div>

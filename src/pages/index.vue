@@ -209,9 +209,16 @@
 
             <v-btn
               variant="outlined"
-              to="/community/user/5/badge"
+              to="/community/user/1/badge"
             >
-              뱃지/굿즈
+              뱃지/굿즈 (타유저)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/community/user/3/badge"
+            >
+              뱃지/굿즈 (본인)
             </v-btn>
           </v-card-actions>
 

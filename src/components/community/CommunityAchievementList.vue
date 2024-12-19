@@ -19,12 +19,21 @@
         </div>
 
         <div v-else>
-            <v-img
-                :src="state.mainBadge?.imageUrl"
-                alt="badge"
-                class="mx-auto mb-3"
-                width="96"
-            />
+            <div class="position-relative w-fit mx-auto">
+                <v-img
+                    :src="state.mainBadge?.imageUrl"
+                    alt="badge"
+                    class="mx-auto mb-3"
+                    width="96"
+                />
+
+                <v-img
+                    class="position-absolute top-2 right-2"
+                    src="/images/community/Badge.png"
+                    width="24"
+                    height="24"
+                />
+            </div>
 
             <div class="text-t-md font-weight-medium">
                 {{ state.mainBadge.name }}
@@ -49,11 +58,21 @@
                 cols="4"
             >
                 <div @click="() => onClickBadge(badgeItem)">
-                    <v-img
-                        :src="badgeItem.isAchieved ? badgeItem.imageUrl : '/images/community/badges/locked_badge.png'"
-                        alt="badge"
-                        class="mb-2"
-                    />
+                    <div class="position-relative mx-auto">
+                        <v-img
+                            :src="badgeItem.isAchieved ? badgeItem.imageUrl : '/images/community/badges/locked_badge.png'"
+                            alt="badge"
+                            class="mb-2"
+                        />
+
+                        <v-img
+                            v-if="state.mainBadge?.name == badgeItem.name"
+                            class="position-absolute top-2 right-2"
+                            src="/images/community/Badge.png"
+                            width="24"
+                            height="24"
+                        />
+                    </div>
 
                     <div class="text-t-sm font-weight-medium text-center">
                         {{ badgeItem.name }}

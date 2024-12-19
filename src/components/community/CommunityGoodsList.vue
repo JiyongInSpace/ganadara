@@ -19,12 +19,21 @@
         </div>
 
         <div v-else>
-            <v-img
-                :src="state.mainGoods?.imageUrl"
-                alt="goods"
-                class="mx-auto mb-3"
-                width="96"
-            />
+            <div class="position-relative w-fit mx-auto">
+                <v-img
+                    :src="state.mainGoods?.imageUrl"
+                    alt="goods"
+                    class="mx-auto mb-3"
+                    width="96"
+                />
+
+                <v-img
+                    class="position-absolute top-2 right-2"
+                    src="/images/community/Badge.png"
+                    width="24"
+                    height="24"
+                />
+            </div>
 
             <div class="text-t-md font-weight-medium">
                 {{ state.mainGoods.name }}
@@ -62,11 +71,21 @@
                 cols="4"
             >
                 <div @click="() => onClickGood(goodItem)">
-                    <v-img
-                        :src="goodItem.imageUrl"
-                        alt="goods"
-                        class="mb-2"
-                    />
+                    <div class="position-relative mx-auto">
+                        <v-img
+                            :src="goodItem.imageUrl"
+                            alt="goods"
+                            class="mb-2"
+                        />
+
+                        <v-img
+                            v-if="state.mainGoods?.name == goodItem.name"
+                            class="position-absolute top-2 right-2"
+                            src="/images/community/Badge.png"
+                            width="24"
+                            height="24"
+                        />
+                    </div>
 
                     <div class="text-t-sm font-weight-medium text-center">
                         {{ goodItem.name }}

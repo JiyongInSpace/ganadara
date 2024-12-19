@@ -99,7 +99,7 @@ const dummy_follower = [
         id: "2",
         name: '김영희',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     },
     {
@@ -113,7 +113,7 @@ const dummy_follower = [
         id: "4",
         name: '이지수',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     },
     {
@@ -127,35 +127,35 @@ const dummy_follower = [
         id: "6",
         name: '이민지',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     },
     {
         id: "7",
         name: '박영희',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     },
     {
         id: "8",
         name: '김민수',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     },
     {
         id: "9",
         name: '최지수',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     },
     {
         id: "10",
         name: '박철수',
         profileImage: '/images/class/dummy_profile_image.png',
-        isFollowing: true,
+        isFollowing: false,
         description: "lorem ipsum dolor",
     }
 ] as IUser[];

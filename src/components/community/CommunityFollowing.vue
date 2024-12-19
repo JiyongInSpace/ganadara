@@ -37,6 +37,7 @@
                         variant="outlined"
                         width="65"
                         height="32"
+                        @click.stop="onClickFollow(userInfo)"
                     >
                         {{ userInfo.isFollowing ? '팔로우' : '팔로잉' }}
                     </v-btn>
@@ -59,4 +60,9 @@ const props = defineProps<{
 const onClickUser = (userId: string) => {
     router.push(`/community/user/${userId}`);
 }
+
+const onClickFollow = (user: any) => {
+    user.isFollowing = !user.isFollowing;
+}
+
 </script>

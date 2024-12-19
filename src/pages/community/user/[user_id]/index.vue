@@ -242,26 +242,56 @@
                     </v-tab>
                 </v-tabs>
 
-                <v-chip-group
+                <div
                     v-if="tabMain.tab.value == 'content'"
-                    class="my-6 px-4 py-0"
-                    selected-class="bg-black text-text-primary_on-brand"
-                    v-model="tabMain.subtab.value"
-                    column
-                    mandatory
+                    class="d-flex justify-space-between align-center"
                 >
-                    <v-chip
-                        v-for="tag in tabMain.subList"
-                        :key="tag"
-                        :value="tag"
-                        variant="outlined"
-                        size="large"
-                        class="px-4 border-border-primary ma-0 mr-2"
-                        @click="() => tabMain.subtab.value = tag"
+                    <v-chip-group
+                        class="my-6 px-4 py-0"
+                        selected-class="bg-black text-text-primary_on-brand"
+                        v-model="tabMain.subtab.value"
+                        column
+                        mandatory
                     >
-                        <span v-text="t(tag)"></span>
-                    </v-chip>
-                </v-chip-group>
+                        <v-chip
+                            v-for="tag in tabMain.subList"
+                            :key="tag"
+                            :value="tag"
+                            variant="outlined"
+                            size="large"
+                            class="px-4 border-border-primary ma-0 mr-2"
+                            @click="() => tabMain.subtab.value = tag"
+                        >
+                            <span v-text="t(tag)"></span>
+                        </v-chip>
+                    </v-chip-group>
+
+                    <div class="my-6 px-4 py-0">
+                        <v-btn
+                            icon
+                            size="small"
+                            flat
+                            @click="state.list_type = 'list'"
+                        >
+                            <v-icon
+                                icon="mdi-format-list-text"
+                                :class="state.list_type == 'list' ? 'text-text-primary' : 'opacity-30'"
+                            />
+                        </v-btn>
+
+                        <v-btn
+                            icon="mdi-square"
+                            size="small"
+                            flat
+                            @click="state.list_type = 'square'"
+                        >
+                            <v-icon
+                                icon="mdi-square"
+                                :class="state.list_type == 'square' ? 'text-text-primary' : 'opacity-30'"
+                            />
+                        </v-btn>
+                    </div>
+                </div>
 
                 <!-- 피드 -->
                 <v-row
@@ -296,34 +326,113 @@
                     v-if="tabMain.tab.value == 'content' && tabMain.subtab.value == 'class'"
                     class="flex-column ga-4 px-4"
                 >
-                    <div
-                        v-for="count in 10"
-                        class="d-flex ga-2 mb-4"
-                        @click="onClickRegular('1')"
-                    >
-                        <v-img
-                            src="/images/home/dummy_thumbnail2.png"
-                            max-width="173px"
-                            width="100%"
-                            height="100%"
-                            alt="contact-us"
-                            class="flex-grow-0 rounded-4"
-                            cover
-                            :aspect-ratio="173 / 110"
-                        />
+                    <div v-if="state.list_type == 'list'">
+                        <div
+                            v-for="(videoItem, index) in dummy_data.videoList"
+                            :key="index"
+                            class="d-flex ga-2 mb-4"
+                            @click="onClickRegular('1')"
+                        >
+                            <v-card
+                                color="secondary"
+                                :image="videoItem.thumbnail"
+                                class="pa-2 mb-2 rounded-4 d-flex flex-column justify-space-between flex-shrink-0"
+                                width="173"
+                                height="110"
+                                :aspect-ratio="173 / 110"
+                            >
+                                <div v-if="videoItem.singlePurchase">
+                                    <v-chip class="bg-black rounded-4 sm ">
+                                        개별구매
+                                    </v-chip>
+                                </div>
 
-                        <div>
-                            <div class="text-t-sm font-weight-medium line-clamp-3 mb-1">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt iste libero temporibus
-                                fuga
-                                sit aut, vero porro itaque distinctio sed.
-                            </div>
+                                <v-spacer />
 
-                            <div class="text-text-secondary text-t-sm">
-                                카테고리 명
+                                <v-progress-linear
+                                    :model-value="videoItem.progressPercentage"
+                                    :max="100"
+                                    color="primary"
+                                    bg-color="white"
+                                    bg-opacity="0.5"
+                                    :height="6"
+                                    :rounded="3"
+                                />
+                            </v-card>
+
+                            <!-- <v-img
+                                :src="videoItem.thumbnail"
+                                max-width="173px"
+                                width="100%"
+                                height="100%"
+                                alt="contact-us"
+                                class="flex-grow-0 rounded-4"
+                                cover
+                                :aspect-ratio="173 / 110"
+                            /> -->
+
+                            <div>
+                                <div class="text-t-sm font-weight-medium line-clamp-3 mb-1">
+                                    {{ videoItem.title }}
+                                </div>
+
+                                <div class="text-text-secondary text-t-sm">
+                                    {{ videoItem.category }}
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <v-row
+                        v-if="state.list_type == 'square'"
+                        dense
+                    >
+                        <v-col
+                            v-for="(videoItem, index) in dummy_data.videoList"
+                            cols="6"
+                            sm="4"
+                            md="3"
+                            :key="index"
+                            class="mb-2"
+                        >
+                            <div class="overflow-x-auto flex-shrink-0 cursor-pointer">
+                                <v-card
+                                    color="secondary"
+                                    :image="videoItem.thumbnail"
+                                    class="pa-2 mb-2 rounded-4 d-flex flex-column justify-space-between"
+                                    :style="{
+                                        aspectRatio: '1/1',
+                                    }"
+                                >
+                                    <div v-if="videoItem.singlePurchase">
+                                        <v-chip class="bg-black rounded-4 sm ">
+                                            개별구매
+                                        </v-chip>
+                                    </div>
+
+                                    <v-spacer />
+
+                                    <v-progress-linear
+                                        :model-value="videoItem.progressPercentage"
+                                        :max="100"
+                                        color="primary"
+                                        bg-color="white"
+                                        bg-opacity="0.5"
+                                        :height="6"
+                                        :rounded="3"
+                                    />
+                                </v-card>
+
+                                <div class="line-clamp-2 text-t-sm mb-1">
+                                    {{ videoItem.title }}
+                                </div>
+
+                                <div class="text-text-tertiary text-t-sm">
+                                    {{ videoItem.category }}
+                                </div>
+                            </div>
+                        </v-col>
+                    </v-row>
                 </div>
 
                 <!-- ## 숏폼 -->
@@ -427,7 +536,8 @@ const state = reactive({
             icon: '/logo/sns_tiktok.png',
             url: 'https://tiktok.com'
         },
-    ]
+    ],
+    list_type: 'list' // 퍼블리싱 확인용
 });
 
 
@@ -489,6 +599,96 @@ const { t } = useI18n({
     useScope: "local", // 로컬 스코프 설정
 });
 
+
+
+const dummy_data = {
+    videoList: [
+        {
+            id: "1",
+            title: "강의 타이틀 최대 세 줄 강의 타이틀 최대 세 줄 강의 타이틀 최대 세 줄 최대 세 줄 최대 세강의 타이틀 최대 세 줄 강의 타이틀 최대 세 줄 강의 타이틀 최대 세 줄 최대 세 줄 최대 세",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail.png",
+            progressPercentage: 0,
+            singlePurchase: true,
+            category: " 강의 카테고리명"
+        },
+        {
+            id: "1",
+            title: "강의 타이틀 최대 두 줄 뭐 먹고 싶어? 함께 갈 식당 고르기",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail2.png",
+            progressPercentage: 80,
+            singlePurchase: false,
+            category: " 강의 카테고리명"
+        },
+        {
+            id: "1",
+            title: "강의 타이틀 최대 두 줄 뭐 먹고 싶어? 함께 갈 식당 고르기",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail.png",
+            progressPercentage: 40,
+            singlePurchase: true,
+            category: " 강의 카테고리명"
+        },
+        {
+            id: "1",
+            title: "강의 타이틀 최대 두 줄 뭐 먹고 싶어? 함께 갈 식당 고르기",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail.png",
+            progressPercentage: 40,
+            singlePurchase: true,
+            category: " 강의 카테고리명"
+        },
+        {
+            id: "1",
+            title: "강의 타이틀 최대 두 줄 뭐 먹고 싶어? 함께 갈 식당 고르기",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail2.png",
+            progressPercentage: 80,
+            singlePurchase: false,
+            category: " 강의 카테고리명"
+        },
+        {
+            id: "1",
+            title: "강의 타이틀 최대 두 줄 뭐 먹고 싶어? 함께 갈 식당 고르기",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail.png",
+            progressPercentage: 40,
+            singlePurchase: true,
+            category: " 강의 카테고리명"
+        },
+        {
+            id: "1",
+            title: "강의 타이틀 최대 두 줄 뭐 먹고 싶어? 함께 갈 식당 고르기",
+            creator: {
+                name: "creator",
+                profileImage: "/images/class/dummy_profile_image.png",
+            },
+            thumbnail: "/images/home/dummy_thumbnail.png",
+            progressPercentage: 40,
+            singlePurchase: true,
+            category: " 강의 카테고리명"
+        },
+    ]
+}
 </script>
 
 

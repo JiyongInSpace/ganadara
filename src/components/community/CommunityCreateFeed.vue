@@ -117,6 +117,7 @@
                         flat
                         auto-grow
                         hide-details
+                        maxLength="1000"
                     />
 
                     <div class="d-flex justify-space-between align-end pa-3">

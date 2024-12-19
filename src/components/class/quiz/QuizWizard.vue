@@ -32,11 +32,23 @@
                 color="primary"
                 v-model="progress"
                 :max="totalQuizCount"
-                class="flex-shrink-0"
+                class="flex-shrink-0 overflow-visible"
                 height="8"
                 rounded-bar
                 rounded="4"
-            />
+            >
+                <v-card
+                    variant="outlined"
+                    class="text-t-xs font-weight-semibold rounded-8 background-primary border-border-primary transition-all py-2 px-3 mt-14"
+                    elevation="1"
+                    :style="{
+                        position: 'absolute',
+                        left: `calc(${progress * 100 / totalQuizCount}% - 30px)`,
+                    }"
+                >
+                    {{ progress }}/{{ totalQuizCount }}
+                </v-card>
+            </v-progress-linear>
         </v-expand-transition>
     </div>
 

@@ -33,14 +33,14 @@
         <v-list
             v-if="quizInfo?.type === 'audio'"
             lines="one"
-            class="d-flex flex-wrap ma-n1"
+            class="d-flex flex-wrap mx-n2 py-0 mb-2"
             :selected="selectedAnswer"
             @update:selected="selectedAnswer = $event"
         >
             <v-card
                 v-for="(answerItem) in quizInfo?.options"
                 :key="answerItem.id"
-                class="pa-1 border-none elevation-0"
+                class="pa-2 border-none elevation-0"
                 width="50%"
                 height="124"
                 variant="outlined"
@@ -48,29 +48,47 @@
                 <v-list-item
                     :value="answerItem.id"
                     variant="outlined"
-                    class="rounded-lg border border-2 w-100 h-100 d-flex justify-center align-center"
-                    active-class="foreground-secondary text-white"
+                    class="rounded-lg border-border-primary border-2 w-100 h-100 d-flex justify-center align-center background-secondary"
+                    active-class="foreground-secondary text-white border-fg-tertiary"
                 >
-                    <v-icon
-                        icon="mdi-volume-high"
-                        size="54"
-                    />
+                    <svg
+                        width="54"
+                        height="54"
+                        viewBox="0 0 54 54"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M44.4328 11.25C47.6218 15.683 49.5 21.1221 49.5 27C49.5 32.8778 47.6218 38.3169 44.4328 42.75M35.4269 18C37.2064 20.5511 38.25 23.6536 38.25 27C38.25 30.3463 37.2064 33.4488 35.4269 36M21.6772 12.0727L14.5544 19.1955C14.1653 19.5847 13.9707 19.7793 13.7436 19.9184C13.5423 20.0418 13.3229 20.1327 13.0933 20.1878C12.8343 20.25 12.5592 20.25 12.0088 20.25H8.1C6.83988 20.25 6.20982 20.25 5.72852 20.4952C5.30516 20.7109 4.96095 21.0551 4.74524 21.4785C4.5 21.9598 4.5 22.5898 4.5 23.85V30.15C4.5 31.4101 4.5 32.0401 4.74524 32.5214C4.96095 32.9448 5.30516 33.289 5.72852 33.5047C6.20982 33.75 6.83988 33.75 8.1 33.75H12.0088C12.5592 33.75 12.8343 33.75 13.0933 33.8121C13.3229 33.8672 13.5423 33.9582 13.7436 34.0815C13.9707 34.2207 14.1653 34.4152 14.5544 34.8044L21.6772 41.9272C22.6411 42.891 23.123 43.3729 23.5367 43.4055C23.8957 43.4338 24.2466 43.2884 24.4805 43.0146C24.75 42.699 24.75 42.0175 24.75 40.6544V13.3455C24.75 11.9825 24.75 11.3009 24.4805 10.9853C24.2466 10.7115 23.8957 10.5662 23.5367 10.5944C23.123 10.627 22.6411 11.1089 21.6772 12.0727Z"
+                            stroke="currentColor"
+                            stroke-width="3.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
                 </v-list-item>
             </v-card>
         </v-list>
+
+        <div
+            v-if="quizInfo?.type === 'audio'"
+            class="font-weight-medium text-center text-text-disabled"
+        >
+            탭하고 듣기
+        </div>
 
         <!-- IMAGE -->
         <v-list
             v-if="quizInfo?.type === 'image'"
             lines="one"
-            class="d-flex flex-wrap ma-n1"
+            class="d-flex flex-wrap ma-n2"
             :selected="selectedAnswer"
             @update:selected="selectedAnswer = $event"
         >
             <v-card
                 v-for="(answerItem) in quizInfo?.options"
                 :key="answerItem.id"
-                class="pa-1 border-none elevation-0"
+                class="pa-2 border-none elevation-0"
                 width="50%"
                 height="124"
                 variant="outlined"
@@ -78,8 +96,9 @@
                 <v-list-item
                     :value="answerItem.id"
                     variant="outlined"
-                    class="rounded-lg px-3-5 text-t-md border border-2 w-100 h-100 d-block position-relative overflow-hidden"
-                    active-class="foreground-secondary text-white"
+                    class="rounded-lg px-3-5 text-t-md border border-2 w-100 h-100 d-block position-relative overflow-hidden transition-all"
+                    :class="selectedAnswer.length > 0 && 'opacity-50'"
+                    active-class="foreground-secondary text-white opacity-100"
                 >
                     <v-img
                         :src="answerItem.resource"
@@ -232,36 +251,37 @@
     </div>
 
     <!-- 주관식 -->
-    <v-text-field
-        v-if="quizInfo?.type == 'input'"
-        v-model="inputValue"
-        variant="outlined"
-        name="email"
-        validate-on="blur"
-        hide-details
-        @keydown.enter="() => {
-            if (!disabledButton) {
-                buttonNext.onClick();
-            }
-        }"
-    />
+    <div v-if="quizInfo?.type == 'input'">
+        <v-text-field
+            v-model="inputValue"
+            variant="outlined"
+            name="email"
+            validate-on="blur"
+            hide-details
+            @keydown.enter="() => {
+                if (!disabledButton) {
+                    buttonNext.onClick();
+                }
+            }"
+        />
+    </div>
 
     <v-spacer />
 
     <!-- NEXT -->
-     <div>
-         <v-btn
-             v-if="quizInfo?.type != 'input'"
-             variant="tonal"
-             size="x-large"
-             class="primary "
-             block
-             :disabled="disabledButton"
-             @click="buttonNext.onClick"
-         >
-             확인
-         </v-btn>
-     </div>
+    <div>
+        <v-btn
+            v-if="quizInfo?.type != 'input'"
+            variant="tonal"
+            size="x-large"
+            class="primary "
+            block
+            :disabled="disabledButton"
+            @click="buttonNext.onClick"
+        >
+            확인
+        </v-btn>
+    </div>
 </template>
 
 <script lang="ts" setup>

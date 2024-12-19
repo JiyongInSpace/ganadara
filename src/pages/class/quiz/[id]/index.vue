@@ -33,7 +33,6 @@ const dummy_01 = [
             type: 'text',
             prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: " 나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는   나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는 너를 사랑해나는  ",
-            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
         },
         answer: {
             type: 'text',
@@ -49,11 +48,8 @@ const dummy_01 = [
         id: "id_12",
         question: {
             type: 'text',
-            // type: 'image',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: " 나는 너를 사랑해나는",
-            // resource: "path/to/image.jpg"
         },
         answer: {
             type: 'image',
@@ -69,11 +65,8 @@ const dummy_01 = [
         id: "id_13",
         question: {
             type: 'text',
-            // type: 'image',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: " 나는 너를 사랑해나는",
-            // resource: "path/to/image.jpg"
         },
         answer: {
             type: 'audio',
@@ -94,7 +87,6 @@ const dummy_02 = [
             type: 'image',
             prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "/images/class/dummy_question_image.png",
-            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
         },
         answer: {
             type: 'text',
@@ -113,7 +105,6 @@ const dummy_02 = [
             // type: 'image',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "/images/class/dummy_question_image.png",
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'image',
@@ -132,7 +123,6 @@ const dummy_02 = [
             // type: 'image',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "/images/class/dummy_question_image.png",
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'audio',
@@ -153,7 +143,6 @@ const dummy_03 = [
             type: 'audio',
             prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "/audios/audio_01.wav",
-            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
         },
         answer: {
             type: 'text',
@@ -171,7 +160,6 @@ const dummy_03 = [
             type: 'audio',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "/audios/audio_01.wav",
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'image',
@@ -189,7 +177,6 @@ const dummy_03 = [
             type: 'audio',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "/audios/audio_01.wav",
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'audio',
@@ -210,7 +197,6 @@ const dummy_04 = [
             type: 'video',
             prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "https://videocdn.cdnpk.net/videos/e2e74372-70c9-47eb-9432-ccebd8d998fb/vertical/previews/watermarked/large.mp4",
-            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
         },
         answer: {
             type: 'text',
@@ -228,7 +214,6 @@ const dummy_04 = [
             type: 'video',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "https://videocdn.cdnpk.net/videos/e2e74372-70c9-47eb-9432-ccebd8d998fb/vertical/previews/watermarked/large.mp4",
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'image',
@@ -246,7 +231,6 @@ const dummy_04 = [
             type: 'video',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: "https://videocdn.cdnpk.net/videos/e2e74372-70c9-47eb-9432-ccebd8d998fb/vertical/previews/watermarked/large.mp4",
-            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'audio',

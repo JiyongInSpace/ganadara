@@ -73,18 +73,13 @@
         v-if="contentInfo?.question.type === 'audio'"
         class="mb-4 overflow-auto"
     >
-        <v-card
-            class="background-tertiary rounded-lg elevation-0 d-flex justify-center align-center mx-auto"
-            height="72"
-            width="72"
+        <v-img
+            :src="isPlaying ? '/images/class/listen_active.png' : '/images/class/listen_inactive.png'"
+            class="rounded-16 mb-4 cursor-pointer mx-auto"
+            width="120"
+            height="120"
             @click="onClickAudio"
-        >
-            <v-icon
-                icon="mdi-play"
-                size="44"
-                color="primary"
-            />
-        </v-card>
+        />
     </div>
 
     <!-- IMAGE -->
@@ -104,6 +99,13 @@
             {{ contentInfo?.question.resource }}
         </div>
     </v-card>
+
+    <div
+        v-if="contentInfo?.question.content"
+        class="text-text-disabled text-t-md font-weight-bold text-center mb-9"
+    >
+        {{ contentInfo?.question.content }}
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -139,15 +141,24 @@ const audios = computed(() => {
     return new Audio(props.contentInfo?.question.resource);
 });
 
+// 음성 재생 상태 관리
+const isPlaying = ref(false);
+
 const onClickAudio = () => {
     if (!audios.value) return;
 
     if (audios.value.paused) {
         audios.value.play();
+        isPlaying.value = true;
+
+        audios.value.addEventListener('ended', () => {
+            isPlaying.value = false; // 재생이 끝나면 상태를 변경
+        });
     } else {
         audios.value.pause();
+        isPlaying.value = false;
     }
-}
+};
 
 // SELECTED OPTION (SINGLE)
 const selectedOption = computed(() => {

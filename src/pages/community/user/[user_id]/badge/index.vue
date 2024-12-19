@@ -22,7 +22,9 @@
                         :value="mainTabItem"
                         class="border-b flex-1-1-100"
                     >
-                        {{ t(mainTabItem) }}
+                        <div>
+                            <span v-if="isMypage && mainTabItem == 'achievement'">나의</span> {{ t(mainTabItem) }}
+                        </div>
                     </v-tab>
                 </v-tabs>
             </div>

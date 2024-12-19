@@ -31,7 +31,7 @@
 
             <div class="d-flex justify-space-between pt-6 pb-3 px-4 flex-wrap">
                 <span class="text-t-md font-weight-semibold">
-                    {{ formattedDate }} 데일리 랭킹
+                    {{ rankingLabel }}
                 </span>
 
                 <v-spacer />
@@ -90,6 +90,20 @@ const remainingTime = ref("");
 
 const formattedDate = computed(() => {
     return format(currentDate.value, "MM월 dd일");
+});
+
+// 날짜 형식 포맷터
+const rankingLabel = computed(() => {
+  const currentTab = tabMain.tab.value;
+
+  if (currentTab === "daily") {
+    return `${format(currentDate.value, "MM월 dd일")} 데일리 랭킹`;
+  } else if (currentTab === "monthly") {
+    return `${format(currentDate.value, "MM월")} 랭킹`;
+  } else if (currentTab === "total") {
+    return "누적 랭킹";
+  }
+  return ""; // 기본값 처리
 });
 
 const updateRemainingTime = () => {

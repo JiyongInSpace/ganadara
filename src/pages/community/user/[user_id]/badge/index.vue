@@ -30,13 +30,13 @@
             <CommunityAchievementList
                 v-if="tabMain.tab.value == 'achievement'"
                 :list="state.badges"
-                :user="isOtherUser"
+                :isMine="isMypage"
             />
 
             <CommunityGoodsList
                 v-if="tabMain.tab.value == 'goods'"
                 :list="state.goods"
-                :user="isOtherUser"
+                :isMine="isMypage"
             />
         </template>
     </PageTemplate>
@@ -47,9 +47,10 @@ import { IBadge, IGoods } from "@/interfaces";
 import { useI18n } from "vue-i18n";
 import { useUserStore } from '@/stores/user';
 import { storeToRefs } from 'pinia';
+import { RouteLocationNormalizedLoaded } from "vue-router/auto";
 
 const userStore = useUserStore();
-const route = useRoute();
+const route = useRoute() as RouteLocationNormalizedLoaded & { params: { user_id: string } };
 const { id } = storeToRefs(userStore);
 
 const tabMain = {
@@ -80,13 +81,10 @@ const state = reactive({
     goods: [] as IGoods[],
 });
 
-const isOtherUser = computed(() => {
-    if ((route.params as any)?.user_id == id.value) {
-        return undefined
-    }
-    return state.user;
+const isMypage = computed(() => {
+    // 내 페이지인지 확인 (추후 수정)
+    return route.params.user_id == "3" || route.params.user_id == "4";
 })
-
 
 const { t } = useI18n({
     messages: {

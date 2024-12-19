@@ -22,7 +22,7 @@
                         얼마를 보낼까요?
                     </span>
                     <span v-else>
-                        {{ state.howMuch.toLocaleString() }}
+                        {{ state.howMuch.toLocaleString() }} 포인트
                     </span>
                 </div>
 
@@ -37,16 +37,30 @@
                 <div v-if="state.donationStep == 1">
                     <v-card
                         variant="tonal"
-                        class="px-4 py-2 rounded-6 mb-3"
+                        class="d-flex align-center rounded-6 px-4 py-2 mb-3"
                         @click="toggleCurrency"
                     >
                         <span class="text-t-sm font-weight-medium mr-3">
-                            내 {{ state.currency === 'won' ? '원' : '포인트' }}
+                            내 {{ state.currency === 'won' ? '원화달러' : '포인트' }}
                         </span>
+
+                        <v-img
+                            :src="state.currency === 'won' ? '/icons/IconDollarCircle.png' : '/icons/IconPointCircle.png'"
+                            width="16"
+                            height="16"
+                            class="flex-grow-0 mr-1"
+                        />
 
                         <span class="text-t-sm font-weight-medium">
                             {{ wallet[state.currency].toLocaleString() }}
                         </span>
+
+                        <v-spacer />
+
+                        <v-icon
+                            icon="mdi-chevron-right"
+                            size="20"
+                        />
                     </v-card>
 
                     <div class="d-flex ga-2 mb-7">
@@ -143,6 +157,11 @@
         </template>
     </PageTemplate>
 
+
+    <DialogDonate
+        v-model:dialog="state.dialogSelectDonate"
+        @onSelectDonate="onClickSelectDonate"
+    />
 </template>
 
 <script lang="ts" setup>
@@ -161,9 +180,10 @@ const state = reactive({
         profileImage: "/images/class/dummy_profile_image.png",
     },
     howMuch: 0,
-    currency: 'won' as 'won' | 'point', // 타입을 'won' | 'point'로 지정
+    currency: 'point' as 'won' | 'point', // 타입을 'won' | 'point'로 지정
     donationStep: 1,
     radios: null,
+    dialogSelectDonate: false,
 });
 
 const keypad = [
@@ -185,8 +205,14 @@ const keypad = [
 const isOverLimit = computed(() => state.howMuch > wallet.value[state.currency]);
 
 function toggleCurrency() {
-    state.currency = state.currency === 'won' ? 'point' : 'won';
-    state.howMuch = 0; // 통화 전환 시 입력 금액 초기화
+    state.dialogSelectDonate = true;
+    // state.currency = state.currency === 'won' ? 'point' : 'won';
+    // state.howMuch = 0; // 통화 전환 시 입력 금액 초기화
+}
+
+function onClickSelectDonate(methods: string) {
+    console.log(methods);
+    state.currency = methods as 'won' | 'point';
 }
 
 function updateHowMuch(amount: number) {

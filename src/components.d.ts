@@ -33,6 +33,7 @@ declare module 'vue' {
     DashboardCouponList: typeof import('./components/dashboard/coupon/DashboardCouponList.vue')['default']
     DashboardPaymentHistoryItem: typeof import('./components/dashboard/payment/DashboardPaymentHistoryItem.vue')['default']
     DashboardTicketItem: typeof import('./components/dashboard/ticket/DashboardTicketItem.vue')['default']
+    DialogAccessGallery: typeof import('./components/community/DialogAccessGallery.vue')['default']
     DialogBuy: typeof import('./components/class/regular/DialogBuy.vue')['default']
     DialogChapterList: typeof import('./components/class/regular/DialogChapterList.vue')['default']
     DialogComments: typeof import('./components/community/DialogComments.vue')['default']

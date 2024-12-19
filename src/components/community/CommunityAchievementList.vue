@@ -1,14 +1,14 @@
 <template>
     <div class="py-8 text-center border-b">
         <div class="text-t-lg font-weight-semibold mb-2">
-            {{ user ? user.name : "나" }}의 대표 배지
+            {{ isMine ? "나" : state.user.name }}의 대표 배지
         </div>
 
         <div
             v-if="!state.mainBadge"
             class="text-t-sm text-text-tertiary"
         >
-            <span v-if="user">
+            <span v-if="!isMine">
                 설정한 대표 배지가 없습니다.
             </span>
 
@@ -34,7 +34,7 @@
 
     <div class="font-weight-bold text-t-md pt-5 px-4 mb-4">
         <span>
-            {{ user ? user.name + " 배지" : "내 배지" }}
+            {{ isMine ? "내 배지" : state.user.name + " 배지" }}
         </span>
 
         <span class="text-primary ml-1">
@@ -84,7 +84,7 @@
             </div>
 
             <v-btn
-                v-if="!user"
+                v-if="isMine"
                 variant="outlined"
                 class="flex-1-1-100"
                 size="large"
@@ -101,12 +101,15 @@ import { IBadge } from '@/interfaces';
 import { useSnackbarStore } from '@/stores/snackbar';
 
 const props = defineProps<{
-    user?: any;
+    isMine?: boolean;
     list: IBadge[];
 }>();
 
 const state = reactive({
     mainBadge: undefined as IBadge | undefined,
+    user: {
+        name: "userNickName",
+    },
     currentBadge: {
         imageUrl: "",
         name: "",

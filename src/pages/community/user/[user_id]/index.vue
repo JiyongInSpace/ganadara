@@ -8,6 +8,15 @@
             <span class="ml-1">
                 {{ state.user.nickName }}
             </span>
+
+            <v-img
+                v-if="isCreator"
+                src="/logo/ganadara_yellow.png"
+                width="24"
+                height="24"
+                alt="creator"
+                class="flex-grow-0 ml-1"
+            />
         </template>
 
         <template v-slot:append-header>
@@ -17,7 +26,13 @@
                 class="secondary px-2"
                 @click="onClickDonate"
             >
-                <v-icon icon="mdi-heart"></v-icon>
+                <v-img
+                    src="/icons/IconDollar.png"
+                    width="20"
+                    height="20"
+                    alt="donate"
+                    class="flex-grow-0 mr-1-5"
+                />
                 후원
             </v-btn>
 
@@ -26,7 +41,13 @@
                 variant="outlined"
                 class="secondary px-2"
             >
-                <v-icon icon="mdi-currency-usd"></v-icon>
+                <v-img
+                    src="/icons/IconDollar.png"
+                    width="20"
+                    height="20"
+                    alt="donate"
+                    class="flex-grow-0 mr-1-5"
+                />
                 후원이력
             </v-btn>
         </template>
@@ -68,13 +89,29 @@
                             </div>
                         </div>
 
-                        <div class="text-center flex-1-1-100">
+                        <div
+                            v-if="!isCreator"
+                            class="text-center flex-1-1-100"
+                        >
                             <div class="text-t-md font-weight-semibold">
                                 {{ state.user.rank.toLocaleString() }}위
                             </div>
 
                             <div class="text-t-sm text-text-tertiary">
-                                {{ is_creator ? '콘텐츠 수' : '랭킹' }}
+                                랭킹
+                            </div>
+                        </div>
+
+                        <div
+                            v-else
+                            class="text-center flex-1-1-100"
+                        >
+                            <div class="text-t-md font-weight-semibold">
+                                {{ state.user.contents.toLocaleString() }}
+                            </div>
+
+                            <div class="text-t-sm text-text-tertiary">
+                                콘텐츠 수
                             </div>
                         </div>
                     </div>
@@ -109,29 +146,61 @@
 
                         <v-btn
                             v-if="isMypage"
-                            class="primary flex-1-1-100"
-                            variant="tonal"
+                            variant="outlined"
+                            class="flex-1-1-100 secondary"
                             @click="onClickProfile"
                         >
                             프로필 수정
                         </v-btn>
 
-                        <!-- v-model="selectStudyTime.startDate.value"
-                    :items="selectStudyTime.items" -->
-                        <v-select
+                        <v-menu
                             v-if="isCreator"
-                            item-title="name"
-                            item-text="name"
-                            item-value="code"
-                            variant="outlined"
-                            return-object
-                            class="flex-1-1-100"
-                            hide-details
-                            placeholder="SNS"
-                            density="compact"
-                            height="36px"
+                            offset="8"
+                            elevation="0"
                         >
-                        </v-select>
+                            <template v-slot:activator="{ props }">
+                                <v-btn
+                                    v-bind="props"
+                                    flat
+                                    variant="outlined"
+                                    class="flex-1-1-100 secondary"
+                                >
+                                    SNS
+                                    <v-icon right>mdi-chevron-down</v-icon>
+                                </v-btn>
+                            </template>
+
+                            <v-card
+                                flat
+                                minWidth="150"
+                            >
+                                <div class="px-4 py-3 font-weight-semibold text-t-sm border-b">
+                                    연결된 SNS 계정
+                                </div>
+
+                                <v-list>
+                                    <v-list-item
+                                        v-for="(item, index) in state.sns"
+                                        :key="index"
+                                        :value="index"
+                                        @click="onClickSns(item)"
+                                    >
+                                        <v-list-item-title class="d-flex">
+                                            <v-img
+                                                :src="item.icon"
+                                                width="24"
+                                                height="24"
+                                                class="flex-grow-0 mr-2"
+                                            ></v-img>
+
+                                            <span class="text-t-sm font-weight-medium text-text-secondary">
+                                                {{ item.title }}
+                                            </span>
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-card>
+                        </v-menu>
 
                         <v-btn
                             v-if="!isMypage"
@@ -140,6 +209,7 @@
                             variant="outlined"
                             width="36"
                             height="36"
+                            @click="() => state.dialogReport = true"
                         >
                             <v-img
                                 src="/icons/IconMessageAlertSquare.svg"
@@ -154,6 +224,7 @@
                 </div>
 
                 <v-tabs
+                    v-if="isCreator"
                     v-model="tabMain.tab.value"
                     stacked
                     class="flex-shrink-0 text-text-quaternary font-weight-bold main-tab border-b"
@@ -294,6 +365,11 @@
             <app-bottom-navigation />
         </template>
     </PageTemplate>
+
+    <DialogReport
+        v-model:dialog="state.dialogReport"
+        :report-id="route.params.user_id"
+    />
 </template>
 
 <script lang="ts" setup>
@@ -304,16 +380,17 @@ import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 const userStore = useUserStore();
-const { id, is_creator } = storeToRefs(userStore);
 
 const route = useRoute() as RouteLocationNormalizedLoaded & { params: { user_id: string } };
 
 const isMypage = computed(() => {
-    return String(id.value) == route.params.user_id;
+    // 내 페이지인지 확인 (추후 수정)
+    return route.params.user_id == "3" || route.params.user_id == "4";
 })
 
 const isCreator = computed(() => {
-    return is_creator.value;
+    // 크리에이터 여부 확인 (추후 수정)
+    return route.params.user_id == "2" || route.params.user_id == "4";
 })
 
 const state = reactive({
@@ -328,6 +405,29 @@ const state = reactive({
     },
     feeds: [],
     contents: [],
+    dialogReport: false,
+    sns: [
+        {
+            title: 'Mypool',
+            icon: '/logo/sns_mypool.png',
+            url: 'https://ekyss2023.cafe24.com/default/'
+        },
+        {
+            title: 'Instagram',
+            icon: '/logo/sns_instagram.png',
+            url: 'https://instagram.com'
+        },
+        {
+            title: 'Youtube',
+            icon: '/logo/sns_youtube.png',
+            url: 'https://youtube.com'
+        },
+        {
+            title: 'Tiktok',
+            icon: '/logo/sns_tiktok.png',
+            url: 'https://tiktok.com'
+        },
+    ]
 });
 
 
@@ -370,6 +470,10 @@ const onClickShortform = (id: string) => {
 
 const onClickProfile = () => {
     router.push("/dashboard/profile");
+}
+
+const onClickSns = (item: any) => {
+    window.open(item.url, '_blank');
 }
 
 const { t } = useI18n({

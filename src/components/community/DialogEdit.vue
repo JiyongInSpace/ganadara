@@ -11,35 +11,39 @@
         </template>
 
         <v-card class="pt-9 px-4 pb-5 rounded-t-16">
-            <div class="d-flex flex-column justify-center ga-3">
+            <div class="ga-3">
                 <v-btn
-                    class="primary flex-1-1-100 text-start"
+                    class="primary flex-1-1-100 text-start text-start-button px-3"
                     variant="text"
+                    block
                     size="large"
                 >
-                    <template v-slot:prepend>
+                    <div class="w-full">
                         <v-icon
                             icon="mdi-pencil-outline"
                             width="20"
                             height="20"
+                            class="mr-1"
                         />
-                    </template>
-                    수정
+                        수정
+                    </div>
                 </v-btn>
+
                 <v-btn
-                    class="flex-1-1-100"
+                    class="flex-1-1-100 text-start-button px-3 text-error"
                     variant="text"
                     size="large"
                     @click="onClickReport"
                 >
-                    <template v-slot:prepend>
+                    <div class="w-full">
                         <v-icon
                             icon="mdi-trash-can-outline"
                             width="20"
                             height="20"
+                            class="mr-1"
                         />
-                    </template>
-                    삭제
+                        삭제
+                    </div>
                 </v-btn>
             </div>
         </v-card>

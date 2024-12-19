@@ -17,7 +17,7 @@
                 />
 
                 <div class="text-t-lg font-weight-bold position-center">
-                    직접 추가
+                    등록
                 </div>
             </v-toolbar>
 
@@ -36,6 +36,7 @@
 
                     <v-btn
                         variant="outlined"
+                        class="secondary"
                         @click="triggerFileInput"
                     >
                         <template v-slot:prepend>
@@ -58,31 +59,49 @@
 
                 <v-row
                     v-if="files.length > 0"
-                    class="d-flex"
+                    class="d-flex pa-0"
+                    no-gutters
+                    :style="{
+                        margin: '-2.5px'
+                    }"
                 >
                     <v-col
                         v-for="(file, index) in fileDisplays"
                         :key="index"
                         cols="4"
                         class="mt-4 position-relative"
+                        :style="{
+                            padding: '2.5px'
+                        }"
                     >
-                        <div>
+                        <div :style="{
+                            aspectRatio: '1 / 1',
+                        }">
                             <v-img
                                 :src="file.src"
                                 :alt="'Selected Image ' + index"
-                                width="100"
-                                height="100"
+                                width="100%"
+                                height="100%"
                             />
 
                             <v-btn
-                                icon="mdi-close"
+                                icon
                                 @click="removeImage(index)"
-                                class="position-absolute top-1 right-1"
+                                class="position-absolute top-2 right-2"
                                 variant="text"
                                 size="x-small"
                                 width="24"
                                 height="24"
-                            />
+                                :style="{
+                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                }"
+                            >
+                                <v-icon
+                                    icon="mdi-close"
+                                    size="18"
+                                    color="white"
+                                ></v-icon>
+                            </v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -105,18 +124,28 @@
                             {{ state.textarea.value.length }}/1000
                         </span>
 
-                        <v-btn variant="outlined">
-                            <template v-slot:prepend>
-                                <v-img
-                                    src="/images/community/AI.svg"
-                                    width="20"
-                                    height="20"
-                                />
-                            </template>
-
-                            <span class="text-t-sm font-weight-semibold text-fg-disabled">
-                                맞춤법 교정
-                            </span>
+                        <v-btn
+                            icon
+                            size="32"
+                            variant="tonal"
+                            class="secondary rounded-circle text-text-quaternary"
+                        >
+                            <v-img
+                                v-if="!state.isAi"
+                                src="/images/community/Ai_inactive.svg"
+                                width="32"
+                                height="32"
+                                class="flex-grow-1 flex-shrink-0"
+                                @click="state.isAi = true"
+                            />
+                            <v-img
+                                v-else
+                                src="/images/community/AI.svg"
+                                width="32"
+                                height="32"
+                                class="flex-grow-1 flex-shrink-0"
+                                @click="state.isAi = false"
+                            />
                         </v-btn>
                     </div>
                 </v-card>
@@ -137,20 +166,28 @@
             </v-container>
         </v-card>
     </v-dialog>
+
+    <DialogAccessGallery
+        v-model:dialog="state.dialogAccess"
+        @onClickAccess="state.accessGallery = true"
+    />
 </template>
 
 <script lang="ts" setup>
 import { useSnackbarStore } from '@/stores/snackbar';
+import DialogAccessGallery from './DialogAccessGallery.vue';
 
 const snackbar = useSnackbarStore();
 
 const fileInput = ref();
-const files = ref<any>([]);  // 파일들을 저장할 ref
-const fileDisplays = ref<any>([]);  // Display previews
+const files = ref<any>([]); // 파일들을 저장할 ref
+const fileDisplays = ref<any>([]); // Display previews
+
+const MAX_IMAGES = 3; // 최대 이미지 수
 
 onMounted(() => {
     fileInput.value;
-})
+});
 
 const dialog = defineModel("dialog");
 
@@ -159,11 +196,23 @@ const state = reactive({
         value: "",
         max: 1000,
     },
+    isAi: false,
+    accessGallery: false,
+    dialogAccess: false,
 });
-
 
 // 파일 입력 필드를 활성화하는 함수
 function triggerFileInput() {
+    if (!state.accessGallery) {
+        state.dialogAccess = true;
+        return;
+    }
+
+    if (fileDisplays.value.length >= MAX_IMAGES) {
+        snackbar.showSnackbar(`최대 ${MAX_IMAGES}개의 이미지만 첨부할 수 있습니다.`);
+        return;
+    }
+
     if (fileInput.value) {
         fileInput.value.click();
     }
@@ -171,7 +220,24 @@ function triggerFileInput() {
 
 // 파일이 선택되었을 때 실행되는 함수
 function handleFileChange(event: any) {
-    // console.log(event.target.files);  // 선택된 파일들을 콘솔에 출력
+    const selectedFiles = Array.from(event.target.files);
+
+    // 추가 가능한 파일 수 확인
+    const remainingSlots = MAX_IMAGES - fileDisplays.value.length;
+    if (selectedFiles.length > remainingSlots) {
+        snackbar.showSnackbar(`최대 ${remainingSlots}개의 이미지만 추가할 수 있습니다.`);
+    }
+
+    selectedFiles.slice(0, remainingSlots).forEach((file: any) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            fileDisplays.value.push({ src: e.target?.result });
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // 파일 입력 필드 초기화 (같은 파일을 다시 선택할 수 있도록)
+    event.target.value = "";
 }
 
 // 이미지 제거 함수
@@ -179,29 +245,13 @@ function removeImage(index: number) {
     fileDisplays.value.splice(index, 1);
 }
 
-watch(files, (newFiles) => {
-    fileDisplays.value = []; // Reset previews when files change
-    Array.from(newFiles).forEach((file: any) => {
-        if (fileDisplays.value.length < 3) { // 최대 3장
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                fileDisplays.value.push({ src: e.target?.result });
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-});
-
 // ================================
 
 const onClickNext = () => {
-    // console.log(state.textarea.value);
-    // console.log(files.value);
-
     dialog.value = false;
     state.textarea.value = "";
     snackbar.showSnackbar("피드를 등록했습니다.");
-}
+};
 
 </script>
 

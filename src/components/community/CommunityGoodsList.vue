@@ -1,14 +1,14 @@
 <template>
     <div class="py-8 text-center border-b">
         <div class="text-t-lg font-weight-semibold mb-2">
-            {{ user ? user.name : "나" }}의 대표 굿즈
+            {{ isMine ? "나" : state.user.name }}의 대표 굿즈
         </div>
 
         <div
             v-if="!state.mainGoods"
             class="text-t-sm text-text-tertiary"
         >
-            <span v-if="user">
+            <span v-if="!isMine">
                 설정한 대표 굿즈가 없습니다.
             </span>
 
@@ -35,7 +35,7 @@
     <div class="d-flex align-center justify-space-between pt-5 px-4 mb-4">
         <div class="font-weight-bold text-t-md ">
             <span>
-                {{ user ? user.name + " 굿즈" : "내 굿즈" }}
+                {{ isMine ? "내 굿즈" : state.user.name + " 굿즈" }}
             </span>
 
             <span class="text-primary ml-1">
@@ -124,7 +124,7 @@
             </div>
 
             <v-btn
-                v-if="!user"
+                v-if="isMine"
                 variant="outlined"
                 class="flex-1-1-100"
                 size="large"
@@ -143,12 +143,15 @@ import { useSnackbarStore } from '@/stores/snackbar';
 const router = useRouter();
 
 const props = defineProps<{
-    user?: any;
+    isMine?: boolean;
     list: IGoods[];
 }>();
 
 const state = reactive({
     mainGoods: undefined as IGoods | undefined,
+    user: {
+        name: "userNickName",
+    },
     currentGoods: {
         imageUrl: "",
         name: "",
@@ -167,7 +170,7 @@ const onClickGood = (_good: IGoods) => {
 }
 
 const setMainGoods = (_good: IGoods) => {
-    if(state.mainGoods == _good) {
+    if (state.mainGoods == _good) {
         state.mainGoods = undefined;
         state.ui.dialog = false;
         snackbar.showSnackbar("대표 굿즈를 해제했습니다.");

@@ -170,9 +170,27 @@
 
             <v-btn
               variant="outlined"
-              to="/community/user/5"
+              to="/community/user/1"
             >
-              유저 프로필
+              유저 프로필 (유저)
+            </v-btn>
+            <v-btn
+              variant="outlined"
+              to="/community/user/2"
+            >
+              유저 프로필 (크리에이터)
+            </v-btn>
+            <v-btn
+              variant="outlined"
+              to="/community/user/3"
+            >
+              마이 프로필 (유저)
+            </v-btn>
+            <v-btn
+              variant="outlined"
+              to="/community/user/4"
+            >
+              마이 프로필 (크리에이터)
             </v-btn>
 
             <v-btn

@@ -75,6 +75,7 @@
                         <v-btn
                             class="px-2-5 py-1"
                             variant="outlined"
+                            @click="onClickLink(missionItem.linkUrl)"
                         >
                             <span class="text-t-xs font-weight-semibold">
                                 바로가기
@@ -114,6 +115,8 @@
 </template>
 
 <script lang="ts" setup>
+const router = useRouter();
+
 const state = reactive({
     missioninfo: {
         daily: true,
@@ -132,35 +135,35 @@ const state = reactive({
                 description: "매일 레슨 하나씩 꾸준히 한다면?",
                 total: 1,
                 complete: 1,
-                linkUrl: "https://www.naver.com",
+                linkUrl: "/class/regular/1",
             },
             {
                 title: "정규 학습 (문제풀이)",
                 description: "영상으로 배우고 바로 문제를 풀어보세요.",
                 total: 10,
                 complete: 10,
-                linkUrl: "https://www.naver.com",
+                linkUrl: "/class/quiz/1",
             },
             {
                 title: "숏폼 학습",
                 description: "1분 이내 학습 콘텐츠?!",
                 total: 5,
                 complete: 0,
-                linkUrl: "https://www.naver.com",
+                linkUrl: "/class/shortform/1",
             },
             {
                 title: "표현 저장하기 (복습)",
                 description: "오늘 배운 표현들을 저장하고 복습해 보세요.",
                 total: 1,
                 complete: 0,
-                linkUrl: "https://www.naver.com",
+                linkUrl: "/dashboard/additional/review",
             },
             {
                 title: "학습 경험치 획득",
                 description: "하루 10~20분 꾸준하게 학습해 보세요.",
                 total: 50,
                 complete: 0,
-                linkUrl: "https://www.naver.com",
+                linkUrl: "/dashboard/additional/statistics",
             }
         ]
     }
@@ -173,6 +176,10 @@ const computedTotalClearMission = computed(() => {
 const onClickPoint = () => {
     alert('포인트 적립');
     state.missioninfo.completed = true;
+}
+
+const onClickLink = (linkUrl: string) => {
+    router.push(linkUrl)
 }
 
 // 퍼블리싱 확인용 (개발단계에서 삭제) =========

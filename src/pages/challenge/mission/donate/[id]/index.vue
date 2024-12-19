@@ -110,6 +110,7 @@
                             variant="outlined"
                             size="large"
                             block
+                            @click="onClickReview"
                         >
                             후원 후기
                         </v-btn>
@@ -179,6 +180,13 @@
 
 <script lang="ts" setup>
 const router = useRouter();
+const route = useRoute();
+
+onMounted(() => {
+    if((route.params as any).id == "2") {
+        state.details.isCompleted = true;
+    }
+})
 
 const props = defineProps<{
     loading: boolean;
@@ -225,5 +233,9 @@ const state = reactive({
 
 const onClickDonate = () => {
     router.push('/challenge/mission/donate/wizard')
+}
+
+const onClickReview = () => {
+    router.push(`/challenge/mission/donate/${(route.params as any).id}/review`)
 }
 </script>

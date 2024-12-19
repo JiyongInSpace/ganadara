@@ -327,7 +327,14 @@
               variant="outlined"
               to="/challenge/mission/donate/1"
             >
-              후원 상세
+              후원 상세 (진행중)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/challenge/mission/donate/2"
+            >
+              후원 상세 (모금 종료)
             </v-btn>
 
             <v-btn

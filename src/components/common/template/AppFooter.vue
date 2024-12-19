@@ -1,21 +1,21 @@
 <template>
     <div class="background-secondary py-10 px-4">
         <div class="text-t-xs font-weight-semibold mb-5">
-            All purchases on this website, which are paid in cash, are protected by the debt guarantee service
+            All purchases on this website, which are paid in cash, are protected by the <span class="text-decoration-underline font-weight-semibold">debt guarantee service</span>
             provided by PG사명.
         </div>
-        <div class="d-flex justify-space-between mb-5">
+        <div class="d-flex justify-space-between flex-wrap mb-5">
             <div>
                 <v-img
-                    src="/logo/ganadara_logo.png"
+                    src="/logo/ganadara.svg"
                     alt="logo"
-                    width="103"
-                    height="22"
+                    width="142"
+                    height="38"
                     class="flex-shrink-0"
                 ></v-img>
             </div>
 
-            <div class="d-flex justify-center ga-2">
+            <div class="d-flex justify-center ga-2 ml-auto">
                 <v-btn
                     v-for="(sns, key) in footer_sns"
                     :key="key"
@@ -26,8 +26,8 @@
                 >
                     <v-img
                         :src="sns.imageUrl"
-                        width="24"
-                        height="24"
+                        width="30"
+                        height="30"
                     ></v-img>
                 </v-btn>
             </div>
@@ -45,8 +45,8 @@
         </div>
 
         <div class="text-t-xs text-text-quaternary mb-5">
-            이카이스(주)│대표이사 이준엽 | 주소 : (06100) 서울시 강남구 선릉로 119길 15 더비트 빌딩 4층 | 개인정보보호책임자 : 이준엽(privacy@ekyss.co.kr)
-            | 통신판매업 신고 번호 : 2014-서울강남-00416 | 사업자 등록번호 141-81-29267 사업자정보확인<br />고객센터 : 1670-8056<br />(09:00 ~
+            이카이스(주)│대표이사 이준엽 | 주소 : (06100) 서울시 강남구 선릉로 119길 15 더비트 빌딩 4층 | 개인정보보호책임자 : 이준엽 (<span class="text-decoration-underline">privacy@ekyss.co.kr</span>)
+            | 통신판매업 신고 번호 : 2014-서울강남-00416 | 사업자 등록번호 141-81-29267 <span class="text-decoration-underline font-weight-bold">사업자정보확인</span><br />고객센터 : 1670-8056<br />(09:00 ~
             18:00 / 점심시간 13:00 ~ 14:00 / 주말 및 공휴일 휴무)
         </div>
 

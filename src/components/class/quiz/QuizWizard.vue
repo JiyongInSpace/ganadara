@@ -180,6 +180,7 @@ const buttonNext = {
 
 const disabledButton = computed(() => {
     // 대답이 없거나, answerId가 undefined인 경우
-    return !state.answerList.some(response => response.quizItemId === state.currentQuizId);
+    const currentQuizResponse = state.answerList.find(response => response.quizItemId === state.currentQuizId);
+    return !currentQuizResponse || currentQuizResponse.selectedOptionId.length < 1;
 });
 </script>

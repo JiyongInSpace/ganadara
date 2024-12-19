@@ -322,6 +322,50 @@ const dummy_06 = [
             ],
         }
     },
+    {
+        id: "id_02",
+        question: {
+            type: 'blank',
+            prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
+            resource: "My favorite movie __ is science fiction (제가 가장 좋아하는 영화 장르는 공상과학입니다.)",
+            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
+        },
+        answer: {
+            type: 'input',
+            options: [],
+        }
+    },
+    {
+        id: "id_03",
+        question: {
+            type: 'blank',
+            prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
+            resource: "My favorite movie __ is science fiction (제가 가장 좋아하는 영화 장르는 공상과학입니다.)",
+            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
+        },
+        answer: {
+            type: 'audio',
+            options: [
+                { id: 'a', resource: "/audios/audio_01.wav" },
+                { id: 'b', resource: "/audios/audio_01.wav" },
+                { id: 'c', resource: "/audios/audio_01.wav" },
+                { id: 'd', resource: "/audios/audio_01.wav" }
+            ],
+        }
+    },
+    {
+        id: "id_04",
+        question: {
+            type: 'blank',
+            prompt: '아래 문장을 보고 답하세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
+            resource: "My favorite movie __ is science fiction (제가 가장 좋아하는 영화 장르는 공상과학입니다.)",
+            content: "스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)",
+        },
+        answer: {
+            type: 'speaking',
+            options: [],
+        }
+    },
 ]
 
 const dummy_07 = [

@@ -5,18 +5,22 @@
             v-if="quizInfo?.type === 'speaking'"
             class="d-flex flex-column align-center"
         >
-            <v-btn
-                class="bg-primary elevation-0 mb-6"
-                height="85"
-                width="85"
-                :icon="isSpeaking ? 'mdi-microphone' : 'mdi-microphone-outline'"
+            <v-card
+                :image="isSpeaking ? '/images/class/voice_active.png':'/images/class/voice_inactive.png'"
+                width="120"
+                height="120"
+                flat
                 @mousedown="buttonSpeaking.event.onMousedown"
                 @mouseup="buttonSpeaking.event.onMouseup"
                 @touchstart="buttonSpeaking.event.onMousedown"
                 @touchend="buttonSpeaking.event.onMouseup"
+                class="mb-6"
             />
 
-            <div class="text-t-md font-weight-medium text-text-disabled mb-6">탭하고 말하기</div>
+            
+            <div class="text-t-md font-weight-medium text-text-disabled mb-6">
+                {{ isSpeaking ? '듣는 중' : '탭하고 말하기' }}
+            </div>
 
             <v-sheet
                 max-height="56"

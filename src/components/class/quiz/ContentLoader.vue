@@ -55,7 +55,7 @@
                         min-width="100"
                         height="45"
                     >
-                        {{ selectedOption?.resource }}
+                        <!-- {{ selectedOption?.resource }} -->
                     </v-card>
 
                     <span v-else>{{ englishWord }}</span>

@@ -34,19 +34,25 @@
                 </div>
 
                 <div
-                    v-if="fileInputCapture.files.value"
-                    class="text-t-xs font-weight-medium truncate"
+                    v-if="fileInputCapture.files.length > 0"
+                    class="text-t-xs font-weight-medium"
                 >
-                    <span class="mr-1">
-                        {{ fileInputCapture.files.value?.name }}
-                    </span>
+                    <div
+                        v-for="(file, index) in fileInputCapture.files"
+                        :key="index"
+                        class="d-flex align-center ga-1 mb-1"
+                    >
+                        <span class="truncate">
+                            {{ file.name }}
+                        </span>
 
-                    <v-icon
-                        icon="mdi-close"
-                        size="small"
-                        class="cursor-pointer"
-                        @click="fileInputCapture.files.value = null"
-                    ></v-icon>
+                        <v-icon
+                            icon="mdi-close"
+                            size="small"
+                            class="cursor-pointer"
+                            @click="removeFile(index)"
+                        ></v-icon>
+                    </div>
                 </div>
             </div>
 
@@ -54,6 +60,7 @@
                 <input
                     type="file"
                     ref="fileInput"
+                    multiple
                     @change="fileInputCapture.event.onChange"
                 />
             </div>
@@ -97,7 +104,7 @@ const fileInput = ref();
 
 onMounted(() => {
     fileInput.value;
-})
+});
 
 const textareaMessage = {
     value: ref(),
@@ -106,7 +113,7 @@ const textareaMessage = {
             textareaMessage.value.value = _event.target.value;
         }
     }
-}
+};
 
 const buttonFileInput = {
     event: {
@@ -114,17 +121,21 @@ const buttonFileInput = {
             fileInput.value.click();
         }
     }
-}
+};
 
 const fileInputCapture = {
-    files: ref(),
+    files: reactive<any[]>([]), // 파일들을 배열로 저장
     event: {
         onChange: (_event: any) => {
-            fileInputCapture.files.value = _event.target.files[0];
+            const newFiles = Array.from(_event.target.files);
+            fileInputCapture.files.push(...newFiles); // 새 파일 추가
         }
     }
-    // fileInput.value.$refs.input.click();
-}
+};
+
+const removeFile = (index: number) => {
+    fileInputCapture.files.splice(index, 1); // 파일 제거
+};
 
 const buttonCancel = {
     event: {
@@ -133,7 +144,7 @@ const buttonCancel = {
             emit('onClickCancel');
         }
     }
-}
+};
 
 const buttonContactUs = {
     event: {
@@ -142,18 +153,16 @@ const buttonContactUs = {
             emit('onClickContactUs');
 
             // API call
-            // console.log(textareaMessage.value.value);
-            // console.log(fileInputCapture.files.value);
+            console.log("Message:", textareaMessage.value.value);
+            console.log("Files:", fileInputCapture.files);
 
             textareaMessage.value.value = "";
-            fileInputCapture.files.value = null;
+            fileInputCapture.files.length = 0; // 파일 배열 초기화
 
             snackbar.showSnackbar("문의가 완료되었습니다.");
         }
     }
-}
-
-
+};
 </script>
 
 <style lang="scss" scoped></style>

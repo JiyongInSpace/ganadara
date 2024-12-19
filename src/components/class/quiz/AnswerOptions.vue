@@ -6,7 +6,7 @@
             class="d-flex flex-column align-center"
         >
             <v-card
-                :image="isSpeaking ? '/images/class/voice_active.png':'/images/class/voice_inactive.png'"
+                :image="isSpeaking ? '/images/class/voice_active.png' : '/images/class/voice_inactive.png'"
                 width="120"
                 height="120"
                 flat
@@ -17,7 +17,7 @@
                 class="mb-6"
             />
 
-            
+
             <div class="text-t-md font-weight-medium text-text-disabled mb-6">
                 {{ isSpeaking ? '듣는 중' : '탭하고 말하기' }}
             </div>
@@ -264,7 +264,8 @@
             hide-details
             @keydown.enter="() => {
                 if (!disabledButton) {
-                    buttonNext.onClick();
+                    inputValue = '';
+                    dialogCorrect = true;
                 }
             }"
         />
@@ -281,11 +282,18 @@
             class="primary "
             block
             :disabled="disabledButton"
-            @click="buttonNext.onClick"
+            @click="onClickConfirm"
         >
+            <!-- @click="buttonNext.onClick" -->
             확인
         </v-btn>
     </div>
+
+    <DialogCorrect
+        v-model:dialog="dialogCorrect"
+        @onClickButton="buttonNext.onClick"
+    />
+    <DialogWrong v-model:dialog="dialogWrong" />
 </template>
 
 <script lang="ts" setup>
@@ -314,6 +322,8 @@ const emit = defineEmits<{
 
 const selectedAnswer = ref<string[]>([]);
 const inputValue = ref<string>('');
+const dialogCorrect = ref(false);
+const dialogWrong = ref(false);
 
 // ## watcher 
 
@@ -463,4 +473,12 @@ const buttonNext = {
         selectedAnswer.value = [];
     }
 };
+
+const onClickConfirm = () => {
+    if(selectedAnswer.value[currentQuizIndex.value] == 'a') {
+        dialogCorrect.value = true;
+    } else {
+        dialogWrong.value = true;
+    }
+}
 </script>

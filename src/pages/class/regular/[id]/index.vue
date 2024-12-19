@@ -1,4 +1,3 @@
-
 <template>
     <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
         <v-sheet>
@@ -232,14 +231,6 @@
                 문제 풀기
             </v-btn>
         </div>
-
-        <DialogUnitCompleted
-            v-model:dialog="state.ui.dialogCompleted"
-            :state="state"
-            :expressions="state.class.expression"
-        />
-
-
     </v-container>
 </template>
 
@@ -249,7 +240,9 @@ import { throttle } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 
 const route = useRoute();
+const router = useRouter();
 const classId = computed(() => route.params.id);
+
 
 const MAIN_TAB = {
     TRANSCRIPT: 'transcript',
@@ -338,7 +331,7 @@ const fetchData = (id: number) => {
         isLiked: false,
         isBookmarked: false,
         isSubscribed: false,
-        isAvailable: false,
+        isAvailable: true,
         scriptType: "cues",
         transcaript: `Guns change everything, and a bullet is foreverGuns change everything, and a bullet is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
@@ -375,7 +368,7 @@ const fetchData = (id: number) => {
             },
             {
                 time: 17,
-                text_en: "17choe naol moon-goo ibnida. 17choe naol moon-goo ibnida. 17choe naol moon-goo ibnida." ,
+                text_en: "17choe naol moon-goo ibnida. 17choe naol moon-goo ibnida. 17choe naol moon-goo ibnida.",
                 text_ko: "17초에 나올 문구입니다.",
             },
             {
@@ -437,9 +430,11 @@ const fetchData = (id: number) => {
 };
 
 // route.params.id가 변경될 때마다 fetchData 함수를 호출
-watch(() => route.params.id, (newId: any) => {
-    fetchData(newId);
-}, { immediate: true });
+watch(
+    () => route.params.id,
+    (newId: any) => {
+        fetchData(newId);
+    }, { immediate: true });
 
 // CSS 관련 ========================================
 const updateRect = () => {
@@ -503,19 +498,9 @@ const buttonBookmark = {
 
 const buttonShare = {
     onClick: () => {
-        if (navigator.share) { // Navigator를 지원하는 경우만 실행
-            navigator
-                .share()
-                .then(() => {
-                    // 정상 동작할 경우 실행
-                    alert('공유하기 성공')
-                })
-                .catch((error) => {
-                    alert('에러가 발생했습니다.')
-                })
-        } else { // navigator를 지원하지 않는 경우
-            alert('페이지 공유를 지원하지 않습니다.')
-        }
+        navigator.share({
+            text: window.location.href
+        })
     }
 }
 
@@ -583,8 +568,7 @@ const currentVideoTime = ref(0);
 const customVideo = {
     event: {
         onEnded: () => {
-            // alert("VIDEO ENDED");
-            state.ui.dialogCompleted = true;
+            router.push(`/class/regular/${route.params.id}/results`);
         },
         onTimeUpdate: (_event: any) => {
             currentVideoTime.value = _event;

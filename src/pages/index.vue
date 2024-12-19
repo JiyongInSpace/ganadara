@@ -90,6 +90,13 @@
             >
               숏폼
             </v-btn>
+            
+            <v-btn
+              variant="outlined"
+              to="/class/test"
+            >
+              평가테스트
+            </v-btn>
 
             <v-btn
               variant="outlined"

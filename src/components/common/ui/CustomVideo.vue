@@ -179,9 +179,59 @@ onMounted(() => {
         player.value.on('ended', () => event.ended());
         player.value.on('timeupdate', () => event.timeupdate());
         player.value.on('loadedmetadata', () => event.loadedmetadata());
-        // 추가 이벤트 핸들러 필요시 여기에 등록
+        // 전체 화면 변경 이벤트
+        player.value.on('fullscreenchange', () => {
+            const isFullscreen = player.value?.isFullscreen();
+
+            if (isFullscreen) {
+                // 비디오 플레이어 요소
+                const playerElement = player.value?.el();
+                if (playerElement) {
+                    let customOverlay = playerElement.querySelector('.video-custom-overlay');
+
+                    if (!customOverlay) {
+                        // 커스텀 오버레이 생성
+                        customOverlay = document.createElement('div');
+                        customOverlay.className = 'video-custom-overlay';
+
+                        // 버튼 및 이벤트 추가
+                        const backButton = document.createElement('img');
+                        backButton.src = '/icons/IconChevronLeft.png';
+                        backButton.style.width = '24px';
+                        backButton.style.height = '24px';
+                        backButton.className = 'flex-grow-0 cursor-pointer';
+                        backButton.onclick = () => {
+                            console.log('Back button clicked!');
+                        };
+
+                        const playbackSpeed = document.createElement('div');
+                        playbackSpeed.className = 'cursor-pointer';
+                        playbackSpeed.innerText = 'Playback Speed';
+                        playbackSpeed.onclick = () => {
+                            state.playbackRate = state.playbackRate === 1.0 ? 1.5 : 1.0;
+                            player.value?.playbackRate(state.playbackRate);
+                            console.log(`Playback rate changed to: ${state.playbackRate}`);
+                        };
+
+                        // 오버레이에 추가
+                        customOverlay.appendChild(backButton);
+                        customOverlay.appendChild(playbackSpeed);
+
+                        playerElement.appendChild(customOverlay);
+                    }
+                }
+            } else {
+                // 전체 화면 종료 시 오버레이 제거
+                const playerElement = player.value?.el();
+                const customOverlay = playerElement?.querySelector('.video-custom-overlay');
+                if (customOverlay) {
+                    customOverlay.remove();
+                }
+            }
+        });
     }
 });
+
 
 const event = {
 
@@ -227,6 +277,7 @@ const event = {
     // 재생완료
     ended: () => {
         state.isPaused = true;
+        emit("onEnded");
     },
 
     slider: {
@@ -340,6 +391,7 @@ const duration = computed(() => {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 10;
 }
 
 .mt-n3-5 {

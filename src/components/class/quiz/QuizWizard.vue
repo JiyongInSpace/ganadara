@@ -167,6 +167,7 @@ const buttonSkip = {
 const buttonNext = {
     onClick: () => {
         const currentIndex = props.quizList.findIndex(quiz => quiz.id === state.currentQuizId);
+
         if (currentIndex !== -1) {
             if (currentIndex + 1 < props.quizList.length) {
                 state.currentQuizId = props.quizList[currentIndex + 1].id;

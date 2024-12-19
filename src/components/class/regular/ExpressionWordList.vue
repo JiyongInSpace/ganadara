@@ -7,7 +7,7 @@
         >
             <v-btn
                 icon="mdi-headphones"
-                class="squared"
+                class="squared secondary"
                 variant="outlined"
             >
                 <v-img

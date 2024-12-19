@@ -14,12 +14,12 @@
                 <v-chip-group
                     v-model="chipExpression.tab.value"
                     class="ga-2 flex-shrink-0"
-                    selected-class="bg-black text-text-primary_on-brand"
+                    selected-class="foreground-primary text-text-primary_on-brand"
                     mandatory
                 >
                     <v-chip
                         v-for="chipExpressionItem in chipExpression.list"
-                        class="border-border-primary ma-0 mr-2"
+                        class="border-border-primary ma-0 mr-2 background-secondary"
                         :value="chipExpressionItem"
                     >
                         <span class="text-t-xs">

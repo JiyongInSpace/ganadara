@@ -22,6 +22,23 @@
             </v-toolbar>
 
             <v-container class="overflow-y-auto mb-22">
+
+                <div
+                    v-if="props.defaultValue"
+                    class="d-flex align-center justify-start mb-5"
+                >
+                    <v-img
+                        :src="props.defaultValue?.user.profileImage"
+                        width="32"
+                        height="32"
+                        class="mr-2-5 flex-grow-0"
+                    />
+
+                    <span class="text-t-sm font-weight-semibold">
+                        {{ props.defaultValue?.user.name }}
+                    </span>
+                </div>
+
                 <div class="d-flex justify-space-between align-center">
                     <!-- 숨겨진 파일 입력 필드 -->
                     <v-file-input
@@ -58,7 +75,7 @@
                 </div>
 
                 <v-row
-                    v-if="files.length > 0"
+                    v-if="fileDisplays.length > 0"
                     class="d-flex pa-0"
                     no-gutters
                     :style="{
@@ -110,15 +127,26 @@
                     variant="outlined"
                     class="border-border-primary border-solid rounded-8 mt-8"
                 >
-                    <v-textarea
-                        v-model="state.textarea.value"
-                        variant="solo"
-                        placeholder="텍스트를 입력해 주세요."
-                        flat
-                        auto-grow
-                        hide-details
-                        maxLength="1000"
-                    />
+                    <div class="position-relative">
+                        <v-textarea
+                            v-model="state.textarea.value"
+                            variant="solo"
+                            placeholder="텍스트를 입력해 주세요."
+                            flat
+                            auto-grow
+                            hide-details
+                            maxLength="1000"
+                            :class="{ 'opacity-0': state.isAi }"
+                        />
+
+                        <div
+                            v-if="state.isAi"
+                            class="position-absolute top-0 left-0 px-3 py-2 w-100 h-100"
+                            v-html="computedAiText"
+                        >
+                        </div>
+                    </div>
+
 
                     <div class="d-flex justify-space-between align-end pa-3">
                         <span class="text-t-xs text-text-placeholder">
@@ -161,7 +189,7 @@
                         @click="onClickNext"
                         :disabled="!state.textarea.value"
                     >
-                        등록하기
+                        {{ props.defaultValue ? '수정하기' : '등록하기' }}
                     </v-btn>
                 </div>
             </v-container>
@@ -177,6 +205,14 @@
 <script lang="ts" setup>
 import { useSnackbarStore } from '@/stores/snackbar';
 import DialogAccessGallery from './DialogAccessGallery.vue';
+import { IFeedItem } from '@/interfaces';
+
+const props = withDefaults(defineProps<{
+    defaultValue?: IFeedItem | null;
+}>(), {
+    defaultValue: null
+});
+
 
 const snackbar = useSnackbarStore();
 
@@ -188,6 +224,11 @@ const MAX_IMAGES = 3; // 최대 이미지 수
 
 onMounted(() => {
     fileInput.value;
+
+    if (props.defaultValue) {
+        state.textarea.value = props.defaultValue.content.text;
+        fileDisplays.value = props.defaultValue.content.images.map((src) => ({ src }));
+    }
 });
 
 const dialog = defineModel("dialog");
@@ -253,6 +294,44 @@ const onClickNext = () => {
     state.textarea.value = "";
     snackbar.showSnackbar("피드를 등록했습니다.");
 };
+
+
+
+
+// AI 변환 함수 (퍼블리싱 확인용 임시) ============================
+function wrapRandomSpan(input: string, wrapClass: string, wrapCount = 1) {
+    // 문자열을 배열로 변환
+    let chars = input.split('');
+
+    // 래핑 횟수만큼 반복
+    for (let i = 0; i < wrapCount; i++) {
+        if (chars.length === 0) break;
+
+        // 랜덤 시작 인덱스 선택
+        const startIndex = Math.floor(Math.random() * chars.length);
+
+        // 랜덤 끝 인덱스 선택 (최소 1글자 이상)
+        const endIndex = Math.min(
+            startIndex + Math.floor(Math.random() * (chars.length - startIndex)),
+            chars.length - 1
+        );
+
+        // 선택한 부분 래핑
+        const wrapped = `<span class="${wrapClass}">${chars
+            .slice(startIndex, endIndex + 1)
+            .join('')}</span>`;
+
+        // 원래 배열에서 해당 부분 교체
+        chars.splice(startIndex, endIndex - startIndex + 1, wrapped);
+    }
+
+    // 배열을 다시 문자열로 변환하여 반환
+    return chars.join('');
+}
+
+const computedAiText = computed(() => {
+    return wrapRandomSpan(state.textarea.value, "text-warning font-weight-medium", 2)
+})
 
 </script>
 

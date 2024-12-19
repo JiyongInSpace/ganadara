@@ -32,6 +32,7 @@
             <DialogEdit
                 v-if="isMyFeed"
                 :edit-id="feedItem.content.id"
+                @onClickEdit="onClickEdit"
             />
             <!-- v-else -->
             <DialogReport
@@ -215,6 +216,11 @@
             </div>
         </div>
     </div>
+
+    <CommunityCreateFeed
+        v-model:dialog="state.ui.dialogEdit"
+        :default-value="feedItem"
+    />
 </template>
 
 <script lang="ts" setup>
@@ -244,6 +250,7 @@ const state = reactive({
     ui: {
         dialogReport: false,
         dialogComment: false,
+        dialogEdit: false,
     }
 });
 
@@ -280,4 +287,8 @@ const onClickShare = async () => {
         console.error("공유 실패:", error);
     }
 };
+
+const onClickEdit = () => {
+    state.ui.dialogEdit = true;
+}
 </script>

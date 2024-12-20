@@ -19,10 +19,10 @@
             @mounted="videoPlayer.event.onMounted"
             @ended="videoPlayer.event.onEnded"
             @timeupdate="videoPlayer.event.timeupdate"
+            @play="videoPlayer.event.onPlay"
+            @pause="videoPlayer.event.onPause"
         >
             <!-- @ready="event.event($event)"
-            @play="event.play($event)"
-            @pause="event.pause($event)"
             @loadeddata="event.loadeddata($event)"
             @waiting="event.event($event)"
             @playing="event.event($event)"
@@ -70,6 +70,26 @@
             variant="text"
             @click="buttonBack.event.onClick"
         />
+    </div>
+
+    <!-- 자막 -->
+
+    <div
+        class="position-absolute d-flex justify-center right-0 left-0 mx-5"
+        :style="{
+            top: '15%',
+            maxWidth: 'calc(100% - 40px)',
+        }"
+    >
+        <v-card
+            class="custom-background text-t-sm font-weight-medium text-white text-center w-fit rounded-8 pa-3"
+            :style="{
+                maxWidth: 'calc(100% - 40px)',
+            }"
+            v-html="currentCaption"
+        >
+
+        </v-card>
     </div>
 
     <DialogContactUs v-model:dialog="state.ui.dialogContactUs">
@@ -167,7 +187,7 @@
                 :list="state.shortform.music"
             />
         </div>
-        
+
         <!-- RIGHT -->
         <div class="text-center d-flex flex-column ga-6">
             <div>
@@ -233,6 +253,11 @@
     <DialogPricing v-model:dialog="state.ui.dialogPricing" />
     <!-- @onClickSub="buttonPricing.event.onClickSub"
         @onClickMain="buttonPricing.event.onClickMain" -->
+
+    <v-overlay
+        v-model="isPaused"
+        close-on-content-click
+    />
 </template>
 
 <script lang="ts" setup>
@@ -249,7 +274,6 @@ const dummy1 = {
     // video info
     title: "Short-form Title",
     description: "Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet.",
-    // videoUrl: "https://videocdn.cdnpk.net/videos/691242e9-ec82-42d6-a693-c6b22db4f5da/vertical/previews/watermarked/large.mp4",
     videoUrl: "https://videocdn.cdnpk.net/videos/723c2417-05d1-4643-b42a-c136b6e386f7/vertical/previews/watermarked/large.mp4",
     creator: {
         name: "creator",
@@ -346,7 +370,7 @@ const videoRef = ref();
 const startX = ref(0);
 const endX = ref(0);
 const diffX = ref(0);
-
+const isPaused = ref(false);
 
 onMounted(() => {
     videoRef.value;
@@ -371,6 +395,9 @@ const videoPlayer = {
         },
         onEnded: () => {
             alert("onEnded");
+
+             // 임시 자막 테스트
+             stopCaptionChange();
         },
         timeupdate: (event: any) => {
             if (state.shortform.isAvailable) {
@@ -401,9 +428,33 @@ const videoPlayer = {
             endX.value = _event.changedTouches[0].clientX;
             checkSwipeAction();
             diffX.value = 0;
-        }
+        },
+        onPlay: () => {
+            isPaused.value = false;
+
+
+            // 임시 자막 테스트
+            startCaptionChange();
+        },
+        onPause: () => {
+            isPaused.value = true;
+
+            // 임시 자막 테스트
+            stopCaptionChange();
+        },
     }
 };
+
+watch(
+    () => isPaused.value,
+    () => {
+        if (isPaused.value) {
+            videoRef.value.pause();
+        } else {
+            videoRef.value.play();
+        }
+    }
+)
 
 const checkSwipeAction = () => {
     const threshold = 100; // 최소 이동 거리 (px)
@@ -525,6 +576,41 @@ const buttonBack = {
     }
 };
 
+
+
+// 퍼블리싱 자막 확인용
+const captionState = reactive({
+    captions: [
+        "Hello, It’s Subtitle Area.",
+        `Hello, It’s Subtitle area.Hello, It’s Subtitle area.
+        Hello, It’s Subtitle area. Hello, It’s Subtitle area.
+        Hello, It’s Subtitle area.Hello.`,
+        `Сегодня погода очень хорошая,
+        как насчет того, чтобы пойти в кафе?`
+    ],
+    captionIndex: 0,
+    intervalId: null as any,
+})
+
+const currentCaption = computed(() => {
+    return captionState.captions[captionState.captionIndex];
+})
+
+const startCaptionChange = () => {
+    if (captionState.intervalId) return; // 이미 실행 중인 경우 중복 실행 방지
+    captionState.intervalId = setInterval(() => {
+        captionState.captionIndex = (captionState.captionIndex + 1) % captionState.captions.length;
+    }, 3000); // 3초마다 자막 변경
+}
+
+const stopCaptionChange = () => {
+    if (captionState.intervalId) {
+        clearInterval(captionState.intervalId);
+        captionState.intervalId = null;
+    }
+}
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -538,5 +624,10 @@ const buttonBack = {
     /* 16:9 Aspect Ratio */
     height: 100vh;
     /* Collapse the container to the padding */
+}
+
+.custom-background {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    /* 흰색 반투명 */
 }
 </style>

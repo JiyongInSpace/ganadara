@@ -5,7 +5,7 @@ export interface IChapter {
   name: string
   id: number
   groupSize: number
-  isLocked: boolean
+  isOpen: boolean
   state: string
   totalProblems: number
   solvedProblems: number

@@ -48,6 +48,7 @@
                     <VerticalProgressBars
                         :list="state.experienceList"
                         :is-active="state.experienceList.length - 1"
+                        :averageExperience="state.averageExperience"
                     />
                 </div>
 
@@ -297,6 +298,7 @@ const state = reactive({
     // 학습 경험치
     experience: 0,
     experienceList: [] as IExperienceItem[],
+    averageExperience: 0,
 
     studyTime: 0,
     attendanceStreak: 0,
@@ -436,6 +438,8 @@ const setDummyDaily = () => {
             percentage: 50,
         },
     ];
+    state.averageExperience = 0;
+
     // 레벨 테스트
     state.level = 2;
     state.levelTop = 10;
@@ -486,6 +490,7 @@ const setDummyMonthly = () => {
             percentage: 50,
         },
     ];
+    state.averageExperience = 0;
 }
 const setDummyTotally = () => {
     state.experience = 10000;
@@ -514,6 +519,7 @@ const setDummyTotally = () => {
             percentage: 90,
         },
     ];
+    state.averageExperience = 40;
 }
 </script>
 

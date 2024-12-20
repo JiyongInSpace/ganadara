@@ -15,8 +15,8 @@
                 flat
             >
                 <div class="border border-border-secondary background-secondary rounded-12">
-                    <div class="py-2 px-5 border-b">
-                        <div class="font-weight-bold mb-0-5">
+                    <div class="pt-2 px-5 border-b">
+                        <div class="font-weight-bold">
                             카드 번호
                         </div>
 
@@ -27,6 +27,7 @@
                                 flat
                                 placeholder="카드 번호 ‘-’ 없이 입력"
                                 class="xs"
+                                density="compact"
                                 hide-details
                                 maxlength="16"
                                 @input="validateCardNumber"
@@ -35,8 +36,8 @@
                     </div>
 
                     <div class="d-flex border-b">
-                        <div class="flex-1-1-100 py-2 px-5 border-e">
-                            <div class="font-weight-bold mb-0-5">
+                        <div class="flex-1-1-100 pt-2 px-5 border-e">
+                            <div class="font-weight-bold">
                                 유효기간
                             </div>
 
@@ -47,6 +48,7 @@
                                     flat
                                     placeholder="MMYY"
                                     class="xs"
+                                    density="compact"
                                     hide-details
                                     maxlength="4"
                                     @input="validateExpirationDate"
@@ -54,8 +56,8 @@
                             </div>
                         </div>
 
-                        <div class="flex-1-1-100 py-2 px-5">
-                            <div class="font-weight-bold mb-0-5">
+                        <div class="flex-1-1-100 pt-2 px-5">
+                            <div class="font-weight-bold">
                                 CVC
                             </div>
 
@@ -66,6 +68,7 @@
                                     flat
                                     placeholder="뒷면 숫자 3자리"
                                     class="xs"
+                                    density="compact"
                                     hide-details
                                     maxlength="3"
                                     @input="validateCVC"
@@ -74,8 +77,8 @@
                         </div>
                     </div>
 
-                    <div class="py-2 px-5">
-                        <div class="font-weight-bold mb-0-5">
+                    <div class="pt-2 px-5">
+                        <div class="font-weight-bold">
                             카드 비밀번호
                         </div>
 
@@ -86,6 +89,7 @@
                                 flat
                                 placeholder="비밀번호 앞 2자리 숫자"
                                 class="xs"
+                                density="compact"
                                 hide-details
                                 maxlength="2"
                                 type="password"
@@ -231,7 +235,11 @@
 
 <script lang="ts" setup>
 import { useSnackbarStore } from '@/stores/snackbar';
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
 
+const userStore = useUserStore();
+const { myPaymentMethods } = storeToRefs(userStore);
 const snackbar = useSnackbarStore();
 const router = useRouter();
 
@@ -283,6 +291,15 @@ const isFormValid = computed(() => {
 });
 
 const onClickSubmit = () => {
+    router.push('/dashboard/payment');
+    myPaymentMethods.value.push({
+        id: myPaymentMethods.value.length + 1,
+        name: '카드사명',
+        icon: 'mdi-credit-card',
+        type: 'credit',
+        number: state.cardNumber.slice(0, 4),
+        isDefault: myPaymentMethods.value.length === 0,
+    });
     snackbar.showSnackbar(`{카드사명}(${state.cardNumber.slice(0, 4)}) 카드를 등록했습니다.`, 100000);
 }
 
@@ -324,5 +341,9 @@ const validateCardPassword = () => {
 
 :deep(.v-field--variant-solo) {
     background: none;
+}
+
+.v-field--variant-solo {
+    background: none !important;
 }
 </style>

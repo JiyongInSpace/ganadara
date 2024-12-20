@@ -1,4 +1,3 @@
-
 <template>
     <PageTemplate
         back-button
@@ -91,6 +90,8 @@
                 </v-row>
             </div>
 
+            <AppFooter />
+            
             <DialogPolicy
                 v-model:dialog="state.dialogPolicy"
                 :currentPolicyKey="state.currentPolicyKey"
@@ -99,6 +100,7 @@
             <DialogCookies v-model:dialog="state.dialogCookies" />
         </template>
     </PageTemplate>
+
 </template>
 
 <script lang="ts" setup>

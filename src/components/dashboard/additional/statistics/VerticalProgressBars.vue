@@ -12,11 +12,9 @@
 
     <div
         v-else
-        class="d-flex justify-space-around px-3"
+        class="d-flex justify-space-around position-relative px-3"
     >
-        <div
-            v-for="({ label, percentage }, index) in props.list"
-        >
+        <div v-for="({ label, percentage }, index) in props.list">
             <div class="d-flex align-end line-path background-util-blue rounded-xl mb-2-5 mx-auto">
                 <div
                     class="w-100 rounded-xl"
@@ -34,6 +32,23 @@
                 v-html="label"
             />
         </div>
+
+        <!-- averageExperience의 비율만큼 선 추가 -->
+        <div
+            v-if="averageExperience"
+            class="position-absolute border-dashed-trick w-100 left-0"
+            :style="{
+                top: `${averageExperience}%`,
+                height: '1px',
+            }"
+        >
+            <v-chip
+                size="small"
+                class="position-absolute bg-black bottom-2 right-0 px-4"
+            >
+                전체 사용자 평균
+            </v-chip>
+        </div>
     </div>
 </template>
 
@@ -44,6 +59,7 @@ const props = withDefaults(defineProps<{
         percentage: number;
     }[];
     isActive: number;
+    averageExperience: number;
 }>(), {
     isActive: 0,
 });
@@ -54,5 +70,12 @@ const props = withDefaults(defineProps<{
 .line-path {
     width: 20px;
     height: 198px;
+}
+
+.border-dashed-trick {
+    background-image: linear-gradient(to right, black 60%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
 }
 </style>

@@ -178,9 +178,30 @@
 
             <div
                 v-else
-                class="text-t-sm mb-1"
+                class="d-flex align-end text-t-sm mb-1 w-full"
+                :class="{ 'truncate': !state.ui.moreView }"
             >
-                {{ feedItem.content.text }}
+                <div
+                    v-if="!state.ui.moreView"
+                    v-html="feedItem.content.text"
+                    class="truncate"
+                >
+                </div>
+
+                <div
+                    v-else
+                    v-html="feedItem.content.text"
+                    class="w-100"
+                >
+                </div>
+
+                <div
+                    v-if="feedItem.content.text.length > 40 && !state.ui.moreView"
+                    class="text-decoration-underline cursor-pointer text-text-quaternary"
+                    @click="state.ui.moreView = true"
+                >
+                    더보기
+                </div>
             </div>
 
             <DialogComments
@@ -188,12 +209,28 @@
                 :comment-list="feedItem.comments"
             />
 
-            <div class="d-flex truncate ga-1 text-t-sm mb-1-5">
-                <span class="font-weight-semibold">
+            <div class="d-flex align-center ga-1 text-t-sm mb-1-5">
+                <span
+                    v-if="!myCommentHighlight"
+                    class="font-weight-semibold flex-shrink-0"
+                >
                     {{ feedItem.comments[0].name }}
                 </span>
 
-                <span
+                <v-chip
+                    v-else
+                    class="font-weight-semibold text-text-primary background-util-blue flex-shrink-0"
+                    size="x-small"
+                >
+                    <v-card
+                        width="4"
+                        height="4"
+                        class="bg-blue mr-0-5 rounded-circle"
+                    ></v-card>
+                    {{ feedItem.comments[0].name }}
+                </v-chip>
+
+                <div
                     v-if="feedItem.comments[0].isReported"
                     class="d-flex align-center text-t-sm mb-1 truncate"
                 >
@@ -204,11 +241,26 @@
                         class="flex-grow-0 mr-1"
                     ></v-img>
                     콘텐츠를 확인 중입니다
-                </span>
+                </div>
 
-                <span v-else>
+                <div
+                    v-else
+                    class="truncate"
+                >
                     {{ feedItem.comments[0].text }}
-                </span>
+                </div>
+
+                <div
+                    class="flex-shrink-0"
+                    v-if="!feedItem.comments[0].isReported"
+                >
+                    <IconHeart
+                        size="16"
+                        class="cursor-pointer"
+                        line-color="--v-text-primary"
+                        :isActive="true"
+                    />
+                </div>
             </div>
 
             <div class="text-t-xs text-text-quaternary">
@@ -240,10 +292,9 @@ interface FeedItemWithCarousel extends IFeedItem {
 
 const props = withDefaults(defineProps<{
     feedItem: FeedItemWithCarousel;
-    myFeed: boolean;
+    myCommentHighlight: boolean;
 }>(), {
-    feedList: () => [],
-    myFeed: false,
+    myCommentHighlight: false,
 });
 
 const state = reactive({
@@ -251,6 +302,7 @@ const state = reactive({
         dialogReport: false,
         dialogComment: false,
         dialogEdit: false,
+        moreView: false,
     }
 });
 
@@ -291,4 +343,15 @@ const onClickShare = async () => {
 const onClickEdit = () => {
     state.ui.dialogEdit = true;
 }
+
+const firstMyComment = computed(() => {
+    return props.feedItem.comments.find((comment) => comment.id === String(id.value));
+});
+
+const showingComment = computed(() => {
+    if (props.myCommentHighlight && firstMyComment.value) {
+        return firstMyComment;
+    }
+    return props.feedItem.comments[0];
+});
 </script>

@@ -53,9 +53,6 @@
     </div>
 
     <v-container class="d-flex flex-column overflow-y-auto flex-grow-1 position-relative pt-0">
-
-        <!-- {{ state.currentQuizId }}/{{ totalQuizCount }} -->
-
         <!-- 문제 컨텐츠 -->
         <ContentLoader
             :contentInfo="currentQuiz"

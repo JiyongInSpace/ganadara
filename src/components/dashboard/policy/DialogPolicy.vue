@@ -44,56 +44,6 @@
 
             <div v-html="state.content">
             </div>
-            <div>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat magnam delectus quisquam doloremque
-                doloribus? Quam vitae repudiandae minus suscipit possimus, dignissimos ducimus debitis eos incidunt
-                commodi porro quis sequi explicabo neque excepturi qui reprehenderit ipsam beatae temporibus illo eaque
-                necessitatibus minima placeat. Est doloribus magni id fuga, omnis dolorum modi. Deserunt laudantium
-                voluptates eveniet neque quam beatae. Quis hic ab enim distinctio commodi officiis eos praesentium. A
-                debitis omnis perspiciatis odio nam totam, consequatur in fuga alias earum, minima quam at reprehenderit
-                doloribus ipsa dignissimos delectus? Eveniet commodi dolore voluptates nulla nihil quas necessitatibus,
-                asperiores pariatur quaerat iusto, deleniti vitae.
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat magnam delectus quisquam doloremque
-                doloribus? Quam vitae repudiandae minus suscipit possimus, dignissimos ducimus debitis eos incidunt
-                commodi porro quis sequi explicabo neque excepturi qui reprehenderit ipsam beatae temporibus illo eaque
-                necessitatibus minima placeat. Est doloribus magni id fuga, omnis dolorum modi. Deserunt laudantium
-                voluptates eveniet neque quam beatae. Quis hic ab enim distinctio commodi officiis eos praesentium. A
-                debitis omnis perspiciatis odio nam totam, consequatur in fuga alias earum, minima quam at reprehenderit
-                doloribus ipsa dignissimos delectus? Eveniet commodi dolore voluptates nulla nihil quas necessitatibus,
-                asperiores pariatur quaerat iusto, deleniti vitae.
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat magnam delectus quisquam doloremque
-                doloribus? Quam vitae repudiandae minus suscipit possimus, dignissimos ducimus debitis eos incidunt
-                commodi porro quis sequi explicabo neque excepturi qui reprehenderit ipsam beatae temporibus illo eaque
-                necessitatibus minima placeat. Est doloribus magni id fuga, omnis dolorum modi. Deserunt laudantium
-                voluptates eveniet neque quam beatae. Quis hic ab enim distinctio commodi officiis eos praesentium. A
-                debitis omnis perspiciatis odio nam totam, consequatur in fuga alias earum, minima quam at reprehenderit
-                doloribus ipsa dignissimos delectus? Eveniet commodi dolore voluptates nulla nihil quas necessitatibus,
-                asperiores pariatur quaerat iusto, deleniti vitae.
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat magnam delectus quisquam doloremque
-                doloribus? Quam vitae repudiandae minus suscipit possimus, dignissimos ducimus debitis eos incidunt
-                commodi porro quis sequi explicabo neque excepturi qui reprehenderit ipsam beatae temporibus illo eaque
-                necessitatibus minima placeat. Est doloribus magni id fuga, omnis dolorum modi. Deserunt laudantium
-                voluptates eveniet neque quam beatae. Quis hic ab enim distinctio commodi officiis eos praesentium. A
-                debitis omnis perspiciatis odio nam totam, consequatur in fuga alias earum, minima quam at reprehenderit
-                doloribus ipsa dignissimos delectus? Eveniet commodi dolore voluptates nulla nihil quas necessitatibus,
-                asperiores pariatur quaerat iusto, deleniti vitae.
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat magnam delectus quisquam doloremque
-                doloribus? Quam vitae repudiandae minus suscipit possimus, dignissimos ducimus debitis eos incidunt
-                commodi porro quis sequi explicabo neque excepturi qui reprehenderit ipsam beatae temporibus illo eaque
-                necessitatibus minima placeat. Est doloribus magni id fuga, omnis dolorum modi. Deserunt laudantium
-                voluptates eveniet neque quam beatae. Quis hic ab enim distinctio commodi officiis eos praesentium. A
-                debitis omnis perspiciatis odio nam totam, consequatur in fuga alias earum, minima quam at reprehenderit
-                doloribus ipsa dignissimos delectus? Eveniet commodi dolore voluptates nulla nihil quas necessitatibus,
-                asperiores pariatur quaerat iusto, deleniti vitae.
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat magnam delectus quisquam doloremque
-                doloribus? Quam vitae repudiandae minus suscipit possimus, dignissimos ducimus debitis eos incidunt
-                commodi porro quis sequi explicabo neque excepturi qui reprehenderit ipsam beatae temporibus illo eaque
-                necessitatibus minima placeat. Est doloribus magni id fuga, omnis dolorum modi. Deserunt laudantium
-                voluptates eveniet neque quam beatae. Quis hic ab enim distinctio commodi officiis eos praesentium. A
-                debitis omnis perspiciatis odio nam totam, consequatur in fuga alias earum, minima quam at reprehenderit
-                doloribus ipsa dignissimos delectus? Eveniet commodi dolore voluptates nulla nihil quas necessitatibus,
-                asperiores pariatur quaerat iusto, deleniti vitae.
-            </div>
         </v-card>
     </v-bottom-sheet>
 </template>
@@ -130,7 +80,15 @@ watch(
     () => props.currentPolicyKey,
     (currentPolicyKey) => {
         state.selectedHistory = state.history[0].key; // 기본 첫 번째 아이템 선택
-        state.content = `현재 약관 키: ${currentPolicyKey}`; // 내용 업데이트
+        state.content = `Please read these terms and conditions ("terms and conditions", "terms") carefully before using [mobile name] mobile application (“app”, "service") operated by [company name] ("us", 'we", "our").<br/><br/>
+
+By using this app, you certify that you have read and reviewed this Agreement and that you agree to comply with its terms. If you do not want to be bound by the terms of this Agreement, you are advised to stop using the app accordingly. [company name] only grants use and access of this app, its products, and its services to those who have accepted its terms.<br/><br/>
+
+Before you continue using our app, we advise you to read our privacy policy [link to privacy policy] regarding our user data collection. It will help you better understand our practices.<br/><br/>
+Age restriction
+
+You must be at least 18 (eighteen) years of age before you can use this app. By using this app, you warrant that you are at least 18 years of age and you may legally adhere to this Agreement. [company name] assumes no responsibility for liabilities related to age misrepresentation.<br/><br/>
+`; // 내용 업데이트
     },
     { immediate: true }
 );
@@ -139,7 +97,15 @@ watch(
 watch(
     () => state.selectedHistory,
     (newSelected) => {
-        state.content = `${state.history.find(item => item.key === newSelected)?.value} 내용이 표시됩니다. `;
+        state.content = `Please read these terms and conditions ("terms and conditions", "terms") carefully before using [mobile name] mobile application (“app”, "service") operated by [company name] ("us", 'we", "our").<br/><br/>
+
+By using this app, you certify that you have read and reviewed this Agreement and that you agree to comply with its terms. If you do not want to be bound by the terms of this Agreement, you are advised to stop using the app accordingly. [company name] only grants use and access of this app, its products, and its services to those who have accepted its terms.<br/><br/>
+
+Before you continue using our app, we advise you to read our privacy policy [link to privacy policy] regarding our user data collection. It will help you better understand our practices.<br/><br/>
+Age restriction
+
+You must be at least 18 (eighteen) years of age before you can use this app. By using this app, you warrant that you are at least 18 years of age and you may legally adhere to this Agreement. [company name] assumes no responsibility for liabilities related to age misrepresentation.<br/><br/>
+`;
     }
 );
 

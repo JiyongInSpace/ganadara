@@ -5,7 +5,7 @@ export const useUserStore = defineStore(
   'user',
   {
     state: () => ({
-      id: 5,
+      id: "1",
       // id: 5,
       name: 'ganadara man',
       email: 'ganadara@ganadara.net',
@@ -40,7 +40,25 @@ export const useUserStore = defineStore(
         billingType: string
         startDate: string
         endDate: string
-      }
+      },
+      myPaymentMethods: [
+        {
+          id: 0,
+          name: '신한',
+          icon: '/icons/bank/shinhan.png',
+          type: 'credit',
+          number: '1234',
+          isDefault: true
+        },
+        {
+          id: 1,
+          name: '카카오',
+          icon: '/icons/bank/kakao.png',
+          type: 'cash',
+          number: '1234',
+          isDefault: false
+        }
+      ]
     }),
     actions: {}
   }

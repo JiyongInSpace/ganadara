@@ -446,11 +446,11 @@ const checkSwipeAction = () => {
     if (Math.abs(diffX) > threshold) {
         if (diffX > 0) {
             // 왼쪽으로 스와이프
-            router.back();
+            state.shortform = dummy2;
+            router.push(`/class/shortform/${state.shortform.nextShortformId}`);
         } else {
             // 오른쪽으로 스와이프
-            router.push(`/class/shortform/${state.shortform.nextShortformId}`);
-            state.shortform = dummy2;
+            router.push('/class');
         }
     }
 };

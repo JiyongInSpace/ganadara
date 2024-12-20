@@ -8,6 +8,22 @@
       이용권
     </template>
 
+    <template v-slot:append-header>
+      <v-btn
+        size="small"
+        class="mr-1"
+        @click="onClickChangeCurrency"
+      >
+        통화
+      </v-btn>
+      <v-btn
+        size="small"
+        @click="onClickChangeBillingType"
+      >
+        정기
+      </v-btn>
+    </template>
+
     <template v-slot:content>
       <div
         v-if="subscription"
@@ -20,6 +36,7 @@
         <DashboardTicketItem
           :ticketInfo="state.currentSubscriptionInfo"
           isInProgress
+          :currency="state.currency"
         />
 
         <div
@@ -47,6 +64,7 @@
           v-for="(historyItem, key) in state.historyList"
           :ticketInfo="historyItem"
           :key="key"
+          :currency="state.currency"
         />
       </div>
     </template>
@@ -112,13 +130,20 @@ const state = reactive({
       endDate: "2024-11-25T14:30:15.123Z",
     },
   ],
+  currency: "",
 });
 
 const onClickCancelSubscription = () => {
   router.push("/dashboard/payment/ticket/cancel");
 };
 
+const onClickChangeCurrency = () => {
+  state.currency = state.currency === "USD" ? "" : "USD";
+}
 
+const onClickChangeBillingType = () => {
+  state.currentSubscriptionInfo.billingType = state.currentSubscriptionInfo.billingType === "recurring" ? "" : "recurring";
+}
 
 // UI ========================================
 

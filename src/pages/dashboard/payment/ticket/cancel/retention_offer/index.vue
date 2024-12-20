@@ -62,7 +62,7 @@ const state = reactive({
 
 
 const handleConfirm = () => {
-  router.push("/dashboard/payment/ticket/cancel/complete")
+  router.push("/dashboard/payment/ticket")
 };
 
 const handleDelete = () => {

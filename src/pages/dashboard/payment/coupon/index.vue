@@ -41,6 +41,7 @@
       <DashboardCouponList
         v-if="tabMain.tab.value === MAIN_TAB.COUPONS"
         :couponList="state.couponList"
+        @onClickRegisterCoupon="onClickRegisterCoupon"
       />
 
       <DashboardCouponHistoryList
@@ -144,6 +145,18 @@ const state = reactive({
 const onClickAllDelete = () => {
   state.couponList = [];
   state.couponHistoryList = [];
+}
+
+const onClickRegisterCoupon = () => {
+  state.couponList.push({
+    id: 1,
+    tag: '새 쿠폰',
+    name: '추가된 쿠폰입니다.',
+    desc: '첫 결제 고객이라면 스탠다드 1개월 이용권을 50% 할인된 금액으로 이용해 보세요!',
+    startDate: new Date(),
+    endDate: "2024-12-25T14:30:15.123Z",
+    isUsed: false,
+  },)
 }
 
 // UI ========================================

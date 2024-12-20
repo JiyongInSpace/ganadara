@@ -4,7 +4,7 @@
             v-for="(feedItem, key) in feedList"
             :key="key"
             :feedItem="feedItem"
-            my-feed
+            :myCommentHighlight="myCommentHighlight"
         />
 
         <div
@@ -31,10 +31,10 @@ import { IFeedItem } from '@/interfaces';
 
 const props = withDefaults(defineProps<{
     feedList: IFeedItem[];
-    myFeed: boolean;
+    myCommentHighlight: boolean;
 }>(), {
     feedList: () => [],
-    myFeed: false,
+    myCommentHighlight: false,
 });
 
 const state = reactive({

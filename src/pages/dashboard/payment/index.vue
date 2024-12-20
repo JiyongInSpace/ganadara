@@ -157,7 +157,7 @@
                 </div>
 
                 <v-btn
-                    v-for="paymentMethod in state.myPaymentMethods"
+                    v-for="paymentMethod in myPaymentMethods"
                     variant="outlined"
                     size="x-large"
                     class="flex-grow-0 background-primary border-border-primary text-start-button mb-2-5"
@@ -227,7 +227,7 @@ import { format } from 'date-fns';
 import { storeToRefs } from 'pinia';
 
 const userStore = useUserStore();
-const { subscription } = storeToRefs(userStore);
+const { subscription, myPaymentMethods } = storeToRefs(userStore);
 const router = useRouter();
 
 const state = reactive({
@@ -251,24 +251,6 @@ const state = reactive({
             payInfo: "신한카드(1234) 일시불",
             timestamp: "2024-11-10T14:30:15.123Z",     // 이용권 시작일
         }
-    ],
-    myPaymentMethods: [
-        {
-            id: 0,
-            name: "신한",
-            icon: "/icons/bank/shinhan.png",
-            type: "credit",
-            number: "1234",
-            isDefault: true,
-        },
-        {
-            id: 1,
-            name: "카카오",
-            icon: "/icons/bank/kakao.png",
-            type: "cash",
-            number: "1234",
-            isDefault: false,
-        },
     ],
 });
 
@@ -298,23 +280,23 @@ const onClickRegisterPaymentMethod = () => {
 
 // 결제 수단 설정 ======
 const onClickSetDefault = (method_info: any) => {
-    state.myPaymentMethods.forEach((paymentMethod) => {
+    myPaymentMethods.value.forEach((paymentMethod) => {
         paymentMethod.isDefault = paymentMethod.id === method_info.id;
     });
 }
 
 // 결제 수단 삭제 ======
 const onClickDelete = (method_info: any) => {
-    state.myPaymentMethods = state.myPaymentMethods.filter((paymentMethod) => paymentMethod.id !== method_info.id);
+    myPaymentMethods.value = myPaymentMethods.value.filter((paymentMethod) => paymentMethod.id !== method_info.id);
     if (method_info.isDefault) {
-        state.myPaymentMethods[0].isDefault = true;
+        myPaymentMethods.value[0].isDefault = true;
     }
 }
 
 const dialog = ref(false);
 const selectedPaymentMethod = ref(0);
 const computedSelectedPaymentMethod = computed(() => {
-    return state.myPaymentMethods.find((paymentMethod) => paymentMethod.id === selectedPaymentMethod.value);
+    return myPaymentMethods.value.find((paymentMethod) => paymentMethod.id === selectedPaymentMethod.value);
 });
 
 const onClickSelectPaymentMethod = (_paymentMethodId: number) => {
@@ -326,7 +308,7 @@ const onClickAllDelete = () => {
     subscription.value = null;
     state.myCoupons = [];
     state.myHistory = [];
-    state.myPaymentMethods = [];
+    myPaymentMethods.value = [];
 }
 
 const { t } = useI18n({

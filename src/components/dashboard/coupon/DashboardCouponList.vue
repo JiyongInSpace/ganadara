@@ -15,9 +15,10 @@
                         size="large"
                         variant="tonal"
                         class="rounded-s-0 rounded-e-lg"
-                        :class="{'primary': state.ui.input}"
+                        :class="{ 'primary': state.ui.input }"
                         :disabled="!state.ui.input"
                         min-height="44"
+                        @click="onClickRegisterCoupon"
                     >
                         등록
                     </v-btn>
@@ -54,11 +55,20 @@ const props = withDefaults(defineProps<{
     couponList: () => [],
 });
 
+const emit = defineEmits<{
+    (e: 'onClickRegisterCoupon'): void,
+}>();
+
 const state = reactive({
     ui: {
         input: "",
     },
 });
+
+const onClickRegisterCoupon = () => {
+    state.ui.input = "";
+    emit('onClickRegisterCoupon');
+}
 
 </script>
 

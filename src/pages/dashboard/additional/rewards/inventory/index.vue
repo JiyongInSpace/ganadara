@@ -78,7 +78,6 @@ const dummy_follower = [
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "ongoing",
-        limit: 39990,
     },
     {
         id: 1,
@@ -86,7 +85,6 @@ const dummy_follower = [
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "completed",
-        limit: 39990,
     },
     {
         id: 1,
@@ -94,7 +92,6 @@ const dummy_follower = [
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "completed",
-        limit: 39990,
     },
     {
         id: 1,
@@ -102,7 +99,6 @@ const dummy_follower = [
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "ongoing",
-        limit: 39990,
     },
     {
         id: 1,
@@ -110,7 +106,6 @@ const dummy_follower = [
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "ongoing",
-        limit: 39990,
     },
     {
         id: 1,
@@ -118,7 +113,6 @@ const dummy_follower = [
         imgUrl: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
         price: 2450,
         status: "ongoing",
-        limit: 39990,
     },
 ] as IRewardItem[];
 

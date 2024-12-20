@@ -18,6 +18,7 @@
       </div>
 
       <v-chip-group
+        class="flex-shrink-0"
         selected-class="bg-black text-text-primary_on-brand"
         v-model="state.selectedCategory"
         column
@@ -35,6 +36,7 @@
           <v-tooltip
             v-if="tag.tooltip"
             location="bottom"
+            open-on-click
           >
             <template v-slot:activator="{ props }">
               <v-icon

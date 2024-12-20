@@ -10,6 +10,7 @@
             </span>
 
             <v-chip
+                v-if="ticketInfo.billingType"
                 size="small"
                 class="brand"
                 variant="outlined"
@@ -40,11 +41,11 @@
                     v-if="ticketInfo.originalPrice"
                     class="font-weight-medium text-text-secondary text-decoration-line-through mr-1"
                 >
-                    {{ ticketInfo.originalPrice.toLocaleString() }}원
+                    {{ ticketInfo.originalPrice.toLocaleString() }} {{ currency || '원' }}
                 </span>
 
                 <span class="font-weight-bold">
-                    {{ ticketInfo.paymentPrice.toLocaleString() }}원
+                    {{ ticketInfo.paymentPrice.toLocaleString() }} {{ currency || '원' }}
                 </span>
             </div>
         </div>
@@ -59,6 +60,7 @@ import { useI18n } from "vue-i18n";
 const props = defineProps<{
     ticketInfo: ITicketItem;
     isInProgress?: boolean;
+    currency?: string
 }>();
 
 const couponIsExpired = computed(() => {

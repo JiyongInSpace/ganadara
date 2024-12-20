@@ -41,7 +41,10 @@
         </v-tabs-window-item>
 
         <v-tabs-window-item :value="MAIN_TAB.MY_COMMENTS">
-          <CommunityFeedList :feedList="state.feedList" />
+          <CommunityFeedList
+            :feedList="state.feedList"
+            my-comment-highlight
+          />
         </v-tabs-window-item>
       </v-tabs-window>
     </template>
@@ -172,7 +175,7 @@ const state = reactive({
           ]
         },
         {
-          id: "2",
+          id: "1",
           name: "Olivia Rhye",
           profileImage: "/images/class/dummy_profile_image.png",
           text: "마이풀과 가나다라 최고라고 생각하고 있어요~~!!",
@@ -196,7 +199,7 @@ const state = reactive({
       content: {
         id: "1",
         date: "2024-08-22",
-        text: "영어 공부 오늘 진짜 열심히했다~~!! 내일도 화이팅!",
+        text: "영어 공부 오늘 진짜 열심히했다~~!!<br/> 내일도 파이팅! 마이풀로 영어를 공부하고, 가나다라로 한글을 공부하니 좋다!",
         images: [
           "/images/class/default_video.png",
           "/images/class/default_video.png",

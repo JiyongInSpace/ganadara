@@ -165,6 +165,7 @@ export interface IRewardItem {
 
 export interface IExamItem {
   id: number
+  category?: string
   name: string
   date: string
   wrong: number

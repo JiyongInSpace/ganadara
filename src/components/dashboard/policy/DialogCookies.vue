@@ -3,7 +3,10 @@
         v-model="dialog"
         transition="dialog-bottom-transition"
     >
-        <v-card class="pt-0 px-5 pb-5 z-0">
+        <v-card
+            class="pt-0 px-5 pb-5 z-0"
+            minHeight="95vh"
+        >
             <v-sheet
                 class="d-flex justify-center align-center text-center flex-shrink-0 mb-8"
                 height="56"
@@ -25,11 +28,14 @@
                 @update:modelValue="toggleAllTerms"
             />
 
-            <v-expansion-panels class="pt-5 border-t mt-5">
+            <div class="my-8 w-100 border-t"></div>
+
+            <v-expansion-panels>
                 <v-expansion-panel
                     v-for="item in serviceTermsItems"
                     :key="item.title"
                     hide-actions
+                    elevation="0"
                 >
                     <template v-slot:title>
                         <div class="d-flex justify-space-between w-100">
@@ -208,11 +214,18 @@ function toggleCookie(item: { title: string; isEssential: boolean }) {
     .v-expansion-panel-title {
         margin-bottom: 0 !important;
         background-color: #FFF !important;
+        padding: 14px !important;
+        border-radius: 8px;
+        border: 1px solid #D0D5DD;
+        min-height: unset !important;
+
+        &.v-expansion-panel-title--active {}
     }
 
     .v-expansion-panel--active:not(:first-child),
     .v-expansion-panel--active+.v-expansion-panel {
         margin-top: 0px;
+
     }
 }
 </style>

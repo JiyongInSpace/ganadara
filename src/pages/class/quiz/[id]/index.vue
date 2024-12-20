@@ -1,4 +1,3 @@
-
 <template>
     <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
         <QuizWizard :quizList="state.quizList" />
@@ -461,14 +460,99 @@ const dummy_08 = [
 
 const dummy_09 = [
     {
-        id: "23423423",
+        id: "234234231234123",
         question: {
             type: 'text',
-            // type: 'image',
+            prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
+            resource: "텍스트가 제공되는 영역에 써있는 글자입니다. 텍스트가 제공되는 영역에 써있는 글자입니다. 텍스트가 제공되는 영역에 써있는 글자입니다.",
+        },
+        answer: {
+            type: 'multiple',
+            options: [
+                {
+                    id: "3-1",
+                    question: 'what does the man offer to do?',
+                    options: [
+                        { id: 'a', resource: '옵션 1' },
+                        { id: 'b', resource: '옵션 2' },
+                        { id: 'c', resource: '옵션 3' },
+                        { id: 'd', resource: '옵션 4' },
+                    ],
+                },
+                {
+                    id: "3-2",
+                    question: 'what does the man offer to do2?',
+                    options: [
+                        { id: 'a', resource: '옵션 11' },
+                        { id: 'b', resource: '옵션 22' },
+                        { id: 'c', resource: '옵션 33' },
+                        { id: 'd', resource: '옵션 44' },
+                    ],
+                },
+                {
+                    id: "3-3",
+                    question: 'what does the man offer to do3?',
+                    options: [
+                        { id: 'a', resource: '옵션 111' },
+                        { id: 'b', resource: '옵션 222' },
+                        { id: 'c', resource: '옵션 333' },
+                        { id: 'd', resource: '옵션 444' },
+                    ],
+                },
+            ],
+        }
+    },
+    {
+        id: "23423423123411324123412323",
+        question: {
+            type: 'text',
             prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
             resource: " 나는 너를 사랑해나는",
-            // resource: "path/to/image.jpg"
+        },
+        answer: {
+            type: 'multiple',
+            options: [
+                {
+                    id: "2-1",
+                    question: 'what does the man offer to do?',
+                    options: [
+                        { id: 'a', resource: '옵션 1' },
+                        { id: 'b', resource: '옵션 2' },
+                        { id: 'c', resource: '옵션 3' },
+                        { id: 'd', resource: '옵션 4' },
+                    ],
+                },
+                {
+                    id: "2-2",
+                    question: 'what does the man offer to do2?',
+                    options: [
+                        { id: 'a', resource: '옵션 11' },
+                        { id: 'b', resource: '옵션 22' },
+                        { id: 'c', resource: '옵션 33' },
+                        { id: 'd', resource: '옵션 44' },
+                    ],
+                },
+                {
+                    id: "2-3",
+                    question: 'what does the man offer to do3?',
+                    options: [
+                        { id: 'a', resource: '옵션 111' },
+                        { id: 'b', resource: '옵션 222' },
+                        { id: 'c', resource: '옵션 333' },
+                        { id: 'd', resource: '옵션 444' },
+                    ],
+                },
+            ],
+        }
+    },
+    {
+        id: "23423423",
+        question: {
+            type: 'image',
+            prompt: '다음 그림의 알맞은 의미를 골라주세요 (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
+            resource: "/images/class/dummy_question_image.png",
+            content: '스크립트 영역입니다. (문장 2줄 이상일 경우 케이스는 이렇게 됩니다.)',
         },
         answer: {
             type: 'multiple',
@@ -520,7 +604,7 @@ const fetchData = (id: number) => {
         loading.value = false;
         let result = [] as any[];
 
-        switch(questionId.value) {
+        switch (questionId.value) {
             case 1:
                 result = dummy_01;
                 break;

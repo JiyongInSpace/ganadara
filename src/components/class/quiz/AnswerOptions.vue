@@ -199,8 +199,8 @@
                         <v-card
                             v-for="(subQuizList, i) in quizInfo?.options"
                             :key="i"
-                            class="foreground-disabled-subtle elevation-0 transition-all"
-                            :class="currentQuizIndex === i ? 'bg-primary' : ''"
+                            class="elevation-0 transition-all"
+                            :class="currentQuizIndex === i ? 'background-brand-solid' : 'foreground-disabled-subtle'"
                             :width="currentQuizIndex === i ? 16 : 8"
                             height="8"
                         />
@@ -471,6 +471,7 @@ const buttonNext = {
     onClick: () => {
         emit('onClickNext');
         selectedAnswer.value = [];
+        currentQuizIndex.value = 0;
     }
 };
 
@@ -480,5 +481,6 @@ const onClickConfirm = () => {
     } else {
         dialogWrong.value = true;
     }
+
 }
 </script>

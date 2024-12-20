@@ -67,6 +67,14 @@
                             @onClickSubscribe="buttonSubscribe.onClick"
                         />
                     </div>
+
+                    <v-btn
+                        size="small"
+                        class="ml-auto"
+                        @click="state.class.scriptType == 'pdf' ? state.class.scriptType = 'cues' : state.class.scriptType = 'pdf'"
+                    >
+                        형식 변환(검수용)
+                    </v-btn>
                 </div>
             </div>
 
@@ -103,7 +111,6 @@
                         class="py-6 px-4"
                         :class="tabMain.transcriptFontSize.value"
                     >
-
                         <div v-if="state.class.scriptType == 'cues'">
                             <CuesViewer
                                 :cues="state.class.cues"
@@ -114,20 +121,6 @@
                         <span v-if="state.class.scriptType == 'pdf'">
                             {{ state.class.transcript }}
                         </span>
-
-                        <!-- <div
-                            v-for="(cue, index) in state.class.cues"
-                            :key="index"
-                            class="mb-10"
-                        >
-                            <div class="text-t-xl font-weight-bold mb-4">
-                                {{ cue.text_en }}
-                            </div>
-
-                            <div class="text-t-md font-weight-medium text-text-quaternary">
-                                {{ cue.text_ko }}
-                            </div>
-                        </div> -->
                     </v-tabs-window-item>
 
                     <!-- 복습 -->
@@ -332,8 +325,32 @@ const fetchData = (id: number) => {
         isBookmarked: false,
         isSubscribed: false,
         isAvailable: true,
-        scriptType: "cues",
+        scriptType: "pdf",
         transcaript: `Guns change everything, and a bullet is foreverGuns change everything, and a bullet is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is forever and a bullet is foreverGuns change
+                everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is forever and a bullet is foreverGuns change
+                everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is forever and a bullet is foreverGuns change
+                everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
+                is
+                foreverGuns change everything, and a bullet is forever and a bullet is foreverGuns change
+                everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet
                 is
                 foreverGuns change everything, and a bullet is foreverGuns change everything, and a bullet

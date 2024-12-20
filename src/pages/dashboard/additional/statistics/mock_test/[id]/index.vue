@@ -5,7 +5,7 @@
         background="secondary"
     >
         <template v-slot:center-header>
-            {{ state.testInfo?.name }}
+            {{ state.testInfo?.category }}
         </template>
 
         <template v-slot:content>
@@ -62,6 +62,7 @@ onMounted(() => {
     // 데이터
     state.testInfo = {
         id: 1,
+        category: 'LC',
         name: '마이풀로 배우는 필수 영어 회화',
         date: "2024-12-09T14:30:15.123Z",
         score: 100,

@@ -54,6 +54,8 @@
                     <v-btn
                         variant="outlined"
                         class="secondary"
+                        :class="fileDisplays.length >= MAX_IMAGES ? 'opacity-50':''"
+                        :disabled="fileDisplays.length >= MAX_IMAGES"
                         @click="triggerFileInput"
                     >
                         <template v-slot:prepend>
@@ -143,8 +145,7 @@
                             v-if="state.isAi"
                             class="position-absolute top-0 left-0 px-3 py-2 w-100 h-100"
                             v-html="computedAiText"
-                        >
-                        </div>
+                        />
                     </div>
 
 

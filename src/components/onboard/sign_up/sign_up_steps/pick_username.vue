@@ -70,7 +70,7 @@
                         variant="text"
                         width="20"
                         height="20"
-                        @click="checkboxGroupServiceTerms.event.onClickChevron"
+                        @click="dialogCookieSettting = true"
                     >
                         <v-img
                             src="/icons/IconChevronRight.svg"
@@ -103,7 +103,7 @@
                         variant="text"
                         width="20"
                         height="20"
-                        @click="checkboxGroupServiceTerms.event.onClickChevron"
+                        @click="dialogCookieSettting = true"
                     >
                         <v-img
                             src="/icons/IconChevronRight.svg"
@@ -136,7 +136,7 @@
                         variant="text"
                         width="20"
                         height="20"
-                        @click="checkboxGroupServiceTerms.event.onClickChevron"
+                        @click="dialogCookieSettting = true"
                     >
                         <v-img
                             src="/icons/IconChevronRight.svg"
@@ -169,7 +169,7 @@
                         variant="text"
                         width="20"
                         height="20"
-                        @click="checkboxGroupServiceTerms.event.onClickChevron"
+                        @click="dialogCookieSettting = true"
                     >
                         <v-img
                             src="/icons/IconChevronRight.svg"
@@ -235,7 +235,7 @@
                         variant="text"
                         width="20"
                         height="20"
-                        @click="checkboxGroupServiceTerms.event.onClickChevron"
+                        @click="dialogCookieSettting = true"
                     >
                         <v-img
                             src="/icons/IconChevronRight.svg"
@@ -264,12 +264,6 @@
         >
             확인
         </v-btn>
-
-        <Cookie_settings
-            v-model:modelValue="dialogTermsOfService.value.value"
-            v-model:termsValues="checkboxGroupServiceTerms.value.value"
-            @click:allTerms="checkboxGroupServiceTerms.event.onChangeAllTerms"
-        />
 
         <DialogSignupCookies v-model:dialog="dialogCookieSettting" />
     </div>

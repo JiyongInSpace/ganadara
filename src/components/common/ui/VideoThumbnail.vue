@@ -37,7 +37,7 @@
 
         <div
             v-if="!onlyThumbnail"
-            class="d-flex align-center pointer-events-auto mb-1"
+            class="d-flex align-center pointer-events-auto mt-2 mb-1"
         >
             <v-img
                 :src="videoInfo.creator.profileImage"

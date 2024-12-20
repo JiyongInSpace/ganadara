@@ -21,6 +21,7 @@
                 variant="outlined"
                 class="tertiary mb-3"
                 rows="6"
+                placeholder="문의 내용을 입력해 주세요."
                 hide-details
             />
 
@@ -165,4 +166,5 @@ const buttonContactUs = {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

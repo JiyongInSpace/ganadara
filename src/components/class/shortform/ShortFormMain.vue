@@ -169,6 +169,19 @@
                 }"
             />
 
+            <div
+                v-if="state.shortform.isCommercial"
+                class="mb-2"
+            >
+                <v-btn
+                    variant="outlined"
+                    class="primary background-primary w-100"
+                    @click="onClickCommercial"
+                >
+                    더 알아보기
+                </v-btn>
+            </div>
+
             <v-chip
                 v-if="state.shortform.music.length > 0"
                 variant="elevated"
@@ -181,6 +194,20 @@
                 />
                 {{ state.shortform.music[0].title }} - {{ state.shortform.music[0].artist }}
             </v-chip>
+
+            <v-chip
+                v-if="state.shortform.isCommercial"
+                variant="elevated"
+                class="on-brand-primary xs pointer-events-auto"
+            >
+                <v-icon
+                    icon="mdi-bullhorn-outline"
+                    class="mr-1"
+                />
+                광고
+            </v-chip>
+
+
 
             <DialogMusic
                 v-model:dialog="state.ui.dialogMusic"
@@ -249,15 +276,17 @@
         </template>
     </SimpleDialog>
 
+    <v-overlay
+        v-if="!state.ui.dialogPricing"
+        v-model="isPaused"
+        close-on-content-click
+    />
+
     <!-- DialogPricing -->
     <DialogPricing v-model:dialog="state.ui.dialogPricing" />
     <!-- @onClickSub="buttonPricing.event.onClickSub"
         @onClickMain="buttonPricing.event.onClickMain" -->
 
-    <v-overlay
-        v-model="isPaused"
-        close-on-content-click
-    />
 </template>
 
 <script lang="ts" setup>
@@ -268,61 +297,7 @@ const router = useRouter();
 const route = useRoute();
 
 
-// DUMMY
 
-const dummy1 = {
-    // video info
-    title: "Short-form Title",
-    description: "Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet.",
-    videoUrl: "https://videocdn.cdnpk.net/videos/723c2417-05d1-4643-b42a-c136b6e386f7/vertical/previews/watermarked/large.mp4",
-    creator: {
-        name: "creator",
-        profileImage: "/images/class/dummy_profile_image.png",
-        isFollowed: false,
-    },
-    music: [{
-        title: "Music Title",
-        artist: "Artist",
-        source: "여기저기",
-    }, {
-        title: "Music Title2",
-        artist: "Artist2",
-        source: "음원출처",
-    },],
-    likes: 66,
-    nextShortformId: 2,
-
-    // user info 
-    isLiked: false,
-    isSaved: false,
-    isPlaying: false,
-    isMuted: false,
-    isAvailable: false,
-    isCommercial: false,
-};
-
-const dummy2 = {
-    // video info
-    title: "Short-form Title2",
-    description: "",
-    videoUrl: "https://videocdn.cdnpk.net/videos/e2e74372-70c9-47eb-9432-ccebd8d998fb/vertical/previews/watermarked/large.mp4",
-    creator: {
-        name: "creator",
-        profileImage: "/images/class/dummy_profile_image.png",
-        isFollowed: false,
-    },
-    music: [],
-    likes: 66,
-    nextShortformId: 1,
-
-    // user info 
-    isLiked: false,
-    isSaved: false,
-    isPlaying: false,
-    isMuted: false,
-    isAvailable: false,
-    isCommercial: false,
-}
 
 // STATE
 const state = reactive({
@@ -374,7 +349,16 @@ const isPaused = ref(false);
 
 onMounted(() => {
     videoRef.value;
-    state.shortform = dummy1;
+
+    // API CALL
+    if ((route.params as any).id === "1") {
+        state.shortform = dummy1;
+    } else if ((route.params as any).id === "2") {
+        state.shortform = dummy2;
+        state.user.limit = 1;
+    } else if ((route.params as any).id === "3") {
+        state.shortform = dummy3;
+    }
 })
 
 
@@ -382,7 +366,6 @@ watch(
     () => (route.params as any).id,
     (_id) => {
         // API CALL
-
         if (_id === "1") state.shortform = dummy1;
         if (_id === "2") state.shortform = dummy2;
     }
@@ -396,8 +379,8 @@ const videoPlayer = {
         onEnded: () => {
             alert("onEnded");
 
-             // 임시 자막 테스트
-             stopCaptionChange();
+            // 임시 자막 테스트
+            stopCaptionChange();
         },
         timeupdate: (event: any) => {
             if (state.shortform.isAvailable) {
@@ -546,23 +529,12 @@ const iconBookAdd = {
 const iconShare = {
     event: {
         onClick: () => {
-            if (navigator.share) { // Navigator를 지원하는 경우만 실행
-                navigator
-                    .share({
-                        title: 'WebShare API Example',
-                        text: 'Check out this web site!',
-                        url: 'https://example.com',
-                    })
-                    .then(() => {
-                        // 정상 동작할 경우 실행
-                        alert('공유하기 성공')
-                    })
-                    .catch((error) => {
-                        alert('에러가 발생했습니다.')
-                    })
-            } else { // navigator를 지원하지 않는 경우
-                alert('페이지 공유를 지원하지 않습니다.')
-            }
+            navigator
+                .share({
+                    title: 'WebShare API Example',
+                    text: 'Check out this web site!',
+                    url: 'https://example.com',
+                });
         }
     }
 };
@@ -576,6 +548,9 @@ const buttonBack = {
     }
 };
 
+const onClickCommercial = () => {
+    alert("광고 페이지");
+};
 
 
 // 퍼블리싱 자막 확인용
@@ -610,7 +585,84 @@ const stopCaptionChange = () => {
     }
 }
 
+// DUMMY
 
+const dummy1 = {
+    // video info
+    title: "Short-form Title",
+    description: "Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet. Descriptions about this short-form will show up on the bottomsheet.",
+    videoUrl: "https://videocdn.cdnpk.net/videos/723c2417-05d1-4643-b42a-c136b6e386f7/vertical/previews/watermarked/large.mp4",
+    creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+        isFollowed: false,
+    },
+    music: [{
+        title: "Music Title",
+        artist: "Artist",
+        source: "여기저기",
+    }, {
+        title: "Music Title2",
+        artist: "Artist2",
+        source: "음원출처",
+    },],
+    likes: 66,
+    nextShortformId: 2,
+
+    // user info 
+    isLiked: false,
+    isSaved: false,
+    isPlaying: false,
+    isMuted: false,
+    isAvailable: false,
+    isCommercial: false,
+};
+
+const dummy2 = {
+    // video info
+    title: "Short-form Title2",
+    description: "",
+    videoUrl: "https://videocdn.cdnpk.net/videos/e2e74372-70c9-47eb-9432-ccebd8d998fb/vertical/previews/watermarked/large.mp4",
+    creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+        isFollowed: false,
+    },
+    music: [],
+    likes: 66,
+    nextShortformId: 3,
+
+    // user info 
+    isLiked: false,
+    isSaved: false,
+    isPlaying: false,
+    isMuted: false,
+    isAvailable: false,
+    isCommercial: false,
+}
+
+const dummy3 = {
+    // video info
+    title: "광고 홍보 내용 기입 광고 홍보 내용 기입",
+    description: "",
+    videoUrl: "https://videocdn.cdnpk.net/videos/723c2417-05d1-4643-b42a-c136b6e386f7/vertical/previews/watermarked/large.mp4",
+    creator: {
+        name: "Sponcer Name",
+        profileImage: "/images/class/dummy_profile_image.png",
+        isFollowed: false,
+    },
+    music: [],
+    likes: 66,
+    nextShortformId: 1,
+
+    // user info 
+    isLiked: false,
+    isSaved: false,
+    isPlaying: false,
+    isMuted: false,
+    isAvailable: false,
+    isCommercial: true,
+}
 </script>
 
 <style lang="scss" scoped>

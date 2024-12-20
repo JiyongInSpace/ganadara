@@ -90,6 +90,20 @@
             >
               숏폼
             </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/class/shortform/2"
+            >
+              숏폼(음원 출처 비활성화)
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
+              to="/class/shortform/3"
+            >
+              숏폼(광고)
+            </v-btn>
             
             <v-btn
               variant="outlined"

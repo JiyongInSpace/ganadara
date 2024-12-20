@@ -4,7 +4,7 @@
         transition="dialog-bottom-transition"
         persistent
     >
-        <v-card class="pt-9 px-5 pb-5 text-center rounded-16">
+        <v-card class="pt-9 px-5 pb-5 text-center rounded-16 z-1">
             <div class="text-t-xl font-weight-bold text-center mb-6">
                 회원 가입하고 콘텐츠 계속 보기
             </div>
@@ -23,6 +23,7 @@
                     @click="buttonSub.event.onClick"
                     variant="outlined"
                     size="large"
+                    class="primary"
                 >
                     SNS 가입하기
                 </v-btn>

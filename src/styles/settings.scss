@@ -97,7 +97,6 @@ body {
 .border-fg-tertiary { border-color: rgb(var(--v-fg-tertiary)) !important; }
 .border-2 { border-width: 2px; }
 
-
 // background
 .background-primary { background-color: rgb(var(--v-bg-primary)) !important; }
 .background-primary-alt { background-color: rgb(var(--v-bg-primary-alt)) !important; }
@@ -629,6 +628,12 @@ input[type=number]{
     border: 1px solid rgb(var(--v-fg-white));
 }
 
+// snackbar
+.v-snackbar__wrapper{
+    min-width: unset !important;
+}
+
+
 // common
 li {
     list-style-type: none;
@@ -647,6 +652,7 @@ li {
 .hide-scrollbar::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, Opera */
 }
+
 
 // 가나다라는 핑크 기준으로
 

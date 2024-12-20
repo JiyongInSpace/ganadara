@@ -39,6 +39,7 @@ declare module 'vue-router/auto-routes' {
     '/challenge/mission/roulette_gift/': RouteRecordInfo<'/challenge/mission/roulette_gift/', '/challenge/mission/roulette_gift', Record<never, never>, Record<never, never>>,
     '/challenge/mission/study/': RouteRecordInfo<'/challenge/mission/study/', '/challenge/mission/study', Record<never, never>, Record<never, never>>,
     '/class/': RouteRecordInfo<'/class/', '/class', Record<never, never>, Record<never, never>>,
+    '/class/lecture/[id]/': RouteRecordInfo<'/class/lecture/[id]/', '/class/lecture/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/class/quiz/[id]/': RouteRecordInfo<'/class/quiz/[id]/', '/class/quiz/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/class/quiz/results/': RouteRecordInfo<'/class/quiz/results/', '/class/quiz/results', Record<never, never>, Record<never, never>>,
     '/class/quiz/review/': RouteRecordInfo<'/class/quiz/review/', '/class/quiz/review', Record<never, never>, Record<never, never>>,

@@ -1,23 +1,35 @@
 <template>
-    <div class="background-secondary flex-grow-1">
-        <div class="pa-4">
-            <div class="d-flex justify-space-around background-primary">
-                <v-btn
-                    v-for="tab, key in tabSub.list"
-                    :key="key"
-                    variant="text"
-                    v-ripple="false"
-                    class="my-1"
-                    @click="tabSub.tab.value = tab"
+    <div
+        class="flex-grow-1 overflow-y-auto background-secondary"
+        :style="{
+            maxHeight: `calc(var(--vh, 1vh) * 100 - 184px)`,
+        }"
+        ref="scrollContainer"
+        @scroll="handleScroll"
+    >
+        <!-- Sticky Header -->
+        <div
+            class="position-sticky top-0 d-flex justify-space-around background-primary z-1 mx-auto transition-width"
+            :class="isSticky ? 'mt-0' : 'my-4'"
+            :style="{
+                width: isSticky ? 'calc(100vw)' : 'calc(100vw - 32px)',
+            }"
+        >
+            <v-btn
+                v-for="tab, key in tabSub.list"
+                :key="key"
+                variant="text"
+                v-ripple="false"
+                class="my-1"
+                @click="tabSub.tab.value = tab"
+            >
+                <span
+                    class="text-t-sm"
+                    :class="tabSub.tab.value == tab ? 'text-text-primary font-weight-semibold' : 'text-text-disabled'"
                 >
-                    <span
-                        class="text-t-sm"
-                        :class="tabSub.tab.value == tab ? 'text-text-primary font-weight-semibold' : 'text-text-disabled'"
-                    >
-                        {{ t(tab) }}
-                    </span>
-                </v-btn>
-            </div>
+                    {{ t(tab) }}
+                </span>
+            </v-btn>
         </div>
 
         <!-- 레벨별 -->
@@ -199,6 +211,19 @@ import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 
+const isSticky = ref(false); // 상태를 관리하는 ref
+const scrollContainer = ref<HTMLElement | null>(null);
+
+const handleScroll = () => {
+    if (!scrollContainer.value) return;
+
+    // 현재 스크롤 위치 확인
+    const scrollTop = scrollContainer.value.scrollTop;
+
+    // 스크롤 위치가 16px 이상이면 isSticky 활성화
+    isSticky.value = scrollTop > 16;
+};
+
 const tabSub = {
     tab: ref('level'),
     list: [
@@ -220,7 +245,7 @@ const tabSub = {
 }
 
 const onClickLecture = (id: string) => {
-    router.push("/class/regular/" + id)
+    router.push("/class/lecture/" + id)
 }
 
 const { t } = useI18n({
@@ -280,3 +305,11 @@ const dummy_data = {
 }
 
 </script>
+
+
+<style lang="scss" scoped>
+.transition-width {
+    transition: width 0.3s ease;
+    /* width에 대해 부드러운 전환 효과 추가 */
+}
+</style>

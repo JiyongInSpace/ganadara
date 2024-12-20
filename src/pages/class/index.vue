@@ -3,13 +3,14 @@
     space="pa-0"
     no-gap
     no-spacer
+    background="secondary"
   >
     <template v-slot:prepend-header>
       클래스
     </template>
 
     <template v-slot:content>
-      <div>
+      <div class="background-primary">
         <v-tabs
           v-model="tabMain.tab.value"
           align-tabs="center"
@@ -43,8 +44,10 @@
         </v-tabs>
       </div>
 
-      <RegularMain v-if="tabMain.tab.value == 'regular'" />
-      <LectureList v-if="tabMain.tab.value == 'lecture'" />
+      <div class="flex-grow-1 overflow-y-auto position-relative">
+        <RegularMain v-if="tabMain.tab.value == 'regular'" />
+        <LectureList v-if="tabMain.tab.value == 'lecture'" />
+      </div>
     </template>
 
     <template v-slot:bottom>

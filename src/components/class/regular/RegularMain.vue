@@ -22,7 +22,7 @@ onMounted(() => {
         name: '테마 제목 최대 한 줄',
         id: 3,
         groupSize: 12341234231,
-        isLocked: true,
+        isOpen: true,
         state: CHAPTER_STATES.TESTED,
         totalProblems: 20,
         solvedProblems: 17

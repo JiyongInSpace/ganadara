@@ -3,15 +3,15 @@
     <div
         class="overflow-x-auto flex-shrink-0 cursor-pointer"
         :style="{
-            width: videoType == 'square' ? '150px' : '312px',
+            width: videoType == 'square' ? defaultWidth ? defaultWidth : '150px' : '312px',
         }"
         @click="onClickVideoThumbnail"
     >
         <v-card
-            :height="videoType == 'square' ? 150 : 163"
+            :height="videoType == 'square' ? defaultWidth ? defaultWidth : 150 : 163"
             color="secondary"
             :image="videoInfo.thumbnail"
-            class="pa-2 mb-2 rounded-4 d-flex flex-column justify-space-between"
+            class="pa-2 rounded-4 d-flex flex-column justify-space-between"
             :style="{
                 aspectRatio: videoType == 'square' ? '1/1' : '312/163',
             }"
@@ -35,7 +35,10 @@
             />
         </v-card>
 
-        <div class="d-flex align-center pointer-events-auto mb-1">
+        <div
+            v-if="!onlyThumbnail"
+            class="d-flex align-center pointer-events-auto mb-1"
+        >
             <v-img
                 :src="videoInfo.creator.profileImage"
                 height="20"
@@ -49,7 +52,10 @@
             </span>
         </div>
 
-        <div class="line-clamp-2 text-t-sm">
+        <div
+            v-if="!onlyThumbnail"
+            class="line-clamp-2 text-t-sm"
+        >
             {{ t(`category1.${videoInfo.title}`) }}
         </div>
     </div>
@@ -66,6 +72,8 @@ const props = defineProps<{
     // videoInfo: IShortForm | undefined;
     videoType: "shortForm" | "square" | "rectangle";
     videoInfo: IShortForm;
+    onlyThumbnail?: boolean;
+    defaultWidth?: number;
 }>();
 
 // UI ========================================

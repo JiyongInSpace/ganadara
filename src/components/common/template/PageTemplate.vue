@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
+    <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto position-relative">
         <div
             class="w-100 h-14 d-flex align-center justify-space-between position-relative flex-shrink-0 text-t-lg font-weight-semibold px-5"
             :class="`background-${props.headerBackground}`"

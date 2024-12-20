@@ -8,15 +8,18 @@
         />
 
         <div
-            class="position-fixed right-4"
+            class="position-fixed w-100 text-end pointer-event-none"
             :style="{
+                maxWidth: '768px',
                 bottom: '96px',
+                left: '50%',
+                transform: 'translateX(-50%)',
             }"
         >
             <v-btn
                 size="x-large"
                 variant="tonal"
-                class="primary rounded-circle"
+                class="primary rounded-circle pointer-event-auto"
                 icon="mdi-plus"
                 @click="state.ui.dialog = true"
             />

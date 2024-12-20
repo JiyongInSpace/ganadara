@@ -246,7 +246,4 @@ const dummy_data = {
 
 
 <style lang="scss" scoped>
-.custom-background {
-  background-color: rgba(255, 255, 255, 0.1) !important; /* 흰색 반투명 */
-}
 </style>

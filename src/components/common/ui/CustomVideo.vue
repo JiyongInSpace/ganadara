@@ -4,13 +4,39 @@
             <video
                 ref="videoElement"
                 class="video-js video-player"
+                :class="state.isFullscreen ? 'w-screen h-screen z-9999' : ''"
             />
 
             <div
                 class="video-inner"
+                :class="state.isFullscreen ? 'w-screen h-screen z-9999' : ''"
                 @click="event.click"
             >
                 <v-overlay
+                    v-if="state.isLock"
+                    v-model="state.isPaused"
+                    contained
+                    persistent
+                >
+                    <div
+                        class="d-flex h-100 justify-center align-end"
+                        :class="state.isFullscreen ? 'mb-10' : ''"
+                    >
+                        <v-chip
+                            class="custom-background text-t-sm font-weight-medium text-white mr-2"
+                            @click.stop="event.controls.lock"
+                        >
+                            <v-icon
+                                icon="mdi-lock-outline"
+                                size="16"
+                                class="mr-1"
+                            ></v-icon>
+                            잠김
+                        </v-chip>
+                    </div>
+                </v-overlay>
+                <v-overlay
+                    v-if="!state.isLock"
                     v-model="state.isPaused"
                     contained
                     persistent
@@ -71,7 +97,10 @@
                         />
                     </div>
 
-                    <div class="d-flex justify-space-between text-t-xs">
+                    <div
+                        class="d-flex justify-space-between text-t-xs"
+                        :class="state.isFullscreen ? 'mb-10' : ''"
+                    >
                         <div class="d-flex align-center ga-2">
                             <div class="font-weight-medium">
                                 <span class="text-text-placeholder_subtle">{{ currentTime }}</span>
@@ -87,28 +116,54 @@
                             </div>
                         </div>
 
-                        <v-img
-                            src="/icons/IconFullPlayer.png"
-                            alt="fullpage-button"
-                            width="20"
-                            height="20"
-                            class="flex-grow-0 cursor-pointer"
-                            @click.stop="event.controls.fullpage"
-                        />
+                        <div class="d-flex align-center">
+                            <v-chip
+                                v-if="state.isFullscreen"
+                                class="custom-background text-t-sm font-weight-medium text-white mr-2"
+                                @click.stop="event.controls.lock"
+                            >
+                                <v-icon
+                                    icon="mdi-lock-outline"
+                                    size="16"
+                                    class="mr-1"
+                                ></v-icon>
+                                잠그기
+                            </v-chip>
+
+                            <v-img
+                                src="/icons/IconFullPlayer.png"
+                                alt="fullpage-button"
+                                width="20"
+                                height="20"
+                                class="flex-grow-0 cursor-pointer"
+                                @click.stop="event.controls.fullpage"
+                            />
+                        </div>
                     </div>
                 </v-overlay>
             </div>
         </div>
 
-        <v-slider
-            v-model="state.currentTime"
-            :max="state.duration"
-            hide-details
-            class="mx-0 mt-n3-5"
-            thumb-size="16"
-            @start="event.slider.start"
-            @end="event.slider.end"
-        />
+        <div
+            :class="{ 'd-flex align-end position-absolute h-screen w-100 top-0 left-0 z-9999 px-4 pb-5': state.isFullscreen }"
+            :style="{
+                pointerEvents: 'none'
+            }"
+        >
+            <v-slider
+                v-if="!state.isLock"
+                v-model="state.currentTime"
+                :max="state.duration"
+                hide-details
+                class="mx-0 mt-n3-5"
+                thumb-size="16"
+                @start="event.slider.start"
+                @end="event.slider.end"
+                :style="{
+                    pointerEvents: 'auto'
+                }"
+            />
+        </div>
     </div>
 
     <DialogContactUs v-model:dialog="state.ui.dialogContactUs" />
@@ -142,7 +197,8 @@ const state = reactive({
     isMovingSlider: false,
     playbackRate: 1.0,
     playbackRates: [1.0, 1.1, 1.2, 1.3],
-
+    isFullscreen: false,
+    isLock: false,
     ui: {
         dialogContactUs: false,
     }
@@ -335,9 +391,20 @@ const event = {
         fullpage: () => {
             // 클릭시 10초 전으로
             if (!player.value) return;
-            player.value.requestFullscreen();
+            state.isFullscreen = !state.isFullscreen;
+            // player.value.requestFullscreen();
             // screen.orientation.lock("landscape");
+
         },
+
+        lock: () => {
+            state.isLock = !state.isLock;
+            if(state.isLock) {
+                player.value?.play();
+            } else {
+                player.value?.pause();
+            }
+        }
     }
 }
 

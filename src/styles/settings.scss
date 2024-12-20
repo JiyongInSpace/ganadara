@@ -893,6 +893,10 @@ li {
     }
 }
 
+.custom-background {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* 흰색 반투명 */
+  }
+  
 .transition {
     transition: all 0.5s;
 }
@@ -907,6 +911,9 @@ li {
 
 .z-1 {
     z-index: 1;
+}
+.z-9999 {
+    z-index: 9999 !important;
 }
 
 .transition-all {
@@ -947,6 +954,5 @@ li {
 *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Edge */
 }
-
 
 

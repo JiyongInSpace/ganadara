@@ -100,6 +100,13 @@
 
             <v-btn
               variant="outlined"
+              to="/class/lecture/1"
+            >
+              정규 영상 리스트
+            </v-btn>
+
+            <v-btn
+              variant="outlined"
               to="/class/quiz/1"
             >
               문제 풀기 / 객관식 + 텍스트

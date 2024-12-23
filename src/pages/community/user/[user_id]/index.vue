@@ -211,13 +211,17 @@
                             height="36"
                             @click="() => state.dialogReport = true"
                         >
-                            <v-img
+                            <DialogReport
+                                v-model:dialog="state.dialogReport"
+                                :report-id="route.params.user_id"
+                            />
+                            <!-- <v-img
                                 src="/icons/IconMessageAlertSquare.svg"
                                 width="20"
                                 height="20"
                                 alt="contact-us"
                                 class="flex-grow-0"
-                            />
+                            /> -->
                         </v-btn>
 
                     </div>
@@ -475,10 +479,7 @@
         </template>
     </PageTemplate>
 
-    <DialogReport
-        v-model:dialog="state.dialogReport"
-        :report-id="route.params.user_id"
-    />
+
 </template>
 
 <script lang="ts" setup>

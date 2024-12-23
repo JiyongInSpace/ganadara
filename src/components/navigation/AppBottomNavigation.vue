@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 h-20 d-flex align-center justify-space-between position-relative flex-shrink-0 px-1-5">
+    <div class="w-100 h-20 background-primary d-flex align-center justify-space-between position-relative flex-shrink-0 px-1-5">
         <v-btn
             value="home"
             class="px-0 flex-1-1-100"

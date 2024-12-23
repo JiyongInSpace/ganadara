@@ -48,6 +48,7 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
+    @extend .background-brand-secondary;
 }
 .v-application {
     @extend .text-text-primary;
@@ -955,6 +956,18 @@ li {
     display: none; /* Chrome, Safari, Edge */
 }
 
+
+// max-width =============================
 .v-container {
     max-width: 800px !important;
+}
+
+.v-overlay__content {
+    max-width: 800px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.v-main {
+    @extend .background-secondary;
 }

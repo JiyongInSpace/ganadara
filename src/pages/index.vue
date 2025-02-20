@@ -1,478 +1,1168 @@
 <template>
-  <!-- PUBLISHING -->
-  <v-container class="pa-0 height-screen max-height-screen min-height-screen d-flex flex-column overflow-y-auto">
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card>
-          <v-card-title>홈</v-card-title>
+  <PageTemplate
+    space="px-0"
+    no-gap
+  >
+    <template v-slot:prepend-header>
+      <v-img
+        src="/images/home/main_logo.svg"
+        alt="logo"
+        width="32"
+        height="32"
+        class="flex-grow-0 mr-3-5"
+      />
 
-          <v-card-actions class="flex-wrap ga-2">
-            <v-btn
-              variant="outlined"
-              to="/home/main"
+      <v-select
+        v-model="state.category"
+        :items="sort_options"
+        return-object
+        class="flex-grow-0 background-primary"
+        hide-details
+        flat
+        variant="solo"
+        item-title="code"
+        item-text="code"
+        item-value="value"
+        density="compact"
+        bg-color="bg-primary"
+      >
+        <template v-slot:prepend-item>
+          <div class="pt-1 px-4 pb-3 border-b">
+            <span class="text-t-sm font-weight-semibold">
+              언어 변경
+            </span>
+          </div>
+        </template>
+
+        <template v-slot:selection="{ item }">
+          <div class="d-flex align-center text-t-sm font-weight-semibold mt-1">
+            <v-img
+              :src="`/icons/country/${item.value}.png`"
+              width="24"
+              height="24"
+              class="flex-shrink-0 mr-1-5"
+            />
+
+            <span class="text-t-sm font-weight-medium">
+              {{ item.value }}
+            </span>
+          </div>
+        </template>
+
+        <template v-slot:item="{ props, item }">
+          <v-list-item
+            v-bind="props"
+            :title="t(`language.${item.title}`)"
+            class="text-t-sm font-weight-medium"
+            :style="{
+              minWidth: '140px',
+            }"
+          >
+            <template v-slot:prepend>
+              <v-img
+                :src="`/icons/country/${item.value}.png`"
+                width="24"
+                height="24"
+                class="flex-shrink-0 mr-1-5"
+              />
+            </template>
+          </v-list-item>
+        </template>
+      </v-select>
+    </template>
+
+    <template v-slot:append-header>
+      <div>
+        <v-btn
+          icon
+          variant="text"
+          size="24"
+          class="mr-3"
+          @click="onClickNotice"
+        >
+          <v-badge
+            color="error"
+            dot
+          >
+            <v-img
+              src="@/assets/icons/basic/bell.svg"
+              width="24"
+              height="24"
+            />
+          </v-badge>
+        </v-btn>
+      </div>
+
+
+      <v-img
+        :src="profile_image"
+        width="32"
+        height="32"
+        v-ripple
+        class="flex-grow-0 cursor-pointer ml-2"
+        @click="onClickProfile"
+      />
+    </template>
+
+    <template v-slot:content>
+      <div class="text-t-lg font-weight-bold px-4 mb-3">
+        {{ t(`category.category1`) }}
+      </div>
+
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+        <div
+          v-for="shortformItem, index in dummy_shortform"
+          :key="shortformItem.id"
+          v-ripple
+          class="position-relative pa-0-5 flex-shrink-0 cursor-point"
+          @click="onClickShortForm(shortformItem.id)"
+        >
+          <v-img
+            :src="shortformItem.thumbnail"
+            width="122"
+            height="200"
+            alt="contact-us"
+            class="flex-grow-0 rounded-4 flex-shrink-0"
+            cover
+            :aspect-ratio="122 / 200"
+          />
+
+          <div class="position-absolute left-3 right-3 bottom-3 z-1">
+            <span class="text-t-sm text-text-white text-shadow font-weight-semibold">
+              {{ t(`category1.${shortformItem.description}`) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-t-lg font-weight-bold px-4 mb-3">
+        {{ t(`category.category2`) }}
+      </div>
+
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+        <VideoThumbnail
+          v-for="(recentVideoItem, index) in state.recentVideoList"
+          :key="index"
+          video-type="square"
+          :video-info="recentVideoItem"
+          v-ripple
+          @click="onClickLecture(recentVideoItem.id)"
+        />
+      </div>
+
+      <div class="text-t-lg font-weight-bold px-4 mb-3">
+        {{ t(`category.category3`) }}
+      </div>
+
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+
+        <VideoThumbnail
+          v-for="(newVideoItem, index) in state.recentVideoList"
+          :key="index"
+          video-type="square"
+          :video-info="newVideoItem"
+          v-ripple
+          @click="onClickLecture(newVideoItem.id)"
+        />
+      </div>
+
+      <div class="text-t-lg font-weight-bold px-4 mb-3">
+        {{ t(`category.category4`) }}
+      </div>
+
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+        <VideoThumbnail
+          v-for="(recommendedVideoItem, index) in state.recommendedVideoList"
+          :key="index"
+          video-type="rectangle"
+          :video-info="recommendedVideoItem"
+          :max-height="163"
+          v-ripple
+          @click="onClickLecture(recommendedVideoItem.id)"
+        />
+      </div>
+
+      <div class="text-t-lg font-weight-bold px-4 mb-3">
+        {{ t(`category.category5`) }}
+      </div>
+
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+        <VideoThumbnail
+          v-for="(themeVideoItem, index) in state.themeVideoList"
+          :key="index"
+          video-type="square"
+          :video-info="themeVideoItem"
+          v-ripple
+          @click="onClickLecture(themeVideoItem.id)"
+        />
+      </div>
+
+      <div class="text-t-lg font-weight-bold px-4 mb-4">
+        {{ t(`category.category6`) }}
+      </div>
+
+      <v-chip-group
+        class="flex-shrink-0 mb-4 px-4 py-0"
+        selected-class="bg-black text-text-primary_on-brand"
+        v-model="selectedContentCategory"
+        column
+      >
+        <v-chip
+          v-for="tag in state.popularTagList"
+          :key="tag.key"
+          :value="tag.key"
+          variant="outlined"
+          size="small"
+          class="border-border-primary my-0 ml-0 mr-2"
+        >
+          <span v-text="tag.value" />
+        </v-chip>
+      </v-chip-group>
+
+      <div className="flex-shrink-0 d-flex ga-4 overflow-x-auto px-4 mb-8">
+        <VideoThumbnail
+          v-for="(popularVideoItem, index) in state.popularVideoList"
+          :key="index"
+          :video-info="popularVideoItem"
+          video-type="square"
+          v-ripple
+          @click="onClickLecture(popularVideoItem.id)"
+        />
+      </div>
+
+      <div class="background-secondary py-8">
+        <div class="d-flex justify-space-between px-4 mb-3">
+          <span class="text-t-lg font-weight-bold">
+            {{ t(`category.category7`) }}
+          </span>
+
+          <v-btn
+            variant="text"
+            size="small"
+            class="px-0"
+            @click="onClickTotalDailyMission"
+          >
+            {{ t(`view_all`) }}
+
+            <v-icon
+              icon="mdi-chevron-right"
+              class="ml-1"
+            />
+          </v-btn>
+        </div>
+
+        <div className="d-flex overflow-x-auto px-4">
+          <div
+            v-for="(dailyMissionItem, index) in dailyMissionList"
+            :key="index"
+            className="d-flex flex-column justify-center text-center cursor-pointer flex-1-1-100 px-5 py-4"
+            @click="() => onClickDailyMission(dailyMissionItem)"
+          >
+            <v-img
+              :src="dailyMissionItem.imageUrl"
+              height="56"
+              width="56"
+              class="mx-auto mb-2 rounded-circle"
+            />
+
+            <div
+              class="text-t-md font-weight-semibold"
+              :style="{
+                height: '48px'
+              }"
             >
-              메인
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+              {{ t(`mission.${dailyMissionItem.key}`) }}
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card>
-          <v-card-title>온보딩</v-card-title>
+      <div class="py-8">
+        <div class="text-t-lg font-weight-bold px-4 mb-3">
+          {{ t(`category.category8`) }}
+        </div>
 
-          <v-card-actions class="flex-wrap ga-2">
-            <v-btn
+        <v-chip-group
+          class="mb-4 px-4 py-0"
+          selected-class="bg-black text-text-primary_on-brand"
+          v-model="selectedUserCategory"
+          column
+        >
+          <v-chip
+            v-for="tag in [{
+              key: '1',
+              value: t(`regular_user`),
+            }, {
+              key: '2',
+              value: t(`creator`),
+            }]"
+            :key="tag.key"
+            :value="tag.key"
+            variant="outlined"
+            size="small"
+            class="border-border-primary my-0 ml-0 mr-2"
+          >
+            <span v-text="tag.value" />
+          </v-chip>
+        </v-chip-group>
+
+        <swiper
+          :slides-per-view="'auto'"
+          :space-between="30"
+          :pagination="{
+            clickable: true,
+          }"
+          :modules="modules"
+          class="px-4 ga-4 mb-3 pb-8"
+        >
+          <swiper-slide
+            v-for="(popularUserItem, index) in computedUserList"
+            :key="index"
+            :style="{
+              width: '340px',
+            }"
+          >
+            <v-card
               variant="outlined"
-              to="/onboard/landing"
+              class="d-flex pa-4 border-border-primary ga-3"
+              min-width="320"
             >
-              랜딩
-            </v-btn>
+              <v-img
+                :src="popularUserItem.profileImage"
+                height="32"
+                width="32"
+                cover
+                class="rounded-circle flex-grow-0"
+              />
 
-            <v-btn
-              variant="outlined"
-              to="/onboard/sign_up"
-            >
-              회원가입
-            </v-btn>
+              <div class="d-flex flex-column">
+                <span class="text-t-xs font-weight-semibold">
+                  {{ popularUserItem.name }}
+                </span>
 
-            <v-btn
-              variant="outlined"
-              to="/onboard/sign_up/survey"
-            >
-              성향 설문조사
-            </v-btn>
+                <p class="text-t-sm line-clamp-2">
+                  {{ popularUserItem.content }}
+                </p>
+              </div>
 
-            <v-btn
-              variant="outlined"
-              to="/onboard/sign_up/test"
-            >
-              레벨 테스트
-            </v-btn>
+              <v-spacer />
 
-            <v-btn
-              variant="outlined"
-              to="/onboard/log_in"
-            >
-              로그인
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+              <div class="d-flex flex-column align-self-center align-center">
+                <IconHeart
+                  :isActive="popularUserItem.isLiked"
+                  lineColor="--v-text-primary"
+                  class="pointer-events-auto mb-1-5"
+                  size="16"
+                />
 
+                <span class="text-t-xs">
+                  {{ popularUserItem.likes }}
+                </span>
+              </div>
+            </v-card>
+          </swiper-slide>
+        </swiper>
+      </div>
 
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card class="flex-column">
-          <v-card-title>클래스</v-card-title>
+      <v-sheet
+        class="mx-4 pa-4 rounded-8 background-secondary mb-16"
+        color="bg-secondary"
+      >
+        <div class="d-flex align-center ga-4 mb-4">
+          <v-img
+            src="/images/home/ai.png"
+            height="60"
+            width="60"
+            cover
+            class="rounded-circle flex-grow-0"
+          />
 
-          <v-card-actions class="flex-wrap ga-2 mb-5">
-            <v-btn
-              variant="outlined"
-              to="/class"
-            >
-              메인
-            </v-btn>
+          <div>
+            <div class="text-t-sm mb-0-5">
+              {{ t("banner_title") }}
+            </div>
 
-            <v-btn
-              variant="outlined"
-              to="/class/regular/1"
-            >
-              정규영상
-            </v-btn>
+            <div class="text-t-md font-weight-semibold">
+              {{ t("banner_subtitle") }}
+            </div>
+          </div>
+        </div>
 
-            <v-btn
-              variant="outlined"
-              to="/class/shortform/1"
-            >
-              숏폼
-            </v-btn>
+        <v-btn
+          block
+          variant="tonal"
+          class="primary"
+          @click="onClickChat"
+        >
+          {{ t("banner_button") }}
+        </v-btn>
+      </v-sheet>
+    </template>
 
-            <v-btn
-              variant="outlined"
-              to="/class/shortform/2"
-            >
-              숏폼(음원 출처 비활성화)
-            </v-btn>
+    <template v-slot:bottom>
+    </template>
 
-            <v-btn
-              variant="outlined"
-              to="/class/shortform/3"
-            >
-              숏폼(광고)
-            </v-btn>
-            
-            <v-btn
-              variant="outlined"
-              to="/class/test"
-            >
-              평가테스트
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/class/lecture/1"
-            >
-              정규 영상 리스트
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/1"
-            >
-              문제 풀기 / 객관식 + 텍스트
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/2"
-            >
-              문제 풀기 / 객관식 + 이미지
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/3"
-            >
-              문제 풀기 / 객관식 + 오디오
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/4"
-            >
-              문제 풀기 / 객관식 + 동영상
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/5"
-            >
-              문제 풀기 / 주관식
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/6"
-            >
-              문제 풀기 / 빈칸 + 텍스트선택
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/7"
-            >
-              문제 풀기 / 문장 + 문장 완성하기
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/8"
-            >
-              문제 풀기 / 스피킹
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/class/quiz/9"
-            >
-              문제 풀기 / 멀티플
-            </v-btn>
-          </v-card-actions>
-
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card class="flex-column">
-          <v-card-title>커뮤니티</v-card-title>
-
-          <v-card-actions class="flex-wrap ga-2 mb-5">
-            <v-btn
-              variant="outlined"
-              to="/community"
-            >
-              커뮤니티
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/community/user/1"
-            >
-              유저 프로필 (유저)
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/community/user/2"
-            >
-              유저 프로필 (크리에이터)
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/community/user/3"
-            >
-              마이 프로필 (유저)
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              to="/community/user/4"
-            >
-              마이 프로필 (크리에이터)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/community/ranking"
-            >
-              랭킹
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/community/user/5/follow"
-            >
-              팔로우/팔로잉
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/community/user/1/badge"
-            >
-              뱃지/굿즈 (타유저)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/community/user/3/badge"
-            >
-              뱃지/굿즈 (본인)
-            </v-btn>
-          </v-card-actions>
-
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card class="flex-column">
-          <v-card-title>챌린지</v-card-title>
-
-          <v-card-actions class="flex-wrap ga-2 mb-5">
-            <v-btn
-              variant="outlined"
-              to="/challenge"
-            >
-              메인
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission"
-            >
-              미션 리스트
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/common"
-            >
-              공통 팝업
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/default"
-            >
-              미션(기본 프레임)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/quiz"
-            >
-              미션(퀴즈)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/chat_ai"
-            >
-              미션(AI 채팅)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/roulette"
-            >
-              미션(룰렛_포인트)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/roulette_gift"
-            >
-              미션(룰렛_경품)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/invite"
-            >
-              미션(친구 초대)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/check"
-            >
-              미션(출석체크)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/study"
-            >
-              미션(학습 미션)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/community"
-            >
-              미션(커뮤니티)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/donate"
-            >
-              미션(후원)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/donate/1"
-            >
-              후원 상세 (진행중)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/donate/2"
-            >
-              후원 상세 (모금 종료)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/challenge/mission/donate/1/review"
-            >
-              후원 후기
-            </v-btn>
-          </v-card-actions>
-
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row justify="center">
-      <v-col cols="auto">
-        <v-card class="flex-column">
-          <v-card-title>전체 보기</v-card-title>
-
-          <v-card-actions class="flex-wrap ga-2 mb-5">
-            <v-btn
-              variant="outlined"
-              to="/dashboard"
-            >
-              메인
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/profile"
-            >
-              프로필 수정
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/payment"
-            >
-              이용권 관리
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/support"
-            >
-              고객센터
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/setting"
-            >
-              설정
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/review"
-            >
-              부가기능(복습하기)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/rewards"
-            >
-              부가기능(보상 교환처)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/ai_translation"
-            >
-              부가기능(AI 번역)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/ai_chat"
-            >
-              부가기능(AI 채팅)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/mock_test"
-            >
-              부가기능(모의고사)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/level_test"
-            >
-              부가기능(레벨 테스트)
-            </v-btn>
-
-            <v-btn
-              variant="outlined"
-              to="/dashboard/additional/statistics"
-            >
-              부가기능(학습통계)
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+    <template v-slot:actions>
+      <app-bottom-navigation />
+    </template>
+  </PageTemplate>
 </template>
 
 <script lang="ts" setup>
-//
+import { useLangStore } from '@/stores/lang'
+import { useI18n } from 'vue-i18n';
+import { useUserStore } from '@/stores/user';
+import { storeToRefs } from 'pinia';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/pagination';
+// import required modules
+import { Pagination } from 'swiper/modules';
+import { IPopularTag, IPopularUser, IShortForm } from '@/interfaces';
+
+// Swiper 모듈 설정
+const modules = ref([Pagination]);
+
+const router = useRouter();
+const langStore = useLangStore();
+const userStore = useUserStore();
+const { profile_image } = storeToRefs(userStore);
+
+const state = reactive({
+  category: {
+    code: 'ko' as any,
+    value: 'KR',
+  },
+  shortFormList: [
+    {
+      title: "Short-form Title",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+    },
+  ] as IShortForm[],
+  recentVideoList: [] as IShortForm[],
+  newVideoList: [] as IShortForm[],
+  recommendedVideoList: [] as IShortForm[],
+  themeVideoList: [] as IShortForm[],
+  popularTagList: [] as IPopularTag[],
+  popularVideoList: [] as IShortForm[],
+  popularUserList: [] as IPopularUser[],
+  popularCreatorList: [] as IPopularUser[],
+});
+
+const loading = ref(false);
+
+onMounted(() => {
+  state.recentVideoList = dummy_data.videoList;
+  state.newVideoList = dummy_data.videoList;
+  state.recommendedVideoList = dummy_data.videoList;
+  state.themeVideoList = dummy_data.videoList;
+  state.popularTagList = dummy_tags;
+  state.popularVideoList = dummy_data.videoList;
+  state.popularUserList = dummy_users;
+  state.popularCreatorList = dummy_creators;
+})
+
+
+// UI ========================================
+const selectedContentCategory = ref("1");
+const selectedUserCategory = ref("1");
+
+const computedUserList = computed(() => {
+  if (selectedUserCategory.value === "1") {
+    return state.popularUserList;
+  } else {
+    return state.popularCreatorList;
+  }
+})
+
+
+const dailyMissionList = [
+  {
+    title: "룰렛",
+    key: "roulette",
+    imageUrl: "/images/home/roulette.png",
+  },
+  {
+    title: "친구초대",
+    key: "invite",
+    imageUrl: "/images/home/invite.png",
+  },
+  {
+    title: "퀴즈",
+    key: "quiz",
+    imageUrl: "/images/home/quiz.png",
+  },
+  {
+    title: "선물",
+    key: "gift",
+    imageUrl: "/images/home/gift.png",
+  },
+];
+
+
+
+// EVENT
+const onClickProfile = () => {
+  router.push("/dashboard/profile")
+}
+const onClickNotice = () => {
+  router.push("/dashboard/notice")
+}
+
+
+const onClickShortForm = (id: string) => {
+  router.push("/class/shortform/" + id)
+}
+
+const onClickLecture = (id: string) => {
+  router.push("/class/regular/" + id)
+}
+
+const onClickTotalDailyMission = () => {
+  router.push("/challenge/mission")
+}
+
+const onClickDailyMission = (_mission: any) => {
+  router.push("/challenge/mission/" + _mission.key)
+}
+
+const onClickChat = () => {
+  router.push("/dashboard/additional/ai_chat")
+}
+
+
+const sort_options = [
+  {
+    code: 'ko',
+    value: 'KR',
+  },
+  {
+    code: 'en',
+    value: 'EN',
+  },
+  {
+    code: 'cn',
+    value: 'CN',
+  },
+  {
+    code: 'sp',
+    value: 'ES',
+  },
+  {
+    code: 'vi',
+    value: 'VN',
+  },
+  {
+    code: 'jp',
+    value: 'JP',
+  },
+  {
+    code: 'fr',
+    value: 'FR',
+  },
+  {
+    code: 'id',
+    value: 'ID',
+  },
+  {
+    code: 'ru',
+    value: 'RU',
+  }
+]
+
+// 다국어
+const { t, locale } = useI18n({
+  messages: {
+    ko: {
+      language: {
+        ko: "한국어",
+        en: "영어",
+        cn: "중국어",
+        sp: "스페인어",
+        vi: "베트남어",
+        jp: "일본어",
+        fr: "프랑스어",
+        id: "인도네시아어",
+        ru: "러시아어",
+      },
+      category: {
+        category1: "숏폼",
+        category2: "최근 학습",
+        category3: "신규 영상",
+        category4: "내가 좋아할 만한 영상",
+        category5: "테마 영상",
+        category6: "놓치면 안 되는 따끈한 인기 콘텐츠",
+        category7: "데일리 미션",
+        category8: "인기 유저",
+      },
+      category1: {
+        value1: "직장 동료와 아침 인사 후 스몰 토크 이어가기",
+        value2: "직장생활 시리즈 50",
+        value3: "실생활에서 쓸 수 있는 기초 문장 100선",
+        value4: "Olivia와 배우는 필수 영어 회화",
+      },
+      view_all: "전체 보기",
+      regular_user: "일반유저",
+      creator: "크리에이터",
+      banner_title: "학습언어로 채팅하고 싶다면?",
+      banner_subtitle: "AI랑 채팅하기",
+      banner_button: "AI랑 채팅하러 가기",
+      mission: {
+        roulette: "룰렛",
+        invite: "친구초대",
+        quiz: "퀴즈",
+        gift: "선물",
+      }
+    },
+    en: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Short-form",
+        category2: "Recent Studies",
+        category3: "New Videos",
+        category4: "Must-See Popular Content",
+        category5: "Themed Videos",
+        category6: "Must-see hot trending content",
+        category7: "Daily Mission",
+        category8: "Popular User",
+      },
+      category1: {
+        value1: "Continue small talk with coworkers after saying good morning",
+        value2: "Work Life Series 50",
+        value3: "100 basic sentences that can be used in real life",
+        value4: "Essential English Conversation Learned with Olivia",
+      },
+      view_all: "View All",
+      regular_user: "Regular User",
+      creator: "Creator",
+      banner_title: "If you want to chat with AI",
+      banner_subtitle: "Chat with AI",
+      banner_button: "Go Chat with AI",
+      mission: {
+        roulette: "Roulette",
+        invite: "Invite Friends",
+        quiz: "Quiz",
+        gift: "Gift",
+      }
+    },
+    cn: {
+      language: {
+        ko: "한국어",
+        en: "영어",
+        cn: "중국어",
+        sp: "스페인어",
+        vi: "베트남어",
+        jp: "일본어",
+        fr: "프랑스어",
+        id: "인도네시아어",
+        ru: "러시아어",
+      },
+      category: {
+        category1: "简式",
+        category2: "最近的研究",
+        category3: "新视频",
+        category4: "必看热门内容",
+        category5: "主题视频",
+        category6: "必看的热门趋势内容",
+        category7: "每日任务",
+        category8: "热门用户",
+      },
+      category1: {
+        value1: "早上好后继续与同事闲聊",
+        value2: "《工作生活系列50》",
+        value3: "100个可以在现实生活中使用的基本句子",
+        value4: "与 Olivia 一起学习的基本英语会话",
+      },
+      view_all: "查看全部",
+      regular_user: "普通用户",
+      creator: "创作者",
+      banner_title: "如果您想与人工智能聊天",
+      banner_subtitle: "与 AI 聊天",
+      banner_button: "去与 AI 聊天",
+      mission: {
+        roulette: "轮盘",
+        invite: "邀请好友",
+        quiz: "测验",
+        gift: "礼物",
+      }
+    },
+    sp: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Formulario corto",
+        category2: "Estudios Recientes",
+        category3: "Nuevos Vídeos",
+        category4: "Contenido Popular que Debes Ver",
+        category5: "Vídeos Temáticos",
+        category6: "Contenido de tendencia caliente que no te puedes perder",
+        category7: "Misión diaria",
+        category8: "Usuario popular",
+      },
+      category1: {
+        value1: "Continuar la pequeña charla con los compañeros de trabajo después de decir buenos días",
+        valor2: "Vida laboral Serie 50",
+        valor3: "100 oraciones básicas que se pueden usar en la vida real",
+        valor4: "Conversación en inglés esencial aprendida con Olivia",
+      },
+      view_all: "Ver todo",
+      regular_user: "Usuario regular",
+      creator: "Creador",
+      banner_title: "Si quieres chatear con IA",
+      banner_subtitle: "Chatear con IA",
+      banner_button: "Ir a chatear con IA",
+      mission: {
+        roulette: "Ruleta",
+        invite: "Invitar amigos",
+        quiz: "Quiz",
+        gift: "Regalo",
+      }
+    },
+    vi: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Biểu mẫu ngắn",
+        category2: "Các Nghiên Cứu Gần Đây",
+        category3: "Video Mới",
+        category4: "Nội Dung Phổ Biến Cần Xem",
+        category5: "Video Theo Chủ Đề",
+        category6: "Nội dung nổi bật đáng xem",
+        category7: "Nhiệm vụ hàng ngày",
+        category8: "Người Dùng Phổ Biến",
+      },
+      category1: {
+        value1: "Tiếp tục trò chuyện nhỏ với đồng nghiệp sau khi chào buổi sáng",
+        value2: "Chuỗi cuộc sống công việc 50",
+        value3: "100 câu cơ bản có thể sử dụng trong đời thực",
+        value4: "Hội thoại tiếng Anh thiết yếu học cùng Olivia",
+      },
+      view_all: "Xem Tất cả",
+      regular_user: "Người Dùng Thường Xuyên",
+      creator: "Người Tạo Nội dung",
+      banner_title: "Nếu bạn muốn trò chuyện với trí tuệ nhân tạo?",
+      banner_subtitle: "Trò chuyện với Trí Tuệ Nhân Tạo",
+      banner_button: "Đi Trò chuyện với Trí Tuệ Nhân Tạo",
+      mission: {
+        roulette: "Rơle",
+        invite: "Mời Bạn Bè",
+        quiz: "Trắc nghiệm",
+        gift: "Quà tặng",
+      }
+    },
+    jp: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "短い形式",
+        category2: "最近の研究",
+        category3: "新しい動画",
+        category4: "必見の人気コンテンツ",
+        category5: "テーマ別動画",
+        category6: "必見のホットなトレンドコンテンツ",
+        category7: "デイリーミッション",
+        category8: "人気ユーザー",
+      },
+      category1: {
+        value1: "職場の同僚と朝の挨拶後にスモールトークを続ける",
+        value2: "職場生活シリーズ 50",
+        value3: "実生活で使える基礎文章100選",
+        value4: "Oliviaと学ぶ必須英語会話",
+      },
+      view_all: "すべてを表示",
+      regular_user: "通常ユーザー",
+      creator: "クリエイター",
+      banner_title: "AIとチャットしたい場合",
+      banner_subtitle: "AIとチャット",
+      banner_button: "AIとチャットに移動",
+      mission: {
+        roulette: "ルーレット",
+        invite: "友達を招待",
+        quiz: "クイズ",
+        gift: "ギフト",
+      }
+    },
+    fr: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Forme courte",
+        category2: "Études Récentes",
+        category3: "Nouvelles Vidéos",
+        category4: "Contenu Populaire à Voir Absolument",
+        category5: "Vidéos Thématiques",
+        category6: "Contenu Tendance à ne pas Manquer",
+        category7: "Mission Quotidienne",
+        category8: "Utilisateur Populaire",
+      },
+      category1: {
+        value1: "Continuez la conversation avec vos collègues après leur avoir dit bonjour",
+        value2: "Série Vie professionnelle 50",
+        value3: "100 phrases de base utilisables dans la vraie vie",
+        value4: "Conversation essentielle en anglais apprise avec Olivia",
+      },
+      view_all: "Voir Tout",
+      regular_user: "Utilisateur Régulier",
+      creator: "Créateur",
+      banner_title: "Si vous souhaitez discuter avec une IA",
+      banner_subtitle: "Discuter avec l'IA",
+      banner_button: "Aller Discuter avec l'IA",
+      mission: {
+        roulette: "Roulette",
+        invite: "Inviter des Amis",
+        quiz: "Quiz",
+        gift: "Cadeau",
+      }
+    },
+    id: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Formulir singkat",
+        category2: "Studi Terbaru",
+        category3: "Video Baru",
+        category4: "Konten Populer yang Harus Dilihat",
+        category5: "Video Bertheme",
+        category6: "Konten Trending Panas yang Harus Dilihat",
+        category7: "Misi Harian",
+        category8: "Pengguna Populer",
+      },
+      category1: {
+        value1: "Lanjutkan obrolan ringan dengan rekan kerja setelah mengucapkan selamat pagi",
+        value2: "Kehidupan Kerja Seri 50",
+        value3: "100 kalimat dasar yang dapat digunakan dalam kehidupan nyata",
+        value4: "Percakapan Penting Bahasa Inggris yang Dipelajari dengan Olivia",
+      },
+      view_all: "Lihat Semua",
+      regular_user: "Pengguna Biasa",
+      creator: "Pembuat",
+      banner_title: "Jika Anda ingin mengobrol dengan kecerdasan buatan",
+      banner_subtitle: "Obrolan dengan AI",
+      banner_button: "Ayo Mengobrol dengan AI",
+      mission: {
+        roulette: "Roda Keberuntungan",
+        invite: "Undang Teman",
+        quiz: "Kuis",
+        gift: "Hadiah",
+      }
+    },
+    ru: {
+      language: {
+        ko: "Korean",
+        en: "English",
+        cn: "Chinese",
+        sp: "Spanish",
+        vi: "Vietnamese",
+        jp: "Japanese",
+        fr: "French",
+        id: "Indonesian",
+        ru: "Russian",
+      },
+      category: {
+        category1: "Краткая форма",
+        category2: "Недавние исследования",
+        category3: "Новые видео",
+        category4: "Популярный контент, который стоит посмотреть",
+        category5: "Тематические видео",
+        category6: "Просмотр обязательного горячего контента",
+        category7: "Ежедневная миссия",
+        category8: "Популярный пользователь",
+      },
+      category1: {
+        value1: "«Продолжить светскую беседу с коллегами после доброго утра»",
+        value2: "Work Life Series 50",
+        value3: "100 основных предложений, которые можно использовать в реальной жизни",
+        value4: "Основы разговорного английского языка, изученные с Оливией",
+      },
+      view_all: "Просмотреть все",
+      regular_user: "Обычный пользователь",
+      creator: "Создатель",
+      banner_title: "Если вы хотите пообщаться с искусственным интеллектом",
+      banner_subtitle: "Общайтесь с ИИ",
+      banner_button: "Перейти к чату с ИИ",
+      mission: {
+        roulette: "Рулетка",
+        invite: "Пригласить друзей",
+        quiz: "Викторина",
+        gift: "Подарок",
+      }
+    },
+  },
+  inheritLocale: true, // 전역 locale 상속
+  useScope: "local", // 로컬 스코프 설정
+});
+
+watch(
+  () => state.category,
+  () => {
+    locale.value = state.category.code;
+    langStore.setLang(state.category.code);
+  },
+  {
+    immediate: true
+  }
+)
+
+
+
+
+const dummy_shortform = [
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value4",
+    description: "value4",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value3",
+    description: "value3",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value2",
+    description: "value2",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value1",
+    description: "value1",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value4",
+    description: "value4",
+  },
+  {
+    id: "1",
+    thumbnail: "/images/home/dummy_thumbnail2.png",
+    title: "value3",
+    description: "value3",
+  },
+]
+
+const dummy_data = {
+  videoList: [
+    {
+      id: "1",
+      title: "value1",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail.png",
+      progressPercentage: 0,
+      singlePurchase: true
+    },
+    {
+      id: "1",
+      title: "value2",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail2.png",
+      progressPercentage: 80,
+      singlePurchase: false
+    },
+    {
+      id: "1",
+      title: "value3",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail.png",
+      progressPercentage: 40,
+      singlePurchase: true
+    },
+    {
+      id: "1",
+      title: "value4",
+      creator: {
+        name: "creator",
+        profileImage: "/images/class/dummy_profile_image.png",
+      },
+      thumbnail: "/images/home/dummy_thumbnail.png",
+      progressPercentage: 40,
+      singlePurchase: true
+    },
+  ] as IShortForm[],
+}
+
+const dummy_creators = [
+  {
+    id: "1",
+    name: "creator",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 23,
+  },
+  {
+    id: "2",
+    name: t("creator2"),
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 41,
+  },
+  {
+    id: "3",
+    name: "creator3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 23,
+  },
+  {
+    id: "2",
+    name: "creator2",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 43,
+  },
+  {
+    id: "3",
+    name: "creator3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 23,
+  },
+]
+const dummy_users = [
+  {
+    id: "1",
+    name: "user",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 9999,
+  },
+  {
+    id: "2",
+    name: "user2",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 10,
+  },
+  {
+    id: "3",
+    name: "user3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 33,
+  },
+  {
+    id: "2",
+    name: "user2",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: true,
+    likes: 10,
+  },
+  {
+    id: "3",
+    name: "user3",
+    profileImage: "/images/class/dummy_profile_image.png",
+    content: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    isLiked: false,
+    likes: 33,
+  },
+]
+
+const dummy_tags = [
+  {
+    key: "1",
+    value: "tag1",
+  },
+  {
+    key: "2",
+    value: "tag2",
+  },
+  {
+    key: "3",
+    value: "tag3",
+  },
+] as IPopularTag[];
+
 </script>
+
+
+<style lang="scss" scoped>
+:deep(.v-select) {
+  &.v-select--single .v-field__input {
+    padding: 0 0 !important;
+  }
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: var('--v-fg-brand-primary') !important;
+}
+</style>

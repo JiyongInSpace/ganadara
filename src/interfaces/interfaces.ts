@@ -1,5 +1,29 @@
 import { LEVELS } from './enums'
 
+export interface IShortForm {
+  id: string;
+  title: string;
+  thumbnail: string;
+  progressPercentage: number;
+  singlePurchase: boolean;
+  creator: {
+    name: string;
+    profileImage: string;
+    isFollowed: boolean;
+  };
+}
+export interface IPopularUser {
+  id: string;
+  name: string;
+  profileImage: string;
+  content: string;
+  isLiked: boolean;
+  likes: number;
+}
+export interface IPopularTag {
+  key: string;
+  value: string;
+}
 export interface IChapter {
   levels: LEVELS
   name: string
@@ -196,4 +220,12 @@ export interface IGoods {
 export interface IExperienceItem {
   label: string
   percentage: number
+}
+
+export interface IServiceTermItem {
+  key: string;
+  title: string;
+  isEssential: boolean;
+  description: string;
+  options: { [key: string]: string };
 }
